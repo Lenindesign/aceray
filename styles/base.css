@@ -1,5 +1,13 @@
-/* Base design system combining Aceray Brand Tokens with Room & Board Layout Aesthetics */
+/* Base design system combining Aceray Brand Tokens with Modern Layout Aesthetics */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Futura Std';
+  src: url('https://aceray.com/wp-content/uploads/assets/FuturaStd-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Brand Tokens (STYLE_GUIDE.md) */
@@ -15,10 +23,10 @@
   --color-border: #E5E3DD;
   --color-white: #FFFFFF;
 
-  /* Typography (STYLE_GUIDE.md: Montserrat) */
-  --font-primary: 'Montserrat', sans-serif;
-  --font-sans: 'Montserrat', sans-serif;
-  --font-serif: 'Montserrat', sans-serif;
+  /* Primary Font: Futura Std Light */
+  --font-primary: 'Futura Std', 'Montserrat', sans-serif;
+  --font-sans: 'Futura Std', 'Montserrat', sans-serif;
+  --font-serif: 'Futura Std', 'Montserrat', sans-serif;
   --font-size-base: clamp(1rem, 1vw + 0.5rem, 1.125rem);
   --line-height-base: 1.5;
 

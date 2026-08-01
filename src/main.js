@@ -14,10 +14,14 @@ const GALLERY_DATA = [
   { title: "SPAZIO-R", designer: "Design: A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/Spazio-R-2M-2.webp" }
 ];
 
+const PLAY_ICON_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+const PAUSE_ICON_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
 document.addEventListener('DOMContentLoaded', () => {
   const exploreBtn = document.getElementById('explore-btn');
   const modal = document.getElementById('gallery-modal');
   const closeBtn = document.getElementById('gallery-close');
+  const playBtn = document.getElementById('gallery-play');
   const prevBtn = document.getElementById('gallery-prev');
   const nextBtn = document.getElementById('gallery-next');
   const imgEl = document.getElementById('gallery-img');
@@ -30,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!exploreBtn || !modal) return;
 
   let currentIndex = 0;
+  let autoplayInterval = null;
+  let isPlaying = false;
+
   totalEl.textContent = GALLERY_DATA.length;
 
   // Build thumbnails
@@ -39,7 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
     thumb.src = item.src;
     thumb.alt = item.title;
     thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
-    thumb.addEventListener('click', () => renderSlide(index));
+    thumb.addEventListener('click', () => {
+      renderSlide(index);
+      stopAutoplay();
+    });
     thumbsContainer.appendChild(thumb);
   });
 
@@ -47,8 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIndex = (index + GALLERY_DATA.length) % GALLERY_DATA.length;
     const slide = GALLERY_DATA[currentIndex];
 
-    imgEl.src = slide.src;
-    imgEl.alt = `${slide.title} - ${slide.designer}`;
+    imgEl.style.opacity = '0.5';
+    setTimeout(() => {
+      imgEl.src = slide.src;
+      imgEl.alt = `${slide.title} - ${slide.designer}`;
+      imgEl.style.opacity = '1';
+    }, 150);
+
     titleEl.textContent = slide.title;
     designerEl.textContent = slide.designer;
     currentEl.textContent = currentIndex + 1;
@@ -65,15 +80,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function startAutoplay() {
+    isPlaying = true;
+    if (playBtn) playBtn.innerHTML = PAUSE_ICON_SVG;
+    if (autoplayInterval) clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(() => {
+      renderSlide(currentIndex + 1);
+    }, 3500);
+  }
+
+  function stopAutoplay() {
+    isPlaying = false;
+    if (playBtn) playBtn.innerHTML = PLAY_ICON_SVG;
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+  }
+
+  function toggleAutoplay() {
+    if (isPlaying) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  }
+
   function openModal(e) {
     if (e) e.preventDefault();
     renderSlide(0);
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    startAutoplay(); // Start autoplay automatically when opened
   }
 
   function closeModal() {
+    stopAutoplay();
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -81,20 +124,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   exploreBtn.addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
-  prevBtn.addEventListener('click', () => renderSlide(currentIndex - 1));
-  nextBtn.addEventListener('click', () => renderSlide(currentIndex + 1));
+  if (playBtn) playBtn.addEventListener('click', toggleAutoplay);
+
+  prevBtn.addEventListener('click', () => {
+    renderSlide(currentIndex - 1);
+    stopAutoplay();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    renderSlide(currentIndex + 1);
+    stopAutoplay();
+  });
 
   // Keyboard navigation & escape key
   window.addEventListener('keydown', (e) => {
     if (!modal.classList.contains('active')) return;
     if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft') renderSlide(currentIndex - 1);
-    if (e.key === 'ArrowRight') renderSlide(currentIndex + 1);
+    if (e.key === 'ArrowLeft') { renderSlide(currentIndex - 1); stopAutoplay(); }
+    if (e.key === 'ArrowRight') { renderSlide(currentIndex + 1); stopAutoplay(); }
+    if (e.key === ' ') { e.preventDefault(); toggleAutoplay(); }
   });
 
   // Background overlay click to close
   modal.addEventListener('click', (e) => {
-    if (e.target === modal || e.target.classList.contains('gallery-stage')) {
+    if (e.target === modal) {
       closeModal();
     }
   });

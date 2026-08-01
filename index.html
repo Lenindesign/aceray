@@ -43,7 +43,9 @@
         <div class="hero-overlay"></div>
         <div class="container" style="width: 100%;">
           <div class="hero-content">
-            <h1><strong>THE LOOK</strong> OF SEATING</h1>
+            <h1 class="hero-slogan-img-wrapper">
+              <img src="https://aceray.com/wp-content/uploads/2021/04/slogan-888x85.png" alt="The LOOK of Seating" class="hero-slogan-img" />
+            </h1>
             <p>Handcrafted commercial-grade seating and tables designed by international artisans for elevated hospitality environments.</p>
             <a href="#" id="explore-btn" class="btn-primary">Explore New Arrivals</a>
           </div>
@@ -208,7 +210,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          &copy; 2026 Aceray LLC. All rights reserved. Designed with Room & Board minimalism.
+          &copy; 2026 Aceray LLC. All rights reserved.
         </div>
       </div>
     </footer>
@@ -219,7 +221,14 @@
         <div class="gallery-counter">
           <span id="gallery-current">1</span> of <span id="gallery-total">11</span>
         </div>
+        <div class="gallery-title-block">
+          <div id="gallery-title" class="gallery-title"></div>
+          <div id="gallery-designer" class="gallery-designer"></div>
+        </div>
         <div class="gallery-controls-top">
+          <button type="button" class="gallery-btn" id="gallery-play" aria-label="Toggle Autoplay">
+            <svg id="gallery-play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
           <button type="button" class="gallery-btn" id="gallery-close" aria-label="Close Gallery">&times;</button>
         </div>
       </div>
@@ -231,8 +240,6 @@
       </div>
 
       <div class="gallery-info">
-        <div id="gallery-title" class="gallery-title"></div>
-        <div id="gallery-designer" class="gallery-designer"></div>
         <div id="gallery-thumbnails" class="gallery-thumbnails"></div>
       </div>
     </div>
