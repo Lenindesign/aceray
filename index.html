@@ -43,9 +43,9 @@
         <div class="hero-overlay"></div>
         <div class="container" style="width: 100%;">
           <div class="hero-content">
-            <h1>THE LOOK OF SEATING</h1>
+            <h1><strong>THE LOOK</strong> OF SEATING</h1>
             <p>Handcrafted commercial-grade seating and tables designed by international artisans for elevated hospitality environments.</p>
-            <a href="/catalog.html" class="btn-primary">Explore New Arrivals</a>
+            <a href="#" id="explore-btn" class="btn-primary">Explore New Arrivals</a>
           </div>
         </div>
       </section>
@@ -212,6 +212,30 @@
         </div>
       </div>
     </footer>
+
+    <!-- Photo Gallery Modal (Hearst Plus Inspired) -->
+    <div id="gallery-modal" class="gallery-modal" aria-hidden="true" role="dialog" aria-label="Aceray Photo Gallery">
+      <div class="gallery-header">
+        <div class="gallery-counter">
+          <span id="gallery-current">1</span> of <span id="gallery-total">11</span>
+        </div>
+        <div class="gallery-controls-top">
+          <button type="button" class="gallery-btn" id="gallery-close" aria-label="Close Gallery">&times;</button>
+        </div>
+      </div>
+
+      <div class="gallery-stage">
+        <button type="button" class="gallery-nav-btn prev" id="gallery-prev" aria-label="Previous Photo">&lsaquo;</button>
+        <img id="gallery-img" class="gallery-slide-img" src="" alt="" />
+        <button type="button" class="gallery-nav-btn next" id="gallery-next" aria-label="Next Photo">&rsaquo;</button>
+      </div>
+
+      <div class="gallery-info">
+        <div id="gallery-title" class="gallery-title"></div>
+        <div id="gallery-designer" class="gallery-designer"></div>
+        <div id="gallery-thumbnails" class="gallery-thumbnails"></div>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>

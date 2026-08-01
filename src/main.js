@@ -1,60 +1,101 @@
-import './style.css'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.js'
+// Aceray Photo Gallery Modal Script (Extracted & Adapted from Hearst Plus FullscreenImageViewer)
 
-document.querySelector('#app').innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+const GALLERY_DATA = [
+  { title: "GRANDE", designer: "Design: Maurizio Zilio", src: "https://aceray.com/wp-content/uploads/2026/01/0001s_0004_Grande-family-horiz-A.webp" },
+  { title: "RIVA", designer: "Design: Studio Carlesi/Tonelli", src: "https://aceray.com/wp-content/uploads/2026/01/riva-1.webp" },
+  { title: "ALMEA", designer: "Design: Chiaramonte-Marin", src: "https://aceray.com/wp-content/uploads/2026/01/almea.webp" },
+  { title: "ARTE", designer: "Design: Balutto Associates", src: "https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp" },
+  { title: "ALBA", designer: "Design: E. & P. Ciani Design", src: "https://aceray.com/wp-content/uploads/2026/01/Alba-4.webp" },
+  { title: "CIAO", designer: "Design: Massimo Iosa Ghini", src: "https://aceray.com/wp-content/uploads/2026/01/0002s_0000_Ciao-UU-horizontal-C.webp" },
+  { title: "SOLO-V", designer: "Design: Gentian Elezi", src: "https://aceray.com/wp-content/uploads/2026/01/colo-v.webp" },
+  { title: "BORA", designer: "Design: E. & P. Ciani Design", src: "https://aceray.com/wp-content/uploads/2026/01/0003s_0002_Bora-horizontal-A.webp" },
+  { title: "MIRA-X3", designer: "Design: A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/mira-x3-2-1.webp" },
+  { title: "CORSO", designer: "Design: Balutto Associates", src: "https://aceray.com/wp-content/uploads/2024/12/corso3.webp" },
+  { title: "SPAZIO-R", designer: "Design: A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/Spazio-R-2M-2.webp" }
+];
 
-<div class="ticks"></div>
+document.addEventListener('DOMContentLoaded', () => {
+  const exploreBtn = document.getElementById('explore-btn');
+  const modal = document.getElementById('gallery-modal');
+  const closeBtn = document.getElementById('gallery-close');
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  const imgEl = document.getElementById('gallery-img');
+  const titleEl = document.getElementById('gallery-title');
+  const designerEl = document.getElementById('gallery-designer');
+  const currentEl = document.getElementById('gallery-current');
+  const totalEl = document.getElementById('gallery-total');
+  const thumbsContainer = document.getElementById('gallery-thumbnails');
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-          <img class="button-icon" src="${javascriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+  if (!exploreBtn || !modal) return;
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+  let currentIndex = 0;
+  totalEl.textContent = GALLERY_DATA.length;
 
-setupCounter(document.querySelector('#counter'))
+  // Build thumbnails
+  thumbsContainer.innerHTML = '';
+  GALLERY_DATA.forEach((item, index) => {
+    const thumb = document.createElement('img');
+    thumb.src = item.src;
+    thumb.alt = item.title;
+    thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
+    thumb.addEventListener('click', () => renderSlide(index));
+    thumbsContainer.appendChild(thumb);
+  });
+
+  function renderSlide(index) {
+    currentIndex = (index + GALLERY_DATA.length) % GALLERY_DATA.length;
+    const slide = GALLERY_DATA[currentIndex];
+
+    imgEl.src = slide.src;
+    imgEl.alt = `${slide.title} - ${slide.designer}`;
+    titleEl.textContent = slide.title;
+    designerEl.textContent = slide.designer;
+    currentEl.textContent = currentIndex + 1;
+
+    // Update active thumbnail
+    const thumbs = thumbsContainer.querySelectorAll('.gallery-thumb');
+    thumbs.forEach((thumb, i) => {
+      if (i === currentIndex) {
+        thumb.classList.add('active');
+        thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        thumb.classList.remove('active');
+      }
+    });
+  }
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    renderSlide(0);
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  exploreBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  prevBtn.addEventListener('click', () => renderSlide(currentIndex - 1));
+  nextBtn.addEventListener('click', () => renderSlide(currentIndex + 1));
+
+  // Keyboard navigation & escape key
+  window.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') renderSlide(currentIndex - 1);
+    if (e.key === 'ArrowRight') renderSlide(currentIndex + 1);
+  });
+
+  // Background overlay click to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.classList.contains('gallery-stage')) {
+      closeModal();
+    }
+  });
+});
