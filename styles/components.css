@@ -393,8 +393,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-family: 'FontAwesome';
+  font-size: 1.1rem;
+  text-decoration: none;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
+.social-icon .fa {
+  font-family: 'FontAwesome' !important;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.social-icon .fa-twitter::before { content: "\f099"; }
+.social-icon .fa-facebook-square::before { content: "\f082"; }
+.social-icon .fa-pinterest::before { content: "\f0d2"; }
+.social-icon .fa-linkedin-square::before { content: "\f08c"; }
+.social-icon .fa-instagram::before { content: "\f16d"; }
 
 .social-icon:hover {
   transform: translateY(-2px);

@@ -9,6 +9,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('https://aceray.com/wp-content/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand Tokens (STYLE_GUIDE.md) */
   --color-primary: #718f80; /* Teal/Green-Gray */
