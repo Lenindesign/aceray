@@ -1,0 +1,94 @@
+/* Base design system combining Aceray Brand Tokens with Room & Board Layout Aesthetics */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Tokens (STYLE_GUIDE.md) */
+  --color-primary: #718f80; /* Teal/Green-Gray */
+  --color-primary-dark: #5a6e5e;
+  --color-black: #000000;
+  --color-accent: #2C3E35;
+  --color-text-main: #222222;
+  --color-text-muted: #555555;
+  --color-text-light: #767676;
+  --color-bg-light: #F9F8F6;
+  --color-bg-card: #F3F2EE;
+  --color-border: #E5E3DD;
+  --color-white: #FFFFFF;
+
+  /* Typography (STYLE_GUIDE.md: Montserrat) */
+  --font-primary: 'Montserrat', sans-serif;
+  --font-sans: 'Montserrat', sans-serif;
+  --font-serif: 'Montserrat', sans-serif;
+  --font-size-base: clamp(1rem, 1vw + 0.5rem, 1.125rem);
+  --line-height-base: 1.5;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 3.5rem;
+  --space-xl: 5rem;
+
+  /* Transition */
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Base resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-text-main);
+  background-color: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+a, button {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Utilities */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin-bottom: var(--space-lg);
+  font-weight: 400;
+}
