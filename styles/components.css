@@ -415,7 +415,7 @@
   justify-content: space-between;
   padding: 1.5rem 2.5rem;
   z-index: 20;
-  background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.40) 0%, rgba(10, 10, 10, 0.00) 100%);
 }
 
 .gallery-counter {
@@ -513,7 +513,7 @@
   padding: 2.5rem 2rem 1.5rem;
   color: #FFFFFF;
   z-index: 20;
-  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(0deg, rgba(10, 10, 10, 0.40) 0%, rgba(10, 10, 10, 0.00) 100%);
 }
 
 .gallery-title-block {
