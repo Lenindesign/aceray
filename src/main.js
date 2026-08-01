@@ -151,4 +151,25 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal();
     }
   });
+
+  // Mobile Hamburger Menu Toggle
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.classList.toggle('active');
+      mainNav.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    });
+
+    // Close menu when clicking navigation links
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        mainNav.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 });
