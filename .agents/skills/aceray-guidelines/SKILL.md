@@ -26,7 +26,10 @@ Always adhere strictly to the guidelines defined in the project's root files:
   <link rel="stylesheet" href="/styles/components.css" />
   ```
 - Keep design system tokens in `styles/base.css`.
-- Keep component styles (`.navbar`, `.button`, `.button-primary`, `.hero`, cards) in `styles/components.css`.
+- Keep component styles (`.btn-primary`, `.btn-outline`, `.navbar`, cards) in `styles/components.css`.
+- Primary CTA Buttons (`.btn-primary`): MUST have solid sage green background (`var(--color-primary)`), pure white font (`color: #ffffff`), uppercase typography (`text-transform: uppercase`), and tracking (`letter-spacing: 0.08em`). Never override inline.
+- Secondary Outlined Buttons (`.btn-outline`): Use `.btn-outline` for transparent buttons with green border and green text, filling solid green with white font on hover.
+- Universal Padding & Spacing: Badges, pills, cards, and modal containers MUST include explicit, generous padding (minimum `8px 16px` for pills/badges, `16px 24px` for cards) and clean margins to prevent squished text or touching borders.
 
 ### 3. Accessibility & Structure
 - Use HTML5 semantic tags (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`).
