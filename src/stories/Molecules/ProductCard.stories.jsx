@@ -30,7 +30,8 @@ const mockProduct = {
   slug: 'alba-1w',
   familySlug: 'alba',
   categories: ['Side Chairs'],
-  imageUrl: '/assets/migrated/Alba_4.webp',
+  imageUrl: '/assets/migrated/Alba-4.webp',
+  mainImage: { asset: { url: '/assets/migrated/Alba-4.webp' } },
   designer: 'E. & P. Ciani Design',
 }
 

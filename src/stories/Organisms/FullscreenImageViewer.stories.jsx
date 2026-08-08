@@ -22,7 +22,7 @@ const mockImages = [
     designer: 'Studio Aceray',
   },
   {
-    src: '/assets/migrated/Alba_4.webp',
+    src: '/assets/migrated/Alba-4.webp',
     title: 'Alba Armchair',
     designer: 'Francesco Rota',
   },
