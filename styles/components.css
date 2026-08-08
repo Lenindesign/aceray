@@ -639,9 +639,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding-top: 2.5rem;
+  padding-top: 1rem;
   padding-bottom: 3rem;
   margin-bottom: 0;
+  cursor: pointer;
 }
 
 .hero-bg-slide {
@@ -716,7 +717,7 @@
   position: relative;
   z-index: 10;
   text-align: center;
-  margin: var(--space-3) auto 0;
+  margin: 0.25rem auto 0 !important;
   width: 100%;
   max-width: 1100px;
   background: transparent;
@@ -726,7 +727,7 @@
 }
 
 .hero-slide-info {
-  margin-top: 1.25rem;
+  margin-top: 0 !important;
   color: #ffffff;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
   transition: opacity 0.5s ease;

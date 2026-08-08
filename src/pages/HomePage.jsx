@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
 import { sanityFetch } from '@/sanityClient'
 import ProductCard from '@/components/ProductCard'
@@ -37,14 +37,14 @@ const FEATURED_CATEGORIES = [
 ]
 
 const NEW_ARRIVALS_SLIDES = [
-  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp" },
-  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp" },
-  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp" },
-  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp" },
-  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp" },
-  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp" },
-  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp" },
-  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp" }
+  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp", familySlug: "arte" },
+  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp", familySlug: "alba" },
+  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp", familySlug: "ciao" },
+  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp", familySlug: "solo" },
+  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp", familySlug: "bora" },
+  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp", familySlug: "mira" },
+  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp", familySlug: "corso" },
+  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp", familySlug: "spazio" }
 ]
 
 export default function HomePage() {
@@ -53,6 +53,7 @@ export default function HomePage() {
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
   const [initialIndex, setInitialIndex] = useState(0)
   const [heroIndex, setHeroIndex] = useState(0)
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = 'Aceray – The Look of Seating | Premium Commercial & Upholstered Furniture'
@@ -70,10 +71,23 @@ export default function HomePage() {
     return () => clearInterval(timer)
   }, [])
 
+  const currentSlide = NEW_ARRIVALS_SLIDES[heroIndex]
+
   return (
     <div className="home-page">
-      {/* Hero Banner with 5-Second Automated Cross-Fade Transition */}
-      <section className="hero-banner">
+      {/* Hero Banner with 5-Second Automated Cross-Fade Transition (Clickable Module) */}
+      <section
+        className="hero-banner hero-banner-clickable"
+        onClick={() => navigate(`/collections/${currentSlide.familySlug}`)}
+        role="button"
+        tabIndex={0}
+        aria-label={`Explore ${currentSlide.title} Collection`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            navigate(`/collections/${currentSlide.familySlug}`)
+          }
+        }}
+      >
         {/* Dynamic Cross-Fading Background Slides */}
         {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
           <div
@@ -89,8 +103,8 @@ export default function HomePage() {
         <div className="hero-content">
           <div className="hero-slide-info">
             <span className="hero-slide-tag">Featured New Arrival</span>
-            <h1 className="hero-slide-title">{NEW_ARRIVALS_SLIDES[heroIndex].title}</h1>
-            <p className="hero-slide-designer">Designed by {NEW_ARRIVALS_SLIDES[heroIndex].designer}</p>
+            <h1 className="hero-slide-title">{currentSlide.title}</h1>
+            <p className="hero-slide-designer">Designed by {currentSlide.designer}</p>
           </div>
         </div>
 
@@ -100,12 +114,12 @@ export default function HomePage() {
             <button
               type="button"
               className="btn-primary"
-              onClick={() => {
-                setInitialIndex(heroIndex)
-                setFullscreenOpen(true)
+              onClick={(e) => {
+                e.stopPropagation()
+                navigate(`/collections/${currentSlide.familySlug}`)
               }}
             >
-              Explore New Arrivals
+              Explore {currentSlide.title} Collection
             </button>
           </div>
 
@@ -114,7 +128,10 @@ export default function HomePage() {
               <button
                 key={slide.title}
                 type="button"
-                onClick={() => setHeroIndex(idx)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setHeroIndex(idx)
+                }}
                 className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
                 aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
               />
