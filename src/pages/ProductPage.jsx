@@ -394,6 +394,7 @@ function Gallery({ images, title, designer }) {
   const [isSwiping, setIsSwiping] = useState(false)
 
   const startX = useRef(0)
+  const startTime = useRef(0)
   const isDragging = useRef(false)
   const wasDragged = useRef(false)
 
@@ -411,6 +412,7 @@ function Gallery({ images, title, designer }) {
 
   const handleStart = (clientX) => {
     startX.current = clientX
+    startTime.current = Date.now()
     isDragging.current = true
     wasDragged.current = false
     setIsSwiping(true)
@@ -420,7 +422,7 @@ function Gallery({ images, title, designer }) {
   const handleMove = (clientX) => {
     if (!isDragging.current) return
     const deltaX = clientX - startX.current
-    if (Math.abs(deltaX) > 6) {
+    if (Math.abs(deltaX) > 4) {
       wasDragged.current = true
     }
     setDragOffset(deltaX)
@@ -431,13 +433,18 @@ function Gallery({ images, title, designer }) {
     isDragging.current = false
     setIsSwiping(false)
 
-    const threshold = 40
-    if (dragOffset < -threshold) {
-      // Swiped Left -> Next image (wraps last -> 0)
-      setActive((prev) => (prev + 1) % images.length)
-    } else if (dragOffset > threshold) {
-      // Swiped Right -> Prev image (wraps 0 -> last)
-      setActive((prev) => (prev - 1 + images.length) % images.length)
+    const timeDiff = Math.max(1, Date.now() - startTime.current)
+    const isFastFlick = timeDiff < 350 && Math.abs(dragOffset) > 12
+    const isLongDrag = Math.abs(dragOffset) > 25
+
+    if ((isFastFlick || isLongDrag) && images.length > 1) {
+      if (dragOffset < 0) {
+        // Swiped Left -> Next image (wraps last -> 0)
+        setActive((prev) => (prev + 1) % images.length)
+      } else {
+        // Swiped Right -> Prev image (wraps 0 -> last)
+        setActive((prev) => (prev - 1 + images.length) % images.length)
+      }
     }
     setDragOffset(0)
   }
