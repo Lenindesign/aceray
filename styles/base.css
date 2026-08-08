@@ -58,6 +58,8 @@
   --space-8: 4rem;            /* 64px */
   --space-10: 5rem;           /* 80px */
   --space-12: 6rem;           /* 96px */
+  --space-16: 8rem;           /* 128px */
+  --space-20: 10rem;          /* 160px */
 
   /* Legacy aliases mapped to 8pt system */
   --space-xs: var(--space-1);
