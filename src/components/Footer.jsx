@@ -38,7 +38,8 @@ export default function Footer() {
             <h4>Resources</h4>
             <ul>
               <li><Link to="/resources">2026 Catalog Request</Link></li>
-              <li><Link to="/resources">Fabrics &amp; Finishes</Link></li>
+              <li><Link to="/installations">Installation Gallery</Link></li>
+              <li><Link to="/fabrics-finishes">Fabrics &amp; Finishes</Link></li>
               <li><Link to="/resources">3D Models &amp; CAD Downloads</Link></li>
               <li><Link to="/resources">Care &amp; Upholstery</Link></li>
             </ul>

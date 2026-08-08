@@ -11,6 +11,7 @@ import ContactPage from '@/pages/ContactPage'
 import CollectionsPage from '@/pages/CollectionsPage'
 import FamilyLandingPage from '@/pages/FamilyLandingPage'
 import FabricsFinishesPage from '@/pages/FabricsFinishesPage'
+import InstallationsPage from '@/pages/InstallationsPage'
 import ResourcesPage from '@/pages/ResourcesPage'
 import AcerayBookPage from '@/pages/AcerayBookPage'
 import NotFoundPage from '@/pages/NotFoundPage'
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/collections" element={<CollectionsPage />} />
             <Route path="/collections/:familySlug" element={<FamilyLandingPage />} />
+            <Route path="/installations" element={<InstallationsPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/fabrics-finishes" element={<FabricsFinishesPage />} />
             <Route path="/aceray-book" element={<AcerayBookPage />} />

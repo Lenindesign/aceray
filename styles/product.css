@@ -181,20 +181,6 @@
   border-radius: var(--radius-card);
   overflow: hidden;
   margin-bottom: 1rem;
-  user-select: none;
-  touch-action: pan-y;
-}
-
-.product-hero-transform-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-  will-change: transform;
-}
-
-.product-hero-transform-container:active {
-  cursor: grabbing;
 }
 
 .product-hero-scroll-container {

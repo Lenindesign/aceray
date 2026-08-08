@@ -30,6 +30,7 @@ const FAMILY_LINKS = Object.keys(FAMILY_HERO_IMAGES).map((familySlug) => ({
 
 const PRODUCT_RESOURCE_LINKS = [
   { label: 'Fabrics & Finishes', to: '/fabrics-finishes' },
+  { label: 'Installation Gallery', to: '/installations' },
   { label: 'Favorites', to: '/catalog?tag=favorites' },
   { label: 'Request a Sample', to: '/contact' },
 ]
