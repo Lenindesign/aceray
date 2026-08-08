@@ -99,14 +99,19 @@ function formatProjectName(url, productTitle) {
   const filename = url.split('/').pop() || ''
   const nameWithoutExt = filename.replace(/\.[^/.]+$/, '')
 
+  // Filter out hex hashes or dimension strings like 1200x1200
+  if (/^[a-f0-9]{16,}/i.test(nameWithoutExt) || /\d{3,4}x\d{3,4}/i.test(nameWithoutExt)) {
+    return `${productTitle} Hospitality Project`
+  }
+
   // Remove generic suffixes or clean hyphenated names
   let cleaned = nameWithoutExt
     .replace(/[-_]/g, ' ')
-    .replace(/\b(frontview|backview|sideview|topview|highres|scaled|jpg|png|webp)\b/gi, '')
+    .replace(/\b(frontview|backview|sideview|topview|highres|scaled|jpg|png|webp|1200x1200|800x800)\b/gi, '')
     .trim()
 
-  // If filename is just the product name or very short, use formatted product name
-  if (cleaned.toUpperCase() === productTitle.toUpperCase() || cleaned.length < 3) {
+  // If filename is just the product name, raw hash, or very short, use formatted product name
+  if (cleaned.toUpperCase() === productTitle.toUpperCase() || cleaned.length < 3 || /^[a-f0-9]+$/i.test(cleaned)) {
     return `${productTitle} Hospitality Project`
   }
 
