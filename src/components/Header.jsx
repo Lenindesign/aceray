@@ -29,6 +29,7 @@ const FAMILY_LINKS = Object.keys(FAMILY_HERO_IMAGES).map((familySlug) => ({
 }))
 
 const PRODUCT_RESOURCE_LINKS = [
+  { label: 'Designers', to: '/designers' },
   { label: 'Fabrics & Finishes', to: '/fabrics-finishes' },
   { label: 'Installation Gallery', to: '/installations' },
   { label: 'Favorites', to: '/catalog?tag=favorites' },
@@ -48,7 +49,11 @@ export default function Header() {
   function isLinkActive(to, options = {}) {
     const [pathname, search = ''] = to.split('?')
 
-    if (options.dropdown && (location.pathname === '/collections' || location.pathname.startsWith('/collections/'))) return true
+    if (options.dropdown && (
+      location.pathname === '/designers' ||
+      location.pathname === '/collections' ||
+      location.pathname.startsWith('/collections/')
+    )) return true
     if (location.pathname !== pathname) return false
     if (pathname !== '/catalog') return true
 

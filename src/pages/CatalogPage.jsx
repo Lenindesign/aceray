@@ -70,6 +70,7 @@ export default function CatalogPage() {
   const cat = searchParams.get('cat') || ''
   const q = searchParams.get('q') || ''
   const tag = searchParams.get('tag') || ''
+  const designer = searchParams.get('designer') || ''
   const isNew = searchParams.get('new') === '1'
   const isFavorites = tag === 'favorites'
 
@@ -131,6 +132,11 @@ export default function CatalogPage() {
       filters += ` && isNewArrival == true`
     }
 
+    if (designer) {
+      filters += ` && designer == $designer`
+      queryParams.designer = designer
+    }
+
     if (tag) {
       filters += ` && count((tags[])[lower(@) match $tag]) > 0`
       queryParams.tag = tag.toLowerCase() + '*'
@@ -165,7 +171,7 @@ export default function CatalogPage() {
       })
       .catch(console.error)
       .finally(() => setLoading(false))
-  }, [cat, q, tag, isNew, isFavorites, total])
+  }, [cat, q, tag, designer, isNew, isFavorites, total])
 
   const hasMore = total > 0 && products.length < total
 
@@ -188,9 +194,9 @@ export default function CatalogPage() {
   }, [hasMore, loading, page, fetchProducts])
 
   useEffect(() => {
-    document.title = `${isFavorites ? 'Favorites' : isNew ? "What's New" : 'Products'}${cat ? ` – ${cat}` : tag && !isFavorites ? ` – ${tag}` : ''} | Aceray`
+    document.title = `${isFavorites ? 'Favorites' : isNew ? "What's New" : designer ? `Designed by ${designer}` : 'Products'}${cat ? ` – ${cat}` : tag && !isFavorites ? ` – ${tag}` : ''} | Aceray`
     fetchProducts(0)
-  }, [cat, q, tag, isNew, isFavorites])
+  }, [cat, q, tag, designer, isNew, isFavorites])
 
   useEffect(() => {
     let cancelled = false
@@ -255,12 +261,18 @@ export default function CatalogPage() {
     setSearchParams({ tag: 'favorites' })
   }
 
+  function clearDesignerFilter() {
+    const next = new URLSearchParams(searchParams)
+    next.delete('designer')
+    setSearchParams(next)
+  }
+
   return (
     <div className="catalog-page">
       {/* Header */}
       <div className="catalog-heading">
         <h1 className="catalog-title">
-          {isNew ? "What's New" : cat ? cat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : tag ? tag.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'All Products'}
+          {isNew ? "What's New" : designer ? `Designed by ${designer}` : cat ? cat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : tag ? tag.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'All Products'}
         </h1>
         <p className="catalog-count">{total} products</p>
       </div>
@@ -340,6 +352,13 @@ export default function CatalogPage() {
             <p className="catalog-results-note">
               Showing results for <strong>"{q}"</strong>
               <button onClick={() => setFilter('q', '')}>clear</button>
+            </p>
+          )}
+
+          {designer && (
+            <p className="catalog-results-note">
+              Showing products designed by <strong>{designer}</strong>
+              <button onClick={clearDesignerFilter}>clear</button>
             </p>
           )}
 

@@ -74,6 +74,8 @@ const EXCLUDED_SPEC_PATTERNS = [
   /options/i, /overview/i, /measurement/i, /measurements/i, /lbs/i, /inches/i,
   /size/i, /sizes/i, /spec/i, /specs/i, /specification/i, /specifications/i,
   /armchair/i, /stacking/i, /side-chair/i, /chair-blk/i, /rts/i, /shell/i, /technopolymer/i,
+  /studio/i, /render/i, /family/i, /lineup/i, /horizontal/i, /main/i,
+  /ambient[e]?/i, /web[-_]?jpg/i,
   /[-_]back\./i, /[-_]front\./i, /[-_]side\./i
 ]
 
@@ -93,10 +95,10 @@ function isSpecOrLineDrawingOrStudioAsset(assetObj) {
 // Installation project indicators (hotels, resorts, restaurants, state codes, install keyword)
 const INSTALLATION_INDICATORS = [
   /hotel/i, /resort/i, /restaurant/i, /suites/i, /inn/i, /lodge/i, /casino/i,
-  /bistro/i, /cafe/i, /lounge/i, /dining/i, /bar/i, /club/i, /spa/i, /hospitality/i,
+  /bistro/i, /cafe/i, /spa/i, /hospitality/i,
   /install/i, /project/i, /marriott/i, /hilton/i, /hyatt/i, /omni/i, /westin/i,
   /sheraton/i, /intercontinental/i, /fairmont/i, /wyndham/i, /radisson/i, /loews/i,
-  /kimpton/i, /edition/i, /ritz/i, /st-regis/i, /four-seasons/i, /ambiente/i, /web-jpg/i,
+  /kimpton/i, /edition/i, /ritz/i, /st-regis/i, /four-seasons/i,
   /[-_]([A-Z]{2})\.(jpg|jpeg|png|webp)/i, // e.g. -CA.jpg, -FL.jpg, -NY.jpg, -IL.jpg
   /[-_](chicago|los-angeles|san-diego|las-vegas|miami|new-york|boston|dallas|austin|denver|seattle|atlanta|nashville|orlando)/i
 ]
@@ -113,10 +115,7 @@ function isVerifiedInstallationAsset(assetObj) {
   ].filter(Boolean).join(' ')
 
   const hasInstallIndicator = INSTALLATION_INDICATORS.some((pat) => pat.test(strToTest))
-  const filename = assetObj.originalFilename || assetObj.url.split('/').pop() || ''
-  const isMultiWordName = filename.split(/[-_]/).length >= 4
-
-  return hasInstallIndicator || isMultiWordName
+  return hasInstallIndicator
 }
 
 // Helper to format clean project name from image filename or product title
@@ -195,16 +194,12 @@ export default function InstallationsPage() {
           const category = product.categories?.[0] || 'Seating'
           const gallery = (product.galleryAssets || []).filter(a => a && a.url && !a.url.includes('aceray.com'))
 
-          // Filter ONLY verified installation photos (excluding all specs, drawings, swatches, diagrams, poles, dimensions)
+          // Filter ONLY verified installation photos. Do not fall back to studio/product imagery:
+          // white-background cutouts break the Pinterest-style installation experience.
           const installationAssets = gallery.filter((asset) => isVerifiedInstallationAsset(asset))
-          
-          // Fallback: If no location-tagged photo, check gallery for non-studio/non-spec photos ONLY
-          const validAssets = installationAssets.length > 0 ? installationAssets : gallery.filter((asset) => {
-            return !isSpecOrLineDrawingOrStudioAsset(asset)
-          })
 
-          const uniqueAssets = Array.from(new Set(validAssets.map(a => a.url)))
-            .map(url => validAssets.find(a => a.url === url))
+          const uniqueAssets = Array.from(new Set(installationAssets.map(a => a.url)))
+            .map(url => installationAssets.find(a => a.url === url))
 
           uniqueAssets.forEach((assetObj, idx) => {
             allPhotos.push({

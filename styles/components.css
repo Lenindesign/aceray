@@ -748,7 +748,7 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #d0e0d7;
+  color: #ffffff;
   margin: 0 auto 4px auto !important;
 }
 
@@ -771,7 +771,7 @@
   text-align: center !important;
   font-family: var(--font-sans);
   font-size: 0.85rem;
-  color: #e2e8e4;
+  color: #ffffff;
   margin: -4px auto 0 auto !important;
   font-weight: 400;
 }
@@ -1845,6 +1845,163 @@ main:has(.about-page) + .footer {
   text-transform: uppercase;
 }
 
+/* Designers Index Page */
+.designers-page {
+  background: var(--color-white);
+}
+
+.designers-page-container {
+  padding-block: clamp(var(--space-6), 6vw, var(--space-10)) clamp(var(--space-8), 8vw, var(--space-12));
+}
+
+.designers-page-heading {
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: clamp(var(--space-5), 5vw, var(--space-8));
+  max-width: 760px;
+  padding-bottom: var(--space-4);
+}
+
+.designers-page-eyebrow,
+.designer-card-eyebrow {
+  color: var(--color-primary);
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+}
+
+.designers-page-heading h1,
+.designer-card h2 {
+  color: var(--color-text-main);
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 1.08;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.designers-page-heading h1 {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+}
+
+.designers-page-heading p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  margin: var(--space-3) 0 0;
+  max-width: 640px;
+}
+
+.designers-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.designer-card {
+  background: var(--color-white);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-card);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.designer-card-images {
+  background: var(--color-bg-light);
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.designer-card-images img {
+  aspect-ratio: 1 / 1;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.designer-card-images img:only-child {
+  aspect-ratio: 2 / 1;
+  grid-column: 1 / -1;
+}
+
+.designer-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--space-3);
+}
+
+.designer-card h2 {
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.designer-card-meta {
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: var(--space-2) 0 0;
+  text-transform: uppercase;
+}
+
+.designer-card-copy {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.65;
+  margin: var(--space-3) 0;
+}
+
+.designer-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.designer-card-tags span {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 8px 12px;
+  text-transform: uppercase;
+}
+
+.designer-card-link {
+  align-self: flex-start;
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-top: auto;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.designer-card-link:hover,
+.designer-card-link:focus-visible {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.designers-loading {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 /* Aceray Book Page */
 .aceray-book-page {
   background: var(--color-white);
@@ -2269,7 +2426,8 @@ main:has(.about-page) + .footer {
     grid-template-columns: 1fr;
   }
 
-  .collections-grid {
+  .collections-grid,
+  .designers-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2335,7 +2493,8 @@ main:has(.about-page) + .footer {
     width: 100%;
   }
 
-  .collections-grid {
+  .collections-grid,
+  .designers-grid {
     grid-template-columns: 1fr;
   }
 

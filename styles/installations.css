@@ -174,7 +174,7 @@
 
   .installations-masonry-grid {
     column-count: 1;
-    column-gap: var(--space-4);
+    column-gap: 16px;
     width: 100%;
   }
 
@@ -199,22 +199,21 @@
   .installation-card {
     break-inside: avoid;
     display: inline-block;
-    margin-bottom: var(--space-4);
+    margin-bottom: 16px;
     width: 100%;
     border-radius: var(--radius-card); /* 16px */
     overflow: hidden;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: #d9ddd8;
+    border: 0;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.32s ease;
+    box-shadow: none;
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .installation-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
-    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
   }
 
   .installation-card-img-wrap {
@@ -223,7 +222,7 @@
     aspect-ratio: var(--installation-tile-ratio, 1 / 1);
     display: block;
     overflow: hidden;
-    background: #1c2420;
+    background: #d9ddd8;
     border-radius: var(--radius-card); /* 16px */
   }
 

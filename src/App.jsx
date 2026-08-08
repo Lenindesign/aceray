@@ -9,6 +9,7 @@ import AboutPage from '@/pages/AboutPage'
 import BlogPage from '@/pages/BlogPage'
 import ContactPage from '@/pages/ContactPage'
 import CollectionsPage from '@/pages/CollectionsPage'
+import DesignersPage from '@/pages/DesignersPage'
 import FamilyLandingPage from '@/pages/FamilyLandingPage'
 import FabricsFinishesPage from '@/pages/FabricsFinishesPage'
 import InstallationsPage from '@/pages/InstallationsPage'
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/collections" element={<CollectionsPage />} />
             <Route path="/collections/:familySlug" element={<FamilyLandingPage />} />
+            <Route path="/designers" element={<DesignersPage />} />
             <Route path="/installations" element={<InstallationsPage />} />
             <Route path="/installation-gallery" element={<InstallationsPage />} />
             <Route path="/gallery" element={<InstallationsPage />} />
