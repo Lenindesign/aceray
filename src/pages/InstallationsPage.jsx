@@ -14,21 +14,48 @@ import {
 } from '@/components/ui/dialog'
 import { Skeleton } from '@/components/ui/skeleton'
 
-// Lazy-loaded Image component with shimmer skeleton placeholder
+// Pre-loader cache for instant seamless image rendering without layout shifts
+const preloadedUrls = new Set()
+
 function InstallationImage({ src, alt, className }) {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(() => preloadedUrls.has(src))
+
+  useEffect(() => {
+    if (!src || loaded) return
+    let active = true
+    const img = new Image()
+    img.src = src
+    if (img.complete) {
+      preloadedUrls.add(src)
+      setLoaded(true)
+    } else {
+      img.onload = () => {
+        if (active) {
+          preloadedUrls.add(src)
+          setLoaded(true)
+        }
+      }
+    }
+    return () => {
+      active = false
+    }
+  }, [src, loaded])
+
   return (
-    <div className="relative w-full h-full bg-[#e8e7e2]">
+    <div className="relative w-full h-full bg-[#edece8] overflow-hidden min-h-[220px]">
       {!loaded && (
-        <div className="absolute inset-0 bg-[#e8e7e2] animate-pulse" />
+        <div className="absolute inset-0 bg-[#e5e4de] animate-pulse" />
       )}
       <img
         src={src}
         alt={alt}
         loading="lazy"
         decoding="async"
-        onLoad={() => setLoaded(true)}
-        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-400 ease-out`}
+        onLoad={() => {
+          preloadedUrls.add(src)
+          setLoaded(true)
+        }}
+        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ease-out`}
       />
     </div>
   )
@@ -195,14 +222,25 @@ export default function InstallationsPage() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && visibleCount < filteredItems.length) {
-          setVisibleCount((prev) => Math.min(prev + 24, filteredItems.length))
+          setVisibleCount((prev) => {
+            const nextCount = Math.min(prev + 24, filteredItems.length)
+            // Proactively pre-fetch image assets for the newly visible items in background
+            filteredItems.slice(prev, nextCount).forEach((item) => {
+              if (item.url && !preloadedUrls.has(item.url)) {
+                const img = new Image()
+                img.src = item.url
+                img.onload = () => preloadedUrls.add(item.url)
+              }
+            })
+            return nextCount
+          })
         }
       },
-      { rootMargin: '400px' }
+      { rootMargin: '1200px 0px' }
     )
     observer.observe(sentinelRef.current)
     return () => observer.disconnect()
-  }, [visibleCount, filteredItems.length])
+  }, [visibleCount, filteredItems])
 
   return (
     <div className="installations-page min-h-screen bg-[#faf9f6] text-[#222]">
