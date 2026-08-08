@@ -1,0 +1,4742 @@
+[
+  {
+    "_id": "wp-product-10705",
+    "productPdfs": [
+      {
+        "_key": "pdf_dd233220b1aefd00",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-935a73fda79acfcae96327d823a04f0e7373229a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/06/LIDO-LOVE.pdf",
+        "title": "LIDO-LOVE PDF File"
+      },
+      {
+        "_key": "pdf_fa12ff9aa9812631",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e1ef27c21086accc05d47f5e26d3807bb55c5f0c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-LIDO-LOVE.pdf",
+        "title": "LIDO-LOVE PDF File"
+      }
+    ],
+    "title": "LIDO-LOVE"
+  },
+  {
+    "_id": "wp-product-11708",
+    "productPdfs": [
+      {
+        "_key": "pdf_7070d4990700c71f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ea87a845e5afcabed6271bf740249e71b1e0eba9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/08/Aceray-317UXL-spec-sheet.pdf",
+        "title": "Aceray - #317UXL - spec sheet"
+      },
+      {
+        "_key": "pdf_4010f341e775aa59",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-20e6bd6e103bd4112ce1fcddefb2053eec4cee46-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/08/317UXL.pdf",
+        "title": "#317UXL PDF File"
+      }
+    ],
+    "title": "#317UXL"
+  },
+  {
+    "_id": "wp-product-12893",
+    "productPdfs": [
+      {
+        "_key": "pdf_297056d7b5c8c1e5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1deb36b2f1dcfc12aa5928e70859a9fc7e279711-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/01/Aceray-Unico-OT-spec-sheet.pdf",
+        "title": "Aceray - Unico-OT - spec sheet"
+      },
+      {
+        "_key": "pdf_7e96364cf296044b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a8922b965c3d6fe40a8e263ae23a7280b8694a81-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/12/Unico-OT.pdf",
+        "title": "UNICO-OT PDF File"
+      }
+    ],
+    "title": "UNICO-OT"
+  },
+  {
+    "_id": "wp-product-13007",
+    "productPdfs": [
+      {
+        "_key": "pdf_d89770a57070a76a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-689b82f52f3544bf3cd9fbdd843afe966b711f44-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/01/Aceray-LIDO-8R-spec-sheet-1.pdf",
+        "title": "Aceray - LIDO-8R - spec sheet"
+      },
+      {
+        "_key": "pdf_a8224a76512d4dc6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b00b2aa9556f25dc39b982ca7734c24a307823f0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/01/Aceray-LIDO-8R-spec-sheet.pdf",
+        "title": "Aceray - LIDO-8R - spec sheet"
+      }
+    ],
+    "title": "LIDO-8R"
+  },
+  {
+    "_id": "wp-product-13034",
+    "productPdfs": [
+      {
+        "_key": "pdf_cf233cc150a9b30c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-255e7ac0b8014084d16834e56d565ee30c0e9357-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/NOVA-M.pdf",
+        "title": "NOVA PDF File"
+      },
+      {
+        "_key": "pdf_f312a25f93456b41",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d8882fa53915763eed15c5f03be201b4c9ba01b3-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/NOVA-SWIV5PC.pdf",
+        "title": "NOVA PDF File"
+      },
+      {
+        "_key": "pdf_c9e7c67bb077a2c7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9ed7bb3ab1f572f86dbad4faf4fa5b944dd9c93e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/NOVA-W.pdf",
+        "title": "NOVA PDF File"
+      },
+      {
+        "_key": "pdf_922aff058b4a7adb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-71ef53acd5e43136ffe189dd38b1c41f056d78bb-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/12/Nova-table-1.pdf",
+        "title": "NOVA PDF File"
+      },
+      {
+        "_key": "pdf_f0b0029425cc5807",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-33c07d694155cd41f9f082b93faec4ce308006c6-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/12/Nova-table.pdf",
+        "title": "NOVA PDF File"
+      },
+      {
+        "_key": "pdf_a6d9accda2a4b560",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-440c2acf36fd52286bc1382c20ac8d1f614fffa2-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/01/Aceray-Nova-spec-sheet.pdf",
+        "title": "Aceray - Nova - spec sheet"
+      },
+      {
+        "_key": "pdf_749a9ba1877fd7ef",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6436a0c1c9c13ef5d64286993dde4686aed1e33c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/NOVA-9-NOVA-9C.pdf",
+        "title": "NOVA PDF File"
+      }
+    ],
+    "title": "NOVA"
+  },
+  {
+    "_id": "wp-product-16412",
+    "productPdfs": [
+      {
+        "_key": "pdf_44229db8bba874a7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2866aa9ccc1b460695483ea87d07923b35fa8525-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/05/Aceray-Misto-spec-sheet.pdf",
+        "title": "Aceray - Misto - spec sheet"
+      },
+      {
+        "_key": "pdf_83901ab06834182e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-91213541d818b90460c7f5134ce02f98f6b4ecd7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/Misto.pdf",
+        "title": "MISTO PDF File"
+      }
+    ],
+    "title": "MISTO"
+  },
+  {
+    "_id": "wp-product-16435",
+    "productPdfs": [
+      {
+        "_key": "pdf_440ce94a033334f1",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-148e5d19f2fad4951a27162a6d3296b4fcaa825d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/TEMA-B.pdf",
+        "title": "TEMA PDF File"
+      },
+      {
+        "_key": "pdf_532b5cd3249260a1",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-86f85606dc00865408b4c7c2cc32cae5c95a97d8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/TEMA-M.pdf",
+        "title": "TEMA PDF File"
+      },
+      {
+        "_key": "pdf_55096b95120bda91",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-7e5e6c32321719cbb990a3a8c147bb0c43f2ff4a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/TEMA-MB.pdf",
+        "title": "TEMA PDF File"
+      },
+      {
+        "_key": "pdf_c852b1649874bac0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cc238f0bef38b93e32a622a1c5bdd1596014a9e6-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/TEMA.pdf",
+        "title": "TEMA PDF File"
+      },
+      {
+        "_key": "pdf_d1a68adfce8a4c26",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-df407a91c7cfd5dc324a8e2923fa7bc1ba7fe101-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/05/Aceray-TEMA-HBA-spec-sheet.pdf",
+        "title": "Aceray - TEMA-HBA - spec sheet"
+      },
+      {
+        "_key": "pdf_91f3d646582f8aa8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e5b090da8e9c4f0cc83920fd2d4c9b3a2980f974-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/02/Aceray-TEMA-HBA_spec-sheet.pdf",
+        "title": "Aceray - TEMA-HBA_spec sheet"
+      },
+      {
+        "_key": "pdf_2d1ce4319867b2a6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-15a3495af1e6bb01c9eaae11ce052baec8620b18-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-TEMA-B-spec-sheet.pdf",
+        "title": "Aceray - TEMA-B - spec sheet"
+      },
+      {
+        "_key": "pdf_dd5e786106dda8c7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-aafcce424efae90d9f9d5bb796192c4edda57f8c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-TEMA-M-spec-sheet.pdf",
+        "title": "Aceray - TEMA-M - spec sheet"
+      },
+      {
+        "_key": "pdf_53c6a58e664d040e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e817432ffaac4a50ce0cb387b36f12a4196e8341-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-TEMA-MB-spec-sheet-copy.pdf",
+        "title": "Aceray - TEMA-MB - spec sheet copy"
+      },
+      {
+        "_key": "pdf_c5c5aa5c5c6923bb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-56a9a1ad563e4bc60a0d0810431940a9edd3f911-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-TEMA-spec-sheet.pdf",
+        "title": "Aceray - TEMA - spec sheet"
+      }
+    ],
+    "title": "TEMA"
+  },
+  {
+    "_id": "wp-product-17185",
+    "productPdfs": [
+      {
+        "_key": "pdf_42a3bfae3013a642",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-79c44da8580b3d0af0b33fca13682c009d5bc9bf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-Forte-1-spec-sheet.pdf",
+        "title": "Aceray - Forte-1 - spec sheet"
+      },
+      {
+        "_key": "pdf_0581fd3cf7d63d67",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-288b7cd3bf831424eb72774eb376edbb3a78820e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-1.pdf",
+        "title": "FORTE-1 PDF File"
+      }
+    ],
+    "title": "FORTE-1"
+  },
+  {
+    "_id": "wp-product-17187",
+    "productPdfs": [
+      {
+        "_key": "pdf_9449ba73502e680c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e595fc2d422f50c1fbed9530f9f4df0437875183-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-Forte-3-spec-sheet.pdf",
+        "title": "Aceray - Forte-3 - spec sheet"
+      },
+      {
+        "_key": "pdf_f811afe078731444",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-921a7f426cac8764a03329bb70bcc91f75d7d244-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-3.pdf",
+        "title": "FORTE-3 PDF File"
+      }
+    ],
+    "title": "FORTE-3"
+  },
+  {
+    "_id": "wp-product-17188",
+    "productPdfs": [
+      {
+        "_key": "pdf_84b189216889d1d8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-4e23c5209c0266eb60403d43e973682091fe8fa7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-Forte-5-spec-sheet.pdf",
+        "title": "Aceray - Forte-5 - spec sheet"
+      },
+      {
+        "_key": "pdf_45606611f5cce7fc",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d08eee7a5516e7260a851a84a3cb3a58125136e8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-5.pdf",
+        "title": "FORTE-5 PDF File"
+      }
+    ],
+    "title": "FORTE-5"
+  },
+  {
+    "_id": "wp-product-17189",
+    "productPdfs": [
+      {
+        "_key": "pdf_e4fb5a8daa59a644",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-56452d6eaecd914dbee6743910daa947915c63eb-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-Forte-7-spec-sheet.pdf",
+        "title": "Aceray - Forte-7 - spec sheet"
+      },
+      {
+        "_key": "pdf_39134618c03c45b0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-3f066d4e24b3c0a277ae9a85b4b5ba7f2e5acca1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-7.pdf",
+        "title": "FORTE-7 PDF File"
+      }
+    ],
+    "title": "FORTE-7"
+  },
+  {
+    "_id": "wp-product-17464",
+    "productPdfs": [
+      {
+        "_key": "pdf_d0d9573539f4ec3e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5219271d2f304ad414e94a2b04172c868e7956e4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/12/FORMA-B.pdf",
+        "title": "FORMA-B PDF File"
+      },
+      {
+        "_key": "pdf_39ec8ddf98ec0d5e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2f4e56936b873d3d76ed5e40b852e5ca2f11ae9b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/04/Aceray-FORMA-B-spec-sheet.pdf",
+        "title": "Aceray - FORMA-B - spec sheet"
+      }
+    ],
+    "title": "FORMA-B"
+  },
+  {
+    "_id": "wp-product-217",
+    "productPdfs": [
+      {
+        "_key": "pdf_e3b9c221d5f33b82",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b33ab45cfba0f62599d7a67fb439047e9e5ff0e9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/07/GALA-6SWIV.pdf",
+        "title": "GALA-6SWIV PDF File"
+      },
+      {
+        "_key": "pdf_b094f618d5141cb8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b33ab45cfba0f62599d7a67fb439047e9e5ff0e9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/GALA-6SWIV.pdf",
+        "title": "GALA-6SWIV PDF File"
+      }
+    ],
+    "title": "GALA-6SWIV"
+  },
+  {
+    "_id": "wp-product-219",
+    "productPdfs": [
+      {
+        "_key": "pdf_37208647be1621aa",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1293819c542a0b1a0e43a60e15ab55272866b30d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/07/NOTA-1.pdf",
+        "title": "NOTA-1 PDF File"
+      },
+      {
+        "_key": "pdf_a656b93b5ddcc30a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1293819c542a0b1a0e43a60e15ab55272866b30d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/NOTA-1.pdf",
+        "title": "NOTA-1 PDF File"
+      }
+    ],
+    "title": "NOTA-1"
+  },
+  {
+    "_id": "wp-product-24584",
+    "productPdfs": [
+      {
+        "_key": "pdf_b8f9e42809271035",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e1baa0113de0003d3e3a553279d71cf4bf400dea-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/12/unico-3.pdf",
+        "title": "UNICO-3 PDF File"
+      },
+      {
+        "_key": "pdf_5a88b4a58d6d11e2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1c0bd6d639b66c75dadafa39bc598e1f7ade4893-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/04/unico-3.pdf",
+        "title": "UNICO-3 PDF File"
+      }
+    ],
+    "title": "UNICO-3"
+  },
+  {
+    "_id": "wp-product-25500",
+    "productPdfs": [
+      {
+        "_key": "pdf_2323479a96577932",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1eead7a9254a294f10ebb9ad047ed7c769b7cd6a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-m.pdf",
+        "title": "DOTTA-M PDF File"
+      },
+      {
+        "_key": "pdf_dfb1353b58b5322d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8c385dd395cda44f9ef6437a58ad861b9d979c72-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-M.pdf",
+        "title": "DOTTA-M PDF File"
+      }
+    ],
+    "title": "DOTTA-M"
+  },
+  {
+    "_id": "wp-product-25507",
+    "productPdfs": [
+      {
+        "_key": "pdf_759cdea9b1bafe22",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-7369cf23b5f43b821d40f50e1e4b7b338c120021-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-wm.pdf",
+        "title": "DOTTA-WM PDF File"
+      },
+      {
+        "_key": "pdf_ac32a784a22e4f3d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-4cc1c416e3ef38dc407ae436cbb8dccdc7a1e862-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-WM.pdf",
+        "title": "DOTTA-WM PDF File"
+      }
+    ],
+    "title": "DOTTA-WM"
+  },
+  {
+    "_id": "wp-product-25513",
+    "productPdfs": [
+      {
+        "_key": "pdf_ab88be7d8793fc84",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e22d804865306c9616a00cc953e072056929037d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/dotta-w3.pdf",
+        "title": "DOTTA-W3 PDF File"
+      },
+      {
+        "_key": "pdf_f972eebadabb38fc",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c62cfc7d577ef18915fd3de0ebb1f726c4bd9f78-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/Dotta-w3.pdf",
+        "title": "DOTTA-W3 PDF File"
+      },
+      {
+        "_key": "pdf_eca8fa2c3a2f7b05",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cd97a67e76f586410cbc46169b89ba56a382d571-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-W3.pdf",
+        "title": "DOTTA-W3 PDF File"
+      }
+    ],
+    "title": "DOTTA-W3"
+  },
+  {
+    "_id": "wp-product-25518",
+    "productPdfs": [
+      {
+        "_key": "pdf_2117970c1162c893",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5e19c81dc40bdae9aea25295515814b6bde717dd-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-swiv4p2.pdf",
+        "title": "DOTTA-SWIV4P2 PDF File"
+      },
+      {
+        "_key": "pdf_87f7ae4fef77632a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-3f068a51e0b1d7efcd86fa57d0f627e340819879-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-SWIV4P2.pdf",
+        "title": "DOTTA-SWIV4P2 PDF File"
+      }
+    ],
+    "title": "DOTTA-SWIV4P2"
+  },
+  {
+    "_id": "wp-product-25523",
+    "productPdfs": [
+      {
+        "_key": "pdf_1b27de2c82023bfc",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9ea77c824bee83be6b27dce7ca173c953d06336c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-swiv5pc-1.pdf",
+        "title": "DOTTA-SWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_0009df6cbb99f64a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-0b31781c872cb6185a0ce55678a491dcc1e89e7b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-swiv5pc.pdf",
+        "title": "DOTTA-SWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_2a0376438f45f8be",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5ef00765cd7992ef7df540279aebdf8c750b023f-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-SWIV5PC.pdf",
+        "title": "DOTTA-SWIV5PC PDF File"
+      }
+    ],
+    "title": "DOTTA-SWIV5PC"
+  },
+  {
+    "_id": "wp-product-25531",
+    "productPdfs": [
+      {
+        "_key": "pdf_c155ff6ca38144ba",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-59a599f8e58721b16d0b9900566b344e876253ef-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-wswiv4p.pdf",
+        "title": "DOTTA-WSWIV4P PDF File"
+      },
+      {
+        "_key": "pdf_b326f3b6b5f05af4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-eaac999667b57dbd2fdbeb6919b7b3c56a70529b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-WSWIV4P.pdf",
+        "title": "DOTTA-WSWIV4P PDF File"
+      }
+    ],
+    "title": "DOTTA-WSWIV4P"
+  },
+  {
+    "_id": "wp-product-25543",
+    "productPdfs": [
+      {
+        "_key": "pdf_32e68bca10b9ba16",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-bd6f9490e5216a6c21fbee1fe7156181ace3edf9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-5swiv.pdf",
+        "title": "DOTTA-5SWIV PDF File"
+      },
+      {
+        "_key": "pdf_b0cf7b6959245b14",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ee37a48dcb28c5058c4475f38e9aaf9e9bb65c07-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-5SWIV.pdf",
+        "title": "DOTTA-5SWIV PDF File"
+      }
+    ],
+    "title": "DOTTA-5SWIV"
+  },
+  {
+    "_id": "wp-product-25551",
+    "productPdfs": [
+      {
+        "_key": "pdf_edf75de59be520a6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f75ae16718a34577e1c16f1b0dac1a94911eb5fe-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/12/dotta-6swiv.pdf",
+        "title": "DOTTA-6SWIV PDF File"
+      },
+      {
+        "_key": "pdf_6ca049e5fe1cf9ab",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1f6b50ffe6678c33e0bb565a66e5bd11c45d4ebf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/DOTTA-6SWIV.pdf",
+        "title": "DOTTA-6SWIV PDF File"
+      }
+    ],
+    "title": "DOTTA-6SWIV"
+  },
+  {
+    "_id": "wp-product-25575",
+    "productPdfs": [
+      {
+        "_key": "pdf_a20537400bdf4919",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-52ec610d47c79c9e1f35fdcae4823c971c6d4720-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YM-1.pdf",
+        "title": "ASTA-YM PDF File"
+      },
+      {
+        "_key": "pdf_10e3c1e7607fe6ee",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a91c3dad75c536d09a08add2628a12e81af5712b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YM.pdf",
+        "title": "ASTA-YM PDF File"
+      }
+    ],
+    "title": "ASTA-YM"
+  },
+  {
+    "_id": "wp-product-25581",
+    "productPdfs": [
+      {
+        "_key": "pdf_cc5cccd855362668",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1bfa47d42c6d7223820cef49e03197660157a0cf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SLED-1.pdf",
+        "title": "ASTA-SLED PDF File"
+      },
+      {
+        "_key": "pdf_e85ee8c9985b3698",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d8469ddd07c192a94cee268d58218ff27089cf3d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SLED.pdf",
+        "title": "ASTA-SLED PDF File"
+      }
+    ],
+    "title": "ASTA-SLED"
+  },
+  {
+    "_id": "wp-product-25587",
+    "productPdfs": [
+      {
+        "_key": "pdf_d6e5eb59259dacbc",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6b5907c66ba12f8093fc1558337ada6b01af0c48-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSLED-1.pdf",
+        "title": "ASTA-YSLED PDF File"
+      },
+      {
+        "_key": "pdf_f0412f185f9ff9b7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-98cc2cea91468a2dfa5854cc96058d2bb1c57bee-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSLED.pdf",
+        "title": "ASTA-YSLED PDF File"
+      }
+    ],
+    "title": "ASTA-YSLED"
+  },
+  {
+    "_id": "wp-product-25591",
+    "productPdfs": [
+      {
+        "_key": "pdf_d3c266742661311d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ee5dc910276cb3fc636b2f0e47761961c1c257b3-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SWIV4P-1.pdf",
+        "title": "ASTA-SWIV4P PDF File"
+      },
+      {
+        "_key": "pdf_a1a52174f4c14e58",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f1b14b104e56bee3c7bc8c19420d604b2167fde6-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SWIV4P.pdf",
+        "title": "ASTA-SWIV4P PDF File"
+      }
+    ],
+    "title": "ASTA-SWIV4P"
+  },
+  {
+    "_id": "wp-product-25598",
+    "productPdfs": [
+      {
+        "_key": "pdf_17d746403c00a8cb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-748b0e866850f6bee5833d804ae24131599b8f27-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSWIV4P-1.pdf",
+        "title": "ASTA-YSWIV4P PDF File"
+      },
+      {
+        "_key": "pdf_e3ec947678c7e431",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1a9a35b645d152da577fb37133b72d547ca22710-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSWIV4P.pdf",
+        "title": "ASTA-YSWIV4P PDF File"
+      }
+    ],
+    "title": "ASTA-YSWIV4P"
+  },
+  {
+    "_id": "wp-product-25600",
+    "productPdfs": [
+      {
+        "_key": "pdf_54bc58f82498f9a7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-4f2ee2d19137c159591ea393259cff251321c796-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSWIV5PC-1.pdf",
+        "title": "ASTA-YSWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_b6750db4b3251a18",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-7702f03ade7eb92052a5529a93443a4156a092a8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSWIV5PC.pdf",
+        "title": "ASTA-YSWIV5PC PDF File"
+      }
+    ],
+    "title": "ASTA-YSWIV5PC"
+  },
+  {
+    "_id": "wp-product-25608",
+    "productPdfs": [
+      {
+        "_key": "pdf_67b8dbd338b88b71",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1d73f3ff71ea9cd6bbf2038c33d4bdbb087f76f7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SWIV5PC-1.pdf",
+        "title": "ASTA-SWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_8af516089bf16a34",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a8c824e28b9d6ee961036f5ae4b55550b264b836-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SWIV5PC.pdf",
+        "title": "ASTA-SWIV5PC PDF File"
+      }
+    ],
+    "title": "ASTA-SWIV5PC"
+  },
+  {
+    "_id": "wp-product-25616",
+    "productPdfs": [
+      {
+        "_key": "pdf_5e7b3e4899fc1a7e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e43de5479117de9cfad9e8e271fd918cd1b3744d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSWIV4P2-1.pdf",
+        "title": "ASTA-YSWIV4P2 PDF File"
+      },
+      {
+        "_key": "pdf_3b4bbd83d2ae7e2d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6fc96e664c3976cbcfa2a4b4273144725a8ea484-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YSWIV4P2.pdf",
+        "title": "ASTA-YSWIV4P2 PDF File"
+      }
+    ],
+    "title": "ASTA-YSWIV4P2"
+  },
+  {
+    "_id": "wp-product-25627",
+    "productPdfs": [
+      {
+        "_key": "pdf_71f46b746ebc6923",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1f7d8f266e37397448c4fe9f6e3c2b1732a1da68-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SWIV4P2-1.pdf",
+        "title": "ASTA-SWIV4P2 PDF File"
+      },
+      {
+        "_key": "pdf_78ab9348ab25c640",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b29d2890a59f289bd64dac444bdbed26a31bbbb2-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-SWIV4P2.pdf",
+        "title": "ASTA-SWIV4P2 PDF File"
+      }
+    ],
+    "title": "ASTA-SWIV4P2"
+  },
+  {
+    "_id": "wp-product-25628",
+    "productPdfs": [
+      {
+        "_key": "pdf_49d0d3437c46c9f5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-408be47246b853cb51cf00b3fe4fdbf90a703d25-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YW-1.pdf",
+        "title": "ASTA-YW PDF File"
+      },
+      {
+        "_key": "pdf_df128bbeb54dfe43",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8702e77b050a69d6dd3c2e1c938701130b63753b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YW.pdf",
+        "title": "ASTA-YW PDF File"
+      }
+    ],
+    "title": "ASTA-YW"
+  },
+  {
+    "_id": "wp-product-25640",
+    "productPdfs": [
+      {
+        "_key": "pdf_29c7855f41d35b5b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6fc505d3c9aced30467feffdf40c11a64362ff4f-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5YW-1.pdf",
+        "title": "ASTA-5YW PDF File"
+      },
+      {
+        "_key": "pdf_b065696658d83ea4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-77fbf330a28f602a0caf4586c16cdc4ce1629197-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5YW.pdf",
+        "title": "ASTA-5YW PDF File"
+      }
+    ],
+    "title": "ASTA-5YW"
+  },
+  {
+    "_id": "wp-product-25651",
+    "productPdfs": [
+      {
+        "_key": "pdf_688f54261f2d74ee",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2c613c2558090713f24d10e58547814f6f9c34dc-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5W-1.pdf",
+        "title": "ASTA-5W PDF File"
+      },
+      {
+        "_key": "pdf_88d55ffb4834ef0b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-43ebd1f9480aa5689f7632d614dbf59f579560d0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5W.pdf",
+        "title": "ASTA-5W PDF File"
+      }
+    ],
+    "title": "ASTA-5W"
+  },
+  {
+    "_id": "wp-product-25652",
+    "productPdfs": [
+      {
+        "_key": "pdf_70328e0f6b410445",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-24b653f1be60c1ca73c41ce475b593fee326e90e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6YW-1.pdf",
+        "title": "ASTA-6YW PDF File"
+      },
+      {
+        "_key": "pdf_6e176c5a6dc67984",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9e366609f99a3aa9430317535721dea4b4a015ec-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6YW-2.pdf",
+        "title": "ASTA-6YW PDF File"
+      },
+      {
+        "_key": "pdf_8b288477b44d57db",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a47f7c6564ab984b01edb138d653f265e20a89cc-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6YW.pdf",
+        "title": "ASTA-6YW PDF File"
+      }
+    ],
+    "title": "ASTA-6YW"
+  },
+  {
+    "_id": "wp-product-25655",
+    "productPdfs": [
+      {
+        "_key": "pdf_51e3f61699c53103",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-417430e0410074c787e652d1fd6eb34b3792833b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6W-1.pdf",
+        "title": "ASTA-6W PDF File"
+      },
+      {
+        "_key": "pdf_70f7e83e6672256e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-bd0578c500d0934946b8404914cebdf97cb45d80-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6W-2.pdf",
+        "title": "ASTA-6W PDF File"
+      },
+      {
+        "_key": "pdf_f1f9c6101fc6ed70",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ef8bcfdfdc7ba1a343fce0054e1cf1690eb17e10-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6W-3.pdf",
+        "title": "ASTA-6W PDF File"
+      },
+      {
+        "_key": "pdf_895e2d2bb087aa13",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ac7f2ded5a75cd19370b4e652949a31afa44590a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6W.pdf",
+        "title": "ASTA-6W PDF File"
+      }
+    ],
+    "title": "ASTA-6W"
+  },
+  {
+    "_id": "wp-product-25656",
+    "productPdfs": [
+      {
+        "_key": "pdf_d1329f96ebe8c1f7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-acb5d6b20d64903497e22477671c1805bb8b124b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-WSWIV4P-1.pdf",
+        "title": "ASTA-WSWIV4P PDF File"
+      },
+      {
+        "_key": "pdf_deba376efee943bf",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-dd2eadb287129cc18054d48bb9f36f20409e9f3f-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-WSWIV4P.pdf",
+        "title": "ASTA-WSWIV4P PDF File"
+      }
+    ],
+    "title": "ASTA-WSWIV4P"
+  },
+  {
+    "_id": "wp-product-25669",
+    "productPdfs": [
+      {
+        "_key": "pdf_156809af11f781c6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-db23c42d608931fc57e6830d0112b4a0dde9d6e7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YWSWIV4P-1.pdf",
+        "title": "ASTA-YWSWIV4P PDF File"
+      },
+      {
+        "_key": "pdf_518784b5468985f8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6aac69638b589409aef75d57c7ad29b30306ae13-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-YWSWIV4P.pdf",
+        "title": "ASTA-YWSWIV4P PDF File"
+      }
+    ],
+    "title": "ASTA-YWSWIV4P"
+  },
+  {
+    "_id": "wp-product-25670",
+    "productPdfs": [
+      {
+        "_key": "pdf_a7c0d467e8e5338e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-74dd7df8b4541ce5640c2c1ba18da6f6a4d97033-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6YSWIV-1.pdf",
+        "title": "ASTA-6YSWIV PDF File"
+      },
+      {
+        "_key": "pdf_7582da352d3e843c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-97eed7ef90f863d495294bb0ad380a24030677ea-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6YSWIV-2.pdf",
+        "title": "ASTA-6YSWIV PDF File"
+      },
+      {
+        "_key": "pdf_afc18d294daffeb4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ee691953f3dbfc4d9f1aa223093a903cca395b78-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6YSWIV.pdf",
+        "title": "ASTA-6YSWIV PDF File"
+      }
+    ],
+    "title": "ASTA-6YSWIV"
+  },
+  {
+    "_id": "wp-product-25689",
+    "productPdfs": [
+      {
+        "_key": "pdf_84f78027c99ddc70",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a57d16e7494403872625809ad427b4586fd98d77-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6SWIV-1.pdf",
+        "title": "ASTA-6SWIV PDF File"
+      },
+      {
+        "_key": "pdf_a3762df5d334c386",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-7c53f926d87e22aae7a87985477ecbc47a605a7d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6SWIV-2.pdf",
+        "title": "ASTA-6SWIV PDF File"
+      },
+      {
+        "_key": "pdf_96b93484fe9950d8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-362a1f9cdf9c3ce93ac6a9a95ce66131efaead0b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-6SWIV.pdf",
+        "title": "ASTA-6SWIV PDF File"
+      }
+    ],
+    "title": "ASTA-6SWIV"
+  },
+  {
+    "_id": "wp-product-25690",
+    "productPdfs": [
+      {
+        "_key": "pdf_30065d65a35ff624",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cd9defa93ef199fe7b7fe2ba29b9af9e7334f3c2-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5YSWIV-1.pdf",
+        "title": "ASTA-5YSWIV PDF File"
+      },
+      {
+        "_key": "pdf_57b0e85969512f42",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-52598e3c1681b59d89ab6fb5e5312dffca5e8041-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5YSWIV-2.pdf",
+        "title": "ASTA-5YSWIV PDF File"
+      },
+      {
+        "_key": "pdf_5cb01e90f93c4a6f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2da80fbd6bc931712d28fd440702b80863ff44f8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5YSWIV.pdf",
+        "title": "ASTA-5YSWIV PDF File"
+      }
+    ],
+    "title": "ASTA-5YSWIV"
+  },
+  {
+    "_id": "wp-product-25691",
+    "productPdfs": [
+      {
+        "_key": "pdf_b185a2d6dc286b8c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e57c4980c538d719cf0245f962adcbb50179ac06-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5SWIV-1.pdf",
+        "title": "ASTA-5SWIV PDF File"
+      },
+      {
+        "_key": "pdf_cdd591e1dec4c711",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b6cf50c5a924122e8d0844289f321e0dd09daf75-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/ASTA-5SWIV.pdf",
+        "title": "ASTA-5SWIV PDF File"
+      }
+    ],
+    "title": "ASTA-5SWIV"
+  },
+  {
+    "_id": "wp-product-25692",
+    "productPdfs": [
+      {
+        "_key": "pdf_36bf22f5b038ce2f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-151d9fdda79f77f78924b38686ebe922f9025758-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/07/GALA-1UO.pdf",
+        "title": "GALA-1UO PDF File"
+      },
+      {
+        "_key": "pdf_94ecb96a14c97f92",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1df2352d87e7eac425e6eb6c7b6bccf71f046532-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-1UO-1.pdf",
+        "title": "GALA-1UO PDF File"
+      },
+      {
+        "_key": "pdf_805dc1e327217ccd",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-072314d13c74c2daeebe3f6005dfe19b25c368bf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-1uo.pdf",
+        "title": "GALA-1UO PDF File"
+      },
+      {
+        "_key": "pdf_4b8cc769c0fe0174",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f31d904ae3e5b24c405f6ea087aae22037f11eb4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-1UO.pdf",
+        "title": "GALA-1UO PDF File"
+      }
+    ],
+    "title": "GALA-1UO"
+  },
+  {
+    "_id": "wp-product-25697",
+    "productPdfs": [
+      {
+        "_key": "pdf_b4d0576534c2633e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d691d668952691215b79bea1da352246dc4990f5-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-5uo-1.pdf",
+        "title": "GALA-5UO PDF File"
+      },
+      {
+        "_key": "pdf_f7856988cccb4f84",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f22dbca29773517edc0c2e84ad5c39d57f6021bf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-5UO.pdf",
+        "title": "GALA-5UO PDF File"
+      }
+    ],
+    "title": "GALA-5UO"
+  },
+  {
+    "_id": "wp-product-25708",
+    "productPdfs": [
+      {
+        "_key": "pdf_1991fef16371008f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-0ed59eba4b9d9933aff061aebd82b3d71de1f433-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-6uo-1.pdf",
+        "title": "GALA-6UO PDF File"
+      },
+      {
+        "_key": "pdf_d6a72719ca2f2d6d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a744af3cd31f99a044a4845febb85bc5dc975719-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-6UO.pdf",
+        "title": "GALA-6UO PDF File"
+      }
+    ],
+    "title": "GALA-6UO"
+  },
+  {
+    "_id": "wp-product-25709",
+    "productPdfs": [
+      {
+        "_key": "pdf_e678580279cee5ee",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-db127648552254431b74941bc1014dd113707453-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-6uoswiv.pdf",
+        "title": "GALA-6UOSWIV PDF File"
+      },
+      {
+        "_key": "pdf_f9d57b3cce9e3593",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f66973b377ac91824f36b68686f6a5c9bd2e02d1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-6UOSWIV.pdf",
+        "title": "GALA-6UOSWIV PDF File"
+      }
+    ],
+    "title": "GALA-6UOSWIV"
+  },
+  {
+    "_id": "wp-product-25717",
+    "productPdfs": [
+      {
+        "_key": "pdf_c48caf8966299c2a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a5f1ceb8c098392f7c6eaac7b3e6031804addf7c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-5uoswiv.pdf",
+        "title": "GALA-5UOSWIV PDF File"
+      },
+      {
+        "_key": "pdf_aa752ddaa22461c2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e8576fa982ee99a8596a3940d813d78c31c39dcb-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-5UOSWIV.pdf",
+        "title": "GALA-5UOSWIV PDF File"
+      },
+      {
+        "_key": "pdf_3aa8f95d28dfe84d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e72466aeeb70ab243527ac43a412dd1bc0bd633b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/GALA-5UOSWIV.pdf",
+        "title": "GALA-5UOSWIV PDF File"
+      }
+    ],
+    "title": "GALA-5UOSWIV"
+  },
+  {
+    "_id": "wp-product-25756",
+    "productPdfs": [
+      {
+        "_key": "pdf_833bd7a8bb3a4a9d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1362c00cfd5862764b5796a18266cf9ec2f89ae9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/mira-1sx2.pdf",
+        "title": "MIRA-1SX2 PDF File"
+      },
+      {
+        "_key": "pdf_b06bbee8d1b5f305",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-540ac261289c5bbad7bc4120192d85e58bc74087-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/MIRA-1SX2.pdf",
+        "title": "MIRA-1SX2 PDF File"
+      }
+    ],
+    "title": "MIRA-1SX2"
+  },
+  {
+    "_id": "wp-product-25757",
+    "productPdfs": [
+      {
+        "_key": "pdf_36cf948045eb42af",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-56e6bfa064613d75fe59dd394efecaabc7bb5807-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-5lb.pdf",
+        "title": "GALA-5LB PDF File"
+      },
+      {
+        "_key": "pdf_66eed041a61a6bc5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a844249322c4879713e2ff800f40194be0ea33ad-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-5LB.pdf",
+        "title": "GALA-5LB PDF File"
+      }
+    ],
+    "title": "GALA-5LB"
+  },
+  {
+    "_id": "wp-product-25782",
+    "productPdfs": [
+      {
+        "_key": "pdf_53f384c12d244ed7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6dc48505078ade403a2ce82a5963001eeead46eb-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/gala-6lb.pdf",
+        "title": "GALA-6LB PDF File"
+      },
+      {
+        "_key": "pdf_71b6d25e2d92ad5a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cd54ef8f639a8aa6ccec7fb54bfcd831d707488f-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/GALA-6LB.pdf",
+        "title": "GALA-6LB PDF File"
+      }
+    ],
+    "title": "GALA-6LB"
+  },
+  {
+    "_id": "wp-product-25783",
+    "productPdfs": [
+      {
+        "_key": "pdf_d1e1ac83a4655384",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9aa8103c041dcc15d7f378850d611faf0ddea2ae-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/mira-3x2-1.pdf",
+        "title": "MIRA-3X2 PDF File"
+      },
+      {
+        "_key": "pdf_9b6a3236eb803a92",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2c729729d8b3deab247a6274c9924f1fa38e5ed8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/MIRA-3X2.pdf",
+        "title": "MIRA-3X2 PDF File"
+      }
+    ],
+    "title": "MIRA-3X2"
+  },
+  {
+    "_id": "wp-product-25784",
+    "productPdfs": [
+      {
+        "_key": "pdf_6ceea9d42d9ecbb4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-470715f8bc6c25d0de16dee61ff4199fd893c099-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/mira-5x2-1.pdf",
+        "title": "MIRA-5X2 PDF File"
+      },
+      {
+        "_key": "pdf_bad8c025a9575b5d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-31c992ac442df9a90b628cb9562e1e4e50050f8b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/MIRA-5X2.pdf",
+        "title": "MIRA-5X2 PDF File"
+      }
+    ],
+    "title": "MIRA-5X2"
+  },
+  {
+    "_id": "wp-product-25785",
+    "productPdfs": [
+      {
+        "_key": "pdf_9a21abdedee77439",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d8a0577942d821e9ea76d885a16ec60aa77be702-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/mira-6x2-1.pdf",
+        "title": "MIRA-6X2 PDF File"
+      },
+      {
+        "_key": "pdf_5aa335bd1ebf1ddf",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ee2e4413683e0cf6aa51ab2617a9e21058daa0fc-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/MIRA-6X2.pdf",
+        "title": "MIRA-6X2 PDF File"
+      }
+    ],
+    "title": "MIRA-6X2"
+  },
+  {
+    "_id": "wp-product-25813",
+    "productPdfs": [
+      {
+        "_key": "pdf_4e4b47681b82fa1d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-319fa1e230d563650ceecf8c317e761719c5f606-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/opla-1w.pdf",
+        "title": "OPLA-1W PDF File"
+      },
+      {
+        "_key": "pdf_3d1e0384fdaf18c5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9c175f113966830a1498c46b258ce9736a73b48c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/OPLA-1W.pdf",
+        "title": "OPLA-1W PDF File"
+      }
+    ],
+    "title": "OPLA-1W"
+  },
+  {
+    "_id": "wp-product-25820",
+    "productPdfs": [
+      {
+        "_key": "pdf_44a17b17f9f6bdcd",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-57ae02d38acf692e091af6bd6169e4a378aa929e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/forte-1w.pdf",
+        "title": "FORTE-1W PDF File"
+      },
+      {
+        "_key": "pdf_f878f71dc777f5eb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6f9381827c6d3b72aa07a583e321a5df57215a83-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-1W.pdf",
+        "title": "FORTE-1W PDF File"
+      }
+    ],
+    "title": "FORTE-1W"
+  },
+  {
+    "_id": "wp-product-25828",
+    "productPdfs": [
+      {
+        "_key": "pdf_3f4fe9c6e05479ee",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-07e320c2e6efca55763f308dced2d11fa2e1ac33-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/forte-3w.pdf",
+        "title": "FORTE-3W PDF File"
+      },
+      {
+        "_key": "pdf_5c5edf9fe29a78fe",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1f4e7ea3482033205ebf54e8d0a06afb1fc5cc11-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-3W.pdf",
+        "title": "FORTE-3W PDF File"
+      }
+    ],
+    "title": "FORTE-3W"
+  },
+  {
+    "_id": "wp-product-25829",
+    "productPdfs": [
+      {
+        "_key": "pdf_605134acef11eaba",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-deb45c0a728185bd210bb5ccba413de3e65f0e19-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/opla-5w.pdf",
+        "title": "OPLA-5W PDF File"
+      },
+      {
+        "_key": "pdf_5eb85d496ebfa438",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a240abc091853b320135618634245fe499b4fd49-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/OPLA-5W.pdf",
+        "title": "OPLA-5W PDF File"
+      }
+    ],
+    "title": "OPLA-5W"
+  },
+  {
+    "_id": "wp-product-25830",
+    "productPdfs": [
+      {
+        "_key": "pdf_1aa1a2518a5ffb10",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-0dc8b220f6de5f1f8a03835b9910bc9ae88d5091-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/forte-5w.pdf",
+        "title": "FORTE-5W PDF File"
+      },
+      {
+        "_key": "pdf_47fad7c4b1d9ff26",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5390ff40c73ef0d2c6e6c9c48853da3b5516c8ab-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-5W.pdf",
+        "title": "FORTE-5W PDF File"
+      }
+    ],
+    "title": "FORTE-5W"
+  },
+  {
+    "_id": "wp-product-25831",
+    "productPdfs": [
+      {
+        "_key": "pdf_9d463302512adc41",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-30fd259eb976655820d141751b2a26e9af9da49b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/opla-6w.pdf",
+        "title": "OPLA-6W PDF File"
+      },
+      {
+        "_key": "pdf_464503f9462579b2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-13e75e195e93393e3ed5e85ff2c1f66eb586b033-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/OPLA-6W.pdf",
+        "title": "OPLA-6W PDF File"
+      }
+    ],
+    "title": "OPLA-6W"
+  },
+  {
+    "_id": "wp-product-25832",
+    "productPdfs": [
+      {
+        "_key": "pdf_b19f841c62ed7243",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-0316acfe3a815d963c77ad29b4273c7ea1e3ceff-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/forte-7w.pdf",
+        "title": "FORTE-7W PDF File"
+      },
+      {
+        "_key": "pdf_97eaf4f963e3ba7d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e951678641366efde8829f9520a59e5975aac804-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/12/FORTE-7W.pdf",
+        "title": "FORTE-7W PDF File"
+      }
+    ],
+    "title": "FORTE-7W"
+  },
+  {
+    "_id": "wp-product-26573",
+    "productPdfs": [
+      {
+        "_key": "pdf_3fdd494a3fef62e6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-68f6446e9644bc69f2ab85de35f171403cb3e3e7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/117-117S-Side-Chair.pdf",
+        "title": "#117 PDF File"
+      },
+      {
+        "_key": "pdf_66f072bdbba5bf5a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b052dc0fe0c9cfeb035df8180e246dd7c9432030-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/117.pdf",
+        "title": "#117 PDF File"
+      }
+    ],
+    "title": "#117"
+  },
+  {
+    "_id": "wp-product-26582",
+    "productPdfs": [
+      {
+        "_key": "pdf_31a7fafed14da7f4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-718ababfd2ad74f563760f08a6ce8d3778f1c6d6-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/12/317-317S-Armchair.pdf",
+        "title": "#317 PDF File"
+      },
+      {
+        "_key": "pdf_c1f60de350e9d561",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-df2d52601ee0d6d01a3950c2450e9104cd1e408e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/317.pdf",
+        "title": "#317 PDF File"
+      }
+    ],
+    "title": "#317"
+  },
+  {
+    "_id": "wp-product-26585",
+    "productPdfs": [
+      {
+        "_key": "pdf_4f66c24b51acd066",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e766fa053093b4eed03b7eedd2430f208f6ca5d8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/12/517-617-High-Seating.pdf",
+        "title": "#517 PDF File"
+      },
+      {
+        "_key": "pdf_ac1a90d975b16fec",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-54738a58e652e4f892f5f7b681f83c28469c0907-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/517.pdf",
+        "title": "#517 PDF File"
+      }
+    ],
+    "title": "#517"
+  },
+  {
+    "_id": "wp-product-26725",
+    "productPdfs": [
+      {
+        "_key": "pdf_145d3c328707e048",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6752a78bac23f4ba98d836f64cfd40df4304d22a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/Vita-SLED.pdf",
+        "title": "VITA-SLED PDF File"
+      },
+      {
+        "_key": "pdf_dd3408731bfcee6c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-be87291320f73bd851d192fa1e33dc32a7bf63cf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/VITA-SLED.pdf",
+        "title": "VITA-SLED PDF File"
+      }
+    ],
+    "title": "VITA-SLED"
+  },
+  {
+    "_id": "wp-product-26771",
+    "productPdfs": [
+      {
+        "_key": "pdf_4fdef697b11fb7cd",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d167b0dbd7ccf032ae3dae13f49c043038b41d28-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/Vita-SWIV5PC.pdf",
+        "title": "VITA-SWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_dd34e88e98d81831",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-36064579b1659db47c3b0da7eaad732d6873f9b1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2023/01/VITA-SWIV5PC.pdf",
+        "title": "VITA-SWIV5PC PDF File"
+      }
+    ],
+    "title": "VITA-SWIV5PC"
+  },
+  {
+    "_id": "wp-product-27830",
+    "productPdfs": [
+      {
+        "_key": "pdf_5c8db07ce3ebcf89",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6b374bd46f720eca8e191122079a7cc616976e83-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/STRATO-R4B-1.pdf",
+        "title": "STRATO-R4B PDF File"
+      },
+      {
+        "_key": "pdf_1be48ffcf32aba8b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d81f51c74949fe901e32c43f0ab3ec76c8e57c76-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/STRATO-R4B-2.pdf",
+        "title": "STRATO-R4B PDF File"
+      },
+      {
+        "_key": "pdf_8aa101fb255d008a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-17541a6428bf2c09f339707fc912b461e3e0e5c4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/STRATO-R4B-3.pdf",
+        "title": "STRATO-R4B PDF File"
+      },
+      {
+        "_key": "pdf_cd096fafc53fcaf5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d92b9ca758702282fe150dd585784fb279b7ac4d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/STRATO-R4B.pdf",
+        "title": "STRATO-R4B PDF File"
+      }
+    ],
+    "title": "STRATO-R4B"
+  },
+  {
+    "_id": "wp-product-29033",
+    "productPdfs": [
+      {
+        "_key": "pdf_3f20705ac828466a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-02c60fa298c611abd52e9d1c0ccd355c68f7cf19-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/Crema-5.pdf",
+        "title": "CREMA-5 PDF File"
+      },
+      {
+        "_key": "pdf_63137a88dda600c1",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c3ed32069b6c513771b76edb4b3bf857c9b94e0a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/CREMA-5.pdf",
+        "title": "CREMA-5 PDF File"
+      }
+    ],
+    "title": "CREMA-5"
+  },
+  {
+    "_id": "wp-product-29040",
+    "productPdfs": [
+      {
+        "_key": "pdf_50dac371ba5e7e08",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-70d3a153e95f4914d9906a9483424f6633d5f52d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/Crema-6.pdf",
+        "title": "CREMA-6 PDF File"
+      },
+      {
+        "_key": "pdf_2a51d3b4318f3083",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-fb19972bd84ae5b85b96941d4f718b231b901f00-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/CREMA-6.pdf",
+        "title": "CREMA-6 PDF File"
+      },
+      {
+        "_key": "pdf_9fc328b1eef361f2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8910dba90ae7220571a41694519c36c8662b29d0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/Crema-6.pdf",
+        "title": "CREMA-6 PDF File"
+      }
+    ],
+    "title": "CREMA-6"
+  },
+  {
+    "_id": "wp-product-29091",
+    "productPdfs": [
+      {
+        "_key": "pdf_9f34a6b39cf84598",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-13d8b1d7bd6ec0327b0dfff173df6d262e973d5d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-1.pdf",
+        "title": "LIBRO-1 PDF File"
+      },
+      {
+        "_key": "pdf_91e2807596ff1049",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c19a2d23f89245bf15c6d6f528268f9a8288f305-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-1.pdf",
+        "title": "LIBRO-1 PDF File"
+      }
+    ],
+    "title": "LIBRO-1"
+  },
+  {
+    "_id": "wp-product-29101",
+    "productPdfs": [
+      {
+        "_key": "pdf_8c8ce0e600907ae3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c7cbb81ff1bd3dd9f404a7a76039887f39c7fc1e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-3.pdf",
+        "title": "LIBRO-3 PDF File"
+      },
+      {
+        "_key": "pdf_96143a5e27609313",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-567566bb5b1d03f6542f04790a96f51b7d60792c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-3.pdf",
+        "title": "LIBRO-3 PDF File"
+      }
+    ],
+    "title": "LIBRO-3"
+  },
+  {
+    "_id": "wp-product-29102",
+    "productPdfs": [
+      {
+        "_key": "pdf_14dc16e055f4ee3e",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5f37f1d35c43173470c2466956fea7eec943559b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-5.pdf",
+        "title": "LIBRO-5 PDF File"
+      },
+      {
+        "_key": "pdf_fbe3c7b81189638d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a3794161ad4e411ff6cbf724a445a9c589972610-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-5.pdf",
+        "title": "LIBRO-5 PDF File"
+      }
+    ],
+    "title": "LIBRO-5"
+  },
+  {
+    "_id": "wp-product-29107",
+    "productPdfs": [
+      {
+        "_key": "pdf_8af4784385f3eb91",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6a6bd380af183fbae11ec82d0d2a64d4ac9dbb30-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-6.pdf",
+        "title": "LIBRO-6 PDF File"
+      },
+      {
+        "_key": "pdf_3c55528fd2853afb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a615f2bbb282e58a0296f2c249dbcdc75d1c396b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-6.pdf",
+        "title": "LIBRO-6 PDF File"
+      }
+    ],
+    "title": "LIBRO-6"
+  },
+  {
+    "_id": "wp-product-29108",
+    "productPdfs": [
+      {
+        "_key": "pdf_3587d5be691acf41",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f4207b7939b1550dba79158d825e9d8ca67c5ede-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-1SLED.pdf",
+        "title": "LIBRO-1SLED PDF File"
+      },
+      {
+        "_key": "pdf_56abadce7d2800a2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-377004e06154fa19d2ab9338925c16dfde874829-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-1SLED.pdf",
+        "title": "LIBRO-1SLED PDF File"
+      }
+    ],
+    "title": "LIBRO-1SLED"
+  },
+  {
+    "_id": "wp-product-29109",
+    "productPdfs": [
+      {
+        "_key": "pdf_12652dae051eee81",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-7fc5edb11a2a1047f8cfc40a5f464937686144f9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-5SLED.pdf",
+        "title": "LIBRO-5SLED PDF File"
+      },
+      {
+        "_key": "pdf_6ff1e3dd2afcb625",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c23c8341e638e9ae9846b5dc1ac98b2a7c51282a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-5SLED.pdf",
+        "title": "LIBRO-5SLED PDF File"
+      }
+    ],
+    "title": "LIBRO-5SLED"
+  },
+  {
+    "_id": "wp-product-29110",
+    "productPdfs": [
+      {
+        "_key": "pdf_f141c1626bcf83f8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2ddc682b0e0a41565925445a2af45a445ff5fb48-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-6SLED.pdf",
+        "title": "LIBRO-6SLED PDF File"
+      },
+      {
+        "_key": "pdf_7eb938a9f5c36aba",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-149c501f767fbcca9a88b71de3277a89ee33e1fa-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-6SLED.pdf",
+        "title": "LIBRO-6SLED PDF File"
+      }
+    ],
+    "title": "LIBRO-6SLED"
+  },
+  {
+    "_id": "wp-product-29111",
+    "productPdfs": [
+      {
+        "_key": "pdf_0f8ab9e6d02174b6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6744cdb88fc89938b1b3994a7a39049174e2e0b2-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/LIBRO-1SWIV5PC.pdf",
+        "title": "LIBRO-1SWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_03bc20ff769d69e4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-12f049529538d8d2a4fb907652172720f747b78b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-1SWIV5PC-1.pdf",
+        "title": "LIBRO-1SWIV5PC PDF File"
+      },
+      {
+        "_key": "pdf_c85a7fa713801789",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ab9ab9414631057da56bbec13afc648aa3fd6fd7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/LIBRO-1SWIV5PC.pdf",
+        "title": "LIBRO-1SWIV5PC PDF File"
+      }
+    ],
+    "title": "LIBRO-1SWIV5PC"
+  },
+  {
+    "_id": "wp-product-29120",
+    "productPdfs": [
+      {
+        "_key": "pdf_8a323c465151c3ff",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8e286bb27a548f3f11d290f6f2f3469fa0f4116c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/12/CORSO-7.pdf",
+        "title": "CORSO-7 PDF File"
+      },
+      {
+        "_key": "pdf_6345b92133454405",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-03a50360f4410fc6533187d7a970a4c7bf345532-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/CORSO-7.pdf",
+        "title": "CORSO-7 PDF File"
+      }
+    ],
+    "title": "CORSO-7"
+  },
+  {
+    "_id": "wp-product-29709",
+    "productPdfs": [
+      {
+        "_key": "pdf_001210d4ac3393df",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-85839718aba159fc87461f96aa17473e7f96f232-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/strato-q4ada-1.pdf",
+        "title": "STRATO-Q4ADA PDF File"
+      },
+      {
+        "_key": "pdf_7e7737bcc7e1e69f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-dd381ab78a672efdc1dee47a1263872d04680154-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/strato-q4ada-2.pdf",
+        "title": "STRATO-Q4ADA PDF File"
+      },
+      {
+        "_key": "pdf_b12d460bcf26c8df",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-34109c3fb8967b9cf5bc58311a8cd0cac6c0da4b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/strato-q4ada.pdf",
+        "title": "STRATO-Q4ADA PDF File"
+      },
+      {
+        "_key": "pdf_30365b9ed33e0130",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8e44c2e63922f542a440e2a62a89c1b2ac1fb40f-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/STRATO-Q4ADA.pdf",
+        "title": "STRATO-Q4ADA PDF File"
+      }
+    ],
+    "title": "STRATO-Q4ADA"
+  },
+  {
+    "_id": "wp-product-29719",
+    "productPdfs": [
+      {
+        "_key": "pdf_2d1d1693ca327380",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-88ac3d45b866d4f8b150829d5da8f040299f4d3b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/STRATO-Q4B-.pdf",
+        "title": "STRATO-Q4B PDF File"
+      },
+      {
+        "_key": "pdf_c84f951b9d5ecd6c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e014ea2b36a0450f9cc7ce0057285a657cf1cd4a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/03/strato-Q4B-.pdf",
+        "title": "STRATO-Q4B PDF File"
+      }
+    ],
+    "title": "STRATO-Q4B"
+  },
+  {
+    "_id": "wp-product-29733",
+    "productPdfs": [
+      {
+        "_key": "pdf_0bc50e6440eacdf5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-90393344ec564edf216425075d47d699bf59cc8a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/T184.pdf",
+        "title": "#T184 PDF File"
+      },
+      {
+        "_key": "pdf_54d42f86dd931fd4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-efc2d785aa91234665ec27470c55a7af3edc9e9d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2026/03/t184.pdf",
+        "title": "#T184 PDF File"
+      }
+    ],
+    "title": "#T184"
+  },
+  {
+    "_id": "wp-product-29864",
+    "productPdfs": [
+      {
+        "_key": "pdf_cfebb1b3e74315eb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1f246523c0466d70449009d20a75a1208c72ea65-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/08/909-909C.pdf",
+        "title": "#909C PDF File"
+      },
+      {
+        "_key": "pdf_a4d9e14e884352d0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cfc0dc38326a30c160ef539ecbe2d369f65c467d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/909-909C.pdf",
+        "title": "#909C PDF File"
+      }
+    ],
+    "title": "#909C"
+  },
+  {
+    "_id": "wp-product-40694",
+    "productPdfs": [
+      {
+        "_key": "pdf_1059efd374be6dba",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b0d5f783dba80794e7b76ab9fbc4c7ac8b4af8e0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/04/Arte-1UU.pdf",
+        "title": "ARTE-1UU PDF File"
+      },
+      {
+        "_key": "pdf_5c8835616b901f40",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-27521f18eb70545aedf895d6bab4f8b4b5659283-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2026/01/Arte-1UU-1.pdf",
+        "title": "ARTE-1UU PDF File"
+      },
+      {
+        "_key": "pdf_5c7626dfa6627b36",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-dc77dd9855b45dc11e6798e65f835ae9a1455265-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2026/01/Arte-1UU.pdf",
+        "title": "ARTE-1UU PDF File"
+      }
+    ],
+    "title": "ARTE-1UU"
+  },
+  {
+    "_id": "wp-product-40701",
+    "productPdfs": [
+      {
+        "_key": "pdf_2d068111e0fd0bc3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-748ebc398959f436572b9c106dbbe4a0902ec965-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/04/Arte-3UU.pdf",
+        "title": "ARTE-3UU PDF File"
+      },
+      {
+        "_key": "pdf_ba8d36e3068a0826",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cfcad77b25f666b36dd20fd91d7a41aa69aa0596-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2026/01/Arte-3UU-1.pdf",
+        "title": "ARTE-3UU PDF File"
+      },
+      {
+        "_key": "pdf_43f7d0aebf86d28f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ba4259417a5ab6dc943dff17a112cbe5152889b8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2026/01/Arte-3UU.pdf",
+        "title": "ARTE-3UU PDF File"
+      }
+    ],
+    "title": "ARTE-3UU"
+  },
+  {
+    "_id": "wp-product-41050",
+    "productPdfs": [
+      {
+        "_key": "pdf_a70bc8a5ab953b19",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9f84c2a3a30b3d40276396815b2d13beb0053351-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/solo-n.pdf",
+        "title": "SOLO-N PDF File"
+      },
+      {
+        "_key": "pdf_2c89d3cf236df3d9",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-decdf364bbe4b04d9f8f9a462c590cc9c12c8746-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/SOLO-N.pdf",
+        "title": "SOLO-N PDF File"
+      }
+    ],
+    "title": "SOLO-N"
+  },
+  {
+    "_id": "wp-product-41275",
+    "productPdfs": [
+      {
+        "_key": "pdf_97196456d47975b0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8e25883b667fe8a9a74103d8fbf63da4eff8b506-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/solo-m.pdf",
+        "title": "SOLO-M PDF File"
+      },
+      {
+        "_key": "pdf_21e797115df63694",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8d4558ffecca42076083d9eba5ce605b1bfc4433-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2022/01/SOLO-M.pdf",
+        "title": "SOLO-M PDF File"
+      }
+    ],
+    "title": "SOLO-M"
+  },
+  {
+    "_id": "wp-product-5888",
+    "productPdfs": [
+      {
+        "_key": "pdf_c6779cb0f743a450",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-3158675df4e963ab59e4d00efb5df5695e149fe1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/08/VALLE-W.pdf",
+        "title": "VALLE-W PDF File"
+      },
+      {
+        "_key": "pdf_c9e9bdcfddb81cf1",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a42498316fcbbc19ac7dcb99626da965da0913ea-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/VALLE-W.pdf",
+        "title": "VALLE-W PDF File"
+      }
+    ],
+    "title": "VALLE-W"
+  },
+  {
+    "_id": "wp-product-5927",
+    "productPdfs": [
+      {
+        "_key": "pdf_f3637157dab1012c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ea08d2cb501246a627008eab4028576c1475f988-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/08/Aceray-TEMPO-1-spec-sheet.pdf",
+        "title": "Aceray - TEMPO-1 - spec sheet"
+      },
+      {
+        "_key": "pdf_4f14acd59b519491",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ecd90e92bd965bdee47031f3513a5b7779e05667-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/TEMPO-1.pdf",
+        "title": "TEMPO-1 PDF File"
+      }
+    ],
+    "title": "TEMPO-1"
+  },
+  {
+    "_id": "wp-product-5935",
+    "productPdfs": [
+      {
+        "_key": "pdf_bb13bb2a56df9827",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6af3800d4f77b80109872eb63986576990f789c4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/08/Aceray-TEMPO-3-spec-sheet.pdf",
+        "title": "Aceray - TEMPO-3 - spec sheet"
+      },
+      {
+        "_key": "pdf_f5eff85c93dd119d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8e539def82c81098b22a99d4a917398fccc049bf-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/TEMPO-3.pdf",
+        "title": "TEMPO-3 PDF File"
+      }
+    ],
+    "title": "TEMPO-3"
+  },
+  {
+    "_id": "wp-product-5936",
+    "productPdfs": [
+      {
+        "_key": "pdf_eeb93f3a551b194f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5dd3e31e72f81a4c44af34630d643c5f9cd6e309-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/08/Aceray-TEMPO-5-spec-sheet.pdf",
+        "title": "Aceray - TEMPO-5 - spec sheet"
+      },
+      {
+        "_key": "pdf_c435fcfba41ae9ab",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c97f6632eccf9d19c8a6190bf92e0ca92c90e592-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/TEMPO-5.pdf",
+        "title": "TEMPO-5 PDF File"
+      }
+    ],
+    "title": "TEMPO-5"
+  },
+  {
+    "_id": "wp-product-5937",
+    "productPdfs": [
+      {
+        "_key": "pdf_8829fb411918df1f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e73979939be75d2ffc1a6d53f3ad1a2dbcbc1bd0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/08/Aceray-TEMPO-6-spec-sheet.pdf",
+        "title": "Aceray - TEMPO-6 - spec sheet"
+      },
+      {
+        "_key": "pdf_d14f120ceb5e0d56",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-01ab8ae990117fa39c5bd790ab6eaf4bc4852539-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/TEMPO-6.pdf",
+        "title": "TEMPO-6 PDF File"
+      }
+    ],
+    "title": "TEMPO-6"
+  },
+  {
+    "_id": "wp-product-6126",
+    "productPdfs": [
+      {
+        "_key": "pdf_c230d9a7fe46e97d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1bdff9653b15a95e9dbab8e20382cf4dcba0320a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/12/SOLO-G.pdf",
+        "title": "SOLO-G PDF File"
+      },
+      {
+        "_key": "pdf_d5633bc9cc7cd4e9",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-037c49148f4b7deba9cee9c03ce8f6cd41559b21-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/SOLO-G.pdf",
+        "title": "SOLO-G PDF File"
+      },
+      {
+        "_key": "pdf_350e8359028a9d91",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-32dfa639352c290ce73268ecdbe0b0ee4f54f405-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/03/Aceray-SOLO-G.pdf",
+        "title": "SOLO-G PDF File"
+      }
+    ],
+    "title": "SOLO-G"
+  },
+  {
+    "_id": "wp-product-6129",
+    "productPdfs": [
+      {
+        "_key": "pdf_ad621e8b255ecbae",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cc934441816e8a320c89006b9d5f71c03276ba9d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2017/12/SOLO-GQ.pdf",
+        "title": "SOLO-GQ PDF File"
+      },
+      {
+        "_key": "pdf_2486c1d329afb1e7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c2d6c21dceed9dd3913bc1c3d0bd801efc2f2b92-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/SOLO-GQ.pdf",
+        "title": "SOLO-GQ PDF File"
+      },
+      {
+        "_key": "pdf_64b37ce929953c2a",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d65db043734999f2f7c52ad14463c6f2a257dc30-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/03/Aceray-SOLO-GQ.pdf",
+        "title": "SOLO-GQ PDF File"
+      }
+    ],
+    "title": "SOLO-GQ"
+  },
+  {
+    "_id": "wp-product-6235",
+    "productPdfs": [
+      {
+        "_key": "pdf_bf7957d2ed7ba860",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-89b85bf53d734a12a327bb3558c1c563de8f1d8e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/01/ALMEA-1S.pdf",
+        "title": "ALMEA-1S PDF File"
+      },
+      {
+        "_key": "pdf_0fad656269df02e9",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-89b85bf53d734a12a327bb3558c1c563de8f1d8e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/ALMEA-1S.pdf",
+        "title": "ALMEA-1S PDF File"
+      }
+    ],
+    "title": "ALMEA-1S"
+  },
+  {
+    "_id": "wp-product-6236",
+    "productPdfs": [
+      {
+        "_key": "pdf_ac8401db34358a02",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f189d12c2b34becd51dd4235a229cfb4db73d1d4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/GRADO-1.pdf",
+        "title": "GRADO-1 PDF File"
+      },
+      {
+        "_key": "pdf_4350e3115b261fa3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f189d12c2b34becd51dd4235a229cfb4db73d1d4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/GRADO-1.pdf",
+        "title": "GRADO-1 PDF File"
+      }
+    ],
+    "title": "GRADO-1"
+  },
+  {
+    "_id": "wp-product-6345",
+    "productPdfs": [
+      {
+        "_key": "pdf_d49ca83284500017",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ec8af3501f981659625b61221f951ab5a8448e2d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/02/VISTA-1.pdf",
+        "title": "VISTA-1 PDF File"
+      },
+      {
+        "_key": "pdf_262cc8ad7e3b1674",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-551c98b8853b4613a7c78e6aadd241b8e0b3e4d0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/VISTA-1.pdf",
+        "title": "VISTA-1 PDF File"
+      }
+    ],
+    "title": "VISTA-1"
+  },
+  {
+    "_id": "wp-product-6371",
+    "productPdfs": [
+      {
+        "_key": "pdf_f2a70cd112feb513",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-4ce1f75db6e76c705505eba5bf45b128f6331a2a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/02/VALLE-6W.pdf",
+        "title": "VALLE-6W PDF File"
+      },
+      {
+        "_key": "pdf_1c74d5f934d5a27d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-da6ddd5a62855bf51a16706e2c120d7fb1df5bdc-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/VALLE-6W.pdf",
+        "title": "VALLE-6W PDF File"
+      }
+    ],
+    "title": "VALLE-6W"
+  },
+  {
+    "_id": "wp-product-6498",
+    "productPdfs": [
+      {
+        "_key": "pdf_f46a77bf84cb030f",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2de30bf9aec80785274846081426d6a706b0e48b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/046XL.pdf",
+        "title": "#046XL PDF File"
+      },
+      {
+        "_key": "pdf_d1b5c48f1b18ae94",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-bb24ab9b1b90fe86c6cf20cf0009dced9df1ebac-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/05/Aceray-046XL-spec-sheet.pdf",
+        "title": "Aceray - 046XL - spec sheet"
+      }
+    ],
+    "title": "#046XL"
+  },
+  {
+    "_id": "wp-product-6539",
+    "productPdfs": [
+      {
+        "_key": "pdf_0a76ab7b4fc02136",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b8c5c445981092f476f58581efb7c63de041dc5b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/08/Aceray-117UO-spec-sheet.pdf",
+        "title": "Aceray - 117UO - spec sheet"
+      },
+      {
+        "_key": "pdf_c4b7ad13c7a92071",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-0f2a01efec7e6db11850ba9f9ca210272d2c0279-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/117UO.pdf",
+        "title": "#117UO PDF File"
+      },
+      {
+        "_key": "pdf_386acf6baad96ee6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-0f2a01efec7e6db11850ba9f9ca210272d2c0279-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/08/117UO.pdf",
+        "title": "#117UO PDF File"
+      }
+    ],
+    "title": "#117UO"
+  },
+  {
+    "_id": "wp-product-6547",
+    "productPdfs": [
+      {
+        "_key": "pdf_61981c00ab4ff8f5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2d7448382024e2f38c2e6d8d0546e475ec087d86-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/317UO.pdf",
+        "title": "#317UO PDF File"
+      },
+      {
+        "_key": "pdf_f93d58535488deb3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d8ccd236fe3c39ee0bc1cb712e436c30e549e21c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/08/Aceray-317UO-spec-sheet.pdf",
+        "title": "Aceray - 317UO - spec sheet"
+      },
+      {
+        "_key": "pdf_ad5e4ac3d3ce64bd",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2d7448382024e2f38c2e6d8d0546e475ec087d86-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/08/317UO.pdf",
+        "title": "#317UO PDF File"
+      }
+    ],
+    "title": "#317UO"
+  },
+  {
+    "_id": "wp-product-6762",
+    "productPdfs": [
+      {
+        "_key": "pdf_bd4394832b7dd328",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-378a413464fdd2274a764a94785eded3a96f74a0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/TABOUR-D6.pdf",
+        "title": "TABOUR-D6 PDF File"
+      },
+      {
+        "_key": "pdf_428dee128dd3aabe",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-3f178eebe7f724c89c786d3561dfccf817dd6020-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/TABOUR-D6.pdf",
+        "title": "TABOUR-D6 PDF File"
+      }
+    ],
+    "title": "TABOUR-D6"
+  },
+  {
+    "_id": "wp-product-6763",
+    "productPdfs": [
+      {
+        "_key": "pdf_1b68eebcded40143",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-123fff6b7620b0050debc80847a00d7bff53c3d7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/TABOUR-G1.pdf",
+        "title": "TABOUR-G1 PDF File"
+      },
+      {
+        "_key": "pdf_9a65716071bd0c8d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-123fff6b7620b0050debc80847a00d7bff53c3d7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/TABOUR-G1.pdf",
+        "title": "TABOUR-G1 PDF File"
+      }
+    ],
+    "title": "TABOUR-G1"
+  },
+  {
+    "_id": "wp-product-6764",
+    "productPdfs": [
+      {
+        "_key": "pdf_5905c3b9f8ebcd76",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e4838546ac5da5d2e8f69cbe01a528342d99a6ee-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/TABOUR-G5.pdf",
+        "title": "TABOUR-G5 PDF File"
+      },
+      {
+        "_key": "pdf_19401ba074127eb4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e4838546ac5da5d2e8f69cbe01a528342d99a6ee-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/TABOUR-G5.pdf",
+        "title": "TABOUR-G5 PDF File"
+      }
+    ],
+    "title": "TABOUR-G5"
+  },
+  {
+    "_id": "wp-product-6765",
+    "productPdfs": [
+      {
+        "_key": "pdf_bdb486a8c4ce3836",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1347000c125647b19eff104f6ed44c5cc2e87cc5-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/03/TABOUR-G6.pdf",
+        "title": "TABOUR-G6 PDF File"
+      },
+      {
+        "_key": "pdf_65a97100cc457752",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1347000c125647b19eff104f6ed44c5cc2e87cc5-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/TABOUR-G6.pdf",
+        "title": "TABOUR-G6 PDF File"
+      }
+    ],
+    "title": "TABOUR-G6"
+  },
+  {
+    "_id": "wp-product-6834",
+    "productPdfs": [
+      {
+        "_key": "pdf_2e0dab52c10453bb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c13cbe03c04989ccc634ac64fb5b455f4c231b9e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/CANTO-0.pdf",
+        "title": "CANTO-0 PDF File"
+      },
+      {
+        "_key": "pdf_22bd9666f4d92288",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-7ebda39860de3727f7bffee7392d8d66a58f8d4a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/CANTO-0.pdf",
+        "title": "CANTO-0 PDF File"
+      }
+    ],
+    "title": "CANTO-0"
+  },
+  {
+    "_id": "wp-product-6842",
+    "productPdfs": [
+      {
+        "_key": "pdf_c60959ce402acd40",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-3c720b2b6500c1ccbf5c65a1649c4d790791c11c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/CANTO-5NB.pdf",
+        "title": "CANTO-5NB PDF File"
+      },
+      {
+        "_key": "pdf_a3805c5b301cada9",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-47a245c7bc61730d3cd1b88f49bbfcf7835695c1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/CANTO-5NB.pdf",
+        "title": "CANTO-5NB PDF File"
+      }
+    ],
+    "title": "CANTO-5NB"
+  },
+  {
+    "_id": "wp-product-6843",
+    "productPdfs": [
+      {
+        "_key": "pdf_9e57c2c4a2f4a959",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c5308f47da79b1c68738c0eefc0266413411856e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/CANTO-6NB.pdf",
+        "title": "CANTO-6NB PDF File"
+      },
+      {
+        "_key": "pdf_3b7ccdd55c80fbbb",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c5308f47da79b1c68738c0eefc0266413411856e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/CANTO-6NB.pdf",
+        "title": "CANTO-6NB PDF File"
+      }
+    ],
+    "title": "CANTO-6NB"
+  },
+  {
+    "_id": "wp-product-7051",
+    "productPdfs": [
+      {
+        "_key": "pdf_d5a73cf3e0d5f4a7",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f7d2936eca0ef7b41d65ed3f66ed3479ae752ac7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/183-specs.pdf",
+        "title": "183 specs"
+      },
+      {
+        "_key": "pdf_722148e7208ebf86",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-01508668e1e58c6a1994945f3168cd93953349ba-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/183.pdf",
+        "title": "#183 PDF File"
+      }
+    ],
+    "title": "#183"
+  },
+  {
+    "_id": "wp-product-7142",
+    "productPdfs": [
+      {
+        "_key": "pdf_9ce3c1388c3d7dfe",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d9317316ee4d8e5b57e70e3115c972d0fb2a7a6f-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/283LOVENS.pdf",
+        "title": "#283LOVENS PDF File"
+      },
+      {
+        "_key": "pdf_2ca6ab1b294e7e57",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5b0cf4e23bcae576825d5f9f4137adb7b1e7ec4e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/283LOVENS.pdf",
+        "title": "#283LOVENS PDF File"
+      }
+    ],
+    "title": "#283LOVENS"
+  },
+  {
+    "_id": "wp-product-7149",
+    "productPdfs": [
+      {
+        "_key": "pdf_887359625656e3e4",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6e0cde9761c3b889400af42fb76f94d88e2d68d2-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/383-1.pdf",
+        "title": "#383 PDF File"
+      },
+      {
+        "_key": "pdf_651b65ac0357db8b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-2422fd8c6e81cbb7350e0f589645d0278b69b8a0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/383-specs.pdf",
+        "title": "383 specs"
+      }
+    ],
+    "title": "#383"
+  },
+  {
+    "_id": "wp-product-7184",
+    "productPdfs": [
+      {
+        "_key": "pdf_a223d3246ebd30d5",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9bdbf1c5cb9c6f8fcbfdffecb7ba2df321410777-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/04/583.pdf",
+        "title": "#583 PDF File"
+      },
+      {
+        "_key": "pdf_7c82dc592a069ed3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-3d67c429434752cfaf792d37d6d2502a8d1166fd-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/Aceray-583-spec-sheet.pdf",
+        "title": "Aceray - 583 spec sheet"
+      }
+    ],
+    "title": "#583"
+  },
+  {
+    "_id": "wp-product-7489",
+    "productPdfs": [
+      {
+        "_key": "pdf_50d4173cd20fcb03",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-9826e99b3cb80ec9d3ef004e6cd745e90f77794a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/08/803.pdf",
+        "title": "#803 PDF File"
+      },
+      {
+        "_key": "pdf_e662b66696abe5a6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-665cbdcf2ea2d0d28d5e87a4e5371a7633f123d1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/05/Aceray-803-spec-sheet.pdf",
+        "title": "Aceray - #803 spec sheet"
+      }
+    ],
+    "title": "#803"
+  },
+  {
+    "_id": "wp-product-7983",
+    "productPdfs": [
+      {
+        "_key": "pdf_4ce440bcb30ea996",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c1592ed72f58dd3a6a3450d19c390db99cfe52dd-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/BALLO-5.pdf",
+        "title": "BALLO-5 PDF File"
+      },
+      {
+        "_key": "pdf_5c830f64b75a7730",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5901527a8bd2dee0e54b98905515e7bbfbc0bfb8-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/01/BALLO-5.pdf",
+        "title": "BALLO-5 PDF File"
+      }
+    ],
+    "title": "BALLO-5"
+  },
+  {
+    "_id": "wp-product-8020",
+    "productPdfs": [
+      {
+        "_key": "pdf_7b25eec5389c43ce",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-00c89993eb296eaf0cb780925a6e6306a89a8555-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/BOLIDE36-1.pdf",
+        "title": "BOLIDE36 PDF File"
+      },
+      {
+        "_key": "pdf_f8edd4d8ed21cba8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-00c89993eb296eaf0cb780925a6e6306a89a8555-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/BOLIDE36.pdf",
+        "title": "BOLIDE36 PDF File"
+      },
+      {
+        "_key": "pdf_626ebfae8a25b0b8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-00c89993eb296eaf0cb780925a6e6306a89a8555-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/BOLIDE36.pdf",
+        "title": "BOLIDE36 PDF File"
+      }
+    ],
+    "title": "BOLIDE36"
+  },
+  {
+    "_id": "wp-product-8023",
+    "productPdfs": [
+      {
+        "_key": "pdf_8465051a94724a5c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-36f8865ef56a0746522689a24d58dbe1a9c3ec7b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/BOLIDE63-1.pdf",
+        "title": "BOLIDE63 PDF File"
+      },
+      {
+        "_key": "pdf_31b7b88e94d81a92",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-36f8865ef56a0746522689a24d58dbe1a9c3ec7b-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/BOLIDE63.pdf",
+        "title": "BOLIDE63 PDF File"
+      },
+      {
+        "_key": "pdf_df5d3d736c0229e2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-8e5d2893361c24428d1bfda16d9a9c3059873650-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/Aceray-BOLIDE63.pdf",
+        "title": "BOLIDE63 PDF File"
+      }
+    ],
+    "title": "BOLIDE63"
+  },
+  {
+    "_id": "wp-product-8026",
+    "productPdfs": [
+      {
+        "_key": "pdf_69d3e2a11767a9fe",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6962c1dad25150cba99675b9de6928347357a920-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/12/BOLIDE79-1.pdf",
+        "title": "BOLIDE79 PDF File"
+      },
+      {
+        "_key": "pdf_d09a2650689234c0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-6962c1dad25150cba99675b9de6928347357a920-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/BOLIDE79.pdf",
+        "title": "BOLIDE79 PDF File"
+      },
+      {
+        "_key": "pdf_de6a3097443f10b8",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-d0ca736e769b637d2b6e413fcd725f2aeaa9dd41-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/Aceray-BOLIDE79.pdf",
+        "title": "BOLIDE79 PDF File"
+      }
+    ],
+    "title": "BOLIDE79"
+  },
+  {
+    "_id": "wp-product-8057",
+    "productPdfs": [
+      {
+        "_key": "pdf_2978f8b2382ead54",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-e99bb54b410d3a1c3daba93066c1b28a2bc2a7b0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/05/UNICO.pdf",
+        "title": "UNICO PDF File"
+      },
+      {
+        "_key": "pdf_e0d0b825035b748b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f71ca6cf7d41760a83c80318df51b7f4f531483a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/11/Aceray-Unico-OTSWIV-specs.pdf",
+        "title": "Aceray - Unico-OTSWIV - specs"
+      },
+      {
+        "_key": "pdf_e6b21a7de9bfabe0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b73b4ff5c2ecd1481de98ec8c2b3ed33ff277f3a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/12/Unico-1-chair.pdf",
+        "title": "UNICO PDF File"
+      },
+      {
+        "_key": "pdf_304bdf69d5e42def",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f8dcaef2f66de3c4e9b7575227157fd6351036f9-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/12/unico-5-6.pdf",
+        "title": "UNICO PDF File"
+      },
+      {
+        "_key": "pdf_bae2a73598473c77",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-bdf52c92df1d91881c6bbdfcd277fe7d986b3461-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/04/unico-1-1.pdf",
+        "title": "UNICO PDF File"
+      },
+      {
+        "_key": "pdf_be5f3dab70d5ff95",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-4e1a2d42807dc814f03be0c78146c5625c377af0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2021/04/unico-5-6-b.pdf",
+        "title": "UNICO PDF File"
+      }
+    ],
+    "title": "UNICO"
+  },
+  {
+    "_id": "wp-product-8065",
+    "productPdfs": [
+      {
+        "_key": "pdf_ff8a872bc0125f97",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ce434bdd443b98ac27f1663cd9120b9e17e248a0-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/spazio-bag-drawings2.pdf",
+        "title": "SPAZIO PDF File"
+      },
+      {
+        "_key": "pdf_71d4f3c33491e093",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f6a37333973ba8583affff42ba608e72c60e2693-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/Aceray-SPAZIO-spec-sheet.pdf",
+        "title": "Aceray - SPAZIO - spec sheet"
+      }
+    ],
+    "title": "SPAZIO"
+  },
+  {
+    "_id": "wp-product-8071",
+    "productPdfs": [
+      {
+        "_key": "pdf_9909134217bc0294",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-cf3ea3951dfb020846ef0972d6fade25de4e0529-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/01/MISTO-CRV.pdf",
+        "title": "MISTO-CRV PDF File"
+      },
+      {
+        "_key": "pdf_eac655e9f1fcf191",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-f8ed1973a3376547052a547a53a510499c24c8ca-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/02/MISTO-CRV.pdf",
+        "title": "MISTO-CRV PDF File"
+      },
+      {
+        "_key": "pdf_e58af8ec7f0dda6c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1002da1297bd697970024cfb0a317e72f29a9a8d-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/06/Aceray-MISTO-CRV-spec-sheet.pdf",
+        "title": "Aceray - MISTO-CRV spec sheet"
+      }
+    ],
+    "title": "MISTO-CRV"
+  },
+  {
+    "_id": "wp-product-8317",
+    "productPdfs": [
+      {
+        "_key": "pdf_c5a4fbe1496aecc6",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-120b47fb45c2e445f7ccadb28c5f822c85985b2a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/STRATO-ADA-1.pdf",
+        "title": "STRATO-ADA PDF File"
+      },
+      {
+        "_key": "pdf_fd6496746075e50d",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-ef7aacdf6f90f9c7ba0bb1dfb8d27ebd8c52c35c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/STRATO-ADA.pdf",
+        "title": "STRATO-ADA PDF File"
+      },
+      {
+        "_key": "pdf_be4adf90b343029b",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-584d2c88104a332f37932ae780c2562ced2f50da-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/strato-4-ADA.pdf",
+        "title": "STRATO-ADA PDF File"
+      },
+      {
+        "_key": "pdf_6f884bc7dfda6959",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-837006349dbd3657c9e4b0d2fab79b5ce9388952-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/01/strato-4-ADA.pdf",
+        "title": "STRATO-ADA PDF File"
+      }
+    ],
+    "title": "STRATO-ADA"
+  },
+  {
+    "_id": "wp-product-8857",
+    "productPdfs": [
+      {
+        "_key": "pdf_2cd4665628e7cf80",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5e89fe21543941282e93ecefea5572a6bdd823d5-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/500-01-1.pdf",
+        "title": "#500-01 PDF File"
+      },
+      {
+        "_key": "pdf_3ef95b85195f55f3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-5e89fe21543941282e93ecefea5572a6bdd823d5-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/500-01.pdf",
+        "title": "#500-01 PDF File"
+      }
+    ],
+    "title": "#500-01"
+  },
+  {
+    "_id": "wp-product-8864",
+    "productPdfs": [
+      {
+        "_key": "pdf_4823b69968b5fff2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-30a9d93a701ae48c9a75426e8c4f409ede30d869-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/600-01-1.pdf",
+        "title": "#600-01 PDF File"
+      },
+      {
+        "_key": "pdf_2fcaa54043850196",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-30a9d93a701ae48c9a75426e8c4f409ede30d869-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/600-01.pdf",
+        "title": "#600-01 PDF File"
+      }
+    ],
+    "title": "#600-01"
+  },
+  {
+    "_id": "wp-product-8945",
+    "productPdfs": [
+      {
+        "_key": "pdf_badf3e76fd417f74",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-52c91bcbf4477fbaee92395806add920b87c50f7-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/MANO-1.pdf",
+        "title": "MANO-1 PDF File"
+      },
+      {
+        "_key": "pdf_ca29d9d008bbd407",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-593a1b488b04c2c37a38d66607cdf5c9a671f487-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/05/Aceray-MANO-1-spec-sheet.pdf",
+        "title": "Aceray - MANO-1-spec sheet"
+      }
+    ],
+    "title": "MANO-1"
+  },
+  {
+    "_id": "wp-product-8963",
+    "productPdfs": [
+      {
+        "_key": "pdf_0a90312921e38a41",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-51bfca8a0ea26a051dc790f2de072db690f1a816-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/04/MANO-5.pdf",
+        "title": "MANO-5 PDF File"
+      },
+      {
+        "_key": "pdf_38974202c42db9cc",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-52b9441ff1314b821d4f80cd5a8ce6105a9b199c-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2020/05/Aceray-MANO-5-spec-sheet.pdf",
+        "title": "Aceray - MANO-5-spec sheet"
+      }
+    ],
+    "title": "MANO-5"
+  },
+  {
+    "_id": "wp-product-9799",
+    "productPdfs": [
+      {
+        "_key": "pdf_1e53a246ec52554c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-c76789fb581cdec5742905ea9c9e88e423b1aa8e-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2018/05/T145.pdf",
+        "title": "#T145 PDF File"
+      },
+      {
+        "_key": "pdf_1a658aa1549ecc90",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-b30844f29de03a07992af969902eeb0c4f285cca-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/t145.pdf",
+        "title": "#T145 PDF File"
+      },
+      {
+        "_key": "pdf_7f783594c81ccfe2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-084673b7e9a37aa6c9374424ce7e92b097f26176-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/04/T145.pdf",
+        "title": "#T145 PDF File"
+      }
+    ],
+    "title": "#T145"
+  },
+  {
+    "_id": "wp-product-9800",
+    "productPdfs": [
+      {
+        "_key": "pdf_158d5e8e676f46c2",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-003dd106129dbc2e88bc3c85cb9a8afe86be09f4-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/05/T180.pdf",
+        "title": "#T180 PDF File"
+      },
+      {
+        "_key": "pdf_1e4e1f80b80392a3",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-df39405d2b88539680635fe519efad338096f2b1-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/t180-2024.pdf",
+        "title": "#T180 PDF File"
+      },
+      {
+        "_key": "pdf_46c7d5c42e838d95",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-93ccb3811f983a81aad7d8a0db6a07ef784d7235-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/01/t180.pdf",
+        "title": "#T180 PDF File"
+      },
+      {
+        "_key": "pdf_d278b6e36feefc7c",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-76cfe414d607845e357528e0ed91dc800e7ccb45-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/04/T180-1.pdf",
+        "title": "#T180 PDF File"
+      },
+      {
+        "_key": "pdf_ee1257b5095a15e0",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-74e8cdf6f5a0b6687cbcf3d82f89957f8cac69de-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/04/t180.pdf",
+        "title": "#T180 PDF File"
+      },
+      {
+        "_key": "pdf_2e94df15b056e1a9",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-1dd764605b31aabbb918740483152d3a896cca51-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2024/04/T180.pdf",
+        "title": "#T180 PDF File"
+      },
+      {
+        "_key": "pdf_1aa1010633fa9106",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-bf4e0e9e0229164e4a81e4047b2fd6879091df56-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2025/03/t180.pdf",
+        "title": "#T180 PDF File"
+      }
+    ],
+    "title": "#T180"
+  },
+  {
+    "_id": "wp-product-9854",
+    "productPdfs": [
+      {
+        "_key": "pdf_22ab959357d0d807",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a2890e981a57c4019a269874085f0ac1866fc16a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/03/120-02.pdf",
+        "title": "#120-02 PDF File"
+      },
+      {
+        "_key": "pdf_e78c61d1b38693c1",
+        "_type": "object",
+        "file": {
+          "_type": "file",
+          "asset": {
+            "_ref": "file-a2890e981a57c4019a269874085f0ac1866fc16a-pdf",
+            "_type": "reference"
+          }
+        },
+        "sourceUrl": "https://aceray.com/wp-content/uploads/2019/05/120-02.pdf",
+        "title": "#120-02 PDF File"
+      }
+    ],
+    "title": "#120-02"
+  }
+]

@@ -14,37 +14,37 @@ const FEATURED_CATEGORIES = [
     title: 'Side Chairs',
     subtitle: 'Explore Collection',
     cat: 'side-chairs',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/Alba-4.webp',
+    image: '/assets/migrated/Alba-4.webp',
   },
   {
     title: 'Armchairs',
     subtitle: 'Explore Collection',
     cat: 'armchairs',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/0001s_0004_Grande-family-horiz-A.webp',
+    image: '/assets/migrated/0001s_0004_Grande-family-horiz-A.webp',
   },
   {
     title: 'Lounge Seating',
     subtitle: 'Explore Collection',
     cat: 'lounge',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/riva-1.webp',
+    image: '/assets/migrated/riva-1.webp',
   },
   {
     title: 'Outdoor Living',
     subtitle: 'Explore Collection',
     cat: 'outdoors',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/0003s_0002_Bora-horizontal-A.webp',
+    image: '/assets/migrated/0003s_0002_Bora-horizontal-A.webp',
   },
 ]
 
 const NEW_ARRIVALS_SLIDES = [
-  { title: "ARTE", designer: "Balutto Associates", src: "https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp" },
-  { title: "ALBA", designer: "E. & P. Ciani Design", src: "https://aceray.com/wp-content/uploads/2026/01/Alba-4.webp" },
-  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "https://aceray.com/wp-content/uploads/2026/01/0002s_0000_Ciao-UU-horizontal-C.webp" },
-  { title: "SOLO-V", designer: "Gentian Elezi", src: "https://aceray.com/wp-content/uploads/2026/01/colo-v.webp" },
-  { title: "BORA", designer: "E. & P. Ciani Design", src: "https://aceray.com/wp-content/uploads/2026/01/0003s_0002_Bora-horizontal-A.webp" },
-  { title: "MIRA-X3", designer: "A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/mira-x3-2-1.webp" },
-  { title: "CORSO", designer: "Balutto Associates", src: "https://aceray.com/wp-content/uploads/2024/12/corso3.webp" },
-  { title: "SPAZIO-R", designer: "A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/Spazio-R-2M-2.webp" }
+  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp" },
+  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp" },
+  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp" },
+  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp" },
+  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp" },
+  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp" },
+  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp" },
+  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp" }
 ]
 
 export default function HomePage() {
@@ -68,7 +68,7 @@ export default function HomePage() {
         <div className="hero-content">
           <h1 className="hero-slogan-img-wrapper">
             <img
-              src="https://aceray.com/wp-content/uploads/2021/04/slogan-888x85.png"
+              src="/assets/migrated/slogan-888x85.png"
               alt="The LOOK of Seating"
               className="hero-slogan-img"
             />

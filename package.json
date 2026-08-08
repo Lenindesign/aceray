@@ -14,12 +14,15 @@
     "migrate:product-pdfs": "node scripts/import-wordpress-product-pdfs.js"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^10.5.5",
-    "@storybook/react-vite": "^10.5.5",
+    "@storybook/addon-docs": "^8.6.18",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/manager-api": "^8.6.18",
+    "@storybook/react-vite": "^8.6.18",
+    "@storybook/theming": "^8.6.18",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.0.5",
     "@xmldom/xmldom": "^0.9.10",
-    "storybook": "^10.5.5",
+    "storybook": "^8.6.18",
     "tailwindcss": "^4.3.3",
     "vite": "^8.2.0"
   },

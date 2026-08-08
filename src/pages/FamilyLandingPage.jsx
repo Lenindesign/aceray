@@ -136,15 +136,7 @@ export default function FamilyLandingPage() {
           <Link to="/catalog" className="btn-outline">All Products</Link>
         </div>
 
-        {(productTypes.length > 0 || materials.length > 0) && (
-          <div className="family-filter-summary" aria-label={`${familyName} product attributes`}>
-            {[...productTypes, ...materials].map((item) => (
-              <span key={`${item.label}-${item.count}`}>
-                {item.label} <strong>{item.count}</strong>
-              </span>
-            ))}
-          </div>
-        )}
+
 
         <div className="products-grid">
           {familyProducts.map((product) => (

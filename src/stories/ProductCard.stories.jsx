@@ -11,52 +11,26 @@ const meta = {
 
 export default meta
 
-const SAMPLE_PRODUCT = {
-  _id: 'sample-1',
-  title: 'ARENA-B',
-  slug: { current: 'arena-b' },
-  categories: ['Bar Height Table Base', 'Ready to Ship'],
-  imageUrl: 'https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp',
+const mockProduct = {
+  id: 'wp-product-9116',
+  title: 'ALBA-1W',
+  slug: 'alba-1w',
+  familySlug: 'alba',
+  categories: ['Side Chairs'],
+  imageUrl: '/assets/migrated/Alba_4.webp',
+  designer: 'E. & P. Ciani Design',
 }
 
-export function Default() {
-  return (
-    <div className="w-[320px] p-4">
-      <ProductCard product={SAMPLE_PRODUCT} />
-    </div>
-  )
-}
+export const Standard = () => (
+  <div className="max-w-xs p-4">
+    <ProductCard product={mockProduct} />
+  </div>
+)
 
-export function ProductGrid() {
-  const products = [
-    {
-      _id: 'p1',
-      title: 'ARENA-B',
-      slug: { current: 'arena-b' },
-      categories: ['Barstool', 'Ready to Ship'],
-      imageUrl: 'https://aceray.com/wp-content/uploads/2026/01/Alba-4.webp',
-    },
-    {
-      _id: 'p2',
-      title: 'CORSO',
-      slug: { current: 'corso' },
-      categories: ['Armchair', 'Wood Frame'],
-      imageUrl: 'https://aceray.com/wp-content/uploads/2024/12/corso3.webp',
-    },
-    {
-      _id: 'p3',
-      title: 'MIRA-X3',
-      slug: { current: 'mira-x3' },
-      categories: ['Lounge Seating'],
-      imageUrl: 'https://aceray.com/wp-content/uploads/2024/12/mira-x3-2-1.webp',
-    },
-  ]
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl p-6 bg-white">
-      {products.map((p) => (
-        <ProductCard key={p._id} product={p} />
-      ))}
-    </div>
-  )
-}
+export const ProductGrid = () => (
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 max-w-5xl bg-[#FAF9F6] rounded-2xl">
+    <ProductCard product={mockProduct} />
+    <ProductCard product={{ ...mockProduct, id: 'wp-product-7982', title: 'BALLO-3', slug: 'ballo-3', familySlug: 'ballo', categories: ['Armchairs'], imageUrl: '/assets/migrated/Aceray-Ballo-chairs-setting.jpg', designer: 'Calesi/Tonelli' }} />
+    <ProductCard product={{ ...mockProduct, id: 'wp-product-277', title: 'MIRA-7', slug: 'mira-7', familySlug: 'mira', categories: ['Lounge Seating'], imageUrl: '/assets/migrated/Mira-X3-horizontal.webp', designer: 'Area 44' }} />
+  </div>
+)

@@ -4,7 +4,9 @@
    ============================================================ */
 
 /* Ensure [hidden] always works — overrides any display: flex/grid/block on components */
-[hidden] { display: none !important; }
+[hidden] {
+  display: none !important;
+}
 
 /* ── Loading State ─────────────────────────────────────────── */
 .product-loading {
@@ -30,7 +32,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Page Shells ────────────────────────────────────────────── */
@@ -76,6 +80,7 @@
   align-items: center;
   text-align: center;
 }
+
 .product-error-container {
   display: flex;
   flex-direction: column;
@@ -84,17 +89,20 @@
   justify-content: center;
   padding-block: clamp(var(--space-8), 8vw, var(--space-12));
 }
+
 .product-error h1 {
   color: var(--color-text-main);
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 500;
 }
+
 .product-error p {
   color: var(--color-text-muted);
   font-size: var(--font-size-base);
   line-height: 1.7;
   max-width: 480px;
 }
+
 .product-error a {
   display: inline-block;
   background-color: var(--color-primary);
@@ -108,6 +116,7 @@
   text-transform: uppercase;
   transition: var(--transition-smooth);
 }
+
 .product-error a:hover {
   background-color: var(--color-primary-dark);
   border-color: var(--color-primary-dark);
@@ -130,7 +139,7 @@
   color: var(--color-text-muted);
 }
 
-.breadcrumb li + li::before {
+.breadcrumb li+li::before {
   content: '/';
   margin-right: 0.3rem;
   opacity: 0.5;
@@ -140,6 +149,7 @@
   color: var(--color-text-muted);
   transition: color 0.2s;
 }
+
 .breadcrumb a:hover {
   color: var(--color-primary);
 }
@@ -173,7 +183,8 @@
 
 .product-main-image-wrap {
   background: transparent;
-  border-radius: var(--radius-card); /* 16px */
+  border-radius: var(--radius-card);
+  /* 16px */
   overflow: hidden;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -251,18 +262,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 32px;
+  min-height: 24px;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
-  color: #444444;
+  color: var(--color-primary-dark);
   background: var(--color-white);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: var(--radius-full);
-  padding: 9px 16px 7px;
+  border: 1px solid var(--color-primary);
+  border-radius: 2px;
+  padding: 4px 12px;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
@@ -330,13 +341,24 @@
 }
 
 .product-detail-favorite-active {
-  background: var(--color-primary);
+  background: var(--color-white);
   border-color: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-primary);
 }
 
 .product-detail-favorite-active svg {
-  fill: currentColor;
+  fill: var(--color-primary);
+}
+
+.product-detail-favorite-active:hover,
+.product-detail-favorite-active:focus-visible {
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
+}
+
+.product-detail-favorite-active:hover svg,
+.product-detail-favorite-active:focus-visible svg {
+  fill: var(--color-primary-dark);
 }
 
 /* Designer / Made in */
@@ -462,28 +484,7 @@
   gap: var(--space-1);
 }
 
-.product-pdf-link {
-  align-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  color: var(--color-primary-dark);
-  display: inline-flex;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  justify-content: center;
-  letter-spacing: 0.08em;
-  padding: 0.7rem 1rem;
-  text-transform: uppercase;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
 
-.product-pdf-link:hover,
-.product-pdf-link:focus-visible {
-  background: rgba(113, 143, 128, 0.1);
-  border-color: rgba(113, 143, 128, 0.35);
-  color: var(--color-primary-dark);
-}
 
 /* ── Related Products ───────────────────────────────────────── */
 .related-section {
@@ -680,6 +681,7 @@
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 960px) {
+
   .product-layout,
   .product-skeleton-layout {
     grid-template-columns: 1fr;

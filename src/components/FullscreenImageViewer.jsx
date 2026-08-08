@@ -114,7 +114,7 @@ export function FullscreenImageViewer({
   const wheelGestureRef = useRef(null);
   const wheelResetTimerRef = useRef(null);
   const wheelCooldownUntilRef = useRef(0);
-
+  
   const hasMultipleImages = images.length > 1;
 
   useModalIsolation(true, dialogRef);
@@ -439,14 +439,14 @@ export function FullscreenImageViewer({
   }, [handleWheel]);
 
   const chromeVisible = controlsVisible;
-
+  
   const controlButtonClass =
     "inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#718f80]/50";
-
+  
   const slideTransitionClass = isDragging || zoom > 1
     ? "transition-none"
     : "transition-transform duration-300 ease-out motion-reduce:transition-none";
-
+  
   const trackTransform = `translate3d(calc(-${activeIndex * 100}% + ${dragOffset}px), 0, 0)`;
 
   return createPortal(

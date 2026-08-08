@@ -30,7 +30,7 @@ export default function AboutPage() {
             style={{ borderRadius: 'var(--radius-card)' }}
           >
             <img
-              src="https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp"
+              src="/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp"
               alt="Aceray craftsmanship and seating designs"
               className="w-full aspect-[16/9] max-h-[480px] object-cover"
             />
@@ -111,7 +111,7 @@ export default function AboutPage() {
           <div className="feature-grid">
             <div className="feature-image">
               <img
-                src="https://aceray.com/wp-content/uploads/2026/01/0001s_0004_Grande-family-horiz-A.webp"
+                src="/assets/migrated/0001s_0004_Grande-family-horiz-A.webp"
                 alt="Aceray European Seating Collection"
               />
             </div>

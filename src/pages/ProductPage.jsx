@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams, useParams, Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Heart } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Heart, FileText } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -827,15 +828,21 @@ export default function ProductPage() {
                       const href = pdf.file?.asset?.url || pdf.sourceUrl
                       if (!href) return null
                       return (
-                        <a
+                        <Button
                           key={pdf.sourceUrl || pdf.file?.asset?._id || pdf.title}
-                          href={href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="product-pdf-link"
+                          asChild
+                          variant="outline"
+                          className="btn-outline w-full"
                         >
-                          {pdf.title || 'PDF File'}
-                        </a>
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FileText className="mr-2 h-4.5 w-4.5 shrink-0" />
+                            {pdf.title || 'PDF File'}
+                          </a>
+                        </Button>
                       )
                     })}
                   </div>
