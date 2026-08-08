@@ -390,22 +390,89 @@ function ProductSkeleton() {
 function Gallery({ images, title, designer }) {
   const [active, setActive] = useState(0)
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
+  const touchStartX = useRef(null)
+  const touchEndX = useRef(null)
 
   if (!images.length) return null
 
+  const handleNext = (e) => {
+    e?.stopPropagation()
+    setActive((prev) => (prev + 1) % images.length)
+  }
+
+  const handlePrev = (e) => {
+    e?.stopPropagation()
+    setActive((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  const minSwipeDistance = 45
+
+  const onTouchStart = (e) => {
+    touchEndX.current = null
+    touchStartX.current = e.targetTouches[0].clientX
+  }
+
+  const onTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return
+    const distance = touchStartX.current - touchEndX.current
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe && images.length > 1) {
+      handleNext()
+    } else if (isRightSwipe && images.length > 1) {
+      handlePrev()
+    }
+  }
+
   return (
     <div className="product-gallery-stack">
-      {/* Main image — click to open fullscreen gallery */}
+      {/* Main image — swipeable & click to open fullscreen gallery */}
       <div
         className="product-main-image-wrap product-main-image-wrap-clickable"
         onClick={() => setFullscreenOpen(true)}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <img
           src={images[active]}
           alt={title}
           className="product-main-img"
           key={active}
+          draggable={false}
         />
+
+        {/* Swipe & Arrow navigation controls */}
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              className="gallery-nav-btn gallery-nav-prev"
+              onClick={handlePrev}
+              aria-label="Previous product image"
+            >
+              <ChevronLeft className="size-5" />
+            </button>
+
+            <button
+              type="button"
+              className="gallery-nav-btn gallery-nav-next"
+              onClick={handleNext}
+              aria-label="Next product image"
+            >
+              <ChevronRight className="size-5" />
+            </button>
+
+            <div className="gallery-slide-indicator" aria-hidden="true">
+              {active + 1} / {images.length}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Thumbnails */}
