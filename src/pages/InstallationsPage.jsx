@@ -61,14 +61,27 @@ function InstallationImage({ src, alt, className }) {
   )
 }
 
-// Studio / Catalog Cutout patterns to exclude (frontview, backview, profile view, white-bg cutouts, line drawings)
-const STUDIO_CUTOUT_PATTERNS = [
-  /front[-_]?view/i, /back[-_]?view/i, /side[-_]?view/i, /top[-_]?view/i,
-  /profile[-_]?view/i, /profile[-_]?\d/i, /armchair[-_]?front/i, /armchair[-_]?back/i,
-  /chair[-_]?front/i, /chair[-_]?back/i, /stool[-_]?front/i, /stool[-_]?back/i,
-  /isolated/i, /cutout/i, /white[-_]?bg/i, /dimensions?/i, /line[-_]?drawing/i,
-  /table[-_]?base/i, /height/i, /spec/i, /schema/i, /cad/i, /3d/i, /swatch/i, /finish/i, /revit/i
+// Comprehensive list of studio cutouts, line drawings, wire diagrams, dimensions, swatches, and spec sheets to block
+const EXCLUDED_SPEC_PATTERNS = [
+  /dimension/i, /dimensions/i, /dim[-_]?\d/i, /wire/i, /line[-_]?drawing/i,
+  /drawing/i, /drawings/i, /tech/i, /technical/i, /diagram/i, /diagrams/i,
+  /schema/i, /schematic/i, /cad/i, /revit/i, /3d/i, /dwg/i, /dxf/i, /vector/i,
+  /pole/i, /poles/i, /table[-_]?base/i, /table[-_]?poles/i, /bar[-_]?height/i,
+  /seat[-_]?color/i, /color[-_]?swatch/i, /colors/i, /swatch/i, /swatches/i,
+  /finish/i, /finishes/i, /material/i, /materials/i, /palette/i,
+  /cutout/i, /white[-_]?bg/i, /isolated/i, /frontview/i, /backview/i,
+  /sideview/i, /topview/i, /profileview/i, /profile[-_]?\d/i, /option/i,
+  /options/i, /overview/i, /measurement/i, /measurements/i, /lbs/i, /inches/i,
+  /size/i, /sizes/i, /spec/i, /specs/i, /specification/i, /specifications/i,
+  /armchair[-_]?front/i, /armchair[-_]?back/i, /chair[-_]?front/i, /chair[-_]?back/i,
+  /stool[-_]?front/i, /stool[-_]?back/i, /rts/i
 ]
+
+function isSpecOrLineDrawingOrStudioUrl(url) {
+  if (!url) return true
+  const filename = decodeURIComponent(url.split('/').pop() || '').toLowerCase()
+  return EXCLUDED_SPEC_PATTERNS.some((pattern) => pattern.test(filename))
+}
 
 // Installation project indicators (hotels, resorts, restaurants, state codes, install keyword)
 const INSTALLATION_INDICATORS = [
@@ -83,10 +96,9 @@ const INSTALLATION_INDICATORS = [
 
 function isVerifiedInstallationPhoto(url) {
   if (!url) return false
-  const filename = url.split('/').pop() || ''
-  const isStudio = STUDIO_CUTOUT_PATTERNS.some((pat) => pat.test(filename))
-  if (isStudio) return false
+  if (isSpecOrLineDrawingOrStudioUrl(url)) return false
 
+  const filename = decodeURIComponent(url.split('/').pop() || '')
   const hasInstallIndicator = INSTALLATION_INDICATORS.some((pat) => pat.test(filename))
   const isMultiWordName = filename.split(/[-_]/).length >= 4
 
@@ -155,13 +167,12 @@ export default function InstallationsPage() {
             ...(product.galleryUrls || [])
           ].filter(url => url && !url.includes('aceray.com'))
 
-          // Filter ONLY verified installation photos (excluding studio cutouts / front-back views)
+          // Filter ONLY verified installation photos (excluding all specs, drawings, swatches, diagrams, poles, dimensions)
           const installationUrls = gallery.filter((url) => isVerifiedInstallationPhoto(url))
           
-          // Fallback: If no location-tagged photo, check gallery for non-studio photos
+          // Fallback: If no location-tagged photo, check gallery for non-studio/non-spec photos ONLY
           const validUrls = installationUrls.length > 0 ? installationUrls : gallery.filter((url) => {
-            const filename = url.split('/').pop() || ''
-            return !STUDIO_CUTOUT_PATTERNS.some((pat) => pat.test(filename))
+            return !isSpecOrLineDrawingOrStudioUrl(url)
           })
 
           const uniqueUrls = Array.from(new Set(validUrls))
