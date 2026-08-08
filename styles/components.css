@@ -761,7 +761,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #ffffff;
-  margin: 2px auto 4px auto !important;
+  margin: 2px auto 0px auto !important;
   line-height: 1.05;
   width: 100%;
 }
@@ -772,7 +772,7 @@
   font-family: var(--font-sans);
   font-size: 0.85rem;
   color: #e2e8e4;
-  margin: 4px auto 0 auto !important;
+  margin: -4px auto 0 auto !important;
   font-weight: 400;
 }
 
