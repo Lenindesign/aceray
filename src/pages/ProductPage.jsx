@@ -386,66 +386,109 @@ function ProductSkeleton() {
   )
 }
 
-// ── Image Gallery (inline on product page) ──────────────────────
+// ── Image Gallery (inline on product page with native swipe & scroll-snap) ──────
 function Gallery({ images, title, designer }) {
   const [active, setActive] = useState(0)
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
-  const touchStartX = useRef(null)
-  const touchEndX = useRef(null)
+  const scrollRef = useRef(null)
+  const scrollStartX = useRef(0)
+  const isMouseDown = useRef(false)
+  const wasDragged = useRef(false)
 
   if (!images.length) return null
 
+  // Update active index on scroll
+  const handleScroll = () => {
+    if (!scrollRef.current) return
+    const container = scrollRef.current
+    const width = container.clientWidth
+    if (width === 0) return
+    const index = Math.round(container.scrollLeft / width)
+    if (index !== active && index >= 0 && index < images.length) {
+      setActive(index)
+    }
+  }
+
+  const scrollToIndex = (index) => {
+    if (!scrollRef.current) return
+    const container = scrollRef.current
+    container.scrollTo({
+      left: index * container.clientWidth,
+      behavior: 'smooth',
+    })
+    setActive(index)
+  }
+
   const handleNext = (e) => {
     e?.stopPropagation()
-    setActive((prev) => (prev + 1) % images.length)
+    const nextIdx = (active + 1) % images.length
+    scrollToIndex(nextIdx)
   }
 
   const handlePrev = (e) => {
     e?.stopPropagation()
-    setActive((prev) => (prev - 1 + images.length) % images.length)
+    const prevIdx = (active - 1 + images.length) % images.length
+    scrollToIndex(prevIdx)
   }
 
-  const minSwipeDistance = 45
-
-  const onTouchStart = (e) => {
-    touchEndX.current = null
-    touchStartX.current = e.targetTouches[0].clientX
+  // Handle Mouse Drag for desktop swipe
+  const handleMouseDown = (e) => {
+    if (!scrollRef.current) return
+    isMouseDown.current = true
+    wasDragged.current = false
+    scrollStartX.current = e.clientX + scrollRef.current.scrollLeft
   }
 
-  const onTouchMove = (e) => {
-    touchEndX.current = e.targetTouches[0].clientX
-  }
-
-  const onTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return
-    const distance = touchStartX.current - touchEndX.current
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-
-    if (isLeftSwipe && images.length > 1) {
-      handleNext()
-    } else if (isRightSwipe && images.length > 1) {
-      handlePrev()
+  const handleMouseMove = (e) => {
+    if (!isMouseDown.current || !scrollRef.current) return
+    const delta = scrollStartX.current - e.clientX
+    if (Math.abs(delta - scrollRef.current.scrollLeft) > 5) {
+      wasDragged.current = true
     }
+    scrollRef.current.scrollLeft = delta
+  }
+
+  const handleMouseUpOrLeave = () => {
+    isMouseDown.current = false
+  }
+
+  const handleImageClick = (index) => {
+    if (wasDragged.current) {
+      wasDragged.current = false
+      return
+    }
+    setActive(index)
+    setFullscreenOpen(true)
   }
 
   return (
     <div className="product-gallery-stack">
-      {/* Main image — swipeable & click to open fullscreen gallery */}
-      <div
-        className="product-main-image-wrap product-main-image-wrap-clickable"
-        onClick={() => setFullscreenOpen(true)}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        <img
-          src={images[active]}
-          alt={title}
-          className="product-main-img"
-          key={active}
-          draggable={false}
-        />
+      {/* Scroll-Snap Hero Carousel Container */}
+      <div className="product-hero-carousel-wrap">
+        <div
+          ref={scrollRef}
+          className="product-hero-scroll-container"
+          onScroll={handleScroll}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+        >
+          {images.map((src, i) => (
+            <div
+              key={i}
+              className="product-hero-slide"
+              onClick={() => handleImageClick(i)}
+            >
+              <img
+                src={src}
+                alt={`${title} view ${i + 1}`}
+                className="product-main-img"
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
 
         {/* Swipe & Arrow navigation controls */}
         {images.length > 1 && (
@@ -481,7 +524,7 @@ function Gallery({ images, title, designer }) {
           {images.map((src, i) => (
             <button
               key={i}
-              onClick={() => setActive(i)}
+              onClick={() => scrollToIndex(i)}
               aria-label={`View image ${i + 1}`}
               className={`product-thumb-btn ${i === active ? 'active' : ''}`}
             >
