@@ -25,13 +25,13 @@ export default {
 }
 
 const mockProduct = {
-  id: 'wp-product-9116',
+  id: 'wp-product-12447',
   title: 'ALBA-1W',
   slug: 'alba-1w',
   familySlug: 'alba',
   categories: ['Side Chairs'],
-  imageUrl: '/assets/migrated/Alba-4.webp',
-  mainImage: { asset: { url: '/assets/migrated/Alba-4.webp' } },
+  imageUrl: 'https://cdn.sanity.io/images/xm9au2qy/production/08b8aa606d30402a5f86ce8dd7cb700fd3985df6-1200x1200.jpg',
+  mainImage: { asset: { url: 'https://cdn.sanity.io/images/xm9au2qy/production/08b8aa606d30402a5f86ce8dd7cb700fd3985df6-1200x1200.jpg' } },
   designer: 'E. & P. Ciani Design',
 }
 
