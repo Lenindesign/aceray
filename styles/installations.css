@@ -199,7 +199,7 @@
   margin-bottom: var(--space-4);
   border-radius: var(--radius-card); /* 16px */
   overflow: hidden;
-  background: #f1f0ec;
+  background: var(--color-white);
   border: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
   cursor: pointer;
@@ -216,16 +216,18 @@
 .installation-card-img-wrap {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: hidden;
-  background: #edece8;
+  background: transparent;
 }
 
 .installation-card-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

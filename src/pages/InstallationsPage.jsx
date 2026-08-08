@@ -42,7 +42,7 @@ function InstallationImage({ src, alt, className }) {
   }, [src, loaded])
 
   return (
-    <div className="relative w-full h-full bg-[#edece8] overflow-hidden min-h-[220px]">
+    <div className="relative w-full h-full overflow-hidden">
       {!loaded && (
         <div className="absolute inset-0 bg-[#e5e4de] animate-pulse" />
       )}
