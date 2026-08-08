@@ -7,30 +7,30 @@ export default function AboutPage() {
   }, [])
 
   return (
-    <div className="about-page bg-white w-full">
+    <div className="about-page">
       {/* 1. Hero Section */}
-      <section className="about-hero block w-full py-20 md:py-28 bg-[#F9F8F6] border-b border-[#E5E3DD]">
-        <div className="container mx-auto px-6 text-center max-w-4xl">
-          <span className="cat-badge cat-badge-active mb-6 inline-flex">About Aceray</span>
+      <section className="about-hero">
+        <div className="container about-hero-container text-center">
+          <span className="cat-badge cat-badge-active about-kicker">About Aceray</span>
           <h1
-            className="text-3xl md:text-5xl font-medium tracking-wide text-[#222222] mb-6 uppercase leading-tight"
+            className="about-title"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             Design Built for Enduring Commercial Elegance
           </h1>
           <p
-            className="text-base md:text-xl text-[#555555] leading-relaxed max-w-2xl mx-auto mb-10"
+            className="about-lede"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Connecting world-class European artisans with North America's leading hospitality, corporate, and residential interior design professionals.
           </p>
 
           <div
-            className="about-hero-image-wrapper overflow-hidden border border-[#E5E3DD] shadow-sm mt-6"
+            className="about-hero-image-wrapper"
             style={{ borderRadius: 'var(--radius-card)' }}
           >
             <img
-              src="https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp"
+              src="/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp"
               alt="Aceray craftsmanship and seating designs"
               className="w-full aspect-[16/9] max-h-[480px] object-cover"
             />
@@ -39,63 +39,63 @@ export default function AboutPage() {
       </section>
 
       {/* 2. Key Stats Grid */}
-      <section className="about-stats block w-full py-16 md:py-24 bg-white border-b border-[#E5E3DD]">
-        <div className="container mx-auto px-6 max-w-6xl">
+      <section className="about-stats">
+        <div className="container about-section-container">
           <div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 py-12 px-6 md:px-12 bg-[#F4F3EF] border border-[#E5E3DD] shadow-sm"
+            className="about-stats-grid"
             style={{ borderRadius: 'var(--radius-card)' }}
           >
-            <div className="text-center py-4">
+            <div className="about-stat">
               <span
-                className="block text-3xl md:text-5xl font-bold text-[#718f80] mb-2"
+                className="about-stat-value"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 700+
               </span>
               <span
-                className="text-xs md:text-sm uppercase tracking-widest text-[#666666] font-semibold block"
+                className="about-stat-label"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Commercial Designs
               </span>
             </div>
-            <div className="text-center py-4">
+            <div className="about-stat">
               <span
-                className="block text-3xl md:text-5xl font-bold text-[#718f80] mb-2"
+                className="about-stat-value"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 100%
               </span>
               <span
-                className="text-xs md:text-sm uppercase tracking-widest text-[#666666] font-semibold block"
+                className="about-stat-label"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Commercial Grade
               </span>
             </div>
-            <div className="text-center py-4">
+            <div className="about-stat">
               <span
-                className="block text-3xl md:text-5xl font-bold text-[#718f80] mb-2"
+                className="about-stat-value"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 Europe
               </span>
               <span
-                className="text-xs md:text-sm uppercase tracking-widest text-[#666666] font-semibold block"
+                className="about-stat-label"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Master Artisanship
               </span>
             </div>
-            <div className="text-center py-4">
+            <div className="about-stat">
               <span
-                className="block text-3xl md:text-5xl font-bold text-[#718f80] mb-2"
+                className="about-stat-value"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 RTS
               </span>
               <span
-                className="text-xs md:text-sm uppercase tracking-widest text-[#666666] font-semibold block"
+                className="about-stat-label"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Quick Ship Program
@@ -106,12 +106,12 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Heritage & Story Section (Global Feature Showcase Module) */}
-      <section className="feature-showcase bg-white">
-        <div className="container max-w-6xl">
+      <section className="feature-showcase about-feature">
+        <div className="container about-section-container">
           <div className="feature-grid">
             <div className="feature-image">
               <img
-                src="https://aceray.com/wp-content/uploads/2026/01/0001s_0004_Grande-family-horiz-A.webp"
+                src="/assets/migrated/0001s_0004_Grande-family-horiz-A.webp"
                 alt="Aceray European Seating Collection"
               />
             </div>
@@ -133,42 +133,37 @@ export default function AboutPage() {
       </section>
 
       {/* 4. Core Pillars (3 Cards) */}
-      <section className="about-pillars block w-full py-20 md:py-28 bg-[#F5F4F0] border-b border-[#E5E3DD]">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="text-center mb-12 md:mb-16">
+      <section className="about-pillars">
+        <div className="container about-section-container">
+          <div className="about-section-heading">
             <span
-              className="text-xs uppercase tracking-[0.15em] font-bold text-[#718f80] block mb-2"
+              className="about-section-eyebrow"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Why Choose Aceray
             </span>
             <h2
-              className="text-2xl md:text-4xl font-medium text-[#222222] uppercase tracking-wide"
+              className="about-section-title"
               style={{ fontFamily: 'var(--font-heading)' }}
             >
               The Aceray Advantage
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="about-pillars-grid">
             <div
-              className="p-8 md:p-10 bg-white border border-[#E5E3DD] space-y-4 shadow-sm h-full flex flex-col justify-between"
+              className="about-pillar-card"
               style={{ borderRadius: 'var(--radius-card)' }}
             >
               <div>
-                <div className="w-12 h-12 rounded-full bg-[rgba(113,143,128,0.12)] flex items-center justify-center text-[#718f80] mb-4">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
-                </div>
                 <h3
-                  className="text-lg md:text-xl font-medium text-[#222222] uppercase tracking-wider mb-2"
+                  className="about-pillar-title"
                   style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   European Precision
                 </h3>
                 <p
-                  className="text-sm text-[#555555] leading-relaxed"
+                  className="about-pillar-copy"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   Designed and crafted in Europe’s premier factories, combining centuries of woodworking tradition with cutting-edge manufacturing.
@@ -177,23 +172,18 @@ export default function AboutPage() {
             </div>
 
             <div
-              className="p-8 md:p-10 bg-white border border-[#E5E3DD] space-y-4 shadow-sm h-full flex flex-col justify-between"
+              className="about-pillar-card"
               style={{ borderRadius: 'var(--radius-card)' }}
             >
               <div>
-                <div className="w-12 h-12 rounded-full bg-[rgba(113,143,128,0.12)] flex items-center justify-center text-[#718f80] mb-4">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                  </svg>
-                </div>
                 <h3
-                  className="text-lg md:text-xl font-medium text-[#222222] uppercase tracking-wider mb-2"
+                  className="about-pillar-title"
                   style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   Commercial Rigor
                 </h3>
                 <p
-                  className="text-sm text-[#555555] leading-relaxed"
+                  className="about-pillar-copy"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   Engineered to withstand rigorous commercial wear, backed by structural testing for hospitality and high-traffic spaces.
@@ -202,23 +192,18 @@ export default function AboutPage() {
             </div>
 
             <div
-              className="p-8 md:p-10 bg-white border border-[#E5E3DD] space-y-4 shadow-sm h-full flex flex-col justify-between"
+              className="about-pillar-card"
               style={{ borderRadius: 'var(--radius-card)' }}
             >
               <div>
-                <div className="w-12 h-12 rounded-full bg-[rgba(113,143,128,0.12)] flex items-center justify-center text-[#718f80] mb-4">
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                  </svg>
-                </div>
                 <h3
-                  className="text-lg md:text-xl font-medium text-[#222222] uppercase tracking-wider mb-2"
+                  className="about-pillar-title"
                   style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   Trade Customization
                 </h3>
                 <p
-                  className="text-sm text-[#555555] leading-relaxed"
+                  className="about-pillar-copy"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   Comprehensive COM/COL upholstery options, custom stain matching, and tailored project assistance for A&amp;D specification.
@@ -230,21 +215,21 @@ export default function AboutPage() {
       </section>
 
       {/* 5. Closing CTA Banner */}
-      <section className="about-cta block w-full text-center py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-6 max-w-3xl">
+      <section className="about-cta">
+        <div className="container about-cta-container">
           <h2
-            className="text-3xl md:text-5xl font-medium text-[#222222] uppercase tracking-wide mb-6"
+            className="about-cta-title"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             The Look of Seating®
           </h2>
           <p
-            className="text-base md:text-lg text-[#555555] mb-10 max-w-xl mx-auto"
+            className="about-cta-copy"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Explore our complete catalog or connect with our trade team to request swatches and commercial pricing.
           </p>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="about-cta-actions">
             <Link to="/catalog" className="btn-primary">
               Explore Collection
             </Link>

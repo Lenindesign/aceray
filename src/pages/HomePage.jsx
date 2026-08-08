@@ -5,46 +5,46 @@ import { sanityFetch } from '@/sanityClient'
 import ProductCard from '@/components/ProductCard'
 import { FullscreenImageViewer } from '@/components/FullscreenImageViewer'
 
-const FEATURED_QUERY = `*[_type == "product" && defined(imageUrl)] | order(_updatedAt desc) [0..7] {
+const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(_updatedAt desc) [0..7] {
   _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
 }`
 
 const FEATURED_CATEGORIES = [
   {
     title: 'Side Chairs',
-    subtitle: 'Explore Collection →',
+    subtitle: 'Explore Collection',
     cat: 'side-chairs',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/Alba-4.webp',
+    image: '/assets/migrated/Alba-4.webp',
   },
   {
     title: 'Armchairs',
-    subtitle: 'Explore Collection →',
+    subtitle: 'Explore Collection',
     cat: 'armchairs',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/0001s_0004_Grande-family-horiz-A.webp',
+    image: '/assets/migrated/0001s_0004_Grande-family-horiz-A.webp',
   },
   {
     title: 'Lounge Seating',
-    subtitle: 'Explore Collection →',
+    subtitle: 'Explore Collection',
     cat: 'lounge',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/riva-1.webp',
+    image: '/assets/migrated/riva-1.webp',
   },
   {
     title: 'Outdoor Living',
-    subtitle: 'Explore Collection →',
+    subtitle: 'Explore Collection',
     cat: 'outdoors',
-    image: 'https://aceray.com/wp-content/uploads/2026/01/0003s_0002_Bora-horizontal-A.webp',
+    image: '/assets/migrated/0003s_0002_Bora-horizontal-A.webp',
   },
 ]
 
 const NEW_ARRIVALS_SLIDES = [
-  { title: "ARTE", designer: "Balutto Associates", src: "https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp" },
-  { title: "ALBA", designer: "E. & P. Ciani Design", src: "https://aceray.com/wp-content/uploads/2026/01/Alba-4.webp" },
-  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "https://aceray.com/wp-content/uploads/2026/01/0002s_0000_Ciao-UU-horizontal-C.webp" },
-  { title: "SOLO-V", designer: "Gentian Elezi", src: "https://aceray.com/wp-content/uploads/2026/01/colo-v.webp" },
-  { title: "BORA", designer: "E. & P. Ciani Design", src: "https://aceray.com/wp-content/uploads/2026/01/0003s_0002_Bora-horizontal-A.webp" },
-  { title: "MIRA-X3", designer: "A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/mira-x3-2-1.webp" },
-  { title: "CORSO", designer: "Balutto Associates", src: "https://aceray.com/wp-content/uploads/2024/12/corso3.webp" },
-  { title: "SPAZIO-R", designer: "A & T Studio", src: "https://aceray.com/wp-content/uploads/2024/12/Spazio-R-2M-2.webp" }
+  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp" },
+  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp" },
+  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp" },
+  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp" },
+  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp" },
+  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp" },
+  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp" },
+  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp" }
 ]
 
 export default function HomePage() {
@@ -62,14 +62,13 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div>
+    <div className="home-page">
       {/* Hero Banner (Bottom CTA Layout) */}
       <section className="hero-banner">
-        <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-slogan-img-wrapper">
             <img
-              src="https://aceray.com/wp-content/uploads/2021/04/slogan-888x85.png"
+              src="/assets/migrated/slogan-888x85.png"
               alt="The LOOK of Seating"
               className="hero-slogan-img"
             />
@@ -91,11 +90,11 @@ export default function HomePage() {
       </section>
 
       {/* Shop by Category Section */}
-      <section className="category-section container">
+      <section className="home-section category-section container">
         <h2 className="section-title">Shop by Category</h2>
         <p className="section-subtitle">Curated collections designed for timeless performance and aesthetic distinction.</p>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="category-card-grid">
           {FEATURED_CATEGORIES.map(({ title, subtitle, cat, image }) => (
             <div key={cat} className="category-card">
               <Link to={`/catalog?cat=${cat}`}>
@@ -111,11 +110,15 @@ export default function HomePage() {
       </section>
 
       {/* Asymmetric Feature Showcase */}
-      <section className="feature-showcase">
+      <section className="feature-showcase home-feature">
         <div className="container">
-          <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+          <div className="feature-grid">
             <div className="feature-image">
-              <img src="https://aceray.com/wp-content/uploads/2021/04/img1.png" alt="Aceray Lookbook Collection" />
+              <img
+                src="/assets/images/aceray-craft-collage.jpg"
+                alt="Aceray workshop craft process with wood shaping and metal fabrication"
+                className="home-craft-image"
+              />
             </div>
             <div className="feature-text">
               <span className="tag">Unmatched Craftsmanship</span>
@@ -130,12 +133,12 @@ export default function HomePage() {
       </section>
 
       {/* Customer / Catalog Favorites Section */}
-      <section className="products-section container">
+      <section className="home-section products-section container">
         <h2 className="section-title">Featured Highlights</h2>
         <p className="section-subtitle">Discover our latest released contemporary furniture models.</p>
 
         {loading ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="products-grid">
             {[...Array(8)].map((_, i) => (
               <div key={i}>
                 <Skeleton className="aspect-square rounded-xs mb-3" />
@@ -145,12 +148,12 @@ export default function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="products-grid">
             {products.map((p) => <ProductCard key={p._id} product={p} />)}
           </div>
         )}
 
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+        <div className="products-section-actions">
           <Link to="/catalog" className="btn-outline">
             View All Products
           </Link>

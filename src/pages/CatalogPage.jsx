@@ -1,44 +1,139 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Separator } from '@/components/ui/separator'
 import { sanityFetch } from '@/sanityClient'
 import ProductCard from '@/components/ProductCard'
-import { CATEGORIES } from '@/constants'
+import { CATEGORIES, getCategorySlug } from '@/constants'
+import { FAVORITES_CHANGED_EVENT, getFavoriteSlugs } from '@/lib/favorites'
 const PAGE_SIZE = 24
+const HAS_PRODUCT_IMAGE = `(defined(imageUrl) || defined(mainImage.asset))`
 
+function toTitleCase(value) {
+  return value.replace(/\b[a-z]/g, (char) => char.toUpperCase())
+}
+
+function getCatalogCategoryMatch(value) {
+  const matchedCategory = CATEGORIES.find((category) => getCategorySlug(category) === value)
+  const readableValue = matchedCategory || value.replace(/-/g, ' ')
+  const titleValue = toTitleCase(readableValue)
+
+  return {
+    candidates: Array.from(new Set([matchedCategory, readableValue, titleValue].filter(Boolean))),
+    lower: readableValue.toLowerCase(),
+  }
+}
+
+function orderProductsBySlug(products = [], slugs = []) {
+  const bySlug = new Map(products.map((product) => [product.slug?.current || product.slug, product]))
+  return slugs.map((slug) => bySlug.get(slug)).filter(Boolean)
+}
+
+function getCategoryFilter(value) {
+  if (!value) return { expression: '', params: {} }
+
+  if (value === 'lounge') {
+    return { expression: `("Lounge Seating" in categories || "Lounge Seating RTS" in categories)`, params: {} }
+  }
+
+  if (value === 'outdoor' || value === 'outdoors') {
+    return { expression: `("Outdoors" in categories || "Outdoor Powder Coat Steel" in categories || "Outdoor Powder Coat Steel 2" in categories || count((categories[])[lower(@) match "outdoor*"]) > 0)`, params: {} }
+  }
+
+  if (value === 'ready-to-ship') {
+    return { expression: `("Ready to Ship" in categories || "Ready to Ship" in tags || "Lounge Seating RTS" in categories)`, params: {} }
+  }
+
+  if (value === 'low-stools-ottomans') {
+    return { expression: `("Low Stools" in categories || "Ottomans" in categories || count((categories[])[lower(@) match "*ottoman*"]) > 0 || count((categories[])[lower(@) match "*low stool*"]) > 0)`, params: {} }
+  }
+
+  if (value === 'benches') {
+    return { expression: `("Benches" in categories || "Bench" in categories || count((categories[])[lower(@) match "bench*"]) > 0)`, params: {} }
+  }
+
+  if (value === 'tables-bases') {
+    return { expression: `("Tables" in categories || "Table Bases" in categories || "Bar Height Table Base" in categories || count((categories[])[lower(@) match "*table*"]) > 0 || count((categories[])[lower(@) match "*base*"]) > 0)`, params: {} }
+  }
+
+  const categoryMatch = getCatalogCategoryMatch(value)
+  return {
+    expression: `count((categories[])[@ in $catCandidates || lower(@) == $catLower]) > 0`,
+    params: {
+      catCandidates: categoryMatch.candidates,
+      catLower: categoryMatch.lower,
+    },
+  }
+}
 
 export default function CatalogPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const cat = searchParams.get('cat') || ''
   const q = searchParams.get('q') || ''
+  const tag = searchParams.get('tag') || ''
+  const isNew = searchParams.get('new') === '1'
+  const isFavorites = tag === 'favorites'
 
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [categoryCounts, setCategoryCounts] = useState({})
 
   const fetchProducts = useCallback((pageNum = 0) => {
     setLoading(true)
     const offset = pageNum * PAGE_SIZE
     const limit = offset + PAGE_SIZE
 
-    let filters = `_type == "product" && defined(imageUrl)`
+    if (isFavorites) {
+      const favoriteSlugs = getFavoriteSlugs()
+      const pageSlugs = favoriteSlugs.slice(offset, limit)
+
+      if (pageSlugs.length === 0) {
+        if (pageNum === 0) {
+          setProducts([])
+          setTotal(0)
+        }
+        setPage(pageNum)
+        setLoading(false)
+        return
+      }
+
+      const favoritesQuery = `*[
+        _type == "product" &&
+        ${HAS_PRODUCT_IMAGE} &&
+        slug.current in $favoriteSlugs
+      ] {
+        _id, title, slug, categories, imageUrl, mainImage{asset-> {_id, url}}, designer, madeIn
+      }`
+
+      sanityFetch(favoritesQuery, { favoriteSlugs: pageSlugs })
+        .then((items) => {
+          const orderedItems = orderProductsBySlug(items || [], pageSlugs)
+          setProducts(pageNum === 0 ? orderedItems : (prev) => [...prev, ...orderedItems])
+          setTotal(favoriteSlugs.length)
+          setPage(pageNum)
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false))
+      return
+    }
+
+    let filters = `_type == "product" && ${HAS_PRODUCT_IMAGE}`
     const queryParams = {}
 
     if (cat) {
-      // Special handling for lounge to include both lounge categories
-      if (cat === 'lounge') {
-        filters += ` && ("Lounge Seating" in categories || "Lounge Seating RTS" in categories)`;
-      } else if (cat === 'outdoor' || cat === 'outdoors') {
-        filters += ` && ("Outdoors" in categories || "Outdoor Powder Coat Steel" in categories || "Outdoor Powder Coat Steel 2" in categories || count((categories[])[lower(@) match "outdoor*"]) > 0)`;
-      } else {
-        // Find matching standard category name
-        const matchedCat = CATEGORIES.find(c => c.toLowerCase().replace(/\s+/g, '-') === cat) || cat;
-        filters += ` && $cat in categories`;
-        queryParams.cat = matchedCat;
-      }
+      const categoryFilter = getCategoryFilter(cat)
+      if (categoryFilter.expression) filters += ` && ${categoryFilter.expression}`
+      Object.assign(queryParams, categoryFilter.params)
+    }
+
+    if (isNew) {
+      filters += ` && isNewArrival == true`
+    }
+
+    if (tag) {
+      filters += ` && count((tags[])[lower(@) match $tag]) > 0`
+      queryParams.tag = tag.toLowerCase() + '*'
     }
 
     if (q) {
@@ -70,7 +165,7 @@ export default function CatalogPage() {
       })
       .catch(console.error)
       .finally(() => setLoading(false))
-  }, [cat, q])
+  }, [cat, q, tag, isNew, isFavorites, total])
 
   const hasMore = total > 0 && products.length < total
 
@@ -93,16 +188,71 @@ export default function CatalogPage() {
   }, [hasMore, loading, page, fetchProducts])
 
   useEffect(() => {
-    document.title = `Products${cat ? ` – ${cat}` : ''} | Aceray`
+    document.title = `${isFavorites ? 'Favorites' : isNew ? "What's New" : 'Products'}${cat ? ` – ${cat}` : tag && !isFavorites ? ` – ${tag}` : ''} | Aceray`
     fetchProducts(0)
-  }, [cat, q])
+  }, [cat, q, tag, isNew, isFavorites])
+
+  useEffect(() => {
+    let cancelled = false
+    const allProductsQuery = `count(*[_type == "product" && ${HAS_PRODUCT_IMAGE}])`
+    const categoryCountRequests = CATEGORIES.map((category) => {
+      const slug = getCategorySlug(category)
+      const categoryFilter = getCategoryFilter(slug)
+      const countQuery = `count(*[_type == "product" && ${HAS_PRODUCT_IMAGE} && ${categoryFilter.expression}])`
+
+      return sanityFetch(countQuery, categoryFilter.params)
+        .then((count) => [slug, count || 0])
+        .catch(() => [slug, 0])
+    })
+
+    Promise.all([
+      sanityFetch(allProductsQuery).catch(() => 0),
+      ...categoryCountRequests,
+    ]).then(([allProductsCount, ...categoryEntries]) => {
+      if (cancelled) return
+
+      setCategoryCounts({
+        all: allProductsCount || 0,
+        favorites: getFavoriteSlugs().length,
+        ...Object.fromEntries(categoryEntries),
+      })
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
+    function handleFavoritesChange() {
+      setCategoryCounts((current) => ({
+        ...current,
+        favorites: getFavoriteSlugs().length,
+      }))
+
+      if (isFavorites) fetchProducts(0)
+    }
+
+    window.addEventListener(FAVORITES_CHANGED_EVENT, handleFavoritesChange)
+    window.addEventListener('storage', handleFavoritesChange)
+    return () => {
+      window.removeEventListener(FAVORITES_CHANGED_EVENT, handleFavoritesChange)
+      window.removeEventListener('storage', handleFavoritesChange)
+    }
+  }, [isFavorites, fetchProducts])
 
   function setFilter(key, value) {
     const next = new URLSearchParams(searchParams)
     if (value) next.set(key, value)
     else next.delete(key)
     next.delete('q') // reset search on cat change
+    next.delete('tag')
+    next.delete('new')
     setSearchParams(next)
+  }
+
+  function setFavoritesFilter() {
+    setSearchParams({ tag: 'favorites' })
   }
 
   return (
@@ -110,7 +260,7 @@ export default function CatalogPage() {
       {/* Header */}
       <div className="catalog-heading">
         <h1 className="catalog-title">
-          {cat ? cat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'All Products'}
+          {isNew ? "What's New" : cat ? cat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : tag ? tag.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'All Products'}
         </h1>
         <p className="catalog-count">{total} products</p>
       </div>
@@ -124,13 +274,14 @@ export default function CatalogPage() {
               <li>
                 <button
                   onClick={() => setFilter('cat', '')}
-                  className={`catalog-filter-button ${!cat ? 'active' : ''}`}
+                  className={`catalog-filter-button ${!cat && !tag && !isNew && !q ? 'active' : ''}`}
                 >
-                  All Products
+                  <span>All Products</span>
+                  <span className="catalog-filter-count">{categoryCounts.all ?? ''}</span>
                 </button>
               </li>
               {CATEGORIES.map((c) => {
-                const slug = c.toLowerCase().replace(/\s+/g, '-')
+                const slug = getCategorySlug(c)
                 const active = cat === slug || (slug.startsWith('outdoor') && (cat === 'outdoor' || cat === 'outdoors'))
                 return (
                   <li key={c}>
@@ -138,35 +289,35 @@ export default function CatalogPage() {
                       onClick={() => setFilter('cat', slug)}
                       className={`catalog-filter-button ${active ? 'active' : ''}`}
                     >
-                      {c}
+                      <span>{c}</span>
+                      <span className="catalog-filter-count">{categoryCounts[slug] ?? ''}</span>
                     </button>
                   </li>
                 )
               })}
+              <li>
+                <button
+                  onClick={setFavoritesFilter}
+                  className={`catalog-filter-button ${isFavorites ? 'active' : ''}`}
+                >
+                  <span>Favorites</span>
+                  <span className="catalog-filter-count">{categoryCounts.favorites ?? 0}</span>
+                </button>
+              </li>
             </ul>
           </div>
 
-          <Separator className="bg-[#E5E3DD]" />
-
-          {(cat || q) && (
-            <button
-              onClick={() => setSearchParams({})}
-              className="catalog-clear"
-            >
-              Clear all filters
-            </button>
-          )}
         </aside>
 
         {/* Mobile filter pills */}
         <div className="catalog-mobile-filters">
           <button type="button" onClick={() => setFilter('cat', '')}>
-            <span className={`cat-badge ${!cat ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
+            <span className={`cat-badge ${!cat && !tag && !isNew && !q ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
               All Products
             </span>
           </button>
           {CATEGORIES.map((c) => {
-            const slug = c.toLowerCase().replace(/\s+/g, '-')
+            const slug = getCategorySlug(c)
             const active = cat === slug || (slug.startsWith('outdoor') && (cat === 'outdoor' || cat === 'outdoors'))
             return (
               <button type="button" key={c} onClick={() => setFilter('cat', active ? '' : slug)}>
@@ -176,6 +327,11 @@ export default function CatalogPage() {
               </button>
             )
           })}
+          <button type="button" onClick={setFavoritesFilter}>
+            <span className={`cat-badge ${isFavorites ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
+              Favorites
+            </span>
+          </button>
         </div>
 
         {/* Grid */}
@@ -199,16 +355,20 @@ export default function CatalogPage() {
             </div>
           ) : products.length === 0 ? (
             <div className="catalog-empty">
-              <h2 className="catalog-empty-title">No products found</h2>
+              <h2 className="catalog-empty-title">
+                {isFavorites ? 'No favorites yet' : 'No products found'}
+              </h2>
               <p className="catalog-empty-copy">
-                Try another category or clear the current filters to browse the full Aceray collection.
+                {isFavorites
+                  ? 'Use the heart button on product cards to save pieces here for quick reference.'
+                  : 'Try another category or clear the current filters to browse the full Aceray collection.'}
               </p>
-              <Button
+              <button
                 onClick={() => setSearchParams({})}
-                variant="outline"
+                className="btn-outline"
               >
-                Clear Filters
-              </Button>
+                {isFavorites ? 'Browse All Products' : 'Clear Filters'}
+              </button>
             </div>
           ) : (
             <>
@@ -218,7 +378,7 @@ export default function CatalogPage() {
 
               <div ref={loadMoreRef}></div>
 {hasMore && (
-                <div className="catalog-load-more flex justify-center my-6">
+                <div className="catalog-load-more">
                   <button
                     onClick={() => fetchProducts(page + 1)}
                     disabled={loading}

@@ -47,6 +47,17 @@ console.log(`🖼  Found ${Object.keys(attachments).length} media attachments`);
 // ── Process products ───────────────────────────────────────
 const products = [];
 let skipped = 0;
+const publishedProductIds = new Set();
+
+for (let i = 0; i < items.length; i++) {
+  const item = items[i];
+  const postType = getText(item, 'wp:post_type');
+  const status = getText(item, 'wp:status');
+
+  if (postType === 'product' && status === 'publish') {
+    publishedProductIds.add(getText(item, 'wp:post_id'));
+  }
+}
 
 for (let i = 0; i < items.length; i++) {
   const item = items[i];
@@ -74,6 +85,10 @@ for (let i = 0; i < items.length; i++) {
 
   // ── Post meta (ACF / WooCommerce custom fields) ─────────
   const meta = getPostMeta(item);
+  const fromThisCollectionIds = parseSerializedPostIds(meta['from_this_collection'])
+    .filter(id => publishedProductIds.has(id) && id !== postId);
+  const youMayAlsoLikeIds = parseSerializedPostIds(meta['you_may_also_like'])
+    .filter(id => publishedProductIds.has(id) && id !== postId);
 
   // ── Featured image ──────────────────────────────────────
   const thumbnailId = meta['_thumbnail_id'];
@@ -113,6 +128,26 @@ for (let i = 0; i < items.length; i++) {
     stacking:      meta['stacking']       || undefined,
     isNewArrival:  false,
     wpPostId:      parseInt(postId, 10),
+    legacyRelatedProductIds: (fromThisCollectionIds.length || youMayAlsoLikeIds.length)
+      ? {
+          fromThisCollection: fromThisCollectionIds.length ? fromThisCollectionIds : undefined,
+          youMayAlsoLike: youMayAlsoLikeIds.length ? youMayAlsoLikeIds : undefined,
+        }
+      : undefined,
+    fromThisCollection: fromThisCollectionIds.length
+      ? fromThisCollectionIds.map(id => ({
+          _key: `from-${id}`,
+          _type: 'reference',
+          _ref: `wp-product-${id}`,
+        }))
+      : undefined,
+    youMayAlsoLike: youMayAlsoLikeIds.length
+      ? youMayAlsoLikeIds.map(id => ({
+          _key: `like-${id}`,
+          _type: 'reference',
+          _ref: `wp-product-${id}`,
+        }))
+      : undefined,
   };
 
   // Remove undefined keys (Sanity import doesn't like them)
@@ -176,4 +211,8 @@ function getPostMeta(item) {
     }
   }
   return result;
+}
+
+function parseSerializedPostIds(value = '') {
+  return Array.from(String(value).matchAll(/s:\d+:"(\d+)"/g), match => match[1]);
 }

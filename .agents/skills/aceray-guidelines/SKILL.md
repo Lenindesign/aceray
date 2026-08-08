@@ -16,7 +16,8 @@ Always adhere strictly to the guidelines defined in the project's root files:
 - **Primary Dark**: `#5a6e5e` (`--color-primary-dark`)
 - **Secondary / Text**: `#000000` (`--color-black`)
 - **Background**: `#ffffff` (`--color-bg`), Dark: `#111111` (`--color-bg-dark`)
-- **Typography**: Montserrat (`--font-primary: 'Montserrat', sans-serif`)
+- Headline Typography**: **Futura Std** (`'Futura Std', 'Montserrat', sans-serif`)
+- **Body & Specs Typography**: **Geist** (`'Geist', sans-serif`)
 - **Spacing Scale**: `--space-1` (0.25rem), `--space-2` (0.5rem), `--space-3` (1rem), `--space-4` (2rem)
 
 ### 2. Stylesheet Structure

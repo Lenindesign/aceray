@@ -1,14 +1,37 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { sanityFetch } from '@/sanityClient'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu'
+import { CATEGORIES, getCategorySlug } from '@/constants'
+import { FAMILY_HERO_IMAGES } from '@/lib/productFamilies'
 
 const NAV_LINKS = [
-  { label: 'Products', to: '/catalog' },
-  { label: 'Side Chairs', to: '/catalog?cat=side-chairs' },
-  { label: 'Armchairs', to: '/catalog?cat=armchairs' },
-  { label: 'Lounge', to: '/catalog?cat=lounge' },
-  { label: 'Outdoor', to: '/catalog?cat=outdoors' },
-  { label: 'About Us', to: '/about' },
+  { label: "What's New", to: '/catalog?new=1' },
+  { label: 'Products', to: '/catalog', dropdown: true },
+  { label: 'Ready to Ship', to: '/catalog?cat=ready-to-ship' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'About', to: '/about' },
+]
+
+const PRODUCT_CATEGORY_LINKS = [
+  ...CATEGORIES.map((label) => ({ label, to: `/catalog?cat=${getCategorySlug(label)}` })),
+]
+
+const FAMILY_LINKS = Object.keys(FAMILY_HERO_IMAGES).map((familySlug) => ({
+  label: familySlug.charAt(0).toUpperCase() + familySlug.slice(1),
+  to: `/collections/${familySlug}`,
+}))
+
+const PRODUCT_RESOURCE_LINKS = [
+  { label: 'Fabrics & Finishes', to: '/fabrics-finishes' },
+  { label: 'Favorites', to: '/catalog?tag=favorites' },
+  { label: 'Request a Sample', to: '/contact' },
 ]
 
 export default function Header() {
@@ -19,6 +42,23 @@ export default function Header() {
   const [showDropdown, setShowDropdown] = useState(false)
   const searchRef = useRef(null)
   const navigate = useNavigate()
+  const location = useLocation()
+
+  function isLinkActive(to, options = {}) {
+    const [pathname, search = ''] = to.split('?')
+
+    if (options.dropdown && (location.pathname === '/collections' || location.pathname.startsWith('/collections/'))) return true
+    if (location.pathname !== pathname) return false
+    if (pathname !== '/catalog') return true
+
+    if (options.dropdown) {
+      const params = new URLSearchParams(location.search)
+      return !params.has('new') && params.get('cat') !== 'ready-to-ship'
+    }
+
+    const targetSearch = search ? `?${search}` : ''
+    return location.search === targetSearch
+  }
 
   useEffect(() => {
     const trimmed = query.trim()
@@ -31,7 +71,7 @@ export default function Header() {
     const timer = setTimeout(() => {
       setIsSearching(true)
       const term = trimmed + '*'
-      const searchQuery = `*[_type == "product" && defined(imageUrl) && (
+      const searchQuery = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset)) && (
         title match $term ||
         designer match $term ||
         description match $term ||
@@ -87,19 +127,92 @@ export default function Header() {
         </Link>
 
         <nav id="main-nav" className={`nav-wrapper ${menuOpen ? 'active' : ''}`}>
-          <ul className="nav-links">
-            {NAV_LINKS.map(({ label, to }) => (
-              <li key={label}>
-                <NavLink
-                  to={to}
-                  onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) => (isActive ? 'active' : '')}
+          <NavigationMenu className="nav-menu" align="center">
+            <NavigationMenuList className="nav-links nav-menu-list">
+              {NAV_LINKS.map(({ label, to, dropdown }) => (
+                <NavigationMenuItem
+                  key={label}
+                  className={dropdown ? 'nav-item nav-item-has-dropdown' : 'nav-item'}
                 >
-                  {label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+                  {dropdown ? (
+                    <>
+	                      <NavigationMenuTrigger
+	                        className={`nav-menu-trigger ${isLinkActive(to, { dropdown }) ? 'active' : ''}`}
+	                        onClick={() => {
+	                          setMenuOpen(false)
+	                          navigate(to)
+	                        }}
+                      >
+                        {label}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent className="nav-dropdown">
+                        <div className="nav-dropdown-section">
+                          <span className="nav-dropdown-title">Product Types</span>
+                          {PRODUCT_CATEGORY_LINKS.map((item) => (
+                            <Link
+                              key={item.label}
+                              to={item.to}
+                              className={`nav-dropdown-link ${isLinkActive(item.to) ? 'nav-dropdown-link-active' : ''}`}
+                              onClick={() => setMenuOpen(false)}
+                              role="menuitem"
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+
+                        <div className="nav-dropdown-section nav-dropdown-section-wide">
+                          <Link
+                            to="/collections"
+                            className="nav-dropdown-title nav-dropdown-title-link"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            Collections
+                          </Link>
+                          <div className="nav-dropdown-grid">
+                            {FAMILY_LINKS.map((item) => (
+                              <Link
+                                key={item.label}
+                                to={item.to}
+                                className={`nav-dropdown-link ${isLinkActive(item.to) ? 'nav-dropdown-link-active' : ''}`}
+                                onClick={() => setMenuOpen(false)}
+                                role="menuitem"
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="nav-dropdown-section">
+                          <span className="nav-dropdown-title">Resources</span>
+                          {PRODUCT_RESOURCE_LINKS.map((item) => (
+                            <Link
+                              key={item.label}
+                              to={item.to}
+                              className={`nav-dropdown-link ${isLinkActive(item.to) ? 'nav-dropdown-link-active' : ''}`}
+                              onClick={() => setMenuOpen(false)}
+                              role="menuitem"
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </NavigationMenuContent>
+                    </>
+                  ) : (
+                    <Link
+                      to={to}
+                      onClick={() => setMenuOpen(false)}
+                      className={isLinkActive(to, { dropdown }) ? 'active' : ''}
+                    >
+                      {label}
+                    </Link>
+                  )}
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
         </nav>
 
         <div className="header-actions">

@@ -2,6 +2,8 @@
 
 ## Design System Overview
 
+For page-level layout rules, container widths, spacing rhythm, heading hierarchy, grids, cards, and forms, also follow [`LAYOUT_GUIDE.md`](./LAYOUT_GUIDE.md).
+
 - **Primary Brand Color**: `#718f80` (teal/green‑gray)
 - **Secondary Accent**: `#2C3E35`
 - **Headline Typography**: **Futura Std** (`'Futura Std', 'Montserrat', sans-serif`)
@@ -44,6 +46,7 @@
 - **Primary Button** – `.btn-primary` for solid sage green CTAs (`#718f80`) with pure white font (`#ffffff`), uppercase typography, and `0.08em` tracking. Never override inline.
 - **Outlined Button** – `.btn-outline` for secondary transparent CTAs with sage green border and text, filling solid green with white font on hover.
 - **Navbar** – `.navbar` with logo and navigation links.
+- **Navigation Dropdowns** – Header dropdowns use the Base UI-powered shadcn `NavigationMenu` interaction layer with the global `.nav-menu-trigger`, `.nav-dropdown`, `.nav-dropdown-title`, and `.nav-dropdown-link` visual pattern. Product category dropdowns should mirror the catalog sidebar: opaque white card, subtle `rgba(0, 0, 0, 0.1)` border, `var(--radius-card)`, generous `var(--space-3)` padding, Geist `0.9rem` category rows, and soft active-row highlight. Keep the Base UI popup layer visually neutral so the Aceray card supplies the only border/shadow. Avoid CSS-only hover dropdowns and translucent panels over product grids.
 - **Hero Section** – `.hero` utility class for centered headline.
 - **Card Grid** – `.catalog-grid` for product listings.
 - **Product Card** – `ProductCard.jsx` (`.product-card`) for universal product representation across home, catalog, and related sections. Features transparent image container (`background-color: transparent`, zero inner gray frame box), rounded outer borders (`16px` / `var(--radius-card)`), clean uppercase title typography, and RESTful routing (`/product/:slug`). Storybook story: `src/stories/ProductCard.stories.jsx`.

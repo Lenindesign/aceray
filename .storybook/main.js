@@ -1,9 +1,10 @@
 import { resolve } from 'path'
+import tailwindcss from '@tailwindcss/vite'
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: ['@storybook/addon-docs'],
+  addons: ['@storybook/addon-essentials'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -13,8 +14,12 @@ const config = {
     config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      '@': resolve(import.meta.dirname, '../src'),
+      '@': resolve(process.cwd(), 'src'),
     }
+    config.plugins = [
+      ...(config.plugins || []),
+      tailwindcss(),
+    ]
 
     return config
   },

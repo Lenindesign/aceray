@@ -39,25 +39,33 @@ export function BrandTokens() {
   ]
 
   return (
-    <section className="max-w-5xl p-8">
-      <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#718f80]">Aceray</p>
-        <h1 className="mt-2 text-4xl font-light tracking-wide text-[#222]">Design Tokens</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-[#555]">
+    <section className="sb-overview sb-overview-wide">
+      <div className="sb-token-logo-panel">
+        <img
+          src="/assets/images/logo.svg"
+          alt="Aceray"
+          className="sb-token-logo"
+        />
+      </div>
+
+      <div className="sb-overview-header">
+        <p className="sb-overview-eyebrow">Aceray</p>
+        <h1 className="sb-overview-title">Design Tokens</h1>
+        <p className="sb-overview-copy">
           Core colors and typography pulled from the production stylesheet.
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="sb-token-grid">
         {colors.map(([name, value, token]) => (
-          <div key={name} className="border border-[#E5E3DD] bg-white p-4">
-            <div className="mb-4 h-20 border border-black/5" style={{ backgroundColor: value }} />
-            <div className="flex items-start justify-between gap-4">
+          <div key={name} className="sb-token-card">
+            <div className="sb-token-swatch" style={{ backgroundColor: value }} />
+            <div className="sb-token-card-row">
               <div>
-                <h2 className="text-sm font-semibold text-[#222]">{name}</h2>
-                <p className="text-xs text-[#767676]">{token}</p>
+                <h2 className="sb-token-name">{name}</h2>
+                <p className="sb-token-meta">{token}</p>
               </div>
-              <code className="text-xs text-[#555]">{value}</code>
+              <code className="sb-token-code">{value}</code>
             </div>
           </div>
         ))}
@@ -68,10 +76,10 @@ export function BrandTokens() {
 
 export function ActionsAndBadges() {
   return (
-    <section className="max-w-4xl space-y-8 p-8">
+    <section className="sb-overview">
       <div>
-        <h1 className="text-2xl font-light tracking-wide text-[#222]">Buttons</h1>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <h1 className="sb-overview-section-title">Buttons</h1>
+        <div className="sb-control-row">
           <Button>Default</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="secondary">Secondary</Button>
@@ -82,8 +90,8 @@ export function ActionsAndBadges() {
       </div>
 
       <div>
-        <h2 className="text-2xl font-light tracking-wide text-[#222]">Badges</h2>
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <h2 className="sb-overview-section-title">Badges</h2>
+        <div className="sb-control-row">
           <Badge>Trade</Badge>
           <Badge variant="outline">Outdoor</Badge>
           <Badge variant="secondary">Contract</Badge>
@@ -96,7 +104,7 @@ export function ActionsAndBadges() {
 
 export function CardsAndNavigation() {
   return (
-    <section className="max-w-4xl space-y-8 p-8">
+    <section className="sb-overview">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -113,7 +121,7 @@ export function CardsAndNavigation() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <Card className="max-w-md rounded-sm">
+      <Card className="sb-demo-card">
         <CardHeader>
           <div>
             <CardTitle>Trade Sample Request</CardTitle>
@@ -138,44 +146,71 @@ export function CardsAndNavigation() {
 
 export function ButtonGuidelines() {
   return (
-    <section className="max-w-5xl space-y-8 p-8">
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#718f80]">Aceray</p>
-        <h1 className="mt-2 text-4xl font-light tracking-wide text-[#222]">Button Guidelines</h1>
-        <p className="mt-4 max-w-3xl text-sm leading-6 text-[#555]">
-          Buttons should feel consistent across the design system. Use the primary variant for important actions, secondary for supportive actions, and ghost for low-priority affordances.
+    <section className="ds-guidelines">
+      <div className="ds-guidelines-intro">
+        <p className="ds-guidelines-eyebrow">Aceray Design System</p>
+        <h1 className="ds-guidelines-title">
+          BUTTON SYSTEM & GUIDELINES
+        </h1>
+        <p className="ds-guidelines-copy">
+          All application CTAs MUST strictly use <code className="ds-guidelines-code">.btn-primary</code> or <code className="ds-guidelines-code">.btn-outline</code>. Inline style overrides on primary actions are strictly forbidden per project rules.
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-        <div className="space-y-4">
-          <article className="rounded-sm border border-[#E5E3DD] bg-white p-6">
-            <h2 className="text-xl font-semibold text-[#222]">Best Practices</h2>
-            <ul className="mt-4 space-y-3 text-sm leading-6 text-[#555]">
-              <li><strong>Use the right variant.</strong> Primary for main actions, outline for secondary actions, ghost for subtle UI controls.</li>
-              <li><strong>Keep labels concise.</strong> Prefer short, actionable text like “Save Draft”, “Open Gallery”, “View Catalog”.</li>
-              <li><strong>Prefer `asChild` for routed links.</strong> Preserve button styling while rendering an anchor or router link inside the component.</li>
-              <li><strong>Ensure keyboard focus is visible.</strong> Button styles include a clear focus ring and border state.</li>
-              <li><strong>Avoid buttons for navigation-only links.</strong> Use buttons for actions that modify state, and links when changing pages.</li>
-            </ul>
-          </article>
+      <div className="ds-guidelines-grid">
+        <article className="ds-guidelines-card">
+          <div className="ds-guidelines-card-header">
+            <span className="ds-guidelines-eyebrow">Guidelines</span>
+            <h2 className="ds-guidelines-card-title">
+              UNIVERSAL CTA RULES
+            </h2>
+          </div>
+          <ul className="ds-guidelines-list">
+            <li className="ds-guidelines-rule">
+              <strong>Primary Call-to-Action (<code>.btn-primary</code>):</strong>
+              Solid sage green background (<code>#718f80</code>), pure white text, uppercase tracking (<code>0.08em</code>), 12px 24px padding, and dark sage hover state.
+            </li>
+            <li className="ds-guidelines-rule">
+              <strong>Secondary / Outlined CTA (<code>.btn-outline</code>):</strong>
+              Transparent background with green border and dark green text, filling solid green with white text on hover.
+            </li>
+            <li className="ds-guidelines-rule">
+              <strong>Universal Spacing Rule:</strong>
+              Buttons MUST feature explicit padding (<code>12px 24px</code>) and 16px container padding buffers to prevent touching borders.
+            </li>
+          </ul>
+        </article>
 
-          <article className="rounded-sm border border-[#E5E3DD] bg-[#F9F8F6] p-6">
-            <h2 className="text-xl font-semibold text-[#222]">Sizing</h2>
-            <p className="mt-3 text-sm leading-6 text-[#555]">
-              Use `size="default"` for standard actions, `sm` for compact inline buttons, and `lg` for high-priority calls to action.
-            </p>
-          </article>
-        </div>
+        <div className="ds-guidelines-card ds-guidelines-showcase">
+          <div className="ds-guidelines-card-header">
+            <span className="ds-guidelines-eyebrow">Interactive Showcase</span>
+            <h2 className="ds-guidelines-card-title">
+              BUTTON VARIANTS
+            </h2>
+          </div>
 
-        <div className="grid gap-4">
-          <Button variant="default">Primary Action</Button>
-          <Button variant="outline">Secondary Action</Button>
-          <Button variant="secondary">Neutral Action</Button>
-          <Button variant="ghost">Ghost Action</Button>
-          <Button variant="link">Link Action</Button>
-          <Button size="sm" variant="default">Small Action</Button>
-          <Button size="lg" variant="default">Large Action</Button>
+          <div className="ds-guidelines-variants">
+            <div className="ds-guidelines-variant">
+              <span>Primary CTA (<code>.btn-primary</code>)</span>
+              <div>
+                <Button className="btn-primary">Request a Quote</Button>
+              </div>
+            </div>
+
+            <div className="ds-guidelines-variant">
+              <span>Outline CTA (<code>.btn-outline</code>)</span>
+              <div>
+                <Button variant="outline" className="btn-outline">View Specs Sheet</Button>
+              </div>
+            </div>
+
+            <div className="ds-guidelines-variant">
+              <span>Small Primary CTA</span>
+              <div>
+                <Button className="btn-primary text-xs px-4 py-2">Quick View</Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -184,7 +219,7 @@ export function ButtonGuidelines() {
 
 export function LoadingStates() {
   return (
-    <section className="grid max-w-5xl grid-cols-2 gap-6 p-8 sm:grid-cols-3 lg:grid-cols-4">
+    <section className="sb-loading-grid">
       {[...Array(8)].map((_, index) => (
         <div key={index}>
           <Skeleton className="aspect-square rounded-sm" />

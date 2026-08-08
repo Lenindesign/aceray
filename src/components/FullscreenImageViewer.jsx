@@ -636,7 +636,7 @@ export function FullscreenImageViewer({
                   }`}
                   style={{
                     width: '84px',
-                    height: '58px',
+                    height: '50px',
                     padding: '3px',
                     backgroundColor: '#ffffff',
                     display: 'block',
