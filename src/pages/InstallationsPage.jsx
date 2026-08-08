@@ -341,46 +341,33 @@ export default function InstallationsPage() {
           <>
             {/* Masonry Columns */}
             <div className="installations-masonry-grid">
-              {visibleItems.map((item, idx) => {
-                const aspectClass = [
-                  'aspect-ratio-square',
-                  'aspect-ratio-wide',
-                  'aspect-ratio-tall',
-                  'aspect-ratio-wide',
-                  'aspect-ratio-square',
-                  'aspect-ratio-portrait',
-                  'aspect-ratio-square',
-                  'aspect-ratio-wide'
-                ][idx % 8]
-
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => setSelectedItem(item)}
-                    className="installation-card"
-                  >
-                    <div className={`installation-card-img-wrap ${aspectClass}`}>
-                      <InstallationImage
-                        src={item.url}
-                        alt={`${item.projectName} - ${item.productTitle}`}
-                        className="installation-card-img"
-                      />
-                      <div className="installation-card-overlay">
-                        <span className="installation-card-badge">
-                          {item.productTitle}
-                        </span>
-                        <h4 className="installation-card-title">
-                          {item.projectName}
-                        </h4>
-                        <p className="installation-card-meta">
-                          <MapPin className="size-3 text-[#718f80]" />
-                          <span>Featured Product: {item.productTitle}</span>
-                        </p>
-                      </div>
+              {visibleItems.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className="installation-card"
+                >
+                  <div className="installation-card-img-wrap">
+                    <InstallationImage
+                      src={item.url}
+                      alt={`${item.projectName} - ${item.productTitle}`}
+                      className="installation-card-img"
+                    />
+                    <div className="installation-card-overlay">
+                      <span className="installation-card-badge">
+                        {item.productTitle}
+                      </span>
+                      <h4 className="installation-card-title">
+                        {item.projectName}
+                      </h4>
+                      <p className="installation-card-meta">
+                        <MapPin className="size-3 text-[#718f80]" />
+                        <span>Featured Product: {item.productTitle}</span>
+                      </p>
                     </div>
                   </div>
-                )
-              })}
+                </div>
+              ))}
             </div>
 
             {/* Infinite Scroll Sentinel & Load More */}

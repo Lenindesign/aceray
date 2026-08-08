@@ -1,7 +1,7 @@
 /* Component Styles - Aceray Aesthetic */
-
-/* Top Announcement Banner */
-.top-banner {
+@layer components {
+  /* Top Announcement Banner */
+  .top-banner {
   align-items: center;
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -3166,4 +3166,5 @@ main:has(.about-page) + .footer {
   .catalog-grid {
     grid-template-columns: 1fr;
   }
+}
 }
