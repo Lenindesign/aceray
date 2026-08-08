@@ -30,9 +30,11 @@ export default function ProductCard({ product, className = '' }) {
     ? product.categories.slice(0, 2).join(' / ')
     : (product.category || 'Seating')
 
-  const imageUrl = product.mainImage
-    ? urlFor(product.mainImage).url()
-    : (product.imageUrl || '/assets/images/placeholder.jpg')
+  const imageUrl = product.mainImage?.asset?.url
+    ? product.mainImage.asset.url
+    : (product.mainImage?.asset?._ref ? urlFor(product.mainImage).url() : (
+        product.imageUrl && !product.imageUrl.includes('aceray.com') ? product.imageUrl : '/assets/images/placeholder.jpg'
+      ))
 
   function handleFavoriteClick() {
     setIsFavorite(toggleFavoriteProduct(slug))

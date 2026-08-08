@@ -245,7 +245,7 @@ export default function Header() {
                 ) : searchResults.length > 0 ? (
                   <>
                     {searchResults.map((item) => {
-                      const imgUrl = item.mainImage?.asset?.url || item.imageUrl
+                      const imgUrl = item.mainImage?.asset?.url || (item.imageUrl && !item.imageUrl.includes('aceray.com') ? item.imageUrl : '/assets/images/placeholder.jpg')
                       const category = item.categories?.[0] || 'Product'
                       return (
                         <div

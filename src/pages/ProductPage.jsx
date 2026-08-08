@@ -708,12 +708,19 @@ export default function ProductPage() {
     )
   }
 
-  const getSanityUrl = (image) => image ? urlFor(image).url() : null
+  const getSanityUrl = (image) => {
+    if (!image) return null
+    if (typeof image === 'string') return image.includes('aceray.com') ? null : image
+    if (image.asset?.url) return image.asset.url
+    if (image.asset?._ref) return urlFor(image).url()
+    return null
+  }
   const images = [product.mainImage, ...(product.gallery || [])]
     .map(getSanityUrl)
     .filter(Boolean)
-  // legacy fallback for any missing assets
-  const legacyImage = product.imageUrl
+  if (images.length === 0 && product.imageUrl && !product.imageUrl.includes('aceray.com')) {
+    images.push(product.imageUrl)
+  }
   const displayCategories = getProductDisplayCategories(product)
   const firstCat = displayCategories[0] || product.categories?.[0] || ''
   const dimsLabel = product.overallHeight && product.overallWidth && product.overallDepth
@@ -825,7 +832,7 @@ export default function ProductPage() {
                 {product.productPdfs?.length > 0 && (
                   <div className="product-pdf-links" aria-label="Product PDF files">
                     {product.productPdfs.map((pdf) => {
-                      const href = pdf.file?.asset?.url || pdf.sourceUrl
+                      const href = pdf.file?.asset?.url || (pdf.sourceUrl && !pdf.sourceUrl.includes('aceray.com') ? pdf.sourceUrl : null)
                       if (!href) return null
                       return (
                         <Button
