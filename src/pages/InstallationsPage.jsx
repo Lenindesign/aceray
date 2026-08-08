@@ -344,13 +344,13 @@ export default function InstallationsPage() {
               {visibleItems.map((item, idx) => {
                 const aspectClass = [
                   'aspect-ratio-square',
-                  'aspect-ratio-tall',
                   'aspect-ratio-wide',
+                  'aspect-ratio-tall',
                   'aspect-ratio-wide',
                   'aspect-ratio-square',
                   'aspect-ratio-portrait',
                   'aspect-ratio-square',
-                  'aspect-ratio-tall'
+                  'aspect-ratio-wide'
                 ][idx % 8]
 
                 return (
