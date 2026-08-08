@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/navigation-menu"
 import { cva } from "class-variance-authority"
 
@@ -55,11 +56,14 @@ const navigationMenuTriggerStyle = cva(
 function NavigationMenuTrigger({
   className,
   children,
+  href,
+  render,
   ...props
 }) {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
+      render={render || (href ? <Link to={href} /> : undefined)}
       className={cn(navigationMenuTriggerStyle(), "group", className)}
       {...props}>
       {children}{" "}

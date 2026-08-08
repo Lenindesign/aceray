@@ -143,6 +143,7 @@ export default function Header() {
                   {dropdown ? (
                     <>
 	                      <NavigationMenuTrigger
+	                        href={to}
 	                        className={`nav-menu-trigger ${isLinkActive(to, { dropdown }) ? 'active' : ''}`}
 	                        onClick={() => {
 	                          setMenuOpen(false)
