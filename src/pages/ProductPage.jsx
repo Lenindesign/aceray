@@ -834,6 +834,10 @@ export default function ProductPage() {
                     {product.productPdfs.map((pdf) => {
                       const href = pdf.file?.asset?.url || (pdf.sourceUrl && !pdf.sourceUrl.includes('aceray.com') ? pdf.sourceUrl : null)
                       if (!href) return null
+
+                      let label = pdf.title || `${product.title} Spec Sheet`
+                      label = label.replace(/\s*PDF\s*File$/i, ' Spec Sheet').replace(/\s*PDF$/i, ' Spec Sheet')
+
                       return (
                         <Button
                           key={pdf.sourceUrl || pdf.file?.asset?._id || pdf.title}
@@ -841,13 +845,9 @@ export default function ProductPage() {
                           variant="outline"
                           className="btn-outline w-full"
                         >
-                          <a
-                            href={href}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <FileText className="mr-2 h-4.5 w-4.5 shrink-0" />
-                            {pdf.title || 'PDF File'}
+                          <a href={href} target="_blank" rel="noopener noreferrer">
+                            <FileText className="size-4 mr-2" />
+                            {label}
                           </a>
                         </Button>
                       )
