@@ -133,47 +133,45 @@ export default function InstallationsPage() {
   return (
     <div className="installations-page min-h-screen bg-[#faf9f6] text-[#222]">
       {/* Hero Banner */}
-      <section className="relative bg-[#1c2420] text-white py-20 px-6 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1c2420] via-[#2a3630] to-[#1c2420] opacity-90" />
-        <div className="container relative z-10 max-w-5xl mx-auto text-center space-y-6">
+      <section className="installations-hero">
+        <div className="installations-hero-content">
           <Badge className="bg-[#718f80] text-white hover:bg-[#5c7769] text-xs uppercase tracking-widest px-4 py-1.5 rounded-full border-none">
             Project Showcase
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight font-heading uppercase text-white">
+          <h1 className="installations-hero-title">
             Installation Gallery
           </h1>
-          <p className="text-base md:text-xl text-[#d0d8d3] max-w-2xl mx-auto leading-relaxed font-sans font-light">
+          <p className="installations-hero-subtitle">
             Explore real-world hospitality installations featuring Aceray seating, tables, and custom furniture across premier hotels, resorts, and dining spaces.
           </p>
 
           {/* Search & Filter Bar */}
-          <div className="pt-6 flex flex-col md:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
-            <div className="relative w-full md:w-96">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search projects, hotels, products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-10 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white placeholder-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#718f80] transition-all font-sans"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white"
-                >
-                  <X className="size-4" />
-                </button>
-              )}
-            </div>
+          <div className="installations-search-wrap">
+            <Search className="installations-search-icon" />
+            <input
+              type="text"
+              placeholder="Search projects, hotels, products..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="installations-search-input"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="installations-search-clear"
+                aria-label="Clear search"
+              >
+                <X className="size-4" />
+              </button>
+            )}
           </div>
         </div>
       </section>
 
       {/* Filter Tabs */}
-      <section className="container max-w-7xl mx-auto px-6 pt-10 pb-6">
-        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-gray-200 pb-6">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+      <section className="container max-w-7xl mx-auto px-6">
+        <div className="installations-filter-bar">
+          <div className="installations-filter-pills">
             <Filter className="size-4 text-[#718f80] mr-1 flex-shrink-0" />
             {CATEGORY_FILTERS.map((cat) => (
               <button
@@ -182,30 +180,26 @@ export default function InstallationsPage() {
                   setActiveCategory(cat)
                   setVisibleCount(24)
                 }}
-                className={`px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap font-sans ${
-                  activeCategory === cat
-                    ? 'bg-[#718f80] text-white shadow-sm'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                }`}
+                className={`installations-pill ${activeCategory === cat ? 'active' : ''}`}
               >
                 {cat}
               </button>
             ))}
           </div>
-          <span className="text-xs text-gray-500 font-sans tracking-wide">
+          <span className="installations-count-text">
             Showing {filteredItems.length} installation photos
           </span>
         </div>
       </section>
 
       {/* Masonry Image Gallery Section */}
-      <section className="container max-w-7xl mx-auto px-6 pb-24">
+      <section className="container max-w-7xl mx-auto px-6 installations-section">
         {loading ? (
-          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          <div className="installations-masonry-grid">
             {[...Array(12)].map((_, i) => (
               <Skeleton
                 key={i}
-                className="w-full h-64 rounded-[16px] break-inside-avoid bg-gray-200 animate-pulse"
+                className="w-full h-64 rounded-[16px] break-inside-avoid bg-gray-200 animate-pulse mb-4"
               />
             ))}
           </div>
@@ -228,29 +222,29 @@ export default function InstallationsPage() {
           </div>
         ) : (
           <>
-            {/* Tailwind CSS Masonry Columns */}
-            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            {/* Masonry Columns */}
+            <div className="installations-masonry-grid">
               {visibleItems.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => setSelectedItem(item)}
-                  className="group relative break-inside-avoid overflow-hidden rounded-[16px] bg-white border border-gray-200/80 shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+                  className="installation-card"
                 >
-                  <div className="relative overflow-hidden aspect-auto">
+                  <div className="installation-card-img-wrap">
                     <img
                       src={item.url}
                       alt={`${item.projectName} - ${item.productTitle}`}
                       loading="lazy"
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                      className="installation-card-img"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
-                      <Badge className="w-fit bg-[#718f80] text-white border-none text-[10px] uppercase tracking-wider mb-2">
+                    <div className="installation-card-overlay">
+                      <span className="installation-card-badge">
                         {item.productTitle}
-                      </Badge>
-                      <h4 className="font-heading text-base font-medium leading-snug uppercase">
+                      </span>
+                      <h4 className="installation-card-title">
                         {item.projectName}
                       </h4>
-                      <p className="text-xs text-gray-300 font-sans mt-1 flex items-center gap-1">
+                      <p className="installation-card-meta">
                         <MapPin className="size-3 text-[#718f80]" />
                         <span>Featured Product: {item.productTitle}</span>
                       </p>
@@ -262,7 +256,7 @@ export default function InstallationsPage() {
 
             {/* Load More Button */}
             {visibleCount < filteredItems.length && (
-              <div className="text-center pt-14">
+              <div className="text-center pt-12">
                 <Button
                   onClick={() => setVisibleCount((prev) => prev + 24)}
                   className="btn-primary px-8 py-3 text-sm rounded-full tracking-wider uppercase"

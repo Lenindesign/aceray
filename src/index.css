@@ -5,6 +5,7 @@
 @import "../styles/base.css";
 @import "../styles/components.css";
 @import "../styles/product.css";
+@import "../styles/installations.css";
 
 /* ── Aceray Brand Tokens (Tailwind v4 bridge) ─────────────── */
 @theme {
