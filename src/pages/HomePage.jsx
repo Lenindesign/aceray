@@ -94,20 +94,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Slide Indicators & CTA Button */}
+        {/* CTA Button & Slide Indicators Below */}
         <div className="hero-bottom-wrap">
-          <div className="hero-slide-indicators">
-            {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
-              <button
-                key={slide.title}
-                type="button"
-                onClick={() => setHeroIndex(idx)}
-                className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
-                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
-              />
-            ))}
-          </div>
-
           <div className="hero-bottom-cta">
             <button
               type="button"
@@ -121,12 +109,16 @@ export default function HomePage() {
             </button>
           </div>
 
-          <div className="hero-slogan-bottom">
-            <img
-              src="/assets/migrated/slogan-888x85.png"
-              alt="The LOOK of Seating"
-              className="hero-slogan-img"
-            />
+          <div className="hero-slide-indicators">
+            {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
+              <button
+                key={slide.title}
+                type="button"
+                onClick={() => setHeroIndex(idx)}
+                className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
+                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
+              />
+            ))}
           </div>
         </div>
       </section>
