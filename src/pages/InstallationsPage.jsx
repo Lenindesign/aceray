@@ -172,6 +172,8 @@ export default function InstallationsPage() {
   const sentinelRef = useRef(null)
 
   useEffect(() => {
+    document.title = 'Hospitality & Commercial Furniture Installation Gallery | Aceray'
+
     async function fetchInstallations() {
       setLoading(true)
       try {

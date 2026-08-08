@@ -862,8 +862,42 @@ export default function ProductPage() {
         setRelated([])
         setRelatedSubtitle('')
 
-        // Update page title
-        document.title = `${p.title} – Aceray | Premium Commercial Seating`
+        // Update page title & dynamic meta description
+        document.title = `${p.title} – ${p.designer ? `${p.designer} | ` : ''}Aceray Commercial Seating`
+
+        let metaDesc = document.querySelector('meta[name="description"]')
+        if (!metaDesc) {
+          metaDesc = document.createElement('meta')
+          metaDesc.name = 'description'
+          document.head.appendChild(metaDesc)
+        }
+        metaDesc.content = `${p.title} designed by ${p.designer || 'Aceray'}. Explore specifications, CAD dimensions, finish options, and commercial interior photography.`
+
+        // Inject Product JSON-LD Schema for Google Rich Results
+        let jsonLdScript = document.getElementById('product-jsonld')
+        if (!jsonLdScript) {
+          jsonLdScript = document.createElement('script')
+          jsonLdScript.id = 'product-jsonld'
+          jsonLdScript.type = 'application/ld+json'
+          document.head.appendChild(jsonLdScript)
+        }
+        jsonLdScript.textContent = JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          'name': p.title,
+          'image': p.imageUrl || (p.mainImage?.asset?.url ? `${p.mainImage.asset.url}?auto=format&w=1200` : ''),
+          'description': p.description || `${p.title} commercial seating furniture by Aceray.`,
+          'brand': {
+            '@type': 'Brand',
+            'name': 'Aceray',
+          },
+          'category': p.categories?.[0] || 'Commercial Furniture',
+          'offers': {
+            '@type': 'AggregateOffer',
+            'priceCurrency': 'USD',
+            'availability': 'https://schema.org/InStock',
+          },
+        })
 
         const family = getCollectionFamily(p)
         setCollectionFamily(family)
