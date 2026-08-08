@@ -727,39 +727,51 @@
 }
 
 .hero-slide-info {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
   margin-top: 0 !important;
   color: #ffffff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
   transition: opacity 0.5s ease;
+  width: 100%;
 }
 
 .hero-slide-tag {
-  display: inline-block;
+  display: block !important;
+  text-align: center !important;
   font-family: var(--font-sans);
   font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #d0e0d7;
-  margin-bottom: 4px;
+  margin: 0 auto 4px auto !important;
 }
 
 .hero-slide-title {
+  display: block !important;
+  text-align: center !important;
   font-family: var(--font-heading);
   font-size: clamp(2.75rem, 6.5vw, 4.75rem) !important;
   font-weight: 300;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #ffffff;
-  margin: 2px 0 4px 0 !important;
+  margin: 2px auto 4px auto !important;
   line-height: 1.05;
+  width: 100%;
 }
 
 .hero-slide-designer {
+  display: block !important;
+  text-align: center !important;
   font-family: var(--font-sans);
   font-size: 0.85rem;
   color: #e2e8e4;
-  margin-top: 4px;
+  margin: 4px auto 0 auto !important;
   font-weight: 400;
 }
 

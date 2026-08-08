@@ -102,7 +102,7 @@ export default function HomePage() {
         {/* Hero Content & Active Slide Info */}
         <div className="hero-content">
           <div className="hero-slide-info">
-            <span className="hero-slide-tag">Featured New Arrival</span>
+            <span className="hero-slide-tag">COLLECTION</span>
             <h1 className="hero-slide-title">{currentSlide.title}</h1>
             <p className="hero-slide-designer">Designed by {currentSlide.designer}</p>
           </div>
