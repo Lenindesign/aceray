@@ -31,7 +31,25 @@ export const Standard = () => (
 export const ProductGrid = () => (
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 max-w-5xl bg-[#FAF9F6] rounded-2xl">
     <ProductCard product={mockProduct} />
-    <ProductCard product={{ ...mockProduct, id: 'wp-product-7982', title: 'BALLO-3', slug: 'ballo-3', familySlug: 'ballo', categories: ['Armchairs'], imageUrl: '/assets/migrated/Aceray-Ballo-chairs-setting.jpg', designer: 'Calesi/Tonelli' }} />
-    <ProductCard product={{ ...mockProduct, id: 'wp-product-277', title: 'MIRA-7', slug: 'mira-7', familySlug: 'mira', categories: ['Lounge Seating'], imageUrl: '/assets/migrated/Mira-X3-horizontal.webp', designer: 'Area 44' }} />
+    <ProductCard product={{
+      id: 'wp-product-7982',
+      title: 'BALLO-3',
+      slug: 'ballo-3',
+      familySlug: 'ballo',
+      categories: ['Armchairs'],
+      imageUrl: 'https://cdn.sanity.io/images/xm9au2qy/production/86bd4109b7263d53801bdd4eb63cc81791ea8dfe-1200x1200.jpg',
+      mainImage: { asset: { url: 'https://cdn.sanity.io/images/xm9au2qy/production/86bd4109b7263d53801bdd4eb63cc81791ea8dfe-1200x1200.jpg' } },
+      designer: 'Calesi/Tonelli'
+    }} />
+    <ProductCard product={{
+      id: 'wp-product-277',
+      title: 'MIRA-7',
+      slug: 'mira-7',
+      familySlug: 'mira',
+      categories: ['Lounge Seating'],
+      imageUrl: 'https://cdn.sanity.io/images/xm9au2qy/production/b2848f9bbf34a8e42b2c4be6aeae7def10c81e7a-1200x1200.jpg',
+      mainImage: { asset: { url: 'https://cdn.sanity.io/images/xm9au2qy/production/b2848f9bbf34a8e42b2c4be6aeae7def10c81e7a-1200x1200.jpg' } },
+      designer: 'Area 44'
+    }} />
   </div>
 )
