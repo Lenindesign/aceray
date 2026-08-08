@@ -386,11 +386,13 @@ function ProductSkeleton() {
   )
 }
 
-// ── Image Gallery (inline on product page with native swipe & scroll-snap) ──────
+// ── Image Gallery (inline on product page with native swipe, wraparound loop & scroll-snap) ──────
 function Gallery({ images, title, designer }) {
   const [active, setActive] = useState(0)
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
   const scrollRef = useRef(null)
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
   const scrollStartX = useRef(0)
   const isMouseDown = useRef(false)
   const wasDragged = useRef(false)
@@ -431,16 +433,49 @@ function Gallery({ images, title, designer }) {
     scrollToIndex(prevIdx)
   }
 
+  // Handle Touch Swipe (including Infinite Loop / Wraparound)
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+    touchEndX.current = e.touches[0].clientX
+    wasDragged.current = false
+  }
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX
+    if (Math.abs(touchEndX.current - touchStartX.current) > 10) {
+      wasDragged.current = true
+    }
+  }
+
+  const handleTouchEnd = () => {
+    if (images.length <= 1) return
+    const diff = touchStartX.current - touchEndX.current
+    const threshold = 35
+
+    if (diff > threshold) {
+      // Swiped Left -> go to Next (wraps to 0 when on last image)
+      const nextIdx = (active + 1) % images.length
+      scrollToIndex(nextIdx)
+    } else if (diff < -threshold) {
+      // Swiped Right -> go to Prev (wraps to last image when on 1st image)
+      const prevIdx = (active - 1 + images.length) % images.length
+      scrollToIndex(prevIdx)
+    }
+  }
+
   // Handle Mouse Drag for desktop swipe
   const handleMouseDown = (e) => {
     if (!scrollRef.current) return
     isMouseDown.current = true
     wasDragged.current = false
+    touchStartX.current = e.clientX
+    touchEndX.current = e.clientX
     scrollStartX.current = e.clientX + scrollRef.current.scrollLeft
   }
 
   const handleMouseMove = (e) => {
     if (!isMouseDown.current || !scrollRef.current) return
+    touchEndX.current = e.clientX
     const delta = scrollStartX.current - e.clientX
     if (Math.abs(delta - scrollRef.current.scrollLeft) > 5) {
       wasDragged.current = true
@@ -449,7 +484,17 @@ function Gallery({ images, title, designer }) {
   }
 
   const handleMouseUpOrLeave = () => {
+    if (!isMouseDown.current) return
     isMouseDown.current = false
+    if (images.length > 1) {
+      const diff = touchStartX.current - touchEndX.current
+      const threshold = 35
+      if (diff > threshold) {
+        scrollToIndex((active + 1) % images.length)
+      } else if (diff < -threshold) {
+        scrollToIndex((active - 1 + images.length) % images.length)
+      }
+    }
   }
 
   const handleImageClick = (index) => {
@@ -469,6 +514,9 @@ function Gallery({ images, title, designer }) {
           ref={scrollRef}
           className="product-hero-scroll-container"
           onScroll={handleScroll}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
