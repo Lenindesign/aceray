@@ -49,6 +49,17 @@ export default function ProductCard({ product, className = '' }) {
     setIsFavorite(toggleFavoriteProduct(slug))
   }
 
+  function optimizeSanityUrl(rawUrl, width = 600) {
+    if (!rawUrl || typeof rawUrl !== 'string') return '/assets/images/placeholder.jpg'
+    if (rawUrl.includes('cdn.sanity.io')) {
+      const separator = rawUrl.includes('?') ? '&' : '?'
+      return `${rawUrl}${separator}w=${width}&auto=format&q=80`
+    }
+    return rawUrl
+  }
+
+  const finalImageUrl = optimizeSanityUrl(imageUrl, 600)
+
   return (
     <article className={`product-card ${className}`}>
       <button
@@ -64,9 +75,10 @@ export default function ProductCard({ product, className = '' }) {
       <Link to={`/product/${encodeURIComponent(slug)}`} className="product-card-link">
         <div className="product-image-wrapper">
           <img
-            src={imageUrl}
-            alt={product.title || 'Aceray Product'}
+            src={finalImageUrl}
+            alt={product.title ? `${product.title} commercial seating by Aceray` : 'Aceray Commercial Furniture'}
             loading="lazy"
+            decoding="async"
             onError={(e) => {
               e.currentTarget.onerror = null
               e.currentTarget.src = '/assets/images/placeholder.jpg'
