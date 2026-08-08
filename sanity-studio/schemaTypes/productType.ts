@@ -124,6 +124,105 @@ export const productType = defineType({
       ],
       description: 'Product-specific PDF spec sheets migrated from WordPress.',
     }),
+    defineField({
+      name: 'technicalDrawings',
+      title: 'Technical Drawings',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              description: 'e.g. RIVA-3RSL Technical Drawing',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'file',
+              title: 'File (DWG / PDF)',
+              type: 'file',
+              options: {
+                accept: '.dwg,.pdf,.dxf',
+              },
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+            },
+          },
+        },
+      ],
+      description: 'CAD technical drawings (DWG, PDF, DXF) available for download.',
+    }),
+    defineField({
+      name: 'files3d',
+      title: '3D Files',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              description: 'e.g. RIVA-3RSL 3DS Max File',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'file',
+              title: 'File (STEP / OBJ / SKP / 3DS / etc.)',
+              type: 'file',
+              options: {
+                accept: '.step,.stp,.obj,.skp,.3ds,.fbx,.iges,.igs,.stl',
+              },
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+            },
+          },
+        },
+      ],
+      description: '3D model files (STEP, OBJ, SKP, etc.) available for download.',
+    }),
+    defineField({
+      name: 'zipFiles',
+      title: 'Archive / ZIP Files',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              description: 'e.g. RIVA-3RSL Revit File',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'file',
+              title: 'File (ZIP / RAR)',
+              type: 'file',
+              options: {
+                accept: '.zip,.rar,.7z',
+              },
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+            },
+          },
+        },
+      ],
+      description: 'Archive/zip files (Revit, BIM, etc.) available for download.',
+    }),
 
     // ── Curated product relationships ─────────────────────
     defineField({

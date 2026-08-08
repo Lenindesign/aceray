@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams, useParams, Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Heart, FileText } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Heart, FileText, Download, Layers, Box, Archive } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import {
@@ -35,7 +35,10 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
   overallHeight, overallWidth, overallDepth, seatHeight, weight, com, stacking,
   "mainImage": mainImage{asset->{_id, url}},
   "gallery": gallery[]{asset->{_id, url}},
-  productPdfs[]{title, sourceUrl, file{asset->{_id, url, originalFilename}}}
+  productPdfs[]{title, sourceUrl, file{asset->{_id, url, originalFilename}}},
+  technicalDrawings[]{title, file{asset->{_id, url, originalFilename}}},
+  files3d[]{title, file{asset->{_id, url, originalFilename}}},
+  zipFiles[]{title, file{asset->{_id, url, originalFilename}}}
 }`
 
 const COLLECTION_FAMILY_QUERY = `*[_type == "product" && slug.current != $slug && (defined(imageUrl) || defined(mainImage.asset)) && $family in categories] | order(_updatedAt desc) [0..11] {
@@ -519,6 +522,116 @@ function ProductFinishModule({ product }) {
   )
 }
 
+// ── Downloads Section ──────────────────────────────────────────
+function DownloadRow({ icon: Icon, href, label, ext }) {
+  if (!href) return null
+  return (
+    <a
+      href={href}
+      download
+      target="_blank"
+      rel="noopener noreferrer"
+      className="product-download-row"
+      aria-label={`Download ${label}`}
+    >
+      <span className="product-download-icon-wrap">
+        <Icon aria-hidden="true" className="product-download-icon" />
+      </span>
+      <span className="product-download-label">
+        {label}
+        {ext && <span className="product-download-ext">{ext}</span>}
+      </span>
+      <span className="product-download-action">
+        <Download aria-hidden="true" className="product-download-dl-icon" />
+        <span className="product-download-action-text">Download</span>
+      </span>
+    </a>
+  )
+}
+
+function DownloadCategory({ title, icon, items }) {
+  if (!items || items.length === 0) return null
+  return (
+    <div className="product-download-category">
+      <h3 className="product-download-category-title">{title}</h3>
+      <div className="product-download-rows">
+        {items.map((item, i) => {
+          const href = item.file?.asset?.url || null
+          const filename = item.file?.asset?.originalFilename || item.title
+          const extMatch = filename?.match(/\.(\w+)$/i)
+          const ext = extMatch ? `.${extMatch[1].toUpperCase()}` : ''
+          return (
+            <DownloadRow
+              key={item.file?.asset?._id || `${title}-${i}`}
+              icon={icon}
+              href={href}
+              label={item.title}
+              ext={ext}
+            />
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function ProductDownloadsSection({ product }) {
+  // Deduplicate productPdfs by asset url, prefer spec sheets (non-technical drawing)
+  const specSheets = (() => {
+    if (!product?.productPdfs?.length) return []
+    const seen = new Set()
+    return product.productPdfs.filter((pdf) => {
+      const href = pdf.file?.asset?.url || (pdf.sourceUrl && !pdf.sourceUrl.includes('aceray.com') ? pdf.sourceUrl : null)
+      if (!href) return false
+      if (seen.has(href)) return false
+      seen.add(href)
+      return true
+    })
+  })()
+
+  const technicalDrawings = product?.technicalDrawings || []
+  const files3d = product?.files3d || []
+  const zipFiles = product?.zipFiles || []
+
+  const hasAnyDownload = specSheets.length > 0 || technicalDrawings.length > 0 || files3d.length > 0 || zipFiles.length > 0
+  if (!hasAnyDownload) return null
+
+  return (
+    <section id="product-downloads" className="product-downloads-section related-section container" aria-label="Product downloads">
+      <h2 className="section-title">Downloads</h2>
+      <p className="section-subtitle">Specification sheets, technical drawings, and 3D assets for this product.</p>
+
+      <div className="product-downloads-grid">
+        <DownloadCategory
+          title="Spec Sheets"
+          icon={FileText}
+          items={specSheets.map((pdf) => ({
+            title: (pdf.title || `${product.title} Spec Sheet`)
+              .replace(/\s*PDF\s*File$/i, ' Spec Sheet')
+              .replace(/\s*PDF$/i, ' Spec Sheet'),
+            file: pdf.file,
+          }))}
+        />
+        <DownloadCategory
+          title="Technical Drawings"
+          icon={Layers}
+          items={technicalDrawings}
+        />
+        <DownloadCategory
+          title="3D Files"
+          icon={Box}
+          items={files3d}
+        />
+        <DownloadCategory
+          title="Archives & Revit"
+          icon={Archive}
+          items={zipFiles}
+        />
+      </div>
+    </section>
+  )
+}
+
 function ProductCarousel({ products, label }) {
   const trackRef = useRef(null)
 
@@ -829,30 +942,18 @@ export default function ProductPage() {
                 <Link to="/contact" className="btn-primary product-cta-btn">
                   Request Quote / Trade Info
                 </Link>
-                {product.productPdfs?.length > 0 && (
-                  <div className="product-pdf-links" aria-label="Product PDF files">
-                    {product.productPdfs.map((pdf) => {
-                      const href = pdf.file?.asset?.url || (pdf.sourceUrl && !pdf.sourceUrl.includes('aceray.com') ? pdf.sourceUrl : null)
-                      if (!href) return null
-
-                      let label = pdf.title || `${product.title} Spec Sheet`
-                      label = label.replace(/\s*PDF\s*File$/i, ' Spec Sheet').replace(/\s*PDF$/i, ' Spec Sheet')
-
-                      return (
-                        <Button
-                          key={pdf.sourceUrl || pdf.file?.asset?._id || pdf.title}
-                          asChild
-                          variant="outline"
-                          className="btn-outline w-full"
-                        >
-                          <a href={href} target="_blank" rel="noopener noreferrer">
-                            <FileText className="size-4 mr-2" />
-                            {label}
-                          </a>
-                        </Button>
-                      )
-                    })}
-                  </div>
+                {(product.productPdfs?.length > 0 || product.technicalDrawings?.length > 0 || product.files3d?.length > 0 || product.zipFiles?.length > 0) && (
+                  <a
+                    href="#product-downloads"
+                    className="btn-outline product-cta-btn"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      document.getElementById('product-downloads')?.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                  >
+                    <Download className="size-4 mr-2" aria-hidden="true" />
+                    View Downloads
+                  </a>
                 )}
                 <p className="product-cta-note text-center">
                   Trade pricing available for design professionals. Contact us for COM/COL options.
@@ -877,6 +978,9 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
+
+      {/* Downloads Section */}
+      <ProductDownloadsSection product={product} />
 
       {/* Collection */}
       {collectionProducts.length > 0 && (
