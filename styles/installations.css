@@ -166,7 +166,7 @@
   letter-spacing: 0.05em;
 }
 
-/* ── Masonry Grid Layout ────────────────────────────────────── */
+/* ── Masonry Grid Layout (Pinterest Natural Heights) ──────────── */
 .installations-section {
   padding-bottom: var(--space-16);
 }
@@ -188,9 +188,9 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
   .installations-masonry-grid {
-    column-count: 3;
+    column-count: 4;
   }
 }
 
@@ -216,19 +216,14 @@
 .installation-card-img-wrap {
   position: relative;
   width: 100%;
+  height: auto;
   overflow: hidden;
   background: #edece8;
 }
 
-/* Aspect ratio patterns matching reference grid */
-.aspect-ratio-square { aspect-ratio: 1 / 1; }
-.aspect-ratio-tall { aspect-ratio: 3 / 4; }
-.aspect-ratio-wide { aspect-ratio: 4 / 3; }
-.aspect-ratio-portrait { aspect-ratio: 2 / 3; }
-
 .installation-card-img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);

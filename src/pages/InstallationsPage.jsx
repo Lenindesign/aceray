@@ -34,6 +34,38 @@ function InstallationImage({ src, alt, className }) {
   )
 }
 
+// Studio / Catalog Cutout patterns to exclude (frontview, backview, profile view, white-bg cutouts)
+const STUDIO_CUTOUT_PATTERNS = [
+  /front[-_]?view/i, /back[-_]?view/i, /side[-_]?view/i, /top[-_]?view/i,
+  /profile[-_]?view/i, /profile[-_]?\d/i, /armchair[-_]?front/i, /armchair[-_]?back/i,
+  /chair[-_]?front/i, /chair[-_]?back/i, /stool[-_]?front/i, /stool[-_]?back/i,
+  /isolated/i, /cutout/i, /white[-_]?bg/i, /dimension/i, /line[-_]?drawing/i,
+  /spec/i, /schema/i, /cad/i, /3d/i, /swatch/i, /finish/i
+]
+
+// Installation project indicators (hotels, resorts, restaurants, state codes, install keyword)
+const INSTALLATION_INDICATORS = [
+  /hotel/i, /resort/i, /restaurant/i, /suites/i, /inn/i, /lodge/i, /casino/i,
+  /bistro/i, /cafe/i, /lounge/i, /dining/i, /bar/i, /club/i, /spa/i, /hospitality/i,
+  /install/i, /project/i, /marriott/i, /hilton/i, /hyatt/i, /omni/i, /westin/i,
+  /sheraton/i, /intercontinental/i, /fairmont/i, /wyndham/i, /radisson/i, /loews/i,
+  /kimpton/i, /edition/i, /ritz/i, /st-regis/i, /four-seasons/i,
+  /[-_]([A-Z]{2})\.(jpg|jpeg|png|webp)/i, // e.g. -CA.jpg, -FL.jpg, -NY.jpg, -IL.jpg
+  /[-_](chicago|los-angeles|san-diego|las-vegas|miami|new-york|boston|dallas|austin|denver|seattle|atlanta|nashville|orlando)/i
+]
+
+function isVerifiedInstallationPhoto(url) {
+  if (!url) return false
+  const filename = url.split('/').pop() || ''
+  const isStudio = STUDIO_CUTOUT_PATTERNS.some((pat) => pat.test(filename))
+  if (isStudio) return false
+
+  const hasInstallIndicator = INSTALLATION_INDICATORS.some((pat) => pat.test(filename))
+  const isMultiWordName = filename.split(/[-_]/).length >= 4
+
+  return hasInstallIndicator || isMultiWordName
+}
+
 // Helper to format clean project name from image filename or product title
 function formatProjectName(url, productTitle) {
   if (!url) return `${productTitle} Installation`
@@ -86,15 +118,21 @@ export default function InstallationsPage() {
 
         products?.forEach((product) => {
           const category = product.categories?.[0] || 'Seating'
-          const mainImg = product.mainImageUrl || (product.imageUrl && !product.imageUrl.includes('aceray.com') ? product.imageUrl : null)
           const gallery = [
             ...(product.galleryAssetUrls || []),
             ...(product.galleryUrls || [])
-          ].filter(url => url && !url.includes('aceray.com')) // ensure valid URLs
+          ].filter(url => url && !url.includes('aceray.com'))
 
-          // Combine main and gallery photos
-          const urls = mainImg ? [mainImg, ...gallery] : gallery
-          const uniqueUrls = Array.from(new Set(urls))
+          // Filter ONLY verified installation photos (excluding studio cutouts / front-back views)
+          const installationUrls = gallery.filter((url) => isVerifiedInstallationPhoto(url))
+          
+          // Fallback: If no location-tagged photo, check gallery for non-studio photos
+          const validUrls = installationUrls.length > 0 ? installationUrls : gallery.filter((url) => {
+            const filename = url.split('/').pop() || ''
+            return !STUDIO_CUTOUT_PATTERNS.some((pat) => pat.test(filename))
+          })
+
+          const uniqueUrls = Array.from(new Set(validUrls))
 
           uniqueUrls.forEach((url, idx) => {
             allPhotos.push({
