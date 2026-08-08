@@ -1,25 +1,46 @@
-import { writeFileSync } from 'node:fs'
+import { createClient } from '@sanity/client'
+import { basename } from 'node:path'
 
-async function verify() {
-  const sanityUrl = "https://cdn.sanity.io/files/xm9au2qy/production/ebf31f294fbe32fd7848b1849b959fb02eee1a75.pdf"
-  const cadUrl = "https://aceray.com/wp-content/uploads/2023/01/RIVA-3RSL.pdf"
-  const specUrl = "https://aceray.com/wp-content/uploads/2023/01/RIVA-3RSL-Armchair.pdf"
+const token = 'skQMw1kGUxFSR48jrhIR4PjQf67yxwuUSFSp2DLfAsPT0NWCFvjikQvO0VTMJAEG5Txk91wjODIDfb953'
 
-  const sanityBuf = Buffer.from(await (await fetch(sanityUrl)).arrayBuffer())
-  const cadBuf = Buffer.from(await (await fetch(cadUrl)).arrayBuffer())
-  const specBuf = Buffer.from(await (await fetch(specUrl)).arrayBuffer())
+const client = createClient({
+  projectId: 'xm9au2qy',
+  dataset: 'production',
+  apiVersion: '2024-01-01',
+  token,
+  useCdn: false,
+})
 
-  console.log(`Sanity asset size: ${sanityBuf.length}`)
-  console.log(`CAD url size: ${cadBuf.length}`)
-  console.log(`SPEC url size: ${specBuf.length}`)
+async function fixRiva3rslSpecSheet() {
+  const url = "https://aceray.com/wp-content/uploads/2023/01/RIVA-3RSL-Armchair.pdf"
+  console.log(`Downloading full-color spec sheet: ${url}`)
+  const res = await fetch(url)
+  const buffer = Buffer.from(await res.arrayBuffer())
 
-  if (sanityBuf.length === cadBuf.length) {
-    console.log('===> MATCH: Sanity asset is the CAD line drawing!')
-  } else if (sanityBuf.length === specBuf.length) {
-    console.log('===> MATCH: Sanity asset is the FULL-COLOR SPEC SHEET!')
-  } else {
-    console.log('===> NO EXACT SIZE MATCH')
-  }
+  console.log(`Uploading to Sanity...`)
+  const asset = await client.assets.upload('file', buffer, {
+    filename: 'RIVA-3RSL_spec_sheet.pdf'
+  })
+
+  console.log(`Asset uploaded! URL: ${asset.url}`)
+
+  const productPdfs = [
+    {
+      _key: 'riva_3rsl_spec_correct',
+      title: 'RIVA-3RSL Spec Sheet',
+      sourceUrl: asset.url,
+      file: {
+        _type: 'file',
+        asset: {
+          _type: 'reference',
+          _ref: asset._id
+        }
+      }
+    }
+  ]
+
+  await client.patch('wp-product-26565').set({ productPdfs }).commit()
+  console.log('✓ Successfully updated RIVA-3RSL with the correct full-color spec sheet PDF!')
 }
 
-verify().catch(console.error)
+fixRiva3rslSpecSheet().catch(console.error)

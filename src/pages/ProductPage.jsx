@@ -35,10 +35,10 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
   overallHeight, overallWidth, overallDepth, seatHeight, weight, com, stacking,
   "mainImage": mainImage{asset->{_id, url}},
   "gallery": gallery[]{asset->{_id, url}},
-  productPdfs[]{title, sourceUrl, file{asset->{_id, url, originalFilename}}},
-  technicalDrawings[]{title, file{asset->{_id, url, originalFilename}}},
-  files3d[]{title, file{asset->{_id, url, originalFilename}}},
-  zipFiles[]{title, file{asset->{_id, url, originalFilename}}}
+  productPdfs[]{_key, title, sourceUrl, file{asset->{_id, url, originalFilename}}},
+  technicalDrawings[]{_key, title, file{asset->{_id, url, originalFilename}}},
+  files3d[]{_key, title, file{asset->{_id, url, originalFilename}}},
+  zipFiles[]{_key, title, file{asset->{_id, url, originalFilename}}}
 }`
 
 const COLLECTION_FAMILY_QUERY = `*[_type == "product" && slug.current != $slug && (defined(imageUrl) || defined(mainImage.asset)) && $family in categories] | order(_updatedAt desc) [0..11] {
@@ -562,7 +562,7 @@ function DownloadCategory({ title, icon, items }) {
           const ext = extMatch ? `.${extMatch[1].toUpperCase()}` : ''
           return (
             <DownloadRow
-              key={item.file?.asset?._id || `${title}-${i}`}
+              key={item._key || (item.file?.asset?._id ? `${item.file.asset._id}-${i}` : `${title}-${i}`)}
               icon={icon}
               href={href}
               label={item.title}
@@ -979,6 +979,9 @@ export default function ProductPage() {
         </div>
       </section>
 
+      {/* Fabrics & Finishes */}
+      <ProductFinishModule product={product} />
+
       {/* Downloads Section */}
       <ProductDownloadsSection product={product} />
 
@@ -1003,8 +1006,6 @@ export default function ProductPage() {
           <ProductCarousel products={related} label="related products" />
         </section>
       )}
-
-      <ProductFinishModule product={product} />
     </div>
   )
 }
