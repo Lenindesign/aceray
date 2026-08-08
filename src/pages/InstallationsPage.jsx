@@ -61,13 +61,13 @@ function InstallationImage({ src, alt, className }) {
   )
 }
 
-// Studio / Catalog Cutout patterns to exclude (frontview, backview, profile view, white-bg cutouts)
+// Studio / Catalog Cutout patterns to exclude (frontview, backview, profile view, white-bg cutouts, line drawings)
 const STUDIO_CUTOUT_PATTERNS = [
   /front[-_]?view/i, /back[-_]?view/i, /side[-_]?view/i, /top[-_]?view/i,
   /profile[-_]?view/i, /profile[-_]?\d/i, /armchair[-_]?front/i, /armchair[-_]?back/i,
   /chair[-_]?front/i, /chair[-_]?back/i, /stool[-_]?front/i, /stool[-_]?back/i,
-  /isolated/i, /cutout/i, /white[-_]?bg/i, /dimension/i, /line[-_]?drawing/i,
-  /spec/i, /schema/i, /cad/i, /3d/i, /swatch/i, /finish/i
+  /isolated/i, /cutout/i, /white[-_]?bg/i, /dimensions?/i, /line[-_]?drawing/i,
+  /table[-_]?base/i, /height/i, /spec/i, /schema/i, /cad/i, /3d/i, /swatch/i, /finish/i, /revit/i
 ]
 
 // Installation project indicators (hotels, resorts, restaurants, state codes, install keyword)
