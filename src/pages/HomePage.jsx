@@ -85,18 +85,11 @@ export default function HomePage() {
         ))}
         <div className="hero-overlay" />
 
-        {/* Hero Content Slogan & Active Slide Info */}
+        {/* Hero Content & Active Slide Info */}
         <div className="hero-content">
-          <h1 className="hero-slogan-img-wrapper">
-            <img
-              src="/assets/migrated/slogan-888x85.png"
-              alt="The LOOK of Seating"
-              className="hero-slogan-img"
-            />
-          </h1>
           <div className="hero-slide-info">
             <span className="hero-slide-tag">Featured New Arrival</span>
-            <h2 className="hero-slide-title">{NEW_ARRIVALS_SLIDES[heroIndex].title}</h2>
+            <h1 className="hero-slide-title">{NEW_ARRIVALS_SLIDES[heroIndex].title}</h1>
             <p className="hero-slide-designer">Designed by {NEW_ARRIVALS_SLIDES[heroIndex].designer}</p>
           </div>
         </div>
