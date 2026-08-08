@@ -30,11 +30,20 @@ export default function ProductCard({ product, className = '' }) {
     ? product.categories.slice(0, 2).join(' / ')
     : (product.category || 'Seating')
 
-  const imageUrl = product.mainImage?.asset?.url
-    ? product.mainImage.asset.url
-    : (product.mainImage?.asset?._ref ? urlFor(product.mainImage).url() : (
-        product.imageUrl && !product.imageUrl.includes('aceray.com') ? product.imageUrl : '/assets/images/placeholder.jpg'
-      ))
+  let imageUrl = '/assets/images/placeholder.jpg'
+  if (product.mainImage?.asset?.url) {
+    imageUrl = product.mainImage.asset.url
+  } else if (product.mainImage?.asset?._ref || product.mainImage?.asset?._id) {
+    try {
+      imageUrl = urlFor(product.mainImage).url()
+    } catch {
+      imageUrl = product.imageUrl && !product.imageUrl.includes('aceray.com') ? product.imageUrl : '/assets/images/placeholder.jpg'
+    }
+  } else if (product.imageUrl && !product.imageUrl.includes('aceray.com')) {
+    imageUrl = product.imageUrl
+  } else if (Array.isArray(product.gallery) && product.gallery[0]?.asset?.url) {
+    imageUrl = product.gallery[0].asset.url
+  }
 
   function handleFavoriteClick() {
     setIsFavorite(toggleFavoriteProduct(slug))
@@ -58,6 +67,10 @@ export default function ProductCard({ product, className = '' }) {
             src={imageUrl}
             alt={product.title || 'Aceray Product'}
             loading="lazy"
+            onError={(e) => {
+              e.currentTarget.onerror = null
+              e.currentTarget.src = '/assets/images/placeholder.jpg'
+            }}
           />
         </div>
         <h3 className="product-name">{product.title}</h3>
