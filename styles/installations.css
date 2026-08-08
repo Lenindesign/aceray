@@ -25,6 +25,23 @@
   padding-inline: 24px;
 }
 
+.installations-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  line-height: 1.2 !important;
+  border: none !important;
+}
+
 .installations-hero-title {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 3.5rem);

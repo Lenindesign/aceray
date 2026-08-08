@@ -171,7 +171,7 @@ export default function InstallationsPage() {
       {/* Hero Banner */}
       <section className="installations-hero">
         <div className="installations-hero-content">
-          <Badge className="bg-[#718f80] text-white hover:bg-[#5c7769] text-xs uppercase tracking-widest px-4 py-1.5 rounded-full border-none">
+          <Badge className="installations-hero-badge">
             Project Showcase
           </Badge>
           <h1 className="installations-hero-title">
