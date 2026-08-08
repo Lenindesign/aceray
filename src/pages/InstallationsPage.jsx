@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, MapPin, ArrowRight, ExternalLink, Sparkles, Filter, X } from 'lucide-react'
 import { sanityFetch } from '@/sanityClient'
@@ -13,6 +13,26 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { Skeleton } from '@/components/ui/skeleton'
+
+// Lazy-loaded Image component with shimmer skeleton placeholder
+function InstallationImage({ src, alt, className }) {
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <div className="relative w-full h-full bg-[#e8e7e2]">
+      {!loaded && (
+        <div className="absolute inset-0 bg-[#e8e7e2] animate-pulse" />
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-400 ease-out`}
+      />
+    </div>
+  )
+}
 
 // Helper to format clean project name from image filename or product title
 function formatProjectName(url, productTitle) {
@@ -48,6 +68,7 @@ export default function InstallationsPage() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [selectedItem, setSelectedItem] = useState(null)
   const [visibleCount, setVisibleCount] = useState(24)
+  const sentinelRef = useRef(null)
 
   useEffect(() => {
     async function fetchInstallations() {
@@ -129,6 +150,21 @@ export default function InstallationsPage() {
   const visibleItems = useMemo(() => {
     return filteredItems.slice(0, visibleCount)
   }, [filteredItems, visibleCount])
+
+  // IntersectionObserver Sentinel for automatic infinite scroll lazy-loading
+  useEffect(() => {
+    if (!sentinelRef.current) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && visibleCount < filteredItems.length) {
+          setVisibleCount((prev) => Math.min(prev + 24, filteredItems.length))
+        }
+      },
+      { rootMargin: '400px' }
+    )
+    observer.observe(sentinelRef.current)
+    return () => observer.disconnect()
+  }, [visibleCount, filteredItems.length])
 
   return (
     <div className="installations-page min-h-screen bg-[#faf9f6] text-[#222]">
@@ -243,10 +279,9 @@ export default function InstallationsPage() {
                     className="installation-card"
                   >
                     <div className={`installation-card-img-wrap ${aspectClass}`}>
-                      <img
+                      <InstallationImage
                         src={item.url}
                         alt={`${item.projectName} - ${item.productTitle}`}
-                        loading="lazy"
                         className="installation-card-img"
                       />
                       <div className="installation-card-overlay">
@@ -267,11 +302,11 @@ export default function InstallationsPage() {
               })}
             </div>
 
-            {/* Load More Button */}
+            {/* Infinite Scroll Sentinel & Load More */}
             {visibleCount < filteredItems.length && (
-              <div className="text-center pt-12">
+              <div ref={sentinelRef} className="text-center pt-12">
                 <Button
-                  onClick={() => setVisibleCount((prev) => prev + 24)}
+                  onClick={() => setVisibleCount((prev) => Math.min(prev + 24, filteredItems.length))}
                   className="btn-primary px-8 py-3 text-sm rounded-full tracking-wider uppercase"
                 >
                   Load More Installations ({filteredItems.length - visibleCount} remaining)
