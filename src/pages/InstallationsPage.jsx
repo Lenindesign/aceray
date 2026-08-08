@@ -67,20 +67,27 @@ const EXCLUDED_SPEC_PATTERNS = [
   /drawing/i, /drawings/i, /tech/i, /technical/i, /diagram/i, /diagrams/i,
   /schema/i, /schematic/i, /cad/i, /revit/i, /3d/i, /dwg/i, /dxf/i, /vector/i,
   /pole/i, /poles/i, /table[-_]?base/i, /table[-_]?poles/i, /bar[-_]?height/i,
-  /seat[-_]?color/i, /color[-_]?swatch/i, /colors/i, /swatch/i, /swatches/i,
+  /seat[-_]?color/i, /color/i, /colors/i, /swatch/i, /swatches/i,
   /finish/i, /finishes/i, /material/i, /materials/i, /palette/i,
   /cutout/i, /white[-_]?bg/i, /isolated/i, /frontview/i, /backview/i,
-  /sideview/i, /topview/i, /profileview/i, /profile[-_]?\d/i, /option/i,
+  /sideview/i, /topview/i, /profile/i, /option/i,
   /options/i, /overview/i, /measurement/i, /measurements/i, /lbs/i, /inches/i,
   /size/i, /sizes/i, /spec/i, /specs/i, /specification/i, /specifications/i,
-  /armchair[-_]?front/i, /armchair[-_]?back/i, /chair[-_]?front/i, /chair[-_]?back/i,
-  /stool[-_]?front/i, /stool[-_]?back/i, /rts/i
+  /armchair/i, /stacking/i, /side-chair/i, /chair-blk/i, /rts/i, /shell/i, /technopolymer/i,
+  /[-_]back\./i, /[-_]front\./i, /[-_]side\./i
 ]
 
-function isSpecOrLineDrawingOrStudioUrl(url) {
-  if (!url) return true
-  const filename = decodeURIComponent(url.split('/').pop() || '').toLowerCase()
-  return EXCLUDED_SPEC_PATTERNS.some((pattern) => pattern.test(filename))
+function isSpecOrLineDrawingOrStudioAsset(assetObj) {
+  if (!assetObj) return true
+  const strToTest = [
+    assetObj.originalFilename,
+    assetObj.title,
+    assetObj.altText,
+    assetObj.url ? assetObj.url.split('/').pop() : ''
+  ].filter(Boolean).join(' ')
+
+  if (!strToTest) return false
+  return EXCLUDED_SPEC_PATTERNS.some((pattern) => pattern.test(strToTest))
 }
 
 // Installation project indicators (hotels, resorts, restaurants, state codes, install keyword)
@@ -89,26 +96,32 @@ const INSTALLATION_INDICATORS = [
   /bistro/i, /cafe/i, /lounge/i, /dining/i, /bar/i, /club/i, /spa/i, /hospitality/i,
   /install/i, /project/i, /marriott/i, /hilton/i, /hyatt/i, /omni/i, /westin/i,
   /sheraton/i, /intercontinental/i, /fairmont/i, /wyndham/i, /radisson/i, /loews/i,
-  /kimpton/i, /edition/i, /ritz/i, /st-regis/i, /four-seasons/i,
+  /kimpton/i, /edition/i, /ritz/i, /st-regis/i, /four-seasons/i, /ambiente/i, /web-jpg/i,
   /[-_]([A-Z]{2})\.(jpg|jpeg|png|webp)/i, // e.g. -CA.jpg, -FL.jpg, -NY.jpg, -IL.jpg
   /[-_](chicago|los-angeles|san-diego|las-vegas|miami|new-york|boston|dallas|austin|denver|seattle|atlanta|nashville|orlando)/i
 ]
 
-function isVerifiedInstallationPhoto(url) {
-  if (!url) return false
-  if (isSpecOrLineDrawingOrStudioUrl(url)) return false
+function isVerifiedInstallationAsset(assetObj) {
+  if (!assetObj || !assetObj.url) return false
+  if (isSpecOrLineDrawingOrStudioAsset(assetObj)) return false
 
-  const filename = decodeURIComponent(url.split('/').pop() || '')
-  const hasInstallIndicator = INSTALLATION_INDICATORS.some((pat) => pat.test(filename))
+  const strToTest = [
+    assetObj.originalFilename,
+    assetObj.title,
+    assetObj.altText,
+    assetObj.url.split('/').pop()
+  ].filter(Boolean).join(' ')
+
+  const hasInstallIndicator = INSTALLATION_INDICATORS.some((pat) => pat.test(strToTest))
+  const filename = assetObj.originalFilename || assetObj.url.split('/').pop() || ''
   const isMultiWordName = filename.split(/[-_]/).length >= 4
 
   return hasInstallIndicator || isMultiWordName
 }
 
 // Helper to format clean project name from image filename or product title
-function formatProjectName(url, productTitle) {
-  if (!url) return `${productTitle} Installation`
-  const filename = url.split('/').pop() || ''
+function formatProjectName(url, originalFilename, productTitle) {
+  const filename = originalFilename || url?.split('/').pop() || ''
   const nameWithoutExt = filename.replace(/\.[^/.]+$/, '')
 
   // Filter out hex hashes or dimension strings like 1200x1200
@@ -154,7 +167,12 @@ export default function InstallationsPage() {
           _id, title, "slug": slug.current, designer, categories,
           imageUrl, galleryUrls,
           "mainImageUrl": mainImage.asset->url,
-          "galleryAssetUrls": gallery[].asset->url
+          "galleryAssets": gallery[]{
+            "url": asset->url,
+            "originalFilename": asset->originalFilename,
+            "title": asset->title,
+            "altText": asset->altText
+          }
         }`
 
         const products = await sanityFetch(query)
@@ -162,30 +180,28 @@ export default function InstallationsPage() {
 
         products?.forEach((product) => {
           const category = product.categories?.[0] || 'Seating'
-          const gallery = [
-            ...(product.galleryAssetUrls || []),
-            ...(product.galleryUrls || [])
-          ].filter(url => url && !url.includes('aceray.com'))
+          const gallery = (product.galleryAssets || []).filter(a => a && a.url && !a.url.includes('aceray.com'))
 
           // Filter ONLY verified installation photos (excluding all specs, drawings, swatches, diagrams, poles, dimensions)
-          const installationUrls = gallery.filter((url) => isVerifiedInstallationPhoto(url))
+          const installationAssets = gallery.filter((asset) => isVerifiedInstallationAsset(asset))
           
           // Fallback: If no location-tagged photo, check gallery for non-studio/non-spec photos ONLY
-          const validUrls = installationUrls.length > 0 ? installationUrls : gallery.filter((url) => {
-            return !isSpecOrLineDrawingOrStudioUrl(url)
+          const validAssets = installationAssets.length > 0 ? installationAssets : gallery.filter((asset) => {
+            return !isSpecOrLineDrawingOrStudioAsset(asset)
           })
 
-          const uniqueUrls = Array.from(new Set(validUrls))
+          const uniqueAssets = Array.from(new Set(validAssets.map(a => a.url)))
+            .map(url => validAssets.find(a => a.url === url))
 
-          uniqueUrls.forEach((url, idx) => {
+          uniqueAssets.forEach((assetObj, idx) => {
             allPhotos.push({
               id: `${product._id}-${idx}`,
-              url,
+              url: assetObj.url,
               productTitle: product.title,
               productSlug: product.slug,
               designer: product.designer || 'Aceray Design Team',
               category,
-              projectName: formatProjectName(url, product.title),
+              projectName: formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
             })
           })
         })
