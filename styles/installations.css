@@ -200,7 +200,7 @@
     margin-bottom: var(--space-4);
     border-radius: var(--radius-card); /* 16px */
     overflow: hidden;
-    background: var(--color-white);
+    background: transparent;
     border: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
     cursor: pointer;
@@ -220,7 +220,7 @@
     height: auto;
     display: block;
     overflow: hidden;
-    background: #1c2420;
+    background: transparent;
     border-radius: var(--radius-card); /* 16px */
   }
 

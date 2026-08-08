@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
-@import "tailwindcss";
 
-/* Production Design System Styles */
+/* Production Design System Styles (loaded before Tailwind so utilities always take cascade priority) */
 @import "../styles/base.css";
 @import "../styles/components.css";
 @import "../styles/product.css";
 @import "../styles/installations.css";
+
+/* Core Tailwind v4 Engine */
+@import "tailwindcss";
 
 /* ── Aceray Brand Tokens (Tailwind v4 bridge) ─────────────── */
 @theme {
