@@ -712,6 +712,24 @@
   z-index: 10;
 }
 
+.hero-slogan-bottom {
+  margin-top: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-slogan-img {
+  max-width: 380px;
+  width: 68%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
 .hero-content {
   position: relative;
   z-index: 10;

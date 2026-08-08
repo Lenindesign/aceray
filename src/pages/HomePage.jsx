@@ -120,6 +120,14 @@ export default function HomePage() {
               Explore New Arrivals
             </button>
           </div>
+
+          <div className="hero-slogan-bottom">
+            <img
+              src="/assets/migrated/slogan-888x85.png"
+              alt="The LOOK of Seating"
+              className="hero-slogan-img"
+            />
+          </div>
         </div>
       </section>
 
