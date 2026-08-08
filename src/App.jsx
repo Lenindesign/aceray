@@ -33,6 +33,9 @@ export default function App() {
             <Route path="/collections" element={<CollectionsPage />} />
             <Route path="/collections/:familySlug" element={<FamilyLandingPage />} />
             <Route path="/installations" element={<InstallationsPage />} />
+            <Route path="/installation-gallery" element={<InstallationsPage />} />
+            <Route path="/gallery" element={<InstallationsPage />} />
+            <Route path="/projects" element={<InstallationsPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/fabrics-finishes" element={<FabricsFinishesPage />} />
             <Route path="/aceray-book" element={<AcerayBookPage />} />
