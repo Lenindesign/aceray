@@ -107,18 +107,25 @@ function getSlugValue(product) {
   return product?.slug?.current || product?.slug || ''
 }
 
+function asList(value) {
+  return Array.isArray(value) ? value : []
+}
+
 function getRelatedCategory(categories = [], family = '') {
-  return CATEGORIES.find((cat) => cat !== family && categories.includes(cat)) ||
-    categories.find((cat) => cat && cat !== family) ||
+  const categoryList = asList(categories)
+  return CATEGORIES.find((cat) => cat !== family && categoryList.includes(cat)) ||
+    categoryList.find((cat) => cat && cat !== family) ||
     ''
 }
 
 function getPrimaryProductType(categories = [], family = '') {
-  return CATEGORIES.find((cat) => cat !== family && categories.includes(cat)) || ''
+  const categoryList = asList(categories)
+  return CATEGORIES.find((cat) => cat !== family && categoryList.includes(cat)) || ''
 }
 
 function getPrimaryMaterial(categories = []) {
-  return MATERIAL_CATEGORIES.find((cat) => categories.includes(cat)) || ''
+  const categoryList = asList(categories)
+  return MATERIAL_CATEGORIES.find((cat) => categoryList.includes(cat)) || ''
 }
 
 function hasIntentTerm(product, matcher) {
@@ -133,8 +140,8 @@ function hasIntentTerm(product, matcher) {
 }
 
 function sharedCount(left = [], right = []) {
-  const rightValues = new Set(right.map(normalizeCategory))
-  return left.filter((value) => rightValues.has(normalizeCategory(value))).length
+  const rightValues = new Set(asList(right).map(normalizeCategory))
+  return asList(left).filter((value) => rightValues.has(normalizeCategory(value))).length
 }
 
 function scoreRelatedProduct(product, candidate, family) {
