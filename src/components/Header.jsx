@@ -129,7 +129,7 @@ export default function Header() {
 
         <nav id="main-nav" className={`nav-wrapper ${menuOpen ? 'active' : ''}`}>
           <NavigationMenu className="nav-menu" align="center">
-            <NavigationMenuList className="nav-links nav-menu-list">
+            <NavigationMenuList className="nav-links nav-menu-list flex items-center gap-8 md:gap-9" style={{ gap: '2.2rem' }}>
               {NAV_LINKS.map(({ label, to, dropdown }) => (
                 <NavigationMenuItem
                   key={label}

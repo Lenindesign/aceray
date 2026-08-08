@@ -288,10 +288,14 @@
   height: 34px;
 }
 
-.nav-links {
-  display: flex;
-  gap: 2.2rem;
-  list-style: none;
+.nav-links,
+.nav-menu-list {
+  display: flex !important;
+  align-items: center !important;
+  gap: 2.2rem !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .nav-menu {
@@ -299,13 +303,10 @@
   max-width: none;
 }
 
-.nav-menu-list {
-  align-items: center;
-  justify-content: flex-start;
-}
-
 .nav-item {
   position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
 .nav-links a,
