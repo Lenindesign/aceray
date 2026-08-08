@@ -175,6 +175,7 @@
   .installations-masonry-grid {
     column-count: 1;
     column-gap: var(--space-4);
+    width: 100%;
   }
 
   @media (min-width: 640px) {
@@ -197,7 +198,9 @@
 
   .installation-card {
     break-inside: avoid;
+    display: inline-block;
     margin-bottom: var(--space-4);
+    width: 100%;
     border-radius: var(--radius-card); /* 16px */
     overflow: hidden;
     background: transparent;
@@ -217,28 +220,49 @@
   .installation-card-img-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: var(--installation-tile-ratio, 1 / 1);
     display: block;
     overflow: hidden;
     background: #1c2420;
     border-radius: var(--radius-card); /* 16px */
   }
 
+  .installation-card-img-wrap > div {
+    height: 100%;
+    width: 100%;
+  }
+
+  .installation-card--square {
+    --installation-tile-ratio: 1 / 1;
+  }
+
+  .installation-card--portrait {
+    --installation-tile-ratio: 4 / 5;
+  }
+
+  .installation-card--tall {
+    --installation-tile-ratio: 3 / 4;
+  }
+
+  .installation-card--landscape {
+    --installation-tile-ratio: 4 / 3;
+  }
+
   .installation-card-img {
     position: absolute !important;
-    top: -6% !important;
-    left: -6% !important;
-    width: 112% !important;
-    height: 112% !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     max-width: none !important;
     object-fit: cover !important;
     object-position: center !important;
     border-radius: 0 !important;
+    transform: scale(1.12);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .installation-card:hover .installation-card-img {
-    transform: scale(1.06);
+    transform: scale(1.16);
   }
 
   .installation-card-overlay {
@@ -298,17 +322,51 @@
   }
 
   /* ── Lightbox Dialog Override ───────────────────────────────── */
+  .installation-lightbox-dialog {
+    background: var(--color-white) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-card) !important;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22) !important;
+    gap: 0 !important;
+    max-height: min(760px, calc(100vh - 64px)) !important;
+    max-width: min(1040px, calc(100vw - 48px)) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .installation-lightbox-dialog [data-slot="dialog-close"] {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: var(--radius-full) !important;
+    color: var(--color-text-main) !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    right: 16px !important;
+    top: 16px !important;
+    width: 40px !important;
+    z-index: 5 !important;
+  }
+
+  .installation-lightbox-dialog [data-slot="dialog-close"] svg {
+    height: 18px;
+    width: 18px;
+  }
+
   .installation-lightbox-grid {
     display: grid;
     grid-template-columns: 1fr;
     background: var(--color-white);
     border-radius: var(--radius-card);
+    max-height: inherit;
     overflow: hidden;
   }
 
   @media (min-width: 768px) {
     .installation-lightbox-grid {
-      grid-template-columns: 1.4fr 1fr;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.8fr);
     }
   }
 
@@ -317,40 +375,114 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-4);
-    max-height: 80vh;
+    min-height: 320px;
+    overflow: hidden;
   }
 
   .installation-lightbox-img {
-    max-height: 72vh;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    border-radius: 8px;
+    border-radius: 0;
+    display: block;
+    height: 100%;
+    max-height: none;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .installation-lightbox-dialog {
+      max-height: calc(100vh - 32px) !important;
+      max-width: calc(100vw - 24px) !important;
+      overflow-y: auto !important;
+    }
+
+    .installation-lightbox-media {
+      min-height: 240px;
+    }
+
+    .installation-lightbox-img {
+      height: 45vh;
+    }
+  }
+
+  .installation-lightbox-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .installation-lightbox-badge {
+    align-self: flex-start;
+    background: rgba(113, 143, 128, 0.12) !important;
+    border: 0 !important;
+    color: var(--color-primary-dark) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    padding: 7px 12px !important;
+    text-transform: uppercase !important;
+  }
+
+  .installation-lightbox-description {
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-xs);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .installation-lightbox-button {
+    justify-content: center !important;
+    min-height: 44px !important;
+    width: 100% !important;
+  }
+
+  .installation-lightbox-button-icon {
+    height: 16px;
+    margin-left: 8px;
+    width: 16px;
   }
 
   .installation-lightbox-info {
-    padding: var(--space-6) var(--space-8);
+    background: var(--color-white);
+    border-top: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: var(--space-6);
+    min-width: 0;
+    overflow-y: auto;
+    padding: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .installation-lightbox-info {
+      border-left: 1px solid var(--color-border);
+      border-top: 0;
+      max-height: min(760px, calc(100vh - 64px));
+      padding: var(--space-8);
+    }
   }
 
   .installation-lightbox-header {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
+    text-align: left;
   }
 
   .installation-lightbox-title {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 2.6vw, 2.35rem);
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-text-main);
     margin: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.16;
   }
 
   .installation-lightbox-specs {
@@ -363,18 +495,22 @@
 
   .installation-lightbox-spec-item {
     display: flex;
+    gap: var(--space-2);
     justify-content: space-between;
     font-family: var(--font-sans);
     font-size: 0.85rem;
+    line-height: 1.5;
   }
 
   .installation-lightbox-spec-label {
     color: var(--color-text-muted);
+    flex: 0 0 auto;
   }
 
   .installation-lightbox-spec-val {
     font-weight: 600;
     color: var(--color-text-main);
+    text-align: right;
   }
 
   .installation-lightbox-ctas {

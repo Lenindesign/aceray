@@ -627,26 +627,89 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Hero Section - Top-Centered Clean Style */
+/* Hero Section - 5-Second Dynamic Cross-Fade Transition */
 .hero-banner {
   position: relative;
   height: 85vh;
   min-height: 550px;
   max-height: 850px;
-  background: url('https://aceray.com/wp-content/uploads/2026/01/0006s_0000_Arte-UU-horizontal-C.webp') center 45%/cover no-repeat;
+  overflow: hidden;
+  background: #181f1b;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding-top: 2.5rem;
-  padding-bottom: 3.5rem;
+  padding-bottom: 3rem;
   margin-bottom: 0;
+}
+
+.hero-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 5s linear;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-bg-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.65) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero-bottom-wrap {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.hero-slide-indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-indicator-dot {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.hero-indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hero-indicator-dot.active {
+  background: #ffffff;
+  width: 42px;
 }
 
 .hero-bottom-cta {
   position: relative;
   z-index: 10;
-  margin-top: auto;
 }
 
 .hero-content {
@@ -662,8 +725,45 @@
   box-shadow: none;
 }
 
+.hero-slide-info {
+  margin-top: 1.25rem;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.5s ease;
+}
+
+.hero-slide-tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d0e0d7;
+  margin-bottom: 4px;
+}
+
+.hero-slide-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.hero-slide-designer {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: #e2e8e4;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
 .hero-content h1 {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;

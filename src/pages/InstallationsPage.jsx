@@ -149,6 +149,19 @@ function formatProjectName(url, originalFilename, productTitle) {
 }
 
 const CATEGORY_FILTERS = ['All', 'Chairs & Armchairs', 'Barstools & Stools', 'Lounge & Sofas', 'Tables & Bases']
+const MASONRY_TILE_VARIANTS = [
+  'installation-card--portrait',
+  'installation-card--square',
+  'installation-card--landscape',
+  'installation-card--tall',
+  'installation-card--square',
+  'installation-card--portrait',
+  'installation-card--landscape',
+]
+
+function getMasonryTileVariant(index) {
+  return MASONRY_TILE_VARIANTS[index % MASONRY_TILE_VARIANTS.length]
+}
 
 export default function InstallationsPage() {
   const [items, setItems] = useState([])
@@ -368,11 +381,11 @@ export default function InstallationsPage() {
           <>
             {/* Masonry Columns */}
             <div className="installations-masonry-grid">
-              {visibleItems.map((item) => (
+              {visibleItems.map((item, index) => (
                 <div
                   key={item.id}
                   onClick={() => setSelectedItem(item)}
-                  className="installation-card"
+                  className={`installation-card ${getMasonryTileVariant(index)}`}
                 >
                   <div className="installation-card-img-wrap">
                     <InstallationImage
@@ -414,58 +427,58 @@ export default function InstallationsPage() {
 
       {/* Interactive Lightbox Dialog Modal (Shadcn UI) */}
       <Dialog open={!!selectedItem} onOpenChange={(open) => !open && setSelectedItem(null)}>
-        <DialogContent className="max-w-4xl bg-white border border-gray-200 rounded-[16px] overflow-hidden p-0 gap-0 shadow-2xl">
+        <DialogContent className="installation-lightbox-dialog">
           {selectedItem && (
-            <div className="grid grid-cols-1 md:grid-cols-12">
+            <div className="installation-lightbox-grid">
               {/* High-Res Image Column */}
-              <div className="md:col-span-8 bg-black flex items-center justify-center p-4 max-h-[75vh]">
+              <div className="installation-lightbox-media">
                 <img
                   src={selectedItem.url}
                   alt={selectedItem.projectName}
-                  className="max-h-[70vh] w-auto object-contain rounded-lg"
+                  className="installation-lightbox-img"
                 />
               </div>
 
               {/* Information Column */}
-              <div className="md:col-span-4 p-6 md:p-8 flex flex-col justify-between bg-white border-t md:border-t-0 md:border-l border-gray-100">
-                <div className="space-y-6">
-                  <DialogHeader className="p-0 space-y-2 text-left">
-                    <Badge className="w-fit bg-[#718f80]/10 text-[#718f80] border-none text-[10px] uppercase font-semibold tracking-wider">
+              <div className="installation-lightbox-info">
+                <div className="installation-lightbox-body">
+                  <DialogHeader className="installation-lightbox-header">
+                    <Badge className="installation-lightbox-badge">
                       {selectedItem.category}
                     </Badge>
-                    <DialogTitle className="font-heading text-2xl font-medium text-gray-900 uppercase">
+                    <DialogTitle className="installation-lightbox-title">
                       {selectedItem.projectName}
                     </DialogTitle>
-                    <DialogDescription className="text-xs text-gray-500 font-sans">
+                    <DialogDescription className="installation-lightbox-description">
                       Featured in luxury hospitality and commercial installations.
                     </DialogDescription>
                   </DialogHeader>
 
-                  <div className="space-y-3 pt-2 border-t border-gray-100 text-sm font-sans">
-                    <div className="flex justify-between py-1">
-                      <span className="text-gray-500">Product Model:</span>
-                      <span className="font-semibold text-gray-900">{selectedItem.productTitle}</span>
+                  <div className="installation-lightbox-specs">
+                    <div className="installation-lightbox-spec-item">
+                      <span className="installation-lightbox-spec-label">Product Model:</span>
+                      <span className="installation-lightbox-spec-val">{selectedItem.productTitle}</span>
                     </div>
-                    <div className="flex justify-between py-1">
-                      <span className="text-gray-500">Designer:</span>
-                      <span className="font-medium text-gray-700">{selectedItem.designer}</span>
+                    <div className="installation-lightbox-spec-item">
+                      <span className="installation-lightbox-spec-label">Designer:</span>
+                      <span className="installation-lightbox-spec-val">{selectedItem.designer}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* CTAs */}
-                <div className="pt-8 space-y-3">
-                  <Button asChild className="btn-primary w-full justify-center">
+                <div className="installation-lightbox-ctas">
+                  <Button asChild className="btn-primary installation-lightbox-button">
                     <Link
                       to={`/product/${selectedItem.productSlug}`}
                       onClick={() => setSelectedItem(null)}
                     >
                       <span>View Product Page</span>
-                      <ArrowRight className="size-4 ml-2" />
+                      <ArrowRight className="installation-lightbox-button-icon" />
                     </Link>
                   </Button>
 
-                  <Button asChild variant="outline" className="btn-outline w-full justify-center">
+                  <Button asChild variant="outline" className="btn-outline installation-lightbox-button">
                     <Link
                       to="/contact"
                       onClick={() => setSelectedItem(null)}

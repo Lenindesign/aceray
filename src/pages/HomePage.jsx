@@ -52,6 +52,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
   const [initialIndex, setInitialIndex] = useState(0)
+  const [heroIndex, setHeroIndex] = useState(0)
 
   useEffect(() => {
     document.title = 'Aceray – The Look of Seating | Premium Commercial & Upholstered Furniture'
@@ -61,10 +62,30 @@ export default function HomePage() {
       .finally(() => setLoading(false))
   }, [])
 
+  // Automated 5-second Hero transition loop
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % NEW_ARRIVALS_SLIDES.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <div className="home-page">
-      {/* Hero Banner (Bottom CTA Layout) */}
+      {/* Hero Banner with 5-Second Automated Cross-Fade Transition */}
       <section className="hero-banner">
+        {/* Dynamic Cross-Fading Background Slides */}
+        {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
+          <div
+            key={slide.title}
+            className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${slide.src})` }}
+            aria-hidden="true"
+          />
+        ))}
+        <div className="hero-overlay" />
+
+        {/* Hero Content Slogan & Active Slide Info */}
         <div className="hero-content">
           <h1 className="hero-slogan-img-wrapper">
             <img
@@ -73,19 +94,39 @@ export default function HomePage() {
               className="hero-slogan-img"
             />
           </h1>
+          <div className="hero-slide-info">
+            <span className="hero-slide-tag">Featured New Arrival</span>
+            <h2 className="hero-slide-title">{NEW_ARRIVALS_SLIDES[heroIndex].title}</h2>
+            <p className="hero-slide-designer">Designed by {NEW_ARRIVALS_SLIDES[heroIndex].designer}</p>
+          </div>
         </div>
 
-        <div className="hero-bottom-cta">
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={() => {
-              setInitialIndex(0)
-              setFullscreenOpen(true)
-            }}
-          >
-            Explore New Arrivals
-          </button>
+        {/* Slide Indicators & CTA Button */}
+        <div className="hero-bottom-wrap">
+          <div className="hero-slide-indicators">
+            {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
+              <button
+                key={slide.title}
+                type="button"
+                onClick={() => setHeroIndex(idx)}
+                className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
+                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
+              />
+            ))}
+          </div>
+
+          <div className="hero-bottom-cta">
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={() => {
+                setInitialIndex(heroIndex)
+                setFullscreenOpen(true)
+              }}
+            >
+              Explore New Arrivals
+            </button>
+          </div>
         </div>
       </section>
 
