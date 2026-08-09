@@ -2036,10 +2036,20 @@ main:has(.about-page) + .footer {
 }
 
 .designer-meta-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-main);
+}
+
+.designer-location-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--color-primary);
+  flex-shrink: 0;
 }
 
 .designer-meta-badge {

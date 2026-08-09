@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { MapPin } from 'lucide-react'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
@@ -259,7 +260,8 @@ export default function DesignersPage() {
                     <div className="designer-showcase-meta">
                       {designer.profile?.location && (
                         <span className="designer-meta-location">
-                          📍 {designer.profile.location}
+                          <MapPin className="designer-location-icon" aria-hidden="true" />
+                          {designer.profile.location}
                         </span>
                       )}
                       <span className="designer-meta-badge">

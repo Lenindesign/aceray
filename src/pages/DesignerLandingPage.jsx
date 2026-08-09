@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { MapPin } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import ProductCard from '@/components/ProductCard'
 import { sanityFetch } from '@/sanityClient'
@@ -214,7 +215,10 @@ export default function DesignerLandingPage() {
 
           <div className="designer-detail-meta">
             {profile?.location && (
-              <span className="designer-meta-location">📍 {profile.location}</span>
+              <span className="designer-meta-location">
+                <MapPin className="designer-location-icon" aria-hidden="true" />
+                {profile.location}
+              </span>
             )}
             {profile?.disciplines?.length > 0 && (
               <span>{profile.disciplines.join(' / ')}</span>
