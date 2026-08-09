@@ -208,15 +208,18 @@ export default function DesignerLandingPage() {
           <h1>{designerName}</h1>
           <p className="designer-detail-bio">{bio}</p>
 
+          {profile?.disciplines?.length > 0 && (
+            <p className="designer-detail-disciplines">
+              {profile.disciplines.join(' / ')}
+            </p>
+          )}
+
           <div className="designer-detail-meta">
             {profile?.location && (
               <span className="designer-meta-location">
                 <MapPin className="designer-location-icon" aria-hidden="true" />
                 {profile.location}
               </span>
-            )}
-            {profile?.disciplines?.length > 0 && (
-              <span>{profile.disciplines.join(' / ')}</span>
             )}
             <span className="designer-meta-badge">{designerProducts.length} Products</span>
           </div>
