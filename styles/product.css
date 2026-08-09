@@ -166,15 +166,15 @@
   grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.85fr);
   gap: clamp(var(--space-4), 5vw, var(--space-8));
   align-items: start;
-  padding-top: var(--space-2);
+  padding-top: 0;
   overflow: hidden;
 }
 
 /* ── Gallery (left column) ──────────────────────────────────── */
 .product-gallery {
   position: sticky;
-  top: 80px;
-  margin-top: -2.25rem;
+  top: 100px;
+  margin-top: 0;
 }
 
 .product-hero-carousel-wrap {
@@ -209,7 +209,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 1rem 1rem 1rem;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -217,6 +217,7 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  object-position: top center;
   pointer-events: none;
 }
 
@@ -229,7 +230,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 0 1rem 1rem 1rem;
+  padding: 0;
   margin-bottom: 1rem;
   touch-action: pan-y;
   user-select: none;
@@ -243,6 +244,7 @@
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  object-position: top center;
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
@@ -353,7 +355,7 @@
 .product-info {
   justify-self: end;
   max-width: 520px;
-  padding-top: 0.5rem;
+  padding-top: 0;
   width: 100%;
 }
 
