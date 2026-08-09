@@ -1211,13 +1211,7 @@ function ProductPage() {
               </button>
             </div>
 
-            {/* Trade Pricing & Specification Badge */}
-            <div className="product-trade-pricing-badge">
-              <span className="trade-pricing-pill">COMMERCIAL TRADE PRICING &amp; SPECS ON REQUEST</span>
-              <Link to={`/contact?subject=${encodeURIComponent(`Quote Request: ${enrichedTitle}`)}`} className="trade-pricing-link">
-                Request Trade Pricing &rarr;
-              </Link>
-            </div>
+
 
             {(product.designer || product.madeIn) && (
               <p className="product-detail-meta">
