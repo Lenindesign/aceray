@@ -218,6 +218,7 @@
   max-height: 100%;
   object-fit: contain;
   object-position: top center;
+  transform: translateY(-8%);
   pointer-events: none;
 }
 
@@ -245,7 +246,8 @@
   max-height: 100%;
   object-fit: contain;
   object-position: top center;
-  transition: opacity 0.25s ease;
+  transform: translateY(-8%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
 }
 
