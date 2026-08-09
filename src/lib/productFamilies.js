@@ -23,11 +23,13 @@ const NON_FAMILY_CATEGORIES = new Set([
 ])
 
 export function normalizeCategory(value = '') {
-  return value.toLowerCase().replace(/[^a-z0-9]/g, '')
+  if (!value) return ''
+  return String(value).toLowerCase().replace(/[^a-z0-9]/g, '')
 }
 
 export function getFamilySlug(value = '') {
-  return value
+  if (!value) return ''
+  return String(value)
     .toLowerCase()
     .replace(/&amp;/g, 'and')
     .replace(/&/g, 'and')

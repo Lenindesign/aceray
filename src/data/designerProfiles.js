@@ -119,14 +119,17 @@ const DESIGNER_NAME_MAP = {
 }
 
 export function normalizeDesignerName(name = '') {
-  const clean = name.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
+  if (!name) return ''
+  const clean = String(name).replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
   const lowerKey = clean.toLowerCase()
   return DESIGNER_NAME_MAP[lowerKey] || clean
 }
 
 export function getDesignerSlug(value = '') {
+  if (!value) return ''
   const normalized = normalizeDesignerName(value)
-  return normalized
+  if (!normalized) return ''
+  return String(normalized)
     .toLowerCase()
     .replace(/&/g, 'and')
     .replace(/\./g, '')
@@ -135,7 +138,9 @@ export function getDesignerSlug(value = '') {
 }
 
 export function getDesignerProfile(name = '') {
+  if (!name) return null
   const key = getDesignerSlug(name)
+  if (!key) return null
   const profile = DESIGNER_PROFILES[key]
 
   if (!profile) return null
