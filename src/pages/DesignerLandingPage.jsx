@@ -101,22 +101,22 @@ export default function DesignerLandingPage() {
     return Array.from(families).sort((left, right) => left.localeCompare(right))
   }, [designerProducts])
 
-  const { installationPhotos, studioPhotos } = useMemo(() => {
-    const installs = []
-    const studios = []
+  const installationItems = useMemo(() => {
+    const items = []
+    const seenUrls = new Set()
 
     designerProducts.forEach((product) => {
-      const mainImg = product.mainImageUrl || product.imageUrl
-      if (mainImg && !studios.includes(mainImg)) studios.push(mainImg)
-
       if (product.galleryAssets && product.galleryAssets.length > 0) {
         product.galleryAssets.forEach((asset) => {
           if (asset && asset.url) {
             const isInstall = asset.isInstallation || /install|venue|project|hotel|resort/i.test(asset.originalFilename || '')
-            if (isInstall) {
-              if (!installs.includes(asset.url)) installs.push(asset.url)
-            } else {
-              if (!studios.includes(asset.url)) studios.push(asset.url)
+            if (isInstall && !seenUrls.has(asset.url)) {
+              seenUrls.add(asset.url)
+              items.push({
+                url: asset.url,
+                productTitle: product.title,
+                productSlug: product.slug?.current || product.slug,
+              })
             }
           }
         })
@@ -126,29 +126,24 @@ export default function DesignerLandingPage() {
         product.galleryUrls.forEach((url) => {
           if (url && typeof url === 'string') {
             const isInstall = /install|venue|project|hotel|resort/i.test(url)
-            if (isInstall) {
-              if (!installs.includes(url)) installs.push(url)
-            } else {
-              if (!studios.includes(url)) studios.push(url)
+            if (isInstall && !seenUrls.has(url)) {
+              seenUrls.add(url)
+              items.push({
+                url,
+                productTitle: product.title,
+                productSlug: product.slug?.current || product.slug,
+              })
             }
           }
         })
       }
     })
 
-    return { installationPhotos: installs, studioPhotos: studios }
+    return items
   }, [designerProducts])
 
-  const heroImages = useMemo(() => {
-    const combined = [...installationPhotos, ...studioPhotos]
-    const unique = Array.from(new Set(combined)).filter(Boolean)
-    return unique.length > 0 ? unique : ['/assets/images/placeholder.jpg']
-  }, [installationPhotos, studioPhotos])
-
-  const hasInstallationHero = installationPhotos.length > 0
-
   const bio = profile?.bio || getFallbackBio(designerName, productTypes, collections)
-  const heroImage = heroImages[0]
+  const heroImage = installationItems[0]?.url || designerProducts[0]?.mainImageUrl || designerProducts[0]?.imageUrl || '/assets/images/placeholder.jpg'
   const schemaEntityType = /studio|design|associates|partners|producks|erc/i.test(designerName) ? 'Organization' : 'Person'
 
   useEffect(() => {
@@ -241,23 +236,55 @@ export default function DesignerLandingPage() {
         <section className="container designer-detail-summary">
           {productTypes.length > 0 && (
             <div>
-              <span className="designers-page-eyebrow">Product Types</span>
+              <span className="designer-eyebrow">Product Types</span>
               <p>{productTypes.join(', ')}</p>
             </div>
           )}
           {collections.length > 0 && (
             <div>
-              <span className="designers-page-eyebrow">Aceray Collections</span>
+              <span className="designer-eyebrow">Aceray Collections</span>
               <p>{collections.slice(0, 12).join(', ')}</p>
             </div>
           )}
         </section>
       )}
 
+      {installationItems.length > 0 && (
+        <section className="container designer-detail-installations">
+          <div className="family-section-heading">
+            <div>
+              <span className="designer-eyebrow">PROJECT GALLERY</span>
+              <h2>{designerName} Installations</h2>
+            </div>
+            <Link to="/installations" className="btn-outline">
+              View All Installations &rarr;
+            </Link>
+          </div>
+
+          <div className="designer-installations-grid">
+            {installationItems.map((item, index) => (
+              <div key={index} className="designer-installation-card">
+                <img
+                  src={item.url}
+                  alt={`${designerName} installation`}
+                  loading="lazy"
+                />
+                {item.productTitle && (
+                  <div className="designer-installation-overlay">
+                    <span className="designer-installation-tag">Installation</span>
+                    <span className="designer-installation-model">{item.productTitle}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="container designer-detail-products">
         <div className="family-section-heading">
           <div>
-            <span className="designers-page-eyebrow">Products</span>
+            <span className="designer-eyebrow">PRODUCTS COLLECTION</span>
             <h2>{designerName} Products</h2>
           </div>
         </div>

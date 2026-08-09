@@ -2197,18 +2197,28 @@ main:has(.about-page) + .footer {
   width: 100%;
 }
 
-.designer-hero-single-wrap {
+.designer-detail-installations {
+  padding-block: clamp(var(--space-6), 6vw, var(--space-8));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.designer-installations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.designer-installation-card {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 4 / 3;
   border-radius: var(--radius-card); /* 16px */
   overflow: hidden;
   background: var(--color-bg-light);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
 }
 
-.designer-hero-installation-img {
+.designer-installation-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2216,25 +2226,37 @@ main:has(.about-page) + .footer {
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.designer-hero-single-wrap:hover .designer-hero-installation-img {
-  transform: scale(1.04);
+.designer-installation-card:hover img {
+  transform: scale(1.05);
 }
 
-.designer-hero-badge {
+.designer-installation-overlay {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  color: var(--color-primary-dark);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 20px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.designer-installation-tag {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: var(--color-primary-light);
+}
+
+.designer-installation-model {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .designer-detail-image-grid {
