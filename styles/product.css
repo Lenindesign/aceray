@@ -173,7 +173,8 @@
 /* ── Gallery (left column) ──────────────────────────────────── */
 .product-gallery {
   position: sticky;
-  top: 100px;
+  top: 80px;
+  margin-top: -2.25rem;
 }
 
 .product-hero-carousel-wrap {
