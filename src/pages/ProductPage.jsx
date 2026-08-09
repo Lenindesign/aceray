@@ -18,6 +18,7 @@ import { getCollectionFamily, getFamilySlug, normalizeCategory } from '@/lib/pro
 import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } from '@/lib/favorites'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import { FullscreenImageViewer } from '@/components/FullscreenImageViewer'
+import { getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
 import { CATEGORIES } from '@/constants'
 import curatedProductRelationships from '@/data/curatedProductRelationships.json'
 import {
@@ -1126,7 +1127,15 @@ export default function ProductPage() {
             {(product.designer || product.madeIn) && (
               <p className="product-detail-meta">
                 {product.designer && (
-                  <span>Design: {product.designer}</span>
+                  <span>
+                    Design:{' '}
+                    <Link
+                      to={`/designers/${getDesignerSlug(product.designer)}`}
+                      className="product-designer-link"
+                    >
+                      {normalizeDesignerName(product.designer)}
+                    </Link>
+                  </span>
                 )}
                 {product.designer && product.madeIn && (
                   <span className="product-detail-meta-separator" aria-hidden="true">|</span>
@@ -1157,7 +1166,19 @@ export default function ProductPage() {
                   <SpecRow label="Weight" value={product.weight ? `${product.weight} lbs` : null} />
                   <SpecRow label="COM" value={product.com ? `${product.com} yards` : null} />
                   <SpecRow label="Stacking" value={product.stacking} />
-                  <SpecRow label="Designer" value={product.designer} />
+                  <SpecRow
+                    label="Designer"
+                    value={
+                      product.designer ? (
+                        <Link
+                          to={`/designers/${getDesignerSlug(product.designer)}`}
+                          className="product-designer-link"
+                        >
+                          {normalizeDesignerName(product.designer)}
+                        </Link>
+                      ) : null
+                    }
+                  />
                   <SpecRow label="Made In" value={product.madeIn} />
                 </dl>
               </div>
