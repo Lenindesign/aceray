@@ -25,6 +25,8 @@ import {
   NOTE as FINISH_NOTE,
   TABLE_BASE_FINISHES,
   UPHOLSTERY_PARTNERS,
+  VINYL_GROUPS,
+  WOOD_FINISHES,
 } from '@/pages/FabricsFinishesPage'
 
 class ProductPageErrorBoundary extends Component {
