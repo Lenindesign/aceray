@@ -5,7 +5,7 @@ import { fetchSanityResult } from '@/lib/sanityHttp'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import ProductCard from '@/components/ProductCard'
 
-const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(_updatedAt desc) [0..7] {
+const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(select(isFeatured == true => 0, 1), _updatedAt desc) [0..7] {
   _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
 }`
 

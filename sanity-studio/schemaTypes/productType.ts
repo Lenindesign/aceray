@@ -48,6 +48,13 @@ export const productType = defineType({
       of: [defineArrayMember({type: 'string'})],
       options: {layout: 'tags'},
     }),
+    defineField({
+      name: 'isFeatured',
+      title: 'Featured Highlight',
+      type: 'boolean',
+      description: 'Toggle ON to feature this product on the Homepage Featured Highlights section.',
+      initialValue: false,
+    }),
 
     // ── Images ──────────────────────────────────────────────
     defineField({
