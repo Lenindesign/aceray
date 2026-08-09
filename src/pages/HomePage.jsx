@@ -126,18 +126,7 @@ export default function HomePage() {
   return (
     <div className="home-page">
       {/* Hero Banner with 5-Second Automated Cross-Fade Transition (Clickable Module) */}
-      <section
-        className="hero-banner hero-banner-clickable"
-        onClick={() => navigate(`/collections/${currentSlide.familySlug}`)}
-        role="button"
-        tabIndex={0}
-        aria-label={`Explore ${currentSlide.title} Collection`}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            navigate(`/collections/${currentSlide.familySlug}`)
-          }
-        }}
-      >
+      <section className="hero-banner">
         {/* Dynamic Cross-Fading Background Slides with Progressive Loading */}
         {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
           <div
