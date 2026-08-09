@@ -218,7 +218,8 @@
   max-height: 100%;
   object-fit: contain;
   object-position: top center;
-  transform: translateY(-8%);
+  margin-top: 0;
+  padding-top: 0;
   pointer-events: none;
 }
 
@@ -232,6 +233,7 @@
   align-items: flex-start;
   justify-content: center;
   padding: 0;
+  margin-top: 0;
   margin-bottom: 1rem;
   touch-action: pan-y;
   user-select: none;
@@ -246,8 +248,9 @@
   max-height: 100%;
   object-fit: contain;
   object-position: top center;
-  transform: translateY(-8%);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  margin-top: 0;
+  padding-top: 0;
+  transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
