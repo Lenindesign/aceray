@@ -207,8 +207,8 @@ export default function HomePage() {
               <img
                 src="/assets/migrated/Epoca_Ambiente_almea_web-jpg.webp"
                 alt="Aceray commercial seating installation in premier venue"
-                width="800"
-                height="533"
+                width="700"
+                height="394"
                 loading="lazy"
                 decoding="async"
                 className="home-craft-image"
