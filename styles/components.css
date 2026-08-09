@@ -2144,11 +2144,11 @@ main:has(.about-page) + .footer {
 }
 
 .designer-detail-hero {
-  align-items: center;
-  display: grid;
-  gap: clamp(var(--space-4), 5vw, var(--space-8));
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
-  padding-block: clamp(var(--space-6), 7vw, var(--space-10));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 920px;
+  padding-block: var(--space-8) var(--space-6);
 }
 
 .designer-detail-copy h1,

@@ -235,31 +235,6 @@ export default function DesignerLandingPage() {
             </Link>
           </div>
         </div>
-
-        <div className="designer-detail-hero-media" aria-hidden="true">
-          {hasInstallationHero ? (
-            <div className="designer-hero-single-wrap">
-              <img
-                src={heroImages[0]}
-                alt={`${designerName} installation`}
-                className="designer-hero-installation-img"
-                loading="lazy"
-              />
-              <span className="designer-hero-badge">Featured Installation</span>
-            </div>
-          ) : (
-            <div className="designer-detail-image-grid">
-              {heroImages.slice(0, 4).map((imgUrl, i) => (
-                <img
-                  key={i}
-                  src={imgUrl}
-                  alt=""
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          )}
-        </div>
       </section>
 
       {(productTypes.length > 0 || collections.length > 0) && (
