@@ -10,9 +10,22 @@ const DESIGNERS_QUERY = `*[
   _type == "product" &&
   defined(designer) &&
   designer != "" &&
-  (defined(imageUrl) || defined(mainImage.asset))
+  (defined(imageUrl) || defined(mainImage.asset) || count(gallery) > 0)
 ] | order(designer asc, title asc) [0...1000] {
-  _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
+  _id, title, slug, designer, categories, imageUrl,
+  "mainImageUrl": mainImage.asset->url,
+  galleryUrls,
+  "galleryAssets": gallery[]{
+    "url": asset->url,
+    "originalFilename": asset->originalFilename,
+    "isInstallation": (
+      isInstallation == true ||
+      asset->isInstallation == true ||
+      "installation" in asset->opt.media.tags[]->name.current ||
+      "installation" in asset->tags[]->name.current ||
+      "installation" in asset->tags[]->title
+    )
+  }
 }`
 
 const PLACEHOLDER_IMAGE = '/assets/images/placeholder.jpg'
@@ -22,10 +35,6 @@ function cleanLabel(value = '') {
     .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .trim()
-}
-
-function getProductImageUrl(product) {
-  return product.mainImage?.asset?.url || product.imageUrl || PLACEHOLDER_IMAGE
 }
 
 function formatList(items = []) {
@@ -86,11 +95,51 @@ export default function DesignersPage() {
           products: [],
           productTypes: new Set(),
           collections: new Set(),
+          installationPhotos: [],
+          studioPhotos: [],
         })
       }
 
       const designer = byDesigner.get(name)
       designer.products.push(product)
+
+      // Collect main image as studio photo
+      const mainImg = product.mainImageUrl || product.imageUrl
+      if (mainImg && !designer.studioPhotos.includes(mainImg)) {
+        designer.studioPhotos.push(mainImg)
+      }
+
+      // Collect gallery assets & installation photos
+      if (product.galleryAssets && product.galleryAssets.length > 0) {
+        product.galleryAssets.forEach((asset) => {
+          if (asset && asset.url) {
+            const isInstall = asset.isInstallation || /install|venue|project|hotel|resort/i.test(asset.originalFilename || '')
+            if (isInstall) {
+              if (!designer.installationPhotos.includes(asset.url)) {
+                designer.installationPhotos.push(asset.url)
+              }
+            } else {
+              if (!designer.studioPhotos.includes(asset.url)) {
+                designer.studioPhotos.push(asset.url)
+              }
+            }
+          }
+        })
+      }
+
+      // Collect galleryUrls string links
+      if (product.galleryUrls && product.galleryUrls.length > 0) {
+        product.galleryUrls.forEach((url) => {
+          if (url && typeof url === 'string') {
+            const isInstall = /install|venue|project|hotel|resort/i.test(url)
+            if (isInstall) {
+              if (!designer.installationPhotos.includes(url)) designer.installationPhotos.push(url)
+            } else {
+              if (!designer.studioPhotos.includes(url)) designer.studioPhotos.push(url)
+            }
+          }
+        })
+      }
 
       const categories = product.categories || []
 
@@ -104,15 +153,26 @@ export default function DesignersPage() {
     })
 
     return Array.from(byDesigner.values())
-      .map((designer) => ({
-        ...designer,
-        count: designer.products.length,
-        profile: getDesignerProfile(designer.name),
-        slug: getDesignerSlug(designer.name),
-        productTypes: Array.from(designer.productTypes).sort((left, right) => left.localeCompare(right)),
-        collections: Array.from(designer.collections).sort((left, right) => left.localeCompare(right)),
-        images: designer.products.slice(0, 4).map(getProductImageUrl),
-      }))
+      .map((designer) => {
+        // Prioritize installation photo as main image if available
+        const orderedImages = [
+          ...designer.installationPhotos,
+          ...designer.studioPhotos
+        ]
+
+        // Deduplicate
+        const uniqueImages = Array.from(new Set(orderedImages)).filter(Boolean)
+
+        return {
+          ...designer,
+          count: designer.products.length,
+          profile: getDesignerProfile(designer.name),
+          slug: getDesignerSlug(designer.name),
+          productTypes: Array.from(designer.productTypes).sort((left, right) => left.localeCompare(right)),
+          collections: Array.from(designer.collections).sort((left, right) => left.localeCompare(right)),
+          images: uniqueImages.length > 0 ? uniqueImages.slice(0, 4) : [PLACEHOLDER_IMAGE],
+        }
+      })
       .sort((left, right) => left.name.localeCompare(right.name))
   }, [products])
 
