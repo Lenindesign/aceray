@@ -62,25 +62,16 @@ function InstallationImage({ src, alt, className }) {
   )
 }
 
-// Comprehensive list of studio cutouts, line drawings, wire diagrams, dimensions, swatches, and spec sheets to block
+// Comprehensive list of line drawings, wire diagrams, dimensions, swatches, and spec sheets to block
 const EXCLUDED_SPEC_PATTERNS = [
   /dimension/i, /dimensions/i, /dim[-_]?\d/i, /wire/i, /line[-_]?drawing/i,
   /drawing/i, /drawings/i, /tech/i, /technical/i, /diagram/i, /diagrams/i,
   /schema/i, /schematic/i, /cad/i, /revit/i, /3d/i, /dwg/i, /dxf/i, /vector/i,
-  /pole/i, /poles/i, /table[-_]?base/i, /table[-_]?poles/i, /bar[-_]?height/i,
-  /seat[-_]?color/i, /color/i, /colors/i, /swatch/i, /swatches/i,
-  /finish/i, /finishes/i, /material/i, /materials/i, /palette/i,
-  /cutout/i, /white[-_]?bg/i, /isolated/i, /frontview/i, /backview/i,
-  /sideview/i, /topview/i, /profile/i, /option/i,
-  /options/i, /overview/i, /measurement/i, /measurements/i, /lbs/i, /inches/i,
-  /size/i, /sizes/i, /spec/i, /specs/i, /specification/i, /specifications/i,
-  /armchair/i, /stacking/i, /side-chair/i, /chair-blk/i, /rts/i, /shell/i, /technopolymer/i,
-  /studio/i, /render/i, /family/i, /lineup/i, /horizontal/i, /main/i,
-  /ambient[e]?/i, /web[-_]?jpg/i,
-  /[-_]back\./i, /[-_]front\./i, /[-_]side\./i
+  /swatch/i, /swatches/i, /palette/i, /measurement/i, /measurements/i,
+  /spec/i, /specs/i, /specification/i, /specifications/i, /[-_]dim\./i
 ]
 
-function isSpecOrLineDrawingOrStudioAsset(assetObj) {
+function isSpecOrLineDrawingAsset(assetObj) {
   if (!assetObj) return true
   const strToTest = [
     assetObj.originalFilename,
@@ -93,30 +84,9 @@ function isSpecOrLineDrawingOrStudioAsset(assetObj) {
   return EXCLUDED_SPEC_PATTERNS.some((pattern) => pattern.test(strToTest))
 }
 
-// Installation project indicators (hotels, resorts, restaurants, state codes, install keyword)
-const INSTALLATION_INDICATORS = [
-  /hotel/i, /resort/i, /restaurant/i, /suites/i, /inn/i, /lodge/i, /casino/i,
-  /bistro/i, /cafe/i, /spa/i, /hospitality/i,
-  /install/i, /project/i, /marriott/i, /hilton/i, /hyatt/i, /omni/i, /westin/i,
-  /sheraton/i, /intercontinental/i, /fairmont/i, /wyndham/i, /radisson/i, /loews/i,
-  /kimpton/i, /edition/i, /ritz/i, /st-regis/i, /four-seasons/i,
-  /[-_]([A-Z]{2})\.(jpg|jpeg|png|webp)/i, // e.g. -CA.jpg, -FL.jpg, -NY.jpg, -IL.jpg
-  /[-_](chicago|los-angeles|san-diego|las-vegas|miami|new-york|boston|dallas|austin|denver|seattle|atlanta|nashville|orlando)/i
-]
-
 function isVerifiedInstallationAsset(assetObj) {
   if (!assetObj || !assetObj.url) return false
-  if (isSpecOrLineDrawingOrStudioAsset(assetObj)) return false
-
-  const strToTest = [
-    assetObj.originalFilename,
-    assetObj.title,
-    assetObj.altText,
-    assetObj.url.split('/').pop()
-  ].filter(Boolean).join(' ')
-
-  const hasInstallIndicator = INSTALLATION_INDICATORS.some((pat) => pat.test(strToTest))
-  return hasInstallIndicator
+  return !isSpecOrLineDrawingAsset(assetObj)
 }
 
 // Helper to format clean project name from image filename or product title
@@ -126,7 +96,7 @@ function formatProjectName(url, originalFilename, productTitle) {
 
   // Filter out hex hashes or dimension strings like 1200x1200
   if (/^[a-f0-9]{16,}/i.test(nameWithoutExt) || /\d{3,4}x\d{3,4}/i.test(nameWithoutExt)) {
-    return `${productTitle} Hospitality Project`
+    return `${productTitle} Project Installation`
   }
 
   // Remove generic suffixes or clean hyphenated names
@@ -135,12 +105,10 @@ function formatProjectName(url, originalFilename, productTitle) {
     .replace(/\b(frontview|backview|sideview|topview|highres|scaled|jpg|png|webp|1200x1200|800x800)\b/gi, '')
     .trim()
 
-  // If filename is just the product name, raw hash, or very short, use formatted product name
   if (cleaned.toUpperCase() === productTitle.toUpperCase() || cleaned.length < 3 || /^[a-f0-9]+$/i.test(cleaned)) {
-    return `${productTitle} Hospitality Project`
+    return `${productTitle} Project Installation`
   }
 
-  // Capitalize words
   return cleaned
     .split(' ')
     .filter(Boolean)
@@ -204,27 +172,40 @@ export default function InstallationsPage() {
 
         const products = await sanityFetch(query)
         const allPhotos = []
-        const seenDesigners = new Set()
 
         products?.forEach((product) => {
           const category = product.categories?.[0] || 'Seating'
-          const gallery = (product.galleryAssets || []).filter(a => a && a.url && !a.url.includes('aceray.com'))
+          const rawAssets = []
 
-          // Filter ONLY verified installation photos. Do not fall back to studio/product imagery:
-          // white-background cutouts break the Pinterest-style installation experience.
-          const installationAssets = gallery.filter((asset) => isVerifiedInstallationAsset(asset))
+          if (product.galleryAssets && product.galleryAssets.length > 0) {
+            product.galleryAssets.forEach(a => {
+              if (a && a.url) rawAssets.push(a)
+            })
+          }
 
-          const uniqueAssets = Array.from(new Set(installationAssets.map(a => a.url)))
-            .map(url => installationAssets.find(a => a.url === url))
+          if (product.galleryUrls && product.galleryUrls.length > 0) {
+            product.galleryUrls.forEach(url => {
+              if (url && typeof url === 'string') {
+                rawAssets.push({
+                  url,
+                  originalFilename: url.split('/').pop(),
+                  title: product.title,
+                  altText: product.title
+                })
+              }
+            })
+          }
 
-          const designerKey = (product.designer || 'Aceray Design Team').trim().toLowerCase()
+          // Filter out line drawings and spec sheets
+          const validInstallationAssets = rawAssets.filter((asset) => isVerifiedInstallationAsset(asset))
 
-          // Only keep 1 product photo per designer
-          if (uniqueAssets.length > 0 && !seenDesigners.has(designerKey)) {
-            seenDesigners.add(designerKey)
-            const assetObj = uniqueAssets[0]
+          // Deduplicate by image URL
+          const uniqueAssets = Array.from(new Set(validInstallationAssets.map(a => a.url)))
+            .map(url => validInstallationAssets.find(a => a.url === url))
+
+          uniqueAssets.forEach((assetObj, idx) => {
             allPhotos.push({
-              id: `${product._id}-0`,
+              id: `${product._id}-${idx}`,
               url: assetObj.url,
               productTitle: product.title,
               productSlug: product.slug,
@@ -232,7 +213,7 @@ export default function InstallationsPage() {
               category,
               projectName: formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
             })
-          }
+          })
         })
 
         // Shuffle slightly for varied visual masonry display
