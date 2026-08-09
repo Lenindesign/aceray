@@ -158,72 +158,81 @@ export default function InstallationsPage() {
     async function fetchInstallations() {
       setLoading(true)
       try {
-        const query = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset) || count(galleryUrls) > 0 || count(gallery) > 0)] {
-          _id, title, "slug": slug.current, designer, categories,
-          imageUrl, galleryUrls,
-          "mainImageUrl": mainImage.asset->url,
-          "galleryAssets": gallery[]{
-            "url": asset->url,
-            "originalFilename": asset->originalFilename,
-            "title": asset->title,
-            "altText": asset->altText,
-            "isInstallation": coalesce(
-              isInstallation,
-              asset->isInstallation,
-              "installation" in asset->tags[]->name.current,
-              "installation" in asset->tags[]->title,
-              "installation" in asset->tags[]
-            ),
-            "projectName": coalesce(projectName, asset->projectName)
+        const query = `{
+          "products": *[_type == "product" && (count(gallery) > 0 || defined(mainImage.asset))] {
+            _id, title, "slug": slug.current, designer, categories,
+            "galleryAssets": gallery[]{
+              "url": asset->url,
+              "originalFilename": asset->originalFilename,
+              "title": asset->title,
+              "altText": asset->altText,
+              "isTaggedInstallation": (
+                isInstallation == true ||
+                asset->isInstallation == true ||
+                "installation" in asset->tags[]->name.current ||
+                "installation" in asset->tags[]->title ||
+                "installation" in asset->tags[]
+              ),
+              "projectName": coalesce(projectName, asset->projectName)
+            }
+          },
+          "taggedAssets": *[_type == "sanity.imageAsset" && (
+            isInstallation == true ||
+            "installation" in tags[]->name.current ||
+            "installation" in tags[]->title ||
+            "installation" in tags[]
+          )] {
+            _id,
+            "url": url,
+            originalFilename,
+            title,
+            altText,
+            projectName
           }
         }`
 
-        const products = await sanityFetch(query)
+        const data = await sanityFetch(query)
         const allPhotos = []
+        const addedUrls = new Set()
 
-        products?.forEach((product) => {
+        // 1. Process products with gallery images tagged 'installation' in CMS
+        data?.products?.forEach((product) => {
           const category = product.categories?.[0] || 'Seating'
-          const rawAssets = []
+          const taggedGalleryAssets = (product.galleryAssets || []).filter(
+            (a) => a && a.url && a.isTaggedInstallation === true
+          )
 
-          if (product.galleryAssets && product.galleryAssets.length > 0) {
-            product.galleryAssets.forEach(a => {
-              if (a && a.url && a.isInstallation !== false) {
-                rawAssets.push(a)
-              }
-            })
-          }
-
-          if (product.galleryUrls && product.galleryUrls.length > 0) {
-            product.galleryUrls.forEach(url => {
-              if (url && typeof url === 'string') {
-                rawAssets.push({
-                  url,
-                  originalFilename: url.split('/').pop(),
-                  title: product.title,
-                  altText: product.title
-                })
-              }
-            })
-          }
-
-          // Filter out line drawings and spec sheets
-          const validInstallationAssets = rawAssets.filter((asset) => isVerifiedInstallationAsset(asset))
-
-          // Deduplicate by image URL
-          const uniqueAssets = Array.from(new Set(validInstallationAssets.map(a => a.url)))
-            .map(url => validInstallationAssets.find(a => a.url === url))
-
-          uniqueAssets.forEach((assetObj, idx) => {
-            allPhotos.push({
-              id: `${product._id}-${idx}`,
-              url: assetObj.url,
-              productTitle: product.title,
-              productSlug: product.slug,
-              designer: product.designer || 'Aceray Design Team',
-              category,
-              projectName: assetObj.projectName || formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
-            })
+          taggedGalleryAssets.forEach((assetObj, idx) => {
+            if (!addedUrls.has(assetObj.url)) {
+              addedUrls.add(assetObj.url)
+              allPhotos.push({
+                id: `${product._id}-${idx}`,
+                url: assetObj.url,
+                productTitle: product.title,
+                productSlug: product.slug,
+                designer: product.designer || 'Aceray Design Team',
+                category,
+                projectName: assetObj.projectName || formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
+              })
+            }
           })
+        })
+
+        // 2. Process standalone Media Library assets tagged 'installation' in CMS
+        data?.taggedAssets?.forEach((assetObj, idx) => {
+          if (assetObj?.url && !addedUrls.has(assetObj.url)) {
+            addedUrls.add(assetObj.url)
+            const cleanTitle = assetObj.title || assetObj.originalFilename?.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ') || 'Aceray Installation'
+            allPhotos.push({
+              id: `asset-${assetObj._id || idx}`,
+              url: assetObj.url,
+              productTitle: cleanTitle,
+              productSlug: '',
+              designer: 'Aceray Design Team',
+              category: 'Seating',
+              projectName: assetObj.projectName || formatProjectName(assetObj.url, assetObj.originalFilename, cleanTitle),
+            })
+          }
         })
 
         // Shuffle slightly for varied visual masonry display
