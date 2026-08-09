@@ -341,9 +341,24 @@ export default function InstallationsPage() {
         </div>
       </section>
 
-      {/* Installation Gallery Header Bar */}
+      {/* Filter Tabs */}
       <section className="container">
-        <div className="installations-filter-bar justify-end">
+        <div className="installations-filter-bar">
+          <div className="installations-filter-pills">
+            <Filter className="size-4 text-[#718f80] mr-1 flex-shrink-0" />
+            {CATEGORY_FILTERS.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  setActiveCategory(cat)
+                  setVisibleCount(24)
+                }}
+                className={`installations-pill ${activeCategory === cat ? 'active' : ''}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
           <span className="installations-count-text">
             Showing {filteredItems.length} installation photos
           </span>
