@@ -12,9 +12,22 @@ const DESIGNER_PRODUCTS_QUERY = `*[
   _type == "product" &&
   defined(designer) &&
   designer != "" &&
-  (defined(imageUrl) || defined(mainImage.asset))
+  (defined(imageUrl) || defined(mainImage.asset) || count(gallery) > 0)
 ] | order(title asc) [0...1000] {
-  _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
+  _id, title, slug, designer, categories, imageUrl,
+  "mainImageUrl": mainImage.asset->url,
+  galleryUrls,
+  "galleryAssets": gallery[]{
+    "url": asset->url,
+    "originalFilename": asset->originalFilename,
+    "isInstallation": (
+      isInstallation == true ||
+      asset->isInstallation == true ||
+      "installation" in asset->opt.media.tags[]->name.current ||
+      "installation" in asset->tags[]->name.current ||
+      "installation" in asset->tags[]->title
+    )
+  }
 }`
 
 function cleanLabel(value = '') {
@@ -87,8 +100,54 @@ export default function DesignerLandingPage() {
     return Array.from(families).sort((left, right) => left.localeCompare(right))
   }, [designerProducts])
 
+  const { installationPhotos, studioPhotos } = useMemo(() => {
+    const installs = []
+    const studios = []
+
+    designerProducts.forEach((product) => {
+      const mainImg = product.mainImageUrl || product.imageUrl
+      if (mainImg && !studios.includes(mainImg)) studios.push(mainImg)
+
+      if (product.galleryAssets && product.galleryAssets.length > 0) {
+        product.galleryAssets.forEach((asset) => {
+          if (asset && asset.url) {
+            const isInstall = asset.isInstallation || /install|venue|project|hotel|resort/i.test(asset.originalFilename || '')
+            if (isInstall) {
+              if (!installs.includes(asset.url)) installs.push(asset.url)
+            } else {
+              if (!studios.includes(asset.url)) studios.push(asset.url)
+            }
+          }
+        })
+      }
+
+      if (product.galleryUrls && product.galleryUrls.length > 0) {
+        product.galleryUrls.forEach((url) => {
+          if (url && typeof url === 'string') {
+            const isInstall = /install|venue|project|hotel|resort/i.test(url)
+            if (isInstall) {
+              if (!installs.includes(url)) installs.push(url)
+            } else {
+              if (!studios.includes(url)) studios.push(url)
+            }
+          }
+        })
+      }
+    })
+
+    return { installationPhotos: installs, studioPhotos: studios }
+  }, [designerProducts])
+
+  const heroImages = useMemo(() => {
+    const combined = [...installationPhotos, ...studioPhotos]
+    const unique = Array.from(new Set(combined)).filter(Boolean)
+    return unique.length > 0 ? unique : ['/assets/images/placeholder.jpg']
+  }, [installationPhotos, studioPhotos])
+
+  const hasInstallationHero = installationPhotos.length > 0
+
   const bio = profile?.bio || getFallbackBio(designerName, productTypes, collections)
-  const heroImage = designerProducts[0]?.mainImage?.asset?.url || designerProducts[0]?.imageUrl || '/assets/images/placeholder.jpg'
+  const heroImage = heroImages[0]
   const schemaEntityType = /studio|design|associates|partners|producks|erc/i.test(designerName) ? 'Organization' : 'Person'
 
   useEffect(() => {
@@ -149,18 +208,18 @@ export default function DesignerLandingPage() {
     <div className="designer-detail-page">
       <section className="container designer-detail-hero">
         <div className="designer-detail-copy">
-          <span className="designers-page-eyebrow">Designer</span>
+          <span className="tag">DESIGNER STUDIO</span>
           <h1>{designerName}</h1>
           <p className="designer-detail-bio">{bio}</p>
 
           <div className="designer-detail-meta">
             {profile?.location && (
-              <span>{profile.location}</span>
+              <span className="designer-meta-location">📍 {profile.location}</span>
             )}
             {profile?.disciplines?.length > 0 && (
               <span>{profile.disciplines.join(' / ')}</span>
             )}
-            <span>{designerProducts.length} products</span>
+            <span className="designer-meta-badge">{designerProducts.length} Products</span>
           </div>
 
           <div className="designer-detail-actions">
@@ -173,15 +232,29 @@ export default function DesignerLandingPage() {
           </div>
         </div>
 
-        <div className="designer-detail-image-grid" aria-hidden="true">
-          {designerProducts.slice(0, 4).map((product) => (
-            <img
-              key={product._id}
-              src={product.mainImage?.asset?.url || product.imageUrl || '/assets/images/placeholder.jpg'}
-              alt=""
-              loading="lazy"
-            />
-          ))}
+        <div className="designer-detail-hero-media" aria-hidden="true">
+          {hasInstallationHero ? (
+            <div className="designer-hero-single-wrap">
+              <img
+                src={heroImages[0]}
+                alt={`${designerName} installation`}
+                className="designer-hero-installation-img"
+                loading="lazy"
+              />
+              <span className="designer-hero-badge">Featured Installation</span>
+            </div>
+          ) : (
+            <div className="designer-detail-image-grid">
+              {heroImages.slice(0, 4).map((imgUrl, i) => (
+                <img
+                  key={i}
+                  src={imgUrl}
+                  alt=""
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
