@@ -38,7 +38,7 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'esnext',
+    target: ['es2022', 'chrome100', 'safari15', 'edge100', 'firefox100'],
     cssCodeSplit: true,
     modulePreload: { polyfill: false },
     rollupOptions: {
@@ -61,7 +61,11 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(),
+    react({
+      babel: {
+        compact: true,
+      },
+    }),
     tailwindcss(),
     nonRenderBlockingCssPlugin(),
   ],
