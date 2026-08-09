@@ -169,6 +169,7 @@ export default function InstallationsPage() {
               "isTaggedInstallation": (
                 isInstallation == true ||
                 asset->isInstallation == true ||
+                "installation" in asset->opt.media.tags[]->name.current ||
                 "installation" in asset->tags[]->name.current ||
                 "installation" in asset->tags[]->title ||
                 "installation" in asset->tags[]
@@ -178,6 +179,7 @@ export default function InstallationsPage() {
           },
           "taggedAssets": *[_type == "sanity.imageAsset" && (
             isInstallation == true ||
+            "installation" in opt.media.tags[]->name.current ||
             "installation" in tags[]->name.current ||
             "installation" in tags[]->title ||
             "installation" in tags[]
