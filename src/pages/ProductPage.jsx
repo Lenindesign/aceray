@@ -25,9 +25,41 @@ import {
   NOTE as FINISH_NOTE,
   TABLE_BASE_FINISHES,
   UPHOLSTERY_PARTNERS,
-  VINYL_GROUPS,
-  WOOD_FINISHES,
 } from '@/pages/FabricsFinishesPage'
+
+export function getEnrichedProductTitle(title, categories) {
+  if (!title) return ''
+  const cat = Array.isArray(categories) && categories.length > 0 ? categories[0] : ''
+  if (!cat) return title
+
+  const lowerTitle = title.toLowerCase()
+  const lowerCat = cat.toLowerCase()
+
+  let categorySuffix = cat
+  if (lowerCat.includes('side chairs')) categorySuffix = 'Side Chair'
+  else if (lowerCat.includes('armchairs')) categorySuffix = 'Armchair'
+  else if (lowerCat.includes('lounge')) categorySuffix = 'Lounge Chair'
+  else if (lowerCat.includes('barstools')) categorySuffix = 'Barstool'
+  else if (lowerCat.includes('tables')) categorySuffix = 'Table'
+  else if (lowerCat.includes('outdoors')) categorySuffix = 'Outdoor Chair'
+
+  if (
+    lowerTitle.includes('chair') ||
+    lowerTitle.includes('armchair') ||
+    lowerTitle.includes('stool') ||
+    lowerTitle.includes('table') ||
+    lowerTitle.includes('lounge') ||
+    lowerTitle.includes('bench') ||
+    lowerTitle.includes('sofa') ||
+    lowerTitle.includes(categorySuffix.toLowerCase())
+  ) {
+    return title
+  }
+
+  return `${title} ${categorySuffix}`
+}
+
+// ── GROQ ───────────────────────────────────────────────────── from '@/pages/FabricsFinishesPage'
 
 
 // ── GROQ ─────────────────────────────────────────────────────
@@ -864,12 +896,13 @@ export default function ProductPage() {
         setRelated([])
         setRelatedSubtitle('')
 
+        const enrichedTitle = getEnrichedProductTitle(p.title, p.categories)
         const productImage = p.imageUrl || (p.mainImage?.asset?.url ? `${p.mainImage.asset.url}?auto=format&w=1200` : '')
-        const productDescription = `${p.title} designed by ${p.designer || 'Aceray'}. Explore specifications, CAD dimensions, finish options, and commercial interior photography.`
+        const productDescription = `${enrichedTitle} designed by ${p.designer || 'Aceray'}. Explore commercial specifications, CAD dimensions, finish options, and hospitality photography.`
 
         removeSeoJsonLd('page-jsonld')
         setSeoMetadata({
-          title: `${p.title} - ${p.designer ? `${p.designer} | ` : ''}Aceray Commercial Seating`,
+          title: `${enrichedTitle} - ${p.designer ? `${p.designer} | ` : ''}Aceray Commercial Furniture`,
           description: productDescription,
           path: `/product/${slug}`,
           image: productImage || undefined,
@@ -880,9 +913,11 @@ export default function ProductPage() {
             '@graph': [
               {
                 '@type': 'Product',
-                name: p.title,
+                name: enrichedTitle,
+                sku: slug,
+                mpn: p.title,
                 image: productImage,
-                description: p.description || `${p.title} commercial seating furniture designed by ${p.designer || 'Aceray'}.`,
+                description: p.description || `${enrichedTitle} commercial contract seating furniture by Aceray.`,
                 brand: {
                   '@type': 'Brand',
                   name: 'Aceray',
@@ -890,6 +925,7 @@ export default function ProductPage() {
                 designer: p.designer ? { '@type': 'Person', name: p.designer } : undefined,
                 category: p.categories?.[0] || 'Commercial Furniture',
                 material: p.tags?.length ? p.tags.join(', ') : 'Kiln-dried European hardwood, contract upholstery, precision metal',
+                priceRange: '$$ - $$$ (Trade Pricing on Request)',
                 audience: {
                   '@type': 'Audience',
                   audienceType: 'Commercial & Hospitality Interior Designers',
@@ -903,7 +939,7 @@ export default function ProductPage() {
                   '@type': 'Offer',
                   priceCurrency: 'USD',
                   availability: 'https://schema.org/InStock',
-                  url: `https://aceray.com/product/${slug}`,
+                  url: `https://aceray.com/contact?subject=${encodeURIComponent(`Quote Request: ${enrichedTitle}`)}`,
                   itemCondition: 'https://schema.org/NewCondition',
                 },
               },
@@ -1069,6 +1105,7 @@ export default function ProductPage() {
   }
   const displayCategories = getProductDisplayCategories(product)
   const firstCat = displayCategories[0] || product.categories?.[0] || ''
+  const enrichedTitle = getEnrichedProductTitle(product.title, product.categories)
   const dimsLabel = product.overallHeight && product.overallWidth && product.overallDepth
     ? `${product.overallHeight}" H × ${product.overallWidth}" W × ${product.overallDepth}" D`
     : null
@@ -1098,7 +1135,7 @@ export default function ProductPage() {
             )}
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{product.title}</BreadcrumbPage>
+              <BreadcrumbPage>{enrichedTitle}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -1110,7 +1147,7 @@ export default function ProductPage() {
 
           {/* Gallery */}
           <div className="product-gallery">
-            <Gallery images={images} title={product.title} designer={product.designer} />
+            <Gallery images={images} title={enrichedTitle} designer={product.designer} />
           </div>
 
           {/* Info */}
@@ -1118,18 +1155,26 @@ export default function ProductPage() {
             {/* Title */}
             <div className="product-detail-header">
               <h1 className="product-detail-title">
-                {product.title}
+                {enrichedTitle}
               </h1>
               <button
                 type="button"
                 className={`product-detail-favorite ${isFavorite ? 'product-detail-favorite-active' : ''}`}
                 onClick={handleFavoriteClick}
-                aria-label={`${isFavorite ? 'Remove' : 'Add'} ${product.title || 'product'} ${isFavorite ? 'from' : 'to'} favorites`}
+                aria-label={`${isFavorite ? 'Remove' : 'Add'} ${enrichedTitle} ${isFavorite ? 'from' : 'to'} favorites`}
                 aria-pressed={isFavorite}
               >
                 <Heart aria-hidden="true" />
                 <span>{isFavorite ? 'Saved' : 'Save'}</span>
               </button>
+            </div>
+
+            {/* Trade Pricing & Specification Badge */}
+            <div className="product-trade-pricing-badge">
+              <span className="trade-pricing-pill">COMMERCIAL TRADE PRICING &amp; SPECS ON REQUEST</span>
+              <Link to={`/contact?subject=${encodeURIComponent(`Quote Request: ${enrichedTitle}`)}`} className="trade-pricing-link">
+                Request Trade Pricing &rarr;
+              </Link>
             </div>
 
             {(product.designer || product.madeIn) && (
