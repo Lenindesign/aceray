@@ -3,6 +3,8 @@ import { Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } from '@/lib/favorites'
 
+import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
+
 export default function ProductCard({ product, className = '' }) {
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -44,16 +46,7 @@ export default function ProductCard({ product, className = '' }) {
     setIsFavorite(toggleFavoriteProduct(slug))
   }
 
-  function optimizeSanityUrl(rawUrl, width = 600) {
-    if (!rawUrl || typeof rawUrl !== 'string') return '/assets/images/placeholder.jpg'
-    if (rawUrl.includes('cdn.sanity.io')) {
-      const separator = rawUrl.includes('?') ? '&' : '?'
-      return `${rawUrl}${separator}w=${width}&auto=format&q=80`
-    }
-    return rawUrl
-  }
-
-  const finalImageUrl = optimizeSanityUrl(imageUrl, 600)
+  const finalImageUrl = optimizeSanityUrl(imageUrl, { width: 450, quality: 75 })
 
   return (
     <article className={`product-card ${className}`}>

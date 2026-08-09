@@ -6,6 +6,7 @@ import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
 import { getDesignerProfile, getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 
 const DESIGNERS_QUERY = `*[
   _type == "product" &&
@@ -222,7 +223,7 @@ export default function DesignersPage() {
                   <div className="designer-showcase-media">
                     <div className="designer-main-image-wrap">
                       <img
-                        src={mainImage}
+                        src={optimizeSanityUrl(mainImage, { width: 750, quality: 78 })}
                         alt={`${designer.name} product`}
                         className="designer-main-image"
                         loading="lazy"
@@ -238,7 +239,7 @@ export default function DesignersPage() {
                         {secondaryImages.map((img, i) => (
                           <div key={i} className="designer-secondary-image-wrap">
                             <img
-                              src={img}
+                              src={optimizeSanityUrl(img, { width: 400, quality: 75 })}
                               alt=""
                               loading="lazy"
                               onError={(event) => {

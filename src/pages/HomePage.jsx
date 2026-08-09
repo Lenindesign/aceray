@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
 import { fetchSanityResult } from '@/lib/sanityHttp'
+import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import ProductCard from '@/components/ProductCard'
 
@@ -188,7 +189,14 @@ export default function HomePage() {
           {FEATURED_CATEGORIES.map(({ title, subtitle, cat, image }) => (
             <div key={cat} className="category-card">
               <Link to={`/catalog?cat=${cat}`}>
-                <img src={image} alt={`Aceray ${title}`} width="400" height="300" loading="lazy" decoding="async" />
+                <img
+                  src={optimizeSanityUrl(image, { width: 600, quality: 75 })}
+                  alt={`Aceray ${title}`}
+                  width="400"
+                  height="300"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="category-info">
                   <h3 className="category-title">{title}</h3>
                   <span className="category-link">{subtitle}</span>

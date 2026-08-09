@@ -8,6 +8,7 @@ import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
 import { getDesignerProfile, getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 
 const DESIGNER_PRODUCTS_QUERY = `*[
   _type == "product" &&
@@ -268,7 +269,7 @@ export default function DesignerLandingPage() {
             {installationItems.map((item, index) => (
               <div key={index} className="designer-installation-card">
                 <img
-                  src={item.url}
+                  src={optimizeSanityUrl(item.url, { width: 600, quality: 78 })}
                   alt={`${designerName} installation`}
                   loading="lazy"
                 />
