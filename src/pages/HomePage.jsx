@@ -199,7 +199,7 @@ export default function HomePage() {
           {FEATURED_CATEGORIES.map(({ title, subtitle, cat, image }) => (
             <div key={cat} className="category-card">
               <Link to={`/catalog?cat=${cat}`}>
-                <img src={image} alt={`Aceray ${title}`} />
+                <img src={image} alt={`Aceray ${title}`} width="400" height="300" loading="lazy" decoding="async" />
                 <div className="category-info">
                   <h3 className="category-title">{title}</h3>
                   <span className="category-link">{subtitle}</span>
@@ -216,8 +216,12 @@ export default function HomePage() {
           <div className="feature-grid">
             <div className="feature-image">
               <img
-                src="/assets/images/aceray-craft-collage.jpg"
+                src="/assets/images/aceray-craft-collage.webp"
                 alt="Aceray workshop craft process with wood shaping and metal fabrication"
+                width="800"
+                height="450"
+                loading="lazy"
+                decoding="async"
                 className="home-craft-image"
               />
             </div>

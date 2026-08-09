@@ -129,7 +129,7 @@ export default function Header() {
     <header className="header">
       <div className="container header-container">
         <Link to="/" className="logo">
-          <img src="/assets/images/logo.svg" alt="Aceray" />
+          <img src="/assets/images/logo.svg" alt="Aceray" width="160" height="36" decoding="async" />
         </Link>
 
         <nav id="main-nav" className={`nav-wrapper ${menuOpen ? 'active' : ''}`}>

@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link to="/">
-              <img src="/assets/images/logo.svg" alt="Aceray" style={{ filter: 'brightness(0) invert(1)', height: '32px' }} />
+              <img src="/assets/images/logo.svg" alt="Aceray" width="142" height="32" loading="lazy" decoding="async" style={{ filter: 'brightness(0) invert(1)', height: '32px', width: 'auto' }} />
             </Link>
             <p>Presenting design professionals with unique contemporary seating and table designs from international artisans.</p>
           </div>

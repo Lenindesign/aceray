@@ -7,10 +7,16 @@ function nonRenderBlockingCssPlugin() {
   return {
     name: 'non-render-blocking-css',
     transformIndexHtml(html) {
-      return html.replace(
+      let transformed = html.replace(
         /<link rel="stylesheet" (.*?)href="(.*?\.css)"(.*?)>/g,
         '<link rel="preload" $1href="$2" as="style"$3><link rel="stylesheet" $1href="$2" media="print" onload="this.media=\'all\'"$3><noscript><link rel="stylesheet" $1href="$2"$3></noscript>'
       )
+      // Preload the main entry script to eliminate critical request chain latency
+      transformed = transformed.replace(
+        /<script type="module" (.*?)src="(.*?)"><\/script>/g,
+        '<link rel="modulepreload" $1href="$2"><script type="module" $1src="$2"></script>'
+      )
+      return transformed
     },
   }
 }
@@ -18,6 +24,9 @@ function nonRenderBlockingCssPlugin() {
 export default defineConfig({
   define: {
     __SERVER_FORWARD_CONSOLE__: false,
+  },
+  esbuild: {
+    target: 'esnext',
   },
   server: {
     proxy: {
@@ -29,13 +38,22 @@ export default defineConfig({
     },
   },
   build: {
-    target: 'es2022',
+    target: 'esnext',
     cssCodeSplit: true,
     modulePreload: { polyfill: false },
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'vendor-react'
+            }
+            if (id.includes('sanity')) {
+              return 'vendor-sanity'
+            }
+            if (id.includes('lucide-react') || id.includes('base-ui')) {
+              return 'vendor-ui'
+            }
             return 'vendor'
           }
         },
