@@ -69,7 +69,7 @@
   --space-xl: var(--space-10);
 
   /* Container widths */
-  --container-app: 79rem;      /* 1264px */
+  --container-app: 83.75rem;   /* 1340px - Standardized container max-width for perfect grid alignment */
   --container-wide: 83.75rem;  /* 1340px */
   --container-text: 56rem;     /* 896px */
 

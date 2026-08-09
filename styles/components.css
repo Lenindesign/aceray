@@ -3296,7 +3296,7 @@ main:has(.about-page) + .footer {
 
 /* Catalog Page Layout & Filters */
 .catalog-page {
-  max-width: var(--container-wide);
+  max-width: var(--container-app);
   margin: 0 auto;
   padding: clamp(var(--space-4), 4vw, var(--space-6)) var(--space-md) clamp(var(--space-8), 8vw, var(--space-12));
 }

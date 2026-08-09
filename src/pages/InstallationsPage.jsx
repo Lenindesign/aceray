@@ -336,7 +336,7 @@ export default function InstallationsPage() {
       </section>
 
       {/* Filter Tabs */}
-      <section className="container max-w-7xl mx-auto px-6">
+      <section className="container">
         <div className="installations-filter-bar">
           <div className="installations-filter-pills">
             <Filter className="size-4 text-[#718f80] mr-1 flex-shrink-0" />
@@ -360,7 +360,7 @@ export default function InstallationsPage() {
       </section>
 
       {/* Masonry Image Gallery Section */}
-      <section className="container max-w-7xl mx-auto px-6 installations-section">
+      <section className="container installations-section">
         {loading ? (
           <div className="installations-masonry-grid">
             {[...Array(12)].map((_, i) => (
