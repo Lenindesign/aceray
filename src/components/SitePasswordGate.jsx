@@ -4,7 +4,7 @@ const DEFAULT_PASSWORD = '1970Luna1750!'
 const STORAGE_KEY = 'aceray_site_unlocked'
 
 function isPasswordGateEnabled() {
-  return import.meta.env.VITE_SITE_PASSWORD_ENABLED !== 'false'
+  return import.meta.env.VITE_SITE_PASSWORD_ENABLED === 'true'
 }
 
 function getExpectedPassword() {
