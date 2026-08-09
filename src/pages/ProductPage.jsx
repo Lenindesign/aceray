@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Component, useEffect, useRef, useState } from 'react'
 import { useSearchParams, useParams, Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Heart, FileText, Download, Layers, Box, Archive } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -27,13 +27,45 @@ import {
   UPHOLSTERY_PARTNERS,
 } from '@/pages/FabricsFinishesPage'
 
+class ProductPageErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ProductPage caught an unhandled rendering error:', error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="product-error container py-20 text-center flex flex-col items-center justify-center min-h-[50vh]">
+          <h1 className="text-2xl font-semibold mb-3">Product Specs Unavailable</h1>
+          <p className="text-muted-foreground mb-6 max-w-md">
+            We encountered a temporary issue displaying this product details.
+          </p>
+          <Link to="/catalog" className="btn-primary">
+            Browse All Products
+          </Link>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
 export function getEnrichedProductTitle(title, categories) {
   if (!title) return ''
   const catList = Array.isArray(categories) ? categories : []
   
   let primaryCat = catList.find(c => {
     const l = c.toLowerCase()
-    return l.includes('side chair') || l.includes('armchair') || l.includes('lounge') || l.includes('barstool') || l.includes('table') || l.includes('outdoor')
+    return l.includes('side chair') || l.includes('armchair') || l.includes('lounge') || l.includes('counter stool') || l.includes('barstool') || l.includes('table') || l.includes('outdoor') || l.includes('bench')
   }) || catList[0] || ''
 
   if (!primaryCat) return title
@@ -45,11 +77,13 @@ export function getEnrichedProductTitle(title, categories) {
   if (lowerCat.includes('side chair')) categorySuffix = 'Side Chair'
   else if (lowerCat.includes('armchair')) categorySuffix = 'Armchair'
   else if (lowerCat.includes('lounge')) categorySuffix = 'Lounge Chair'
-  else if (lowerCat.includes('barstool')) categorySuffix = 'Barstool'
+  else if (lowerCat.includes('counter stool')) categorySuffix = 'Counter Stool'
+  else if (lowerCat.includes('barstool') || lowerCat.includes('stool')) categorySuffix = 'Barstool'
+  else if (lowerCat.includes('bench')) categorySuffix = 'Bench'
   else if (lowerCat.includes('table')) categorySuffix = 'Table'
   else if (lowerCat.includes('outdoor')) categorySuffix = 'Outdoor Chair'
 
-  if (/^\d+/i.test(categorySuffix)) return title
+  if (/^\d+/i.test(categorySuffix) || /^c2m/i.test(categorySuffix)) return title
 
   if (
     lowerTitle.includes('chair') ||
@@ -876,7 +910,7 @@ function ProductCarousel({ products, label }) {
 }
 
 // ── Main Page ─────────────────────────────────────────────────
-export default function ProductPage() {
+function ProductPage() {
   const [searchParams] = useSearchParams()
   const routeParams = useParams()
   const slug = routeParams.slug || searchParams.get('slug')
@@ -1313,5 +1347,13 @@ export default function ProductPage() {
         </section>
       )}
     </div>
+  )
+}
+
+export default function ProductPageWrapper(props) {
+  return (
+    <ProductPageErrorBoundary>
+      <ProductPage {...props} />
+    </ProductPageErrorBoundary>
   )
 }
