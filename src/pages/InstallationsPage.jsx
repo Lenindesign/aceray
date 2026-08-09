@@ -166,7 +166,9 @@ export default function InstallationsPage() {
             "url": asset->url,
             "originalFilename": asset->originalFilename,
             "title": asset->title,
-            "altText": asset->altText
+            "altText": asset->altText,
+            isInstallation,
+            projectName
           }
         }`
 
@@ -179,7 +181,9 @@ export default function InstallationsPage() {
 
           if (product.galleryAssets && product.galleryAssets.length > 0) {
             product.galleryAssets.forEach(a => {
-              if (a && a.url) rawAssets.push(a)
+              if (a && a.url && a.isInstallation !== false) {
+                rawAssets.push(a)
+              }
             })
           }
 
@@ -211,7 +215,7 @@ export default function InstallationsPage() {
               productSlug: product.slug,
               designer: product.designer || 'Aceray Design Team',
               category,
-              projectName: formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
+              projectName: assetObj.projectName || formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
             })
           })
         })

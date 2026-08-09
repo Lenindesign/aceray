@@ -76,7 +76,32 @@ export const productType = defineType({
       name: 'gallery',
       title: 'Gallery Images',
       type: 'array',
-      of: [defineArrayMember({type: 'image', options: {hotspot: true}})],
+      of: [
+        defineArrayMember({
+          type: 'image',
+          options: {hotspot: true},
+          fields: [
+            defineField({
+              name: 'isInstallation',
+              title: 'Show in Installation Gallery?',
+              type: 'boolean',
+              initialValue: true,
+              description: 'Toggle on to feature this photo in the Installation Gallery.',
+            }),
+            defineField({
+              name: 'projectName',
+              title: 'Project / Venue Name',
+              type: 'string',
+              description: 'e.g. Hilton Austin Dining Room, Marriott Marquis Chicago',
+            }),
+            defineField({
+              name: 'alt',
+              title: 'Alternative Text',
+              type: 'string',
+            }),
+          ],
+        }),
+      ],
     }),
     defineField({
       name: 'galleryUrls',
