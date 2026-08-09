@@ -5,6 +5,7 @@ import { fetchSanityResult } from '@/lib/sanityHttp'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import ProductCard from '@/components/ProductCard'
+import CommercialSeatingGuide from '@/components/CommercialSeatingGuide'
 
 const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(select(isFeatured == true => 0, 1), _updatedAt desc) [0..7] {
   _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
@@ -266,6 +267,9 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* Commercial Furniture Specification & Buying Guide (SEO & AIO Optimization) */}
+      <CommercialSeatingGuide />
 
     </div>
   )
