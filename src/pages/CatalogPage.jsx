@@ -195,12 +195,44 @@ export default function CatalogPage() {
   }, [hasMore, loading, page, fetchProducts])
 
   useEffect(() => {
-    const title = `${isFavorites ? 'Favorite Products' : isNew ? "What's New" : designer ? `Products Designed by ${designer}` : cat ? `${toTitleCase(cat.replace(/-/g, ' '))} Products` : tag && !isFavorites ? `${toTitleCase(tag.replace(/-/g, ' '))} Products` : 'Commercial Furniture Products'} | Aceray`
-    const description = designer
-      ? `Browse Aceray commercial furniture designed by ${designer}, including seating, lounge, table, and contract product configurations.`
-      : isNew
-        ? 'Browse the latest Aceray commercial seating and furniture arrivals for hospitality, workplace, and contract interiors.'
-        : 'Browse Aceray commercial furniture by category, designer, collection, finish, and product type.'
+    let title = 'Commercial Furniture Products | Aceray'
+    let description = 'Browse Aceray commercial furniture by category, designer, collection, finish, and product type.'
+
+    if (isFavorites) {
+      title = 'Favorite Products | Aceray'
+      description = 'View your saved favorite Aceray commercial seating and table specifications.'
+    } else if (isNew) {
+      title = "What's New | New Arrival Commercial Seating | Aceray"
+      description = 'Browse the latest Aceray commercial seating and table releases for hospitality and corporate interiors.'
+    } else if (designer) {
+      title = `Products Designed by ${designer} | Aceray Commercial Furniture`
+      description = `Explore Aceray commercial contract seating designed by ${designer}, including dining chairs, lounge, and tables.`
+    } else if (cat) {
+      const lowerCat = cat.toLowerCase()
+      if (lowerCat === 'lounge') {
+        title = 'Hospitality Lounge Chairs & Executive Seating | Aceray'
+        description = 'Explore commercial hospitality lounge chairs, club seating, and executive swivel armchairs for hotels and corporate spaces.'
+      } else if (lowerCat === 'side-chairs') {
+        title = 'Hospitality Stacking Chairs & Commercial Dining Seating | Aceray'
+        description = 'Browse solid wood and metal commercial side chairs, high-turn hospitality dining seating, and stackable restaurant chairs.'
+      } else if (lowerCat === 'armchairs') {
+        title = 'Commercial Dining Armchairs & Hospitality Seating | Aceray'
+        description = 'Premium commercial armchairs crafted for fine dining, corporate conference rooms, and hotel restaurants.'
+      } else if (lowerCat === 'barstools') {
+        title = 'Commercial Barstools & Counter Height Stools | Aceray'
+        description = 'High-durability 30" commercial barstools and 24" counter stools with footrest kickplates for hospitality bars.'
+      } else if (lowerCat.includes('table') || lowerCat.includes('base')) {
+        title = 'Contract Table Bases & ADA-Compliant Bases | Aceray'
+        description = 'Heavy cast iron and steel commercial table base systems, ADA-compliant table bases, and weather-resistant tops.'
+      } else if (lowerCat === 'outdoors') {
+        title = 'Outdoor Hospitality Seating & All-Weather Tables | Aceray'
+        description = 'Rust-proof aluminum outdoor dining chairs, UV-protected synthetic weaves, and weather-resistant patio furniture.'
+      } else {
+        title = `${toTitleCase(cat.replace(/-/g, ' '))} | Aceray Commercial Furniture`
+      }
+    } else if (tag && !isFavorites) {
+      title = `${toTitleCase(tag.replace(/-/g, ' '))} Commercial Furniture | Aceray`
+    }
 
     setSeoMetadata({
       title,
