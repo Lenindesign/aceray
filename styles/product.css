@@ -217,7 +217,7 @@
   max-height: 75vh;
   object-fit: contain;
   object-position: top center;
-  transform: translateY(-12%);
+  transform: none;
   display: block;
   margin: 0;
   padding: 0;
@@ -247,11 +247,11 @@
   max-height: 75vh;
   object-fit: contain;
   object-position: top center;
-  transform: translateY(-12%);
+  transform: none;
   display: block;
   margin: 0;
   padding: 0;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
@@ -418,7 +418,9 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   line-height: 1.1;
+  margin-top: 0;
   margin-bottom: 0.4rem;
+  padding-top: 0;
   color: var(--color-text-main);
 }
 
