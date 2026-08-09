@@ -53,6 +53,7 @@ export default function HomePage() {
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
   const [initialIndex, setInitialIndex] = useState(0)
   const [heroIndex, setHeroIndex] = useState(0)
+  const [loadedSlides, setLoadedSlides] = useState(() => new Set([0]))
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -61,6 +62,24 @@ export default function HomePage() {
       .then(setProducts)
       .catch(console.error)
       .finally(() => setLoading(false))
+  }, [])
+
+  // Ensure active slide image is loaded
+  useEffect(() => {
+    setLoadedSlides((prev) => {
+      if (prev.has(heroIndex)) return prev
+      const next = new Set(prev)
+      next.add(heroIndex)
+      return next
+    })
+  }, [heroIndex])
+
+  // Progressive background preloading of remaining hero images after main page render
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadedSlides(new Set(NEW_ARRIVALS_SLIDES.map((_, i) => i)))
+    }, 2000)
+    return () => clearTimeout(timer)
   }, [])
 
   // Automated 5-second Hero transition loop
@@ -88,12 +107,12 @@ export default function HomePage() {
           }
         }}
       >
-        {/* Dynamic Cross-Fading Background Slides */}
+        {/* Dynamic Cross-Fading Background Slides with Progressive Loading */}
         {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
           <div
             key={slide.title}
             className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${slide.src})` }}
+            style={loadedSlides.has(idx) ? { backgroundImage: `url(${slide.src})` } : undefined}
             aria-hidden="true"
           />
         ))}
