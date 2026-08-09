@@ -167,8 +167,8 @@ export default function InstallationsPage() {
             "originalFilename": asset->originalFilename,
             "title": asset->title,
             "altText": asset->altText,
-            isInstallation,
-            projectName
+            "isInstallation": coalesce(isInstallation, asset->isInstallation),
+            "projectName": coalesce(projectName, asset->projectName)
           }
         }`
 
