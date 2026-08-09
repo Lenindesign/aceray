@@ -46,3 +46,7 @@
     - Headlines MUST use **Futura Std** uppercase (`var(--font-heading)`), font-weight 500, line-height 1.2, and tracking `0.05em`.
     - Eyebrow tags MUST use `.tag` (`color: var(--color-primary)`, `text-transform: uppercase`, `letter-spacing: 0.12em`, `font-family: var(--font-sans)`).
     - Body text MUST use **Geist** (`var(--font-sans)`), size `1.05rem`, line-height `1.65`, and `color: var(--color-text-muted)`.
+
+12. **No Auto-Deployments Rule**:
+    - NEVER automatically execute deployment commands (such as `npx netlify deploy`, `netlify deploy --prod`, `vercel deploy`, `firebase deploy`, or any server deployment commands) after modifying code or completing tasks.
+    - ALWAYS ask for and receive explicit user confirmation before deploying to any live or staging environment.
