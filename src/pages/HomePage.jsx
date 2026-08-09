@@ -205,10 +205,10 @@ export default function HomePage() {
           <div className="feature-grid">
             <div className="feature-image">
               <img
-                src="/assets/images/aceray-craft-collage.webp"
-                alt="Aceray workshop craft process with wood shaping and metal fabrication"
+                src="/assets/migrated/Epoca_Ambiente_almea_web-jpg.webp"
+                alt="Aceray commercial seating installation in premier venue"
                 width="800"
-                height="450"
+                height="533"
                 loading="lazy"
                 decoding="async"
                 className="home-craft-image"
@@ -218,8 +218,8 @@ export default function HomePage() {
               <span className="tag">Unmatched Craftsmanship</span>
               <h2>Designed for Distinction. Built for Longevity.</h2>
               <p>Built by master craftsmen using sustainably sourced hardwoods, precision steel bases, and high-performance commercial upholstery. Every Aceray design brings extraordinary comfort and character to high-traffic environments.</p>
-              <Link to="/about" className="btn-primary">
-                Learn Our Craft Story
+              <Link to="/installations" className="btn-primary">
+                View Installation Gallery
               </Link>
             </div>
           </div>
