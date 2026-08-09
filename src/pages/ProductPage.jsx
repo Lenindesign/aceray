@@ -29,19 +29,27 @@ import {
 
 export function getEnrichedProductTitle(title, categories) {
   if (!title) return ''
-  const cat = Array.isArray(categories) && categories.length > 0 ? categories[0] : ''
-  if (!cat) return title
+  const catList = Array.isArray(categories) ? categories : []
+  
+  let primaryCat = catList.find(c => {
+    const l = c.toLowerCase()
+    return l.includes('side chair') || l.includes('armchair') || l.includes('lounge') || l.includes('barstool') || l.includes('table') || l.includes('outdoor')
+  }) || catList[0] || ''
+
+  if (!primaryCat) return title
 
   const lowerTitle = title.toLowerCase()
-  const lowerCat = cat.toLowerCase()
+  const lowerCat = primaryCat.toLowerCase()
 
-  let categorySuffix = cat
-  if (lowerCat.includes('side chairs')) categorySuffix = 'Side Chair'
-  else if (lowerCat.includes('armchairs')) categorySuffix = 'Armchair'
+  let categorySuffix = primaryCat
+  if (lowerCat.includes('side chair')) categorySuffix = 'Side Chair'
+  else if (lowerCat.includes('armchair')) categorySuffix = 'Armchair'
   else if (lowerCat.includes('lounge')) categorySuffix = 'Lounge Chair'
-  else if (lowerCat.includes('barstools')) categorySuffix = 'Barstool'
-  else if (lowerCat.includes('tables')) categorySuffix = 'Table'
-  else if (lowerCat.includes('outdoors')) categorySuffix = 'Outdoor Chair'
+  else if (lowerCat.includes('barstool')) categorySuffix = 'Barstool'
+  else if (lowerCat.includes('table')) categorySuffix = 'Table'
+  else if (lowerCat.includes('outdoor')) categorySuffix = 'Outdoor Chair'
+
+  if (/^\d+/i.test(categorySuffix)) return title
 
   if (
     lowerTitle.includes('chair') ||
