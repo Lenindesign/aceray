@@ -119,9 +119,19 @@
 }
 
 .site-password-button {
+  background-color: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
   justify-content: center;
   min-height: 48px;
   width: 100%;
+}
+
+.site-password-button:hover {
+  background-color: #3b5348 !important;
+  border-color: #3b5348 !important;
+  color: #ffffff !important;
 }
 
 /* Storybook Design System Documentation */
