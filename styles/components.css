@@ -34,7 +34,7 @@
   align-items: center;
   background:
     linear-gradient(135deg, rgba(44, 62, 53, 0.88), rgba(17, 17, 17, 0.86)),
-    url('/aceray_hero_lifestyle.jpg') center / cover;
+    url('/aceray_hero_lifestyle.webp') center / cover;
   display: flex;
   min-height: 100vh;
   padding: var(--space-4);
