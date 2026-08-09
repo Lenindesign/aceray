@@ -209,7 +209,7 @@ export default function DesignerLandingPage() {
     <div className="designer-detail-page">
       <section className="container designer-detail-hero">
         <div className="designer-detail-copy">
-          <span className="tag">DESIGNER STUDIO</span>
+          <span className="designer-eyebrow">DESIGNER STUDIO</span>
           <h1>{designerName}</h1>
           <p className="designer-detail-bio">{bio}</p>
 

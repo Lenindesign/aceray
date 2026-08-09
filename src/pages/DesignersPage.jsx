@@ -182,7 +182,7 @@ export default function DesignersPage() {
     <div className="designers-page">
       <section className="container designers-page-container">
         <div className="designers-page-heading">
-          <span className="tag">INTERNATIONAL DESIGNERS &amp; STUDIOS</span>
+          <span className="designer-eyebrow">INTERNATIONAL DESIGNERS &amp; STUDIOS</span>
           <h1>Products by Designer</h1>
           <p>
             Discover the visionaries behind Aceray's commercial seating and furniture collection.
@@ -254,7 +254,7 @@ export default function DesignersPage() {
 
                   {/* Information Column */}
                   <div className="designer-showcase-content">
-                    <span className="tag">Designer &amp; Studio</span>
+                    <span className="designer-eyebrow">Designer &amp; Studio</span>
                     <h2 className="designer-showcase-title">{designer.name}</h2>
 
                     <div className="designer-showcase-meta">

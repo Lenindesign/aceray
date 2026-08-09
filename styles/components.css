@@ -2017,6 +2017,20 @@ main:has(.about-page) + .footer {
   gap: var(--space-3);
 }
 
+.designer-eyebrow {
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  display: inline-block;
+}
+
 .designer-showcase-title {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 3.5vw, 2.75rem);
