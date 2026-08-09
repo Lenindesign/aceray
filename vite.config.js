@@ -36,15 +36,6 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-              return 'vendor-react'
-            }
-            if (id.includes('sanity')) {
-              return 'vendor-sanity'
-            }
-            if (id.includes('lucide-react') || id.includes('base-ui')) {
-              return 'vendor-ui'
-            }
             return 'vendor'
           }
         },
