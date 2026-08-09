@@ -14,25 +14,25 @@ const FEATURED_CATEGORIES = [
     title: 'Side Chairs',
     subtitle: 'Explore Collection',
     cat: 'side-chairs',
-    image: '/assets/migrated/Alba-4.webp',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/054fbffa1a0463309c052104e5822df887e02e5a-1143x1040.jpg',
   },
   {
     title: 'Armchairs',
     subtitle: 'Explore Collection',
     cat: 'armchairs',
-    image: '/assets/migrated/0001s_0004_Grande-family-horiz-A.webp',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/80507990300523c51d933524657b70e031fc475a-1094x989.jpg',
   },
   {
     title: 'Lounge Seating',
     subtitle: 'Explore Collection',
     cat: 'lounge',
-    image: '/assets/migrated/riva-1.webp',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/676ba2d2799c5d31fc86d85ac46cda9e10d92254-2048x1961.webp',
   },
   {
     title: 'Outdoor Living',
     subtitle: 'Explore Collection',
     cat: 'outdoors',
-    image: '/assets/migrated/0003s_0002_Bora-horizontal-A.webp',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/d33dc5f444f69b04e476f7e4b738a1e2cd853108-1152x1152.jpg',
   },
 ]
 
