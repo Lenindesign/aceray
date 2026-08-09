@@ -128,13 +128,18 @@ export default function HomePage() {
     <div className="home-page">
       {/* Hero Banner with 5-Second Automated Cross-Fade Transition (Clickable Module) */}
       <section className="hero-banner">
-        {/* Dynamic Cross-Fading Background Slides with Progressive Loading */}
+        {/* Dynamic Cross-Fading Background Slides with Instant Preload Scanner Support */}
         {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
-          <div
+          <img
             key={slide.title}
+            src={slide.src}
+            alt=""
             className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
-            style={loadedSlides.has(idx) ? { backgroundImage: `url(${slide.src})` } : undefined}
-            aria-hidden="true"
+            loading={idx === 0 ? 'eager' : 'lazy'}
+            fetchpriority={idx === 0 ? 'high' : 'auto'}
+            decoding="async"
+            width="1920"
+            height="1080"
           />
         ))}
         <div className="hero-overlay" />
