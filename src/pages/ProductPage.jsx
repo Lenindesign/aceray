@@ -882,21 +882,29 @@ export default function ProductPage() {
                 '@type': 'Product',
                 name: p.title,
                 image: productImage,
-                description: p.description || `${p.title} commercial seating furniture by Aceray.`,
+                description: p.description || `${p.title} commercial seating furniture designed by ${p.designer || 'Aceray'}.`,
                 brand: {
                   '@type': 'Brand',
                   name: 'Aceray',
                 },
+                designer: p.designer ? { '@type': 'Person', name: p.designer } : undefined,
                 category: p.categories?.[0] || 'Commercial Furniture',
+                material: p.tags?.length ? p.tags.join(', ') : 'Kiln-dried European hardwood, contract upholstery, precision metal',
+                audience: {
+                  '@type': 'Audience',
+                  audienceType: 'Commercial & Hospitality Interior Designers',
+                },
                 manufacturer: {
                   '@type': 'Organization',
                   name: 'Aceray',
+                  url: 'https://aceray.com',
                 },
                 offers: {
                   '@type': 'Offer',
                   priceCurrency: 'USD',
                   availability: 'https://schema.org/InStock',
                   url: `https://aceray.com/product/${slug}`,
+                  itemCondition: 'https://schema.org/NewCondition',
                 },
               },
               {

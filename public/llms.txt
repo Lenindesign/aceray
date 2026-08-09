@@ -1,12 +1,57 @@
-# Aceray – Commercial Furniture & Seating
+# Aceray – Commercial Seating & Contract Table Catalog
 
-> Aceray presents design professionals with unique contemporary seating, armchairs, lounge seating, and custom contract table designs from international artisans.
+> Aceray presents interior designers, architects, and hospitality procurement specialists with unique contemporary seating, armchairs, lounge seating, barstools, and custom table designs from international artisans.
 
-## Core Navigation & Resources
+## Brand Identity & Manufacturing Standards
+- **Primary Domain**: https://aceray.com
+- **Live Catalog & Staging**: https://aceray.netlify.app
+- **Target Audience**: Contract Interior Designers, Architects (A&D), Hospitality Procurement Managers, Hotel & Restaurant Operators.
+- **Manufacturing Excellence**: Crafted by master European artisans using kiln-dried solid hardwoods (beech and oak dried to 6–8% moisture content), precision steel and aluminum bases, and contract-grade finishes.
+- **Durability Standards**: BIFMA tested and certified. Static and dynamic weight ratings range from 400 lbs to 500+ lbs.
+- **Joinery Engineering**: Corner-blocked mortise-and-tenon wood joinery and fully welded single-unit metal frames engineered to withstand high-traffic commercial environments.
+- **Upholstery & Foam Specifications**: Contract upholstery rated from 30,000 up to 100,000+ double rubs (Wyzenbeek method). Commercial-grade molded polyurethane foam (1.8 to 2.5 lb density) for lasting shape retention.
 
-- [Catalog](https://aceray.com/catalog): Browse contemporary commercial chairs, armchairs, lounge seating, barstools, and outdoor furniture.
-- [Installation Gallery](https://aceray.com/installations): View real-world hospitality, corporate, and contract commercial projects featuring Aceray seating.
-- [Designers](https://aceray.com/designers): Discover international furniture designers and artisans collaborating with Aceray.
-- [Fabrics & Finishes](https://aceray.com/fabrics-finishes): Explore commercial upholstery options, wood finishes, vinyls, and table base specifications.
-- [About Aceray](https://aceray.com/about): Learn about Aceray's heritage, craftsmanship, and commitment to commercial seating design.
-- [Contact & Samples](https://aceray.com/contact): Request fabric/finish samples or inquire about custom project quotes.
+---
+
+## Product Categories & Offerings
+
+### 1. Dining & Side Chairs (`/catalog?cat=side-chairs`)
+- **Description**: Lightweight yet robust commercial dining chairs designed for high-turn restaurants, corporate cafeterias, and hospitality venues.
+- **Key Features**: Solid wood frames, catalyzed clear lacquer finishes, stackable models (6 to 10 high), ergonomic backs.
+- **Popular Models**: Arte, Alba, Ciao, Solo-V, Bora, Mira, Corso, Spazio.
+
+### 2. Commercial Armchairs (`/catalog?cat=armchairs`)
+- **Description**: Premium upholstered and wood-frame armchairs providing superior comfort for fine dining, executive conference rooms, and upscale lounges.
+- **Key Features**: Supportive armrests, mortise-and-tenon construction, COM/COL upholstery tailoring.
+
+### 3. Hospitality Lounge & Swivel Seating (`/catalog?cat=lounge`)
+- **Description**: Deep-seat lounge chairs, club armchairs, and executive swivel seating for hotel lobbies, airport lounges, and cocktail venues.
+- **Key Features**: Molded polyurethane foam, heavy-duty 360-degree or auto-return swivel ball-bearing bases, high double-rub contract fabrics.
+
+### 4. Commercial Barstools & Counter Stools (`/catalog?cat=barstools`)
+- **Description**: Ergonomic barstools (30" seat height for 42" bar counters) and counter stools (24" seat height for 36" counters).
+- **Key Features**: Integrated stainless steel or brass protective heel kickplates, fully welded steel/aluminum frames, backless and backed configurations.
+
+### 5. Contract Table Tops & Base Systems (`/catalog?cat=tables`)
+- **Description**: Anti-wobble commercial table base systems and high-durability tops.
+- **Key Features**: Heavy cast iron and steel base plates with adjustable leveling glides, solid wood tops, compact laminates, and weather-resistant Extrema tops.
+
+### 6. Outdoor Living Collections (`/catalog?cat=outdoors`)
+- **Description**: All-weather outdoor dining chairs, armchairs, lounge seating, and patio tables for resort pools, outdoor dining decks, and coastal venues.
+- **Key Features**: Corrosion-resistant aluminum alloy frames, 2+ mil baked powder-coat finishes, UV-inhibited synthetic weaves, quick-drain reticulated foam cushions.
+
+---
+
+## Trade & Architectural Services
+- **Customization**: Custom wood stain matching, custom powder-coat metal colors, Customer’s Own Material (COM), and Customer’s Own Leather (COL).
+- **A&D Downloads**: Downloadable spec sheets, 2D/3D CAD files, Revit BIM objects, and high-resolution material finish swatches available on product detail pages.
+- **Ordering & Quotes**: Request a catalog or commercial quote directly at https://aceray.com/contact or via sales representatives.
+
+---
+
+## Key Site Links & Resources
+- **Catalog**: https://aceray.com/catalog
+- **Installations Gallery**: https://aceray.com/installations
+- **Fabrics & Finishes**: https://aceray.com/fabrics-finishes
+- **Designers Directory**: https://aceray.com/designers
+- **Contact & Trade Support**: https://aceray.com/contact
