@@ -3,6 +3,18 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
+function nonRenderBlockingCssPlugin() {
+  return {
+    name: 'non-render-blocking-css',
+    transformIndexHtml(html) {
+      return html.replace(
+        /<link rel="stylesheet" (.*?)href="(.*?\.css)"(.*?)>/g,
+        '<link rel="preload" $1href="$2" as="style"$3><link rel="stylesheet" $1href="$2" media="print" onload="this.media=\'all\'"$3><noscript><link rel="stylesheet" $1href="$2"$3></noscript>'
+      )
+    },
+  }
+}
+
 export default defineConfig({
   define: {
     __SERVER_FORWARD_CONSOLE__: false,
@@ -18,6 +30,7 @@ export default defineConfig({
   },
   build: {
     target: 'es2022',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -40,6 +53,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    nonRenderBlockingCssPlugin(),
   ],
   resolve: {
     alias: {
