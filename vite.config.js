@@ -25,8 +25,8 @@ export default defineConfig({
   define: {
     __SERVER_FORWARD_CONSOLE__: false,
   },
-  esbuild: {
-    target: 'esnext',
+  oxc: {
+    target: 'es2022',
   },
   server: {
     proxy: {
