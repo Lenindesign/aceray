@@ -120,16 +120,22 @@ export default function DesignersPage() {
     <div className="designers-page">
       <section className="container designers-page-container">
         <div className="designers-page-heading">
-          <span className="designers-page-eyebrow">Designers</span>
+          <span className="tag">INTERNATIONAL DESIGNERS &amp; STUDIOS</span>
           <h1>Products by Designer</h1>
           <p>
-            Explore Aceray products through the designers and studios behind the collection, with profile notes,
-            disciplines, and product families connected to each name.
+            Discover the visionaries behind Aceray's commercial seating and furniture collection.
+            Explore award-winning international designers, their design philosophies, and signature product families.
           </p>
         </div>
 
         {loading ? (
-          <div className="designers-loading" aria-live="polite">Loading designers...</div>
+          <div className="designers-loading" aria-live="polite">
+            <div className="animate-pulse space-y-8">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-64 bg-gray-100 rounded-2xl" />
+              ))}
+            </div>
+          </div>
         ) : designers.length === 0 ? (
           <div className="catalog-empty">
             <h2 className="catalog-empty-title">No designers found</h2>
@@ -139,65 +145,98 @@ export default function DesignersPage() {
             <Link to="/catalog" className="btn-outline">Browse All Products</Link>
           </div>
         ) : (
-          <div className="designers-grid">
-            {designers.map((designer) => (
-              <article key={designer.name} className="designer-card">
-                <div className="designer-card-images" aria-hidden="true">
-                  {designer.images.map((image, index) => (
-                    <img
-                      key={`${designer.name}-${image}-${index}`}
-                      src={image}
-                      alt=""
-                      loading="lazy"
-                      onError={(event) => {
-                        event.currentTarget.onerror = null
-                        event.currentTarget.src = PLACEHOLDER_IMAGE
-                      }}
-                    />
-                  ))}
-                </div>
+          <div className="designer-showcase-list">
+            {designers.map((designer, idx) => {
+              const isEven = idx % 2 === 0
+              const mainImage = designer.images[0] || PLACEHOLDER_IMAGE
+              const secondaryImages = designer.images.slice(1, 4)
 
-                <div className="designer-card-body">
-                  <span className="designer-card-eyebrow">Designer</span>
-                  <h2>{designer.name}</h2>
-                  <p className="designer-card-meta">{designer.count} products</p>
+              return (
+                <article
+                  key={designer.name}
+                  className={`designer-showcase-row ${isEven ? 'row-normal' : 'row-reverse'}`}
+                >
+                  {/* Media / Image Collage Column */}
+                  <div className="designer-showcase-media">
+                    <div className="designer-main-image-wrap">
+                      <img
+                        src={mainImage}
+                        alt={`${designer.name} product`}
+                        className="designer-main-image"
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.onerror = null
+                          event.currentTarget.src = PLACEHOLDER_IMAGE
+                        }}
+                      />
+                    </div>
 
-                  {designer.profile && (
-                    <div className="designer-card-profile-meta">
-                      {designer.profile.location && <span>{designer.profile.location}</span>}
-                      {designer.profile.disciplines?.length > 0 && (
-                        <span>{designer.profile.disciplines.slice(0, 3).join(' / ')}</span>
+                    {secondaryImages.length > 0 && (
+                      <div className="designer-secondary-images">
+                        {secondaryImages.map((img, i) => (
+                          <div key={i} className="designer-secondary-image-wrap">
+                            <img
+                              src={img}
+                              alt=""
+                              loading="lazy"
+                              onError={(event) => {
+                                event.currentTarget.onerror = null
+                                event.currentTarget.src = PLACEHOLDER_IMAGE
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Information Column */}
+                  <div className="designer-showcase-content">
+                    <span className="tag">Designer &amp; Studio</span>
+                    <h2 className="designer-showcase-title">{designer.name}</h2>
+
+                    <div className="designer-showcase-meta">
+                      {designer.profile?.location && (
+                        <span className="designer-meta-location">
+                          📍 {designer.profile.location}
+                        </span>
                       )}
+                      <span className="designer-meta-badge">
+                        {designer.count} {designer.count === 1 ? 'Product' : 'Products'}
+                      </span>
                     </div>
-                  )}
 
-                  <p className="designer-card-copy">
-                    {designer.profile?.bio || getDesignerSummary(designer)}
-                  </p>
-
-                  {designer.profile && designer.collections.length > 0 && (
-                    <p className="designer-card-collections">
-                      Aceray collections: {designer.collections.slice(0, 4).join(', ')}
+                    <p className="designer-showcase-bio">
+                      {designer.profile?.bio || getDesignerSummary(designer)}
                     </p>
-                  )}
 
-                  {designer.productTypes.length > 0 && (
-                    <div className="designer-card-tags" aria-label={`${designer.name} product types`}>
-                      {designer.productTypes.slice(0, 4).map((type) => (
-                        <span key={type}>{type}</span>
-                      ))}
+                    {designer.collections.length > 0 && (
+                      <div className="designer-showcase-collections">
+                        <span className="collections-label">Collections:</span>
+                        <span className="collections-text">{designer.collections.slice(0, 4).join(', ')}</span>
+                      </div>
+                    )}
+
+                    {designer.productTypes.length > 0 && (
+                      <div className="designer-showcase-tags">
+                        {designer.productTypes.slice(0, 4).map((type) => (
+                          <span key={type} className="designer-type-pill">{type}</span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="designer-showcase-actions">
+                      <Link
+                        to={`/designers/${designer.slug}`}
+                        className="btn-primary designer-cta-btn"
+                      >
+                        Explore {designer.name} Collection &rarr;
+                      </Link>
                     </div>
-                  )}
-
-                  <Link
-                    to={`/designers/${designer.slug}`}
-                    className="designer-card-link"
-                  >
-                    View Profile
-                  </Link>
-                </div>
-              </article>
-            ))}
+                  </div>
+                </article>
+              )
+            })}
           </div>
         )}
       </section>
