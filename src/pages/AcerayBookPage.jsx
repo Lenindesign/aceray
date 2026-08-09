@@ -1,11 +1,17 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const ACERAY_BOOK_EMBED = 'https://www.yumpu.com/en/embed/view/ZI39gtkPjLQN7e5M'
 
 export default function AcerayBookPage() {
   useEffect(() => {
-    document.title = 'Aceray Book | Digital Catalog'
+    setSeoMetadata({
+      title: 'Aceray Book | Digital Commercial Furniture Catalog',
+      description: 'Browse the Aceray digital catalog online or request a printed commercial furniture catalog from the trade team.',
+      path: '/aceray-book',
+    })
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   return (

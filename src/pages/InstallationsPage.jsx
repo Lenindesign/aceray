@@ -5,6 +5,7 @@ import { sanityFetch } from '@/sanityClient'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import {
   Dialog,
   DialogContent,
@@ -172,7 +173,19 @@ export default function InstallationsPage() {
   const sentinelRef = useRef(null)
 
   useEffect(() => {
-    document.title = 'Hospitality & Commercial Furniture Installation Gallery | Aceray'
+    setSeoMetadata({
+      title: 'Installation Gallery | Aceray Commercial Furniture',
+      description: 'Browse Aceray hospitality and commercial furniture installations, product applications, designer seating, and project imagery for contract interiors.',
+      path: '/installations',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'ImageGallery',
+        name: 'Aceray Installation Gallery',
+        description: 'Commercial furniture installation images and project examples from Aceray.',
+        url: 'https://aceray.com/installations',
+      },
+    })
+    removeSeoJsonLd('product-jsonld')
 
     async function fetchInstallations() {
       setLoading(true)

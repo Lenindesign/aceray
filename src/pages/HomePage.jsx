@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
-import { sanityFetch } from '@/sanityClient'
+import { fetchSanityResult } from '@/lib/sanityHttp'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import ProductCard from '@/components/ProductCard'
-import { FullscreenImageViewer } from '@/components/FullscreenImageViewer'
 
 const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(_updatedAt desc) [0..7] {
   _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
@@ -50,18 +50,47 @@ const NEW_ARRIVALS_SLIDES = [
 export default function HomePage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [fullscreenOpen, setFullscreenOpen] = useState(false)
-  const [initialIndex, setInitialIndex] = useState(0)
   const [heroIndex, setHeroIndex] = useState(0)
   const [loadedSlides, setLoadedSlides] = useState(() => new Set([0]))
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
-    document.title = 'Aceray – The Look of Seating | Premium Commercial & Upholstered Furniture'
-    sanityFetch(FEATURED_QUERY)
+    setSeoMetadata({
+      title: 'Aceray - The Look of Seating | Premium Commercial Furniture',
+      description: 'Explore Aceray commercial seating, lounge furniture, table bases, designer collections, finishes, and installation resources for hospitality and contract interiors.',
+      path: '/',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Aceray',
+        url: 'https://aceray.com',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://aceray.com/catalog?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    })
+    removeSeoJsonLd('product-jsonld')
+
+    fetchSanityResult(FEATURED_QUERY)
       .then(setProducts)
       .catch(console.error)
       .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    setPrefersReducedMotion(mediaQuery.matches)
+
+    const handleMotionPreferenceChange = (event) => {
+      setPrefersReducedMotion(event.matches)
+    }
+
+    mediaQuery.addEventListener('change', handleMotionPreferenceChange)
+    return () => mediaQuery.removeEventListener('change', handleMotionPreferenceChange)
   }, [])
 
   // Ensure active slide image is loaded
@@ -84,11 +113,13 @@ export default function HomePage() {
 
   // Automated 5-second Hero transition loop
   useEffect(() => {
+    if (prefersReducedMotion) return undefined
+
     const timer = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % NEW_ARRIVALS_SLIDES.length)
     }, 5000)
     return () => clearInterval(timer)
-  }, [])
+  }, [prefersReducedMotion])
 
   const currentSlide = NEW_ARRIVALS_SLIDES[heroIndex]
 
@@ -230,16 +261,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
-      {/* Fullscreen New Arrivals Viewer */}
-      {fullscreenOpen && (
-        <FullscreenImageViewer
-          images={NEW_ARRIVALS_SLIDES}
-          initialIndex={initialIndex}
-          title="New Arrivals"
-          onClose={() => setFullscreenOpen(false)}
-        />
-      )}
     </div>
   )
 }

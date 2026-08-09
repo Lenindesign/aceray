@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const RESOURCES = [
   {
@@ -34,7 +35,12 @@ const RESOURCES = [
 
 export default function ResourcesPage() {
   useEffect(() => {
-    document.title = 'Resources & Downloads – Aceray | Premium Commercial Furniture'
+    setSeoMetadata({
+      title: 'Resources & Downloads | Aceray Commercial Furniture',
+      description: 'Access Aceray catalogs, finish resources, 3D model guidance, CAD download paths, care information, and commercial furniture support resources.',
+      path: '/resources',
+    })
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   return (

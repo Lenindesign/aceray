@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { sanityFetch } from '@/sanityClient'
+import { fetchSanityResult } from '@/lib/sanityHttp'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -88,7 +88,7 @@ export default function Header() {
         _id, title, slug, imageUrl, mainImage{asset->{_id, url}}, categories, designer
       }`
 
-      sanityFetch(searchQuery, { term })
+      fetchSanityResult(searchQuery, { term })
         .then((res) => {
           setSearchResults(res || [])
           setShowDropdown(true)

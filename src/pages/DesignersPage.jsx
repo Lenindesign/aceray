@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
+import { getDesignerProfile, getDesignerSlug } from '@/data/designerProfiles'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const DESIGNERS_QUERY = `*[
   _type == "product" &&
@@ -51,7 +53,19 @@ export default function DesignersPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    document.title = 'Designers – Aceray | Products by Designer'
+    setSeoMetadata({
+      title: 'Designers - Aceray | Products by Designer',
+      description: 'Explore Aceray commercial furniture by designer, with profiles, product families, disciplines, and products from international design studios.',
+      path: '/designers',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Aceray Designers',
+        description: 'Aceray products organized by designer and design studio.',
+        url: 'https://aceray.com/designers',
+      },
+    })
+    removeSeoJsonLd('product-jsonld')
 
     sanityFetch(DESIGNERS_QUERY)
       .then((items) => setProducts(items || []))
@@ -93,6 +107,8 @@ export default function DesignersPage() {
       .map((designer) => ({
         ...designer,
         count: designer.products.length,
+        profile: getDesignerProfile(designer.name),
+        slug: getDesignerSlug(designer.name),
         productTypes: Array.from(designer.productTypes).sort((left, right) => left.localeCompare(right)),
         collections: Array.from(designer.collections).sort((left, right) => left.localeCompare(right)),
         images: designer.products.slice(0, 4).map(getProductImageUrl),
@@ -107,7 +123,8 @@ export default function DesignersPage() {
           <span className="designers-page-eyebrow">Designers</span>
           <h1>Products by Designer</h1>
           <p>
-            Explore Aceray products through the designers and studios behind the collection.
+            Explore Aceray products through the designers and studios behind the collection, with profile notes,
+            disciplines, and product families connected to each name.
           </p>
         </div>
 
@@ -144,7 +161,25 @@ export default function DesignersPage() {
                   <span className="designer-card-eyebrow">Designer</span>
                   <h2>{designer.name}</h2>
                   <p className="designer-card-meta">{designer.count} products</p>
-                  <p className="designer-card-copy">{getDesignerSummary(designer)}</p>
+
+                  {designer.profile && (
+                    <div className="designer-card-profile-meta">
+                      {designer.profile.location && <span>{designer.profile.location}</span>}
+                      {designer.profile.disciplines?.length > 0 && (
+                        <span>{designer.profile.disciplines.slice(0, 3).join(' / ')}</span>
+                      )}
+                    </div>
+                  )}
+
+                  <p className="designer-card-copy">
+                    {designer.profile?.bio || getDesignerSummary(designer)}
+                  </p>
+
+                  {designer.profile && designer.collections.length > 0 && (
+                    <p className="designer-card-collections">
+                      Aceray collections: {designer.collections.slice(0, 4).join(', ')}
+                    </p>
+                  )}
 
                   {designer.productTypes.length > 0 && (
                     <div className="designer-card-tags" aria-label={`${designer.name} product types`}>
@@ -155,10 +190,10 @@ export default function DesignersPage() {
                   )}
 
                   <Link
-                    to={`/catalog?designer=${encodeURIComponent(designer.name)}`}
+                    to={`/designers/${designer.slug}`}
                     className="designer-card-link"
                   >
-                    View Products
+                    View Profile
                   </Link>
                 </div>
               </article>

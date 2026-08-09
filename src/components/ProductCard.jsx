@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { urlFor } from '@/lib/sanityImageUrl'
 import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } from '@/lib/favorites'
 
 export default function ProductCard({ product, className = '' }) {
@@ -34,11 +33,7 @@ export default function ProductCard({ product, className = '' }) {
   if (product.mainImage?.asset?.url) {
     imageUrl = product.mainImage.asset.url
   } else if (product.mainImage?.asset?._ref || product.mainImage?.asset?._id) {
-    try {
-      imageUrl = urlFor(product.mainImage).url()
-    } catch {
-      imageUrl = product.imageUrl && !product.imageUrl.includes('aceray.com') ? product.imageUrl : '/assets/images/placeholder.jpg'
-    }
+    imageUrl = product.imageUrl && !product.imageUrl.includes('aceray.com') ? product.imageUrl : '/assets/images/placeholder.jpg'
   } else if (product.imageUrl && !product.imageUrl.includes('aceray.com')) {
     imageUrl = product.imageUrl
   } else if (Array.isArray(product.gallery) && product.gallery[0]?.asset?.url) {

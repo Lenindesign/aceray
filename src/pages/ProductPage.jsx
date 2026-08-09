@@ -16,6 +16,7 @@ import { sanityFetch } from '@/sanityClient'
 import { urlFor } from '@/lib/sanityImageUrl'
 import { getCollectionFamily, getFamilySlug, normalizeCategory } from '@/lib/productFamilies'
 import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } from '@/lib/favorites'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import { FullscreenImageViewer } from '@/components/FullscreenImageViewer'
 import { CATEGORIES } from '@/constants'
 import curatedProductRelationships from '@/data/curatedProductRelationships.json'
@@ -862,40 +863,71 @@ export default function ProductPage() {
         setRelated([])
         setRelatedSubtitle('')
 
-        // Update page title & dynamic meta description
-        document.title = `${p.title} – ${p.designer ? `${p.designer} | ` : ''}Aceray Commercial Seating`
+        const productImage = p.imageUrl || (p.mainImage?.asset?.url ? `${p.mainImage.asset.url}?auto=format&w=1200` : '')
+        const productDescription = `${p.title} designed by ${p.designer || 'Aceray'}. Explore specifications, CAD dimensions, finish options, and commercial interior photography.`
 
-        let metaDesc = document.querySelector('meta[name="description"]')
-        if (!metaDesc) {
-          metaDesc = document.createElement('meta')
-          metaDesc.name = 'description'
-          document.head.appendChild(metaDesc)
-        }
-        metaDesc.content = `${p.title} designed by ${p.designer || 'Aceray'}. Explore specifications, CAD dimensions, finish options, and commercial interior photography.`
-
-        // Inject Product JSON-LD Schema for Google Rich Results
-        let jsonLdScript = document.getElementById('product-jsonld')
-        if (!jsonLdScript) {
-          jsonLdScript = document.createElement('script')
-          jsonLdScript.id = 'product-jsonld'
-          jsonLdScript.type = 'application/ld+json'
-          document.head.appendChild(jsonLdScript)
-        }
-        jsonLdScript.textContent = JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Product',
-          'name': p.title,
-          'image': p.imageUrl || (p.mainImage?.asset?.url ? `${p.mainImage.asset.url}?auto=format&w=1200` : ''),
-          'description': p.description || `${p.title} commercial seating furniture by Aceray.`,
-          'brand': {
-            '@type': 'Brand',
-            'name': 'Aceray',
-          },
-          'category': p.categories?.[0] || 'Commercial Furniture',
-          'offers': {
-            '@type': 'AggregateOffer',
-            'priceCurrency': 'USD',
-            'availability': 'https://schema.org/InStock',
+        removeSeoJsonLd('page-jsonld')
+        setSeoMetadata({
+          title: `${p.title} - ${p.designer ? `${p.designer} | ` : ''}Aceray Commercial Seating`,
+          description: productDescription,
+          path: `/product/${slug}`,
+          image: productImage || undefined,
+          type: 'product',
+          jsonLdId: 'product-jsonld',
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Product',
+                name: p.title,
+                image: productImage,
+                description: p.description || `${p.title} commercial seating furniture by Aceray.`,
+                brand: {
+                  '@type': 'Brand',
+                  name: 'Aceray',
+                },
+                category: p.categories?.[0] || 'Commercial Furniture',
+                manufacturer: {
+                  '@type': 'Organization',
+                  name: 'Aceray',
+                },
+                offers: {
+                  '@type': 'Offer',
+                  priceCurrency: 'USD',
+                  availability: 'https://schema.org/InStock',
+                  url: `https://aceray.com/product/${slug}`,
+                },
+              },
+              {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                  {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: 'https://aceray.com/',
+                  },
+                  {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Catalog',
+                    item: 'https://aceray.com/catalog',
+                  },
+                  {
+                    '@type': 'ListItem',
+                    position: 3,
+                    name: p.categories?.[0] || 'Products',
+                    item: `https://aceray.com/catalog?cat=${encodeURIComponent((p.categories?.[0] || 'products').toLowerCase())}`,
+                  },
+                  {
+                    '@type': 'ListItem',
+                    position: 4,
+                    name: p.title,
+                    item: `https://aceray.com/product/${slug}`,
+                  },
+                ],
+              },
+            ],
           },
         })
 

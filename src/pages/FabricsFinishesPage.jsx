@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 export const NOTE = 'Printed colors cannot be guaranteed for accuracy.'
 
@@ -231,7 +232,12 @@ function FinishSection({ id, eyebrow, title, children }) {
 
 export default function FabricsFinishesPage() {
   useEffect(() => {
-    document.title = 'Fabrics & Finishes - Aceray | Premium Commercial Furniture'
+    setSeoMetadata({
+      title: 'Fabrics & Finishes | Aceray Commercial Furniture',
+      description: 'Explore Aceray wood finishes, graded-in upholstery partners, vinyl qualities, metal table finishes, and finish sample options for contract projects.',
+      path: '/fabrics-finishes',
+    })
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   return (

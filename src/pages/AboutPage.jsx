@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 export default function AboutPage() {
   useEffect(() => {
-    document.title = 'About Aceray | Premium Commercial Seating'
+    setSeoMetadata({
+      title: 'About Aceray | Premium Commercial Seating',
+      description: 'Learn about Aceray commercial furniture, European artisan manufacturing, contract-grade seating, hospitality products, and support for design professionals.',
+      path: '/about',
+    })
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   return (

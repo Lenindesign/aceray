@@ -5,6 +5,7 @@ import { sanityFetch } from '@/sanityClient'
 import ProductCard from '@/components/ProductCard'
 import { CATEGORIES, getCategorySlug } from '@/constants'
 import { FAVORITES_CHANGED_EVENT, getFavoriteSlugs } from '@/lib/favorites'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 const PAGE_SIZE = 24
 const HAS_PRODUCT_IMAGE = `(defined(imageUrl) || defined(mainImage.asset))`
 
@@ -194,9 +195,27 @@ export default function CatalogPage() {
   }, [hasMore, loading, page, fetchProducts])
 
   useEffect(() => {
-    document.title = `${isFavorites ? 'Favorites' : isNew ? "What's New" : designer ? `Designed by ${designer}` : 'Products'}${cat ? ` – ${cat}` : tag && !isFavorites ? ` – ${tag}` : ''} | Aceray`
+    const title = `${isFavorites ? 'Favorite Products' : isNew ? "What's New" : designer ? `Products Designed by ${designer}` : cat ? `${toTitleCase(cat.replace(/-/g, ' '))} Products` : tag && !isFavorites ? `${toTitleCase(tag.replace(/-/g, ' '))} Products` : 'Commercial Furniture Products'} | Aceray`
+    const description = designer
+      ? `Browse Aceray commercial furniture designed by ${designer}, including seating, lounge, table, and contract product configurations.`
+      : isNew
+        ? 'Browse the latest Aceray commercial seating and furniture arrivals for hospitality, workplace, and contract interiors.'
+        : 'Browse Aceray commercial furniture by category, designer, collection, finish, and product type.'
+
+    setSeoMetadata({
+      title,
+      description,
+      path: `/catalog${searchParams.toString() ? `?${searchParams.toString()}` : ''}`,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: title.replace(' | Aceray', ''),
+        description,
+      },
+    })
+    removeSeoJsonLd('product-jsonld')
     fetchProducts(0)
-  }, [cat, q, tag, designer, isNew, isFavorites])
+  }, [cat, q, tag, designer, isNew, isFavorites, searchParams])
 
   useEffect(() => {
     let cancelled = false

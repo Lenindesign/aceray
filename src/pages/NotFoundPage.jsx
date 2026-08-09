@@ -1,9 +1,16 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 export default function NotFoundPage() {
   useEffect(() => {
-    document.title = 'Page Not Found – Aceray'
+    setSeoMetadata({
+      title: 'Page Not Found | Aceray',
+      description: 'The requested Aceray page was not found. Browse the catalog or return to the homepage.',
+      path: window.location.pathname,
+      robots: 'noindex, follow',
+    })
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   return (

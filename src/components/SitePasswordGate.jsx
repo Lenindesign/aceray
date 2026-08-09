@@ -3,6 +3,10 @@ import { useMemo, useState } from 'react'
 const DEFAULT_PASSWORD = '1970Luna1750!'
 const STORAGE_KEY = 'aceray_site_unlocked'
 
+function isPasswordGateEnabled() {
+  return import.meta.env.VITE_SITE_PASSWORD_ENABLED !== 'false'
+}
+
 function getExpectedPassword() {
   return import.meta.env.VITE_SITE_PASSWORD || DEFAULT_PASSWORD
 }
@@ -24,6 +28,7 @@ function storePassword(password) {
 }
 
 export default function SitePasswordGate({ children }) {
+  const isEnabled = useMemo(isPasswordGateEnabled, [])
   const expectedPassword = useMemo(getExpectedPassword, [])
   const [isUnlocked, setIsUnlocked] = useState(() => (
     getStoredPassword() === expectedPassword
@@ -44,7 +49,7 @@ export default function SitePasswordGate({ children }) {
     setError('Incorrect password. Please try again.')
   }
 
-  if (isUnlocked) return children
+  if (!isEnabled || isUnlocked) return children
 
   return (
     <main className="site-password-page" aria-labelledby="site-password-title">

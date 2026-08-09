@@ -29,6 +29,18 @@
   text-underline-offset: 0.18em;
 }
 
+.route-loading {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  font-size: var(--font-size-sm);
+  justify-content: center;
+  letter-spacing: 0.1em;
+  min-height: 40vh;
+  padding: var(--space-6);
+  text-transform: uppercase;
+}
+
 /* Site Password Gate */
 .site-password-page {
   align-items: center;
@@ -1962,11 +1974,33 @@ main:has(.about-page) + .footer {
   text-transform: uppercase;
 }
 
+.designer-card-profile-meta {
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-xs);
+  gap: 4px;
+  line-height: 1.45;
+  margin-top: var(--space-2);
+}
+
+.designer-card-profile-meta span:first-child {
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
 .designer-card-copy {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   line-height: 1.65;
   margin: var(--space-3) 0;
+}
+
+.designer-card-collections {
+  color: var(--color-text-main);
+  font-size: var(--font-size-xs);
+  line-height: 1.55;
+  margin: 0 0 var(--space-3);
 }
 
 .designer-card-tags {
@@ -2010,6 +2044,103 @@ main:has(.about-page) + .footer {
   font-size: var(--font-size-sm);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.designer-detail-page {
+  background: var(--color-white);
+}
+
+.designer-detail-hero {
+  align-items: center;
+  display: grid;
+  gap: clamp(var(--space-4), 5vw, var(--space-8));
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
+  padding-block: clamp(var(--space-6), 7vw, var(--space-10));
+}
+
+.designer-detail-copy h1,
+.designer-detail-products h2 {
+  color: var(--color-text-main);
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 1.08;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.designer-detail-copy h1 {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+}
+
+.designer-detail-bio {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1.75;
+  margin: var(--space-3) 0 0;
+  max-width: 720px;
+}
+
+.designer-detail-meta {
+  color: var(--color-text-main);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  gap: var(--space-2);
+  letter-spacing: 0.08em;
+  margin-top: var(--space-3);
+  text-transform: uppercase;
+}
+
+.designer-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.designer-detail-image-grid {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+}
+
+.designer-detail-image-grid img {
+  aspect-ratio: 1 / 1;
+  background: var(--color-bg-light);
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.designer-detail-summary {
+  border-block: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-block: var(--space-4);
+}
+
+.designer-detail-summary p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.designer-detail-products {
+  padding-block: clamp(var(--space-6), 7vw, var(--space-10));
+}
+
+.designer-detail-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: var(--space-8);
 }
 
 /* Aceray Book Page */
@@ -2439,6 +2570,11 @@ main:has(.about-page) + .footer {
   .collections-grid,
   .designers-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .designer-detail-hero,
+  .designer-detail-summary {
+    grid-template-columns: 1fr;
   }
 
   .aceray-book-hero {

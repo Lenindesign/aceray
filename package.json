@@ -11,7 +11,8 @@
     "build-storybook": "storybook build",
     "dev:app": "vite",
     "dev:sanity": "npm --prefix sanity-studio run dev",
-    "migrate:product-pdfs": "node scripts/import-wordpress-product-pdfs.js"
+    "migrate:product-pdfs": "node scripts/import-wordpress-product-pdfs.js",
+    "generate:sitemap": "node scripts/generate-sitemap.js"
   },
   "devDependencies": {
     "@storybook/addon-docs": "^8.6.18",

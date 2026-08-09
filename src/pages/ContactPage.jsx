@@ -1,7 +1,15 @@
 import { useEffect } from 'react'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 export default function ContactPage() {
-  useEffect(() => { document.title = 'Contact Aceray | Trade Pricing & Representatives' }, [])
+  useEffect(() => {
+    setSeoMetadata({
+      title: 'Contact Aceray | Trade Pricing & Representatives',
+      description: 'Contact Aceray for trade pricing, commercial furniture specification support, catalog requests, finish samples, and representative assistance.',
+      path: '/contact',
+    })
+    removeSeoJsonLd('product-jsonld')
+  }, [])
 
   return (
     <div className="contact-page">

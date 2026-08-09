@@ -5,6 +5,7 @@ import ProductCard from '@/components/ProductCard'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getFamilySlug, getPreferredFamilyHeroImage, productBelongsToFamily } from '@/lib/productFamilies'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const FAMILY_PRODUCTS_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(title asc) [0...1000] {
   _id, title, slug, categories, tags, imageUrl, galleryUrls, designer, madeIn,
@@ -73,8 +74,21 @@ export default function FamilyLandingPage() {
   const heroImage = getPreferredFamilyHeroImage(familyProducts, familySlug)
 
   useEffect(() => {
-    document.title = `${familyName} Collection | Aceray`
-  }, [familyName])
+    setSeoMetadata({
+      title: `${familyName} Collection | Aceray Commercial Furniture`,
+      description: `Explore the Aceray ${familyName} collection across commercial seating, materials, related configurations, and product types.`,
+      path: `/collections/${familySlug}`,
+      image: heroImage || undefined,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: `${familyName} Collection`,
+        description: `Aceray ${familyName} collection products.`,
+        url: `https://aceray.com/collections/${familySlug}`,
+      },
+    })
+    removeSeoJsonLd('product-jsonld')
+  }, [familyName, familySlug, heroImage])
 
   if (loading) {
     return (

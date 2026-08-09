@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 export default function BlogPage() {
   useEffect(() => {
-    document.title = 'Blog – Aceray | Commercial Seating Insights'
+    setSeoMetadata({
+      title: 'Aceray Blog | Commercial Seating Insights',
+      description: 'Read Aceray design notes, product stories, material guidance, and specification insights for hospitality and contract interiors.',
+      path: '/blog',
+    })
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   return (

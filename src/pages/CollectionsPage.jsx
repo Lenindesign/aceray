@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sanityFetch } from '@/sanityClient'
 import { FAMILY_HERO_IMAGES, productBelongsToFamily } from '@/lib/productFamilies'
+import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const COLLECTION_COUNTS_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))][0...1000] {
   categories
@@ -19,7 +20,19 @@ export default function CollectionsPage() {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    document.title = 'Collections – Aceray | Premium Commercial Seating'
+    setSeoMetadata({
+      title: 'Aceray Collections | Commercial Seating Families',
+      description: 'Browse Aceray product collections by shared design language, material expression, designer family, and commercial application.',
+      path: '/collections',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Aceray Collections',
+        description: 'Aceray product collections and furniture families.',
+        url: 'https://aceray.com/collections',
+      },
+    })
+    removeSeoJsonLd('product-jsonld')
 
     sanityFetch(COLLECTION_COUNTS_QUERY)
       .then((items) => setProducts(items || []))
