@@ -408,7 +408,7 @@
   .installation-lightbox-body {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
   .installation-lightbox-badge {
@@ -417,25 +417,29 @@
     border: 0 !important;
     color: var(--color-primary-dark) !important;
     font-family: var(--font-sans) !important;
-    font-size: 0.65rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.1em !important;
-    padding: 7px 12px !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em !important;
+    padding: 6px 14px !important;
+    border-radius: var(--radius-full) !important;
     text-transform: uppercase !important;
   }
 
   .installation-lightbox-description {
     color: var(--color-text-muted);
     font-family: var(--font-sans);
-    font-size: var(--font-size-xs);
+    font-size: 0.9rem;
     line-height: 1.6;
     margin: 0;
   }
 
   .installation-lightbox-button {
     justify-content: center !important;
-    min-height: 44px !important;
+    min-height: 48px !important;
     width: 100% !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em !important;
+    font-weight: 600 !important;
   }
 
   .installation-lightbox-button-icon {
@@ -449,8 +453,8 @@
     border-top: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-6);
+    justify-content: flex-start;
+    gap: var(--space-5);
     min-width: 0;
     overflow-y: auto;
     padding: var(--space-6);
@@ -474,20 +478,20 @@
 
   .installation-lightbox-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+    font-size: clamp(1.35rem, 2.2vw, 1.85rem);
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--color-text-main);
     margin: 0;
     overflow-wrap: anywhere;
-    line-height: 1.16;
+    line-height: 1.2;
   }
 
   .installation-lightbox-specs {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-2);
     padding-top: var(--space-4);
     border-top: 1px solid var(--color-border);
   }
@@ -496,8 +500,9 @@
     display: flex;
     gap: var(--space-2);
     justify-content: space-between;
+    align-items: baseline;
     font-family: var(--font-sans);
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     line-height: 1.5;
   }
 
@@ -515,7 +520,7 @@
   .installation-lightbox-ctas {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    margin-top: auto;
+    gap: 12px;
+    margin-top: var(--space-2);
   }
 }
