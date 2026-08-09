@@ -39,7 +39,7 @@ export function setSeoMetadata({
   path = '/',
   image = DEFAULT_IMAGE,
   type = 'website',
-  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  robots = 'noindex, nofollow',
   jsonLd,
   jsonLdId = 'page-jsonld',
 } = {}) {
