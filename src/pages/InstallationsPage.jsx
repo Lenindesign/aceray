@@ -204,6 +204,7 @@ export default function InstallationsPage() {
 
         const products = await sanityFetch(query)
         const allPhotos = []
+        const seenDesigners = new Set()
 
         products?.forEach((product) => {
           const category = product.categories?.[0] || 'Seating'
@@ -216,9 +217,14 @@ export default function InstallationsPage() {
           const uniqueAssets = Array.from(new Set(installationAssets.map(a => a.url)))
             .map(url => installationAssets.find(a => a.url === url))
 
-          uniqueAssets.forEach((assetObj, idx) => {
+          const designerKey = (product.designer || 'Aceray Design Team').trim().toLowerCase()
+
+          // Only keep 1 product photo per designer
+          if (uniqueAssets.length > 0 && !seenDesigners.has(designerKey)) {
+            seenDesigners.add(designerKey)
+            const assetObj = uniqueAssets[0]
             allPhotos.push({
-              id: `${product._id}-${idx}`,
+              id: `${product._id}-0`,
               url: assetObj.url,
               productTitle: product.title,
               productSlug: product.slug,
@@ -226,7 +232,7 @@ export default function InstallationsPage() {
               category,
               projectName: formatProjectName(assetObj.url, assetObj.originalFilename, product.title),
             })
-          })
+          }
         })
 
         // Shuffle slightly for varied visual masonry display
