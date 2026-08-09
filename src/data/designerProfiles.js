@@ -82,6 +82,14 @@ const DESIGNER_PROFILES = {
     disciplines: ['Architecture', 'Furniture', 'Interior design'],
     bio: 'Luca Scacchetti was an Italian architect and designer whose practice ranged from urban planning and buildings to interiors and individual objects. He taught architectural design and collaborated with leading furniture, office, lighting, bath, and luxury manufacturers.',
   },
+  'a-and-t-design': {
+    location: 'Italy',
+    disciplines: ['Furniture', 'Contract seating', 'Tables & Bases'],
+    bio: 'A & T Design creates sleek, versatile commercial furniture for Aceray, spanning barstools, lounge seating, counter stools, and dining tables engineered for hospitality and contract environments.',
+  },
+  'a-and-t-studio': {
+    alias: 'a-and-t-design',
+  },
   'arter-citton': {
     location: 'Italy',
     disciplines: ['Furniture', 'Contract seating', 'Product design'],
@@ -89,8 +97,36 @@ const DESIGNER_PROFILES = {
   },
 }
 
+const DESIGNER_NAME_MAP = {
+  'a & t studio': 'A & T Design',
+  'a&t studio': 'A & T Design',
+  'a & t design': 'A & T Design',
+  'a&t design': 'A & T Design',
+  'a and t studio': 'A & T Design',
+  'a and t design': 'A & T Design',
+  'carlesi/tonelli': 'Studio Carlesi/Tonelli',
+  'cartesi e tonelli': 'Studio Carlesi/Tonelli',
+  'carlessi/tonelli': 'Studio Carlesi/Tonelli',
+  'calesi/tonelli': 'Studio Carlesi/Tonelli',
+  'studio carlesi tonelli': 'Studio Carlesi/Tonelli',
+  'tipi': 'Studio Tipi',
+  'studio tipi': 'Studio Tipi',
+  'ds-designs': 'DS-Design',
+  'ds designs': 'DS-Design',
+  'arter & citon': 'Arter & Citton',
+  'o. fioravanti': 'Odo Fioravanti',
+  'a. ciabatti': 'Aldo Ciabatti',
+}
+
+export function normalizeDesignerName(name = '') {
+  const clean = name.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
+  const lowerKey = clean.toLowerCase()
+  return DESIGNER_NAME_MAP[lowerKey] || clean
+}
+
 export function getDesignerSlug(value = '') {
-  return value
+  const normalized = normalizeDesignerName(value)
+  return normalized
     .toLowerCase()
     .replace(/&/g, 'and')
     .replace(/\./g, '')

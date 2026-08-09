@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
-import { getDesignerProfile, getDesignerSlug } from '@/data/designerProfiles'
+import { getDesignerProfile, getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const DESIGNERS_QUERY = `*[
@@ -86,8 +86,9 @@ export default function DesignersPage() {
     const byDesigner = new Map()
 
     products.forEach((product) => {
-      const name = cleanLabel(product.designer)
-      if (!name) return
+      const rawName = cleanLabel(product.designer)
+      if (!rawName) return
+      const name = normalizeDesignerName(rawName)
 
       if (!byDesigner.has(name)) {
         byDesigner.set(name, {

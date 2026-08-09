@@ -5,7 +5,7 @@ import ProductCard from '@/components/ProductCard'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
-import { getDesignerProfile, getDesignerSlug } from '@/data/designerProfiles'
+import { getDesignerProfile, getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const DESIGNER_PRODUCTS_QUERY = `*[
@@ -72,7 +72,7 @@ export default function DesignerLandingPage() {
     allProducts.filter((product) => getDesignerSlug(product.designer) === designerSlug)
   ), [allProducts, designerSlug])
 
-  const designerName = cleanLabel(designerProducts[0]?.designer) || designerSlug
+  const designerName = normalizeDesignerName(cleanLabel(designerProducts[0]?.designer)) || designerSlug
     .split('-')
     .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
