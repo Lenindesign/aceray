@@ -206,9 +206,9 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   box-sizing: border-box;
 }
 
@@ -226,9 +226,9 @@
   overflow: hidden;
   aspect-ratio: 1 / 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   margin-bottom: 1rem;
   touch-action: pan-y;
   user-select: none;
