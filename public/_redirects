@@ -1,11 +1,11 @@
-# Legacy WordPress Permalinks 301 Permanent Redirect Mapping
-/portfolio/:slug        /product/:slug            301
-/item/:slug             /product/:slug            301
-/products/:slug         /product/:slug            301
-/product-category/:cat  /catalog?cat=:cat         301
-/designer/:slug         /designers/:slug          301
-/collection/:slug       /collections/:slug        301
-/family/:slug           /collections/:slug        301
+# Legacy WordPress Permalinks 301 Permanent Redirect Mapping (Forced 301 With Splat)
+/portfolio/*        /product/:splat            301!
+/item/*             /product/:splat            301!
+/products/*         /product/:splat            301!
+/product-category/* /catalog?cat=:splat        301!
+/designer/*         /designers/:splat          301!
+/collection/*       /collections/:splat        301!
+/family/*           /collections/:splat        301!
 
 # SPA Single Page Application Catch-All Rule (Must remain at bottom)
-/*                      /index.html               200
+/*                  /index.html                200

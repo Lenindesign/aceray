@@ -101,11 +101,8 @@ export function getEnrichedProductTitle(title, categories) {
   return `${title} ${categorySuffix}`
 }
 
-// ── GROQ ───────────────────────────────────────────────────── from '@/pages/FabricsFinishesPage'
-
-
 // ── GROQ ─────────────────────────────────────────────────────
-const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
+const PRODUCT_QUERY = `*[_type == "product" && (slug.current == $slug || lower(slug.current) == lower($slug))][0] {
   _id, title, slug, designer, madeIn, categories, tags,
   imageUrl, galleryUrls, description,
   overallHeight, overallWidth, overallDepth, seatHeight, weight, com, stacking,
@@ -913,7 +910,8 @@ function ProductCarousel({ products, label }) {
 function ProductPage() {
   const [searchParams] = useSearchParams()
   const routeParams = useParams()
-  const slug = routeParams.slug || searchParams.get('slug')
+  const rawSlug = routeParams.slug || searchParams.get('slug') || ''
+  const slug = decodeURIComponent(rawSlug).trim()
 
   const [product, setProduct] = useState(null)
   const [collectionFamily, setCollectionFamily] = useState('')
