@@ -266,21 +266,31 @@ export default function DesignerLandingPage() {
           </div>
 
           <div className="designer-installations-grid">
-            {installationItems.map((item, index) => (
-              <div key={index} className="designer-installation-card">
-                <img
-                  src={optimizeSanityUrl(item.url, { width: 600, quality: 78 })}
-                  alt={`${designerName} installation`}
-                  loading="lazy"
-                />
-                {item.productTitle && (
-                  <div className="designer-installation-overlay">
-                    <span className="designer-installation-tag">Installation</span>
-                    <span className="designer-installation-model">{item.productTitle}</span>
-                  </div>
-                )}
-              </div>
-            ))}
+            {installationItems.map((item, index) => {
+              const CardTag = item.productSlug ? Link : 'div'
+              const cardProps = item.productSlug
+                ? {
+                  to: `/product/${item.productSlug}`,
+                  'aria-label': `View ${item.productTitle || designerName} product page`,
+                }
+                : {}
+
+              return (
+                <CardTag key={index} className="designer-installation-card" {...cardProps}>
+                  <img
+                    src={optimizeSanityUrl(item.url, { width: 600, quality: 78 })}
+                    alt={`${designerName} installation`}
+                    loading="lazy"
+                  />
+                  {item.productTitle && (
+                    <div className="designer-installation-overlay">
+                      <span className="designer-installation-tag">Installation</span>
+                      <span className="designer-installation-model">{item.productTitle}</span>
+                    </div>
+                  )}
+                </CardTag>
+              )
+            })}
           </div>
         </section>
       )}

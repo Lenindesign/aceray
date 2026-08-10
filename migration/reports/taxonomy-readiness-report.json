@@ -1,0 +1,616 @@
+{
+  "generatedAt": "2026-08-09T23:04:58.232Z",
+  "source": "sanity-products.ndjson",
+  "counts": {
+    "sourceProducts": 704,
+    "normalizedProducts": 704,
+    "designers": 42,
+    "families": 79,
+    "productCategories": 9,
+    "duplicateSlugs": 0
+  },
+  "missing": {
+    "slug": 0,
+    "designer": 195,
+    "family": 144,
+    "productType": 4,
+    "image": 2,
+    "description": 4
+  },
+  "unresolved": {
+    "designerRefs": 0,
+    "familyRefs": 0,
+    "productTypeRefs": 0
+  },
+  "duplicateSlugs": [],
+  "topProductTypes": [
+    [
+      "Armchairs",
+      116
+    ],
+    [
+      "Side Chairs",
+      113
+    ],
+    [
+      "Tables & Bases",
+      110
+    ],
+    [
+      "Barstools",
+      101
+    ],
+    [
+      "Counter Stools",
+      98
+    ],
+    [
+      "Lounge Seating",
+      96
+    ],
+    [
+      "Outdoors",
+      50
+    ],
+    [
+      "Low Stools / Ottomans",
+      13
+    ],
+    [
+      "Benches",
+      3
+    ]
+  ],
+  "topFamilies": [
+    [
+      "Riva",
+      27
+    ],
+    [
+      "Ampio",
+      23
+    ],
+    [
+      "Asta",
+      22
+    ],
+    [
+      "Tabour",
+      20
+    ],
+    [
+      "Picco",
+      16
+    ],
+    [
+      "Gala",
+      15
+    ],
+    [
+      "Solo",
+      15
+    ],
+    [
+      "Mira",
+      13
+    ],
+    [
+      "Valle",
+      13
+    ],
+    [
+      "Lido",
+      13
+    ],
+    [
+      "Ciao",
+      12
+    ],
+    [
+      "Tana",
+      12
+    ],
+    [
+      "Piazza",
+      11
+    ],
+    [
+      "Epoca",
+      11
+    ],
+    [
+      "Forte",
+      10
+    ],
+    [
+      "Vita",
+      10
+    ],
+    [
+      "Unico",
+      9
+    ],
+    [
+      "Duna",
+      9
+    ],
+    [
+      "Arte",
+      9
+    ],
+    [
+      "Libro",
+      9
+    ],
+    [
+      "Duo",
+      8
+    ],
+    [
+      "Strato",
+      8
+    ],
+    [
+      "Disco",
+      8
+    ],
+    [
+      "Mano",
+      8
+    ],
+    [
+      "Alba",
+      8
+    ],
+    [
+      "Campo",
+      8
+    ],
+    [
+      "Tusca",
+      8
+    ],
+    [
+      "Dotta",
+      8
+    ],
+    [
+      "Bora",
+      8
+    ],
+    [
+      "roca",
+      8
+    ],
+    [
+      "Pronto",
+      7
+    ],
+    [
+      "Luna",
+      7
+    ],
+    [
+      "Logo",
+      7
+    ],
+    [
+      "Forma",
+      6
+    ],
+    [
+      "Almea",
+      6
+    ],
+    [
+      "Gusto",
+      6
+    ],
+    [
+      "Oasi",
+      6
+    ],
+    [
+      "Canto",
+      6
+    ],
+    [
+      "Molto",
+      6
+    ],
+    [
+      "Torre",
+      6
+    ],
+    [
+      "Bijoux",
+      6
+    ],
+    [
+      "Opla",
+      6
+    ],
+    [
+      "Moda",
+      6
+    ],
+    [
+      "Posto",
+      6
+    ],
+    [
+      "Prisma",
+      5
+    ],
+    [
+      "Grado",
+      5
+    ],
+    [
+      "Tema",
+      5
+    ],
+    [
+      "Tivoli",
+      5
+    ],
+    [
+      "Nota",
+      4
+    ],
+    [
+      "Tempo",
+      4
+    ],
+    [
+      "Brio",
+      4
+    ],
+    [
+      "Vista",
+      4
+    ],
+    [
+      "Jazz",
+      4
+    ],
+    [
+      "Ballo",
+      4
+    ],
+    [
+      "Ovale",
+      4
+    ],
+    [
+      "Tiro",
+      4
+    ],
+    [
+      "Corso",
+      4
+    ],
+    [
+      "Festa",
+      3
+    ],
+    [
+      "Lato",
+      3
+    ],
+    [
+      "Bolide",
+      3
+    ],
+    [
+      "Misto",
+      3
+    ],
+    [
+      "Faro",
+      3
+    ],
+    [
+      "Arena",
+      3
+    ],
+    [
+      "Ovvio",
+      3
+    ],
+    [
+      "Tuba",
+      3
+    ],
+    [
+      "Nova",
+      3
+    ],
+    [
+      "Orbe",
+      3
+    ],
+    [
+      "Pouf",
+      3
+    ],
+    [
+      "Crema",
+      3
+    ],
+    [
+      "Casa",
+      3
+    ],
+    [
+      "Grande",
+      3
+    ],
+    [
+      "Reale",
+      3
+    ],
+    [
+      "Spazio",
+      2
+    ],
+    [
+      "Sopra",
+      2
+    ],
+    [
+      "Piede",
+      2
+    ],
+    [
+      "Polka",
+      2
+    ],
+    [
+      "Prosa",
+      2
+    ],
+    [
+      "Souvenir",
+      2
+    ],
+    [
+      "Atto",
+      1
+    ]
+  ],
+  "designers": [
+    [
+      "E. & P. Ciani Design",
+      114
+    ],
+    [
+      "Studio Tipi",
+      64
+    ],
+    [
+      "Studio Carlesi/Tonelli",
+      56
+    ],
+    [
+      "A & T Design",
+      40
+    ],
+    [
+      "Arter & Citton",
+      23
+    ],
+    [
+      "Balutto Associates",
+      17
+    ],
+    [
+      "Lucidi-Pevere",
+      16
+    ],
+    [
+      "Area 44",
+      14
+    ],
+    [
+      "DS-Design",
+      12
+    ],
+    [
+      "Chiaramonte-Marin",
+      12
+    ],
+    [
+      "Massimo Iosa Ghini",
+      12
+    ],
+    [
+      "Odo Fioravanti",
+      11
+    ],
+    [
+      "Arik Levy",
+      10
+    ],
+    [
+      "Daniel Rode",
+      9
+    ],
+    [
+      "Favaretto & Partners",
+      9
+    ],
+    [
+      "ERC",
+      7
+    ],
+    [
+      "Studio Lab",
+      6
+    ],
+    [
+      "Bennati Brothers",
+      6
+    ],
+    [
+      "Christophe Pillet",
+      6
+    ],
+    [
+      "Luca Scacchetti",
+      5
+    ],
+    [
+      "Aldo Ciabatti",
+      5
+    ],
+    [
+      "Mikko Laakkonen",
+      5
+    ],
+    [
+      "PRODUCKS",
+      4
+    ],
+    [
+      "Fabrizio Batoni",
+      4
+    ],
+    [
+      "Linea Lombardo",
+      4
+    ],
+    [
+      "Claudio Perin",
+      4
+    ],
+    [
+      "D. Debiasi & F. Sandri",
+      3
+    ],
+    [
+      "Fabio Flora",
+      3
+    ],
+    [
+      "Clous Breinholt",
+      3
+    ],
+    [
+      "Adriano Balutto",
+      3
+    ],
+    [
+      "Gentian Elezi",
+      3
+    ],
+    [
+      "Maurizio Zilio",
+      3
+    ],
+    [
+      "Oblic by Giulio Lazzotti",
+      2
+    ],
+    [
+      "Gualtiero Ceschia",
+      2
+    ],
+    [
+      "Orlandini & Radice",
+      2
+    ],
+    [
+      "Glam by Gualtiero Ceschia",
+      2
+    ],
+    [
+      "Marco Zilio",
+      2
+    ],
+    [
+      "Mara PIcco",
+      2
+    ],
+    [
+      "Giovanni Cigana",
+      1
+    ],
+    [
+      "DA-Design",
+      1
+    ],
+    [
+      "G. Mourlon Beernaert",
+      1
+    ],
+    [
+      "Flora-Ceschia",
+      1
+    ]
+  ],
+  "features": [
+    [
+      "Ready to Ship",
+      263
+    ],
+    [
+      "Swivel",
+      128
+    ],
+    [
+      "Outdoor",
+      124
+    ],
+    [
+      "Stacking",
+      100
+    ],
+    [
+      "Sled",
+      42
+    ],
+    [
+      "Caster",
+      14
+    ],
+    [
+      "Ganging",
+      12
+    ],
+    [
+      "Rocker",
+      6
+    ],
+    [
+      "Dolly",
+      4
+    ]
+  ],
+  "materials": [
+    [
+      "Upholstery",
+      429
+    ],
+    [
+      "Wood",
+      381
+    ],
+    [
+      "Chrome + Black",
+      70
+    ],
+    [
+      "Chrome",
+      66
+    ],
+    [
+      "Outdoor Powder Coat Steel",
+      27
+    ],
+    [
+      "Matte + Chrome",
+      26
+    ]
+  ]
+}

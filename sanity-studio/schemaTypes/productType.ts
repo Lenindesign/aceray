@@ -1,9 +1,11 @@
+import {TrolleyIcon} from '@sanity/icons/Trolley'
 import {defineType, defineField, defineArrayMember} from 'sanity'
 
 export const productType = defineType({
   name: 'product',
   title: 'Product',
   type: 'document',
+  icon: TrolleyIcon,
   fields: [
     defineField({
       name: 'title',
@@ -25,7 +27,14 @@ export const productType = defineType({
       name: 'designer',
       title: 'Designer',
       type: 'string',
-      description: 'e.g. Maurizio Zilio, Studio Carlesi/Tonelli',
+      description: 'Legacy raw designer label. Use Designer Reference for the normalized taxonomy.',
+    }),
+    defineField({
+      name: 'designerRef',
+      title: 'Designer Reference',
+      type: 'reference',
+      to: [{type: 'designer'}],
+      description: 'Normalized designer document generated during migration.',
     }),
     defineField({
       name: 'madeIn',
@@ -35,18 +44,79 @@ export const productType = defineType({
     }),
     defineField({
       name: 'categories',
-      title: 'Product Categories',
+      title: 'Legacy Product Categories',
       type: 'array',
       of: [defineArrayMember({type: 'string'})],
       options: {layout: 'tags'},
-      description: 'e.g. Side Chairs, Armchairs, Lounge Seating',
+      readOnly: true,
+      description: 'Raw WordPress category values kept for migration verification and current frontend compatibility.',
     }),
     defineField({
       name: 'tags',
-      title: 'Product Tags',
+      title: 'Legacy Product Tags',
       type: 'array',
       of: [defineArrayMember({type: 'string'})],
       options: {layout: 'tags'},
+      readOnly: true,
+      description: 'Raw WordPress tag values kept for migration verification.',
+    }),
+    defineField({
+      name: 'family',
+      title: 'Collection',
+      type: 'string',
+      description: 'Normalized collection/family label derived from WordPress categories or title prefix.',
+    }),
+    defineField({
+      name: 'familyRef',
+      title: 'Collection Reference',
+      type: 'reference',
+      to: [{type: 'family'}],
+      description: 'Normalized collection document generated during migration.',
+    }),
+    defineField({
+      name: 'productType',
+      title: 'Product Type',
+      type: 'string',
+      description: 'Normalized commercial product category such as Side Chairs or Tables & Bases.',
+    }),
+    defineField({
+      name: 'productTypeRef',
+      title: 'Product Category Reference',
+      type: 'reference',
+      to: [{type: 'productCategory'}],
+      description: 'Normalized product category document generated during migration.',
+    }),
+    defineField({
+      name: 'materials',
+      title: 'Materials / Construction',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
+      options: {layout: 'tags'},
+      description: 'Buyer-facing material and construction signals normalized from source taxonomy.',
+    }),
+    defineField({
+      name: 'features',
+      title: 'Features',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
+      options: {layout: 'tags'},
+      description: 'Functional attributes such as Ready to Ship, Stacking, Swivel, Outdoor, or Sled.',
+    }),
+    defineField({
+      name: 'legacyCategories',
+      title: 'Legacy Categories Snapshot',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
+      readOnly: true,
+      description: 'Migration snapshot of the original categories before normalization.',
+    }),
+    defineField({
+      name: 'legacyTags',
+      title: 'Legacy Tags Snapshot',
+      type: 'array',
+      of: [defineArrayMember({type: 'string'})],
+      readOnly: true,
+      description: 'Migration snapshot of the original tags before normalization.',
     }),
     defineField({
       name: 'isFeatured',

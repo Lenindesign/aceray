@@ -221,7 +221,11 @@ export default function DesignersPage() {
                 >
                   {/* Media / Image Collage Column */}
                   <div className="designer-showcase-media">
-                    <div className="designer-main-image-wrap">
+                    <Link
+                      to={`/designers/${designer.slug}`}
+                      className="designer-main-image-wrap designer-image-link"
+                      aria-label={`Explore ${designer.name} designer page`}
+                    >
                       <img
                         src={optimizeSanityUrl(mainImage, { width: 750, quality: 78 })}
                         alt={`${designer.name} product`}
@@ -232,12 +236,17 @@ export default function DesignersPage() {
                           event.currentTarget.src = PLACEHOLDER_IMAGE
                         }}
                       />
-                    </div>
+                    </Link>
 
                     {secondaryImages.length > 0 && (
                       <div className="designer-secondary-images">
                         {secondaryImages.map((img, i) => (
-                          <div key={i} className="designer-secondary-image-wrap">
+                          <Link
+                            key={i}
+                            to={`/designers/${designer.slug}`}
+                            className="designer-secondary-image-wrap designer-image-link"
+                            aria-label={`Explore ${designer.name} designer page`}
+                          >
                             <img
                               src={optimizeSanityUrl(img, { width: 400, quality: 75 })}
                               alt=""
@@ -247,7 +256,7 @@ export default function DesignersPage() {
                                 event.currentTarget.src = PLACEHOLDER_IMAGE
                               }}
                             />
-                          </div>
+                          </Link>
                         ))}
                       </div>
                     )}

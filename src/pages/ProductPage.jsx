@@ -1145,11 +1145,17 @@ function ProductPage() {
   if (images.length === 0 && product.imageUrl && !product.imageUrl.includes('aceray.com')) {
     images.push(product.imageUrl)
   }
+  const formatDimValue = (val) => {
+    if (!val) return ''
+    const cleaned = String(val).trim().replace(/"+$/g, '').trim()
+    return cleaned ? `${cleaned}"` : ''
+  }
+
   const displayCategories = getProductDisplayCategories(product)
   const firstCat = displayCategories[0] || product.categories?.[0] || ''
   const enrichedTitle = getEnrichedProductTitle(product.title, product.categories)
   const dimsLabel = product.overallHeight && product.overallWidth && product.overallDepth
-    ? `${product.overallHeight}" H × ${product.overallWidth}" W × ${product.overallDepth}" D`
+    ? `${formatDimValue(product.overallHeight)} H × ${formatDimValue(product.overallWidth)} W × ${formatDimValue(product.overallDepth)} D`
     : null
 
   return (
@@ -1251,7 +1257,7 @@ function ProductPage() {
                 <h2 className="product-specs-title">Specifications</h2>
                 <dl className="product-specs-list">
                   <SpecRow label="Overall Dimensions" value={dimsLabel} />
-                  <SpecRow label="Seat Height" value={product.seatHeight ? `${product.seatHeight}"` : null} />
+                  <SpecRow label="Seat Height" value={product.seatHeight ? formatDimValue(product.seatHeight) : null} />
                   <SpecRow label="Weight" value={product.weight ? `${product.weight} lbs` : null} />
                   <SpecRow label="COM" value={product.com ? `${product.com} yards` : null} />
                   <SpecRow label="Stacking" value={product.stacking} />

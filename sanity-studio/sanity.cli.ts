@@ -6,10 +6,6 @@ export default defineCliConfig({
     dataset: 'production'
   },
   deployment: {
-    /**
-     * Set a custom host name for the deployed studio.
-     */
-    studioHost: 'aceray-studio',
     appId: 'ogmixgfvs8gpekjszec7wdui',
     /**
      * Enable auto-updates for studios.

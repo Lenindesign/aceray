@@ -166,23 +166,27 @@
   grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.85fr);
   gap: clamp(var(--space-4), 5vw, var(--space-8));
   align-items: start;
-  margin-top: 0;
   padding-top: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* ── Gallery (left column) ──────────────────────────────────── */
 .product-gallery {
-  position: sticky;
-  top: 100px;
+  position: relative;
+  top: auto;
+  align-self: start;
   margin-top: 0;
   padding-top: 0;
-  align-self: start;
+  min-width: 0;
 }
 
 .product-gallery-stack {
-  margin-top: 0;
-  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
 }
 
 .product-hero-carousel-wrap {
@@ -204,6 +208,7 @@
   scrollbar-width: none;
   user-select: none;
   cursor: zoom-in;
+  height: 100%;
   margin-top: 0;
   padding-top: 0;
 }
@@ -215,27 +220,25 @@
 .product-hero-slide {
   flex: 0 0 100%;
   width: 100%;
-  height: auto;
+  height: 100%;
+  aspect-ratio: 1 / 1;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  display: block;
-  margin-top: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding: 0;
   box-sizing: border-box;
 }
 
 .product-hero-slide .product-main-img {
   width: 100%;
-  height: auto;
-  max-height: 75vh;
+  height: 100%;
   object-fit: contain;
   object-position: top center;
-  transform: none;
   display: block;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
   pointer-events: none;
 }
 
@@ -244,10 +247,12 @@
   background: transparent;
   border-radius: var(--radius-card);
   overflow: hidden;
-  height: auto;
-  display: block;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin-bottom: 1rem;
   touch-action: pan-y;
   user-select: none;
 }
@@ -258,11 +263,9 @@
 
 .product-main-img {
   width: 100%;
-  height: auto;
-  max-height: 75vh;
+  height: 100%;
   object-fit: contain;
   object-position: top center;
-  transform: none;
   display: block;
   margin: 0;
   padding: 0;
@@ -433,9 +436,7 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   line-height: 1.1;
-  margin-top: 0;
   margin-bottom: 0.4rem;
-  padding-top: 0;
   color: var(--color-text-main);
 }
 

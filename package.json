@@ -12,6 +12,8 @@
     "dev:app": "vite",
     "dev:sanity": "npm --prefix sanity-studio run dev",
     "migrate:product-pdfs": "node scripts/import-wordpress-product-pdfs.js",
+    "migration:normalize-taxonomy": "node migration/scripts/normalize-product-taxonomy.js",
+    "migration:validate": "node migration/scripts/validate-migration-readiness.js",
     "generate:sitemap": "node scripts/generate-sitemap.js"
   },
   "devDependencies": {

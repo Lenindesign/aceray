@@ -1,14 +1,26 @@
 import fs from 'fs'
 import path from 'path'
 import https from 'https'
-import { fileURLToPath } from 'url'
+import {fileURLToPath} from 'url'
+import {
+  FAMILY_HERO_IMAGES,
+  PRODUCT_TYPES,
+  getDesignerDocSlug,
+  getFamily,
+  getProductTypeSlug,
+  normalizeDesigner,
+  readProductSlug,
+  slugify,
+  unique,
+} from './taxonomy-utils.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const rootDir = path.join(__dirname, '..')
 
 const PROJECT_ID = 'xm9au2qy'
 const DATASET = 'production'
-const API_VERSION = '2023-08-01'
+const API_VERSION = '2026-08-09'
 const BASE_URL = 'https://aceray.com'
 
 function fetchSanityQuery(query) {
@@ -21,6 +33,11 @@ function fetchSanityQuery(query) {
         let data = ''
         res.on('data', (chunk) => (data += chunk))
         res.on('end', () => {
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(new Error(`Sanity responded with ${res.statusCode}`))
+            return
+          }
+
           try {
             const parsed = JSON.parse(data)
             resolve(parsed.result || [])
@@ -33,86 +50,145 @@ function fetchSanityQuery(query) {
   })
 }
 
+function readNdjsonIfExists(filePath) {
+  if (!fs.existsSync(filePath)) return []
+  return fs
+    .readFileSync(filePath, 'utf8')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => JSON.parse(line))
+}
+
+function formatDate(value, fallback) {
+  return value ? value.split('T')[0] : fallback
+}
+
+function entry(url, today, priority, changefreq, lastmod = today) {
+  return {url, lastmod, priority, changefreq}
+}
+
+function dedupeEntries(entries) {
+  const byUrl = new Map()
+  for (const item of entries) {
+    if (!item.url || byUrl.has(item.url)) continue
+    byUrl.set(item.url, item)
+  }
+  return [...byUrl.values()].sort((left, right) => left.url.localeCompare(right.url))
+}
+
+function getLocalProducts() {
+  const normalizedPath = path.join(rootDir, 'migration', 'transformed', 'products-normalized.ndjson')
+  const sourcePath = path.join(rootDir, 'sanity-products.ndjson')
+  const normalizedProducts = readNdjsonIfExists(normalizedPath)
+  return normalizedProducts.length > 0 ? normalizedProducts : readNdjsonIfExists(sourcePath)
+}
+
+function buildLocalProductEntries(products, today) {
+  return products
+    .map((product) => readProductSlug(product))
+    .filter((slug) => slug && slug !== 'test')
+    .sort((left, right) => left.localeCompare(right))
+    .map((slug) => entry(`/product/${slug}`, today, '0.8', 'weekly'))
+}
+
+function buildLocalDesignerEntries(products, today) {
+  return unique(products.map((product) => normalizeDesigner(product.designer)))
+    .map((designer) => getDesignerDocSlug(designer))
+    .filter(Boolean)
+    .sort((left, right) => left.localeCompare(right))
+    .map((slug) => entry(`/designers/${slug}`, today, '0.7', 'weekly'))
+}
+
+function buildLocalFamilyEntries(products, today) {
+  const productFamilies = products.map((product) => slugify(getFamily(product))).filter(Boolean)
+  const heroFamilies = Object.keys(FAMILY_HERO_IMAGES)
+  return unique([...productFamilies, ...heroFamilies])
+    .sort((left, right) => left.localeCompare(right))
+    .map((slug) => entry(`/collections/${slug}`, today, '0.7', 'weekly'))
+}
+
+async function safeFetchEntries(label, query, toEntry, fallbackEntries) {
+  try {
+    const docs = await fetchSanityQuery(query)
+    const entries = docs.map(toEntry).filter((item) => item?.url)
+    if (entries.length > 0) return entries
+    console.warn(`Sanity returned no ${label}; using local fallback`)
+  } catch (err) {
+    console.warn(`Failed to fetch ${label} for sitemap; using local fallback: ${err.message}`)
+  }
+
+  return fallbackEntries
+}
+
 async function generateSitemap() {
-  console.log('Generating dynamic sitemap.xml from Sanity CMS...')
+  console.log('Generating sitemap.xml...')
 
   const today = new Date().toISOString().split('T')[0]
+  const localProducts = getLocalProducts()
 
   const staticRoutes = [
-    { url: '/', priority: '1.0', changefreq: 'daily' },
-    { url: '/catalog', priority: '0.9', changefreq: 'daily' },
-    { url: '/collections', priority: '0.8', changefreq: 'weekly' },
-    { url: '/designers', priority: '0.8', changefreq: 'weekly' },
-    { url: '/installations', priority: '0.8', changefreq: 'weekly' },
-    { url: '/fabrics-finishes', priority: '0.7', changefreq: 'monthly' },
-    { url: '/about', priority: '0.6', changefreq: 'monthly' },
-    { url: '/contact', priority: '0.7', changefreq: 'monthly' },
-    { url: '/aceray-book', priority: '0.6', changefreq: 'monthly' },
-    { url: '/resources', priority: '0.6', changefreq: 'monthly' },
+    entry('/', today, '1.0', 'daily'),
+    entry('/catalog', today, '0.9', 'daily'),
+    entry('/collections', today, '0.8', 'weekly'),
+    entry('/designers', today, '0.8', 'weekly'),
+    entry('/installations', today, '0.8', 'weekly'),
+    entry('/fabrics-finishes', today, '0.7', 'monthly'),
+    entry('/about', today, '0.6', 'monthly'),
+    entry('/contact', today, '0.7', 'monthly'),
+    entry('/aceray-book', today, '0.6', 'monthly'),
+    entry('/resources', today, '0.6', 'monthly'),
+    entry('/blog', today, '0.5', 'monthly'),
   ]
 
-  let productSlugs = []
-  let designerSlugs = []
-  let familySlugs = []
+  const categoryRoutes = PRODUCT_TYPES.map((category) => (
+    entry(`/catalog?cat=${getProductTypeSlug(category)}`, today, '0.7', 'weekly')
+  ))
 
-  try {
-    const products = await fetchSanityQuery(`*[_type == "product" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`)
-    productSlugs = products.map((p) => ({
-      url: `/product/${p.slug}`,
-      lastmod: p._updatedAt ? p._updatedAt.split('T')[0] : today,
-      priority: '0.8',
-      changefreq: 'weekly',
-    }))
-  } catch (err) {
-    console.warn('Failed to fetch product slugs for sitemap:', err.message)
-  }
+  const productEntries = await safeFetchEntries(
+    'product slugs',
+    `*[_type == "product" && defined(slug.current) && slug.current != "test"]{ "slug": slug.current, _updatedAt }`,
+    (product) => entry(`/product/${product.slug}`, today, '0.8', 'weekly', formatDate(product._updatedAt, today)),
+    buildLocalProductEntries(localProducts, today)
+  )
 
-  try {
-    const designers = await fetchSanityQuery(`*[_type == "designer" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`)
-    designerSlugs = designers.map((d) => ({
-      url: `/designers/${d.slug}`,
-      lastmod: d._updatedAt ? d._updatedAt.split('T')[0] : today,
-      priority: '0.7',
-      changefreq: 'weekly',
-    }))
-  } catch (err) {
-    console.warn('Failed to fetch designer slugs for sitemap:', err.message)
-  }
+  const designerEntries = await safeFetchEntries(
+    'designer slugs',
+    `*[_type == "designer" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+    (designer) => entry(`/designers/${designer.slug}`, today, '0.7', 'weekly', formatDate(designer._updatedAt, today)),
+    buildLocalDesignerEntries(localProducts, today)
+  )
 
-  try {
-    const families = await fetchSanityQuery(`*[_type == "family" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`)
-    familySlugs = families.map((f) => ({
-      url: `/collections/${f.slug}`,
-      lastmod: f._updatedAt ? f._updatedAt.split('T')[0] : today,
-      priority: '0.7',
-      changefreq: 'weekly',
-    }))
-  } catch (err) {
-    console.warn('Failed to fetch family slugs for sitemap:', err.message)
-  }
+  const familyEntries = await safeFetchEntries(
+    'collection slugs',
+    `*[_type == "family" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+    (family) => entry(`/collections/${family.slug}`, today, '0.7', 'weekly', formatDate(family._updatedAt, today)),
+    buildLocalFamilyEntries(localProducts, today)
+  )
 
-  const allEntries = [
-    ...staticRoutes.map((r) => ({ ...r, lastmod: today })),
-    ...productSlugs,
-    ...designerSlugs,
-    ...familySlugs,
-  ]
+  const allEntries = dedupeEntries([
+    ...staticRoutes,
+    ...categoryRoutes,
+    ...productEntries,
+    ...designerEntries,
+    ...familyEntries,
+  ])
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemap.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allEntries
   .map(
-    (entry) => `  <url>
-    <loc>${BASE_URL}${entry.url}</loc>
-    <lastmod>${entry.lastmod}</lastmod>
-    <changefreq>${entry.changefreq}</changefreq>
-    <priority>${entry.priority}</priority>
+    (item) => `  <url>
+    <loc>${BASE_URL}${item.url}</loc>
+    <lastmod>${item.lastmod}</lastmod>
+    <changefreq>${item.changefreq}</changefreq>
+    <priority>${item.priority}</priority>
   </url>`
   )
   .join('\n')}
 </urlset>`
 
-  const outputPath = path.join(__dirname, '..', 'public', 'sitemap.xml')
+  const outputPath = path.join(rootDir, 'public', 'sitemap.xml')
   fs.writeFileSync(outputPath, sitemapXml, 'utf8')
   console.log(`Successfully generated sitemap.xml with ${allEntries.length} URLs at ${outputPath}`)
 }
