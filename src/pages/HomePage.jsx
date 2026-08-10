@@ -127,64 +127,66 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      {/* Hero Banner with 5-Second Automated Cross-Fade Transition (Clickable Module) */}
-      <section className="hero-banner">
-        {/* Dynamic Cross-Fading Background Slides with Instant Preload Scanner Support */}
-        {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
-          <img
-            key={slide.title}
-            src={slide.src}
-            alt=""
-            className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
-            loading={idx === 0 ? 'eager' : 'lazy'}
-            fetchpriority={idx === 0 ? 'high' : 'auto'}
-            decoding="async"
-            width="1920"
-            height="1080"
-          />
-        ))}
-        <div className="hero-overlay" />
+      {/* Hero Banner with 5-Second Automated Cross-Fade Transition & Asymmetric Curve */}
+      <div className="hero-container container">
+        <section className="hero-banner">
+          {/* Dynamic Cross-Fading Background Slides with Instant Preload Scanner Support */}
+          {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
+            <img
+              key={slide.title}
+              src={slide.src}
+              alt=""
+              className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              fetchpriority={idx === 0 ? 'high' : 'auto'}
+              decoding="async"
+              width="1920"
+              height="1080"
+            />
+          ))}
+          <div className="hero-overlay" />
 
-        {/* Hero Content & Active Slide Info */}
-        <div className="hero-content">
-          <div className="hero-slide-info">
-            <span className="hero-slide-tag">COLLECTION</span>
-            <h1 className="hero-slide-title">{currentSlide.title}</h1>
-            <p className="hero-slide-designer">Designed by {currentSlide.designer}</p>
-          </div>
-        </div>
-
-        {/* CTA Button & Slide Indicators Below */}
-        <div className="hero-bottom-wrap">
-          <div className="hero-bottom-cta">
-            <button
-              type="button"
-              className="btn-primary"
-              onClick={(e) => {
-                e.stopPropagation()
-                navigate(`/collections/${currentSlide.familySlug}`)
-              }}
-            >
-              Explore {currentSlide.title} Collection
-            </button>
+          {/* Hero Content & Active Slide Info */}
+          <div className="hero-content">
+            <div className="hero-slide-info">
+              <span className="hero-slide-tag">COLLECTION</span>
+              <h1 className="hero-slide-title">{currentSlide.title}</h1>
+              <p className="hero-slide-designer">Designed by {currentSlide.designer}</p>
+            </div>
           </div>
 
-          <div className="hero-slide-indicators">
-            {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
+          {/* CTA Button & Slide Indicators Below */}
+          <div className="hero-bottom-wrap">
+            <div className="hero-bottom-cta">
               <button
-                key={slide.title}
                 type="button"
+                className="btn-primary"
                 onClick={(e) => {
                   e.stopPropagation()
-                  setHeroIndex(idx)
+                  navigate(`/collections/${currentSlide.familySlug}`)
                 }}
-                className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
-                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
-              />
-            ))}
+              >
+                Explore {currentSlide.title} Collection
+              </button>
+            </div>
+
+            <div className="hero-slide-indicators">
+              {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
+                <button
+                  key={slide.title}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setHeroIndex(idx)
+                  }}
+                  className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
+                  aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Shop by Category Section */}
       <section className="home-section category-section container">

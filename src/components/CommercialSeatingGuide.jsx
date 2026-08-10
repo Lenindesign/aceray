@@ -179,7 +179,6 @@ export default function CommercialSeatingGuide() {
                 className={`guide-tab-btn ${isActive ? 'active' : ''}`}
                 onClick={() => setActiveTab(tab.id)}
               >
-                <Icon className="guide-tab-icon" aria-hidden="true" />
                 <span>{tab.title}</span>
               </button>
             )
@@ -214,7 +213,6 @@ export default function CommercialSeatingGuide() {
         {/* Interactive FAQ Accordion */}
         <div className="commercial-faq-wrap">
           <div className="faq-header">
-            <HelpCircle className="faq-header-icon" aria-hidden="true" />
             <div>
               <span className="designer-eyebrow">FREQUENTLY ASKED QUESTIONS</span>
               <h3>Contract Seating &amp; Table FAQs</h3>

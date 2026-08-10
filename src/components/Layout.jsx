@@ -7,9 +7,9 @@ export default function Layout() {
     <div className="flex flex-col min-h-screen w-full">
       {/* Top Announcement Bar (Production Class) */}
       <div className="top-banner">
-        <Link to="/contact?request=catalog">Request a Catalog</Link>
+        <Link to="/contact?request=catalog">REQUEST A CATALOG</Link>
         <span aria-hidden="true">/</span>
-        <Link to="/aceray-book">View Aceray Catalog</Link>
+        <Link to="/aceray-book">VIEW ACERAY CATALOG</Link>
       </div>
 
       <Header />

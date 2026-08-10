@@ -11,6 +11,8 @@ import {
 import { CATEGORIES, getCategorySlug } from '@/constants'
 import { FAMILY_HERO_IMAGES } from '@/lib/productFamilies'
 
+import logoSvg from '@/assets/logo.svg'
+
 const NAV_LINKS = [
   { label: "What's New", to: '/catalog?new=1' },
   { label: 'Products', to: '/catalog', dropdown: true },
@@ -68,7 +70,7 @@ export default function Header() {
 
   useEffect(() => {
     const trimmed = query.trim()
-    if (trimmed.length < 2) {
+    if (trimmed.length < 1) {
       setSearchResults([])
       setShowDropdown(false)
       return
@@ -79,23 +81,32 @@ export default function Header() {
       const term = trimmed + '*'
       const searchQuery = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset)) && (
         title match $term ||
+        slug.current match $term ||
         designer match $term ||
-        description match $term ||
         count((categories[])[@ match $term]) > 0 ||
         count((tags[])[@ match $term]) > 0 ||
-        slug.current match $term
-      )][0...5]{
+        description match $term
+      )] | order(select(title match $term => 0, slug.current match $term => 1, designer match $term => 2, 3), title asc) [0...10]{
         _id, title, slug, imageUrl, mainImage{asset->{_id, url}}, categories, designer
       }`
 
       fetchSanityResult(searchQuery, { term })
         .then((res) => {
-          setSearchResults(res || [])
+          const qLower = trimmed.toLowerCase()
+          const sorted = (res || []).sort((a, b) => {
+            const aTitle = (a.title || '').toLowerCase()
+            const bTitle = (b.title || '').toLowerCase()
+            const aStarts = aTitle.startsWith(qLower) ? 0 : aTitle.includes(qLower) ? 1 : 2
+            const bStarts = bTitle.startsWith(qLower) ? 0 : bTitle.includes(qLower) ? 1 : 2
+            if (aStarts !== bStarts) return aStarts - bStarts
+            return aTitle.localeCompare(bTitle)
+          }).slice(0, 5)
+          setSearchResults(sorted)
           setShowDropdown(true)
         })
         .catch(console.error)
         .finally(() => setIsSearching(false))
-    }, 250)
+    }, 200)
 
     return () => clearTimeout(timer)
   }, [query])
@@ -129,7 +140,7 @@ export default function Header() {
     <header className="header">
       <div className="container header-container">
         <Link to="/" className="logo">
-          <img src="/assets/images/logo.svg" alt="Aceray" width="160" height="36" decoding="async" />
+          <img src={logoSvg} alt="Aceray" width="160" height="36" decoding="async" />
         </Link>
 
         <nav id="main-nav" className={`nav-wrapper ${menuOpen ? 'active' : ''}`}>

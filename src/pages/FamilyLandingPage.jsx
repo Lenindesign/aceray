@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import ProductCard from '@/components/ProductCard'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
-import { getFamilySlug, getPreferredFamilyHeroImage, productBelongsToFamily } from '@/lib/productFamilies'
+import { FAMILY_DESCRIPTIONS, getFamilySlug, getPreferredFamilyHeroImage, productBelongsToFamily } from '@/lib/productFamilies'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 
 const FAMILY_PRODUCTS_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(title asc) [0...1000] {
@@ -72,23 +72,31 @@ export default function FamilyLandingPage() {
   const productTypes = countCategoryMatches(familyProducts, CATEGORIES)
   const materials = countCategoryMatches(familyProducts, FAMILY_MATERIALS)
   const heroImage = getPreferredFamilyHeroImage(familyProducts, familySlug)
+  const familyDesigner = useMemo(() => {
+    for (const product of familyProducts) {
+      if (product.designer) return product.designer
+    }
+    return null
+  }, [familyProducts])
+
+  const familyDescription = FAMILY_DESCRIPTIONS[familySlug] || `Explore the full ${familyName} collection across available product types, materials, and related configurations.`
 
   useEffect(() => {
     setSeoMetadata({
       title: `${familyName} Collection | Aceray Commercial Furniture`,
-      description: `Explore the Aceray ${familyName} collection across commercial seating, materials, related configurations, and product types.`,
+      description: familyDescription,
       path: `/collections/${familySlug}`,
       image: heroImage || undefined,
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
         name: `${familyName} Collection`,
-        description: `Aceray ${familyName} collection products.`,
+        description: familyDescription,
         url: `https://aceray.com/collections/${familySlug}`,
       },
     })
     removeSeoJsonLd('product-jsonld')
-  }, [familyName, familySlug, heroImage])
+  }, [familyName, familySlug, heroImage, familyDescription])
 
   if (loading) {
     return (
@@ -125,18 +133,23 @@ export default function FamilyLandingPage() {
 
   return (
     <div className="family-page">
-      <section className="family-hero">
-        {heroImage && (
-          <img className="family-hero-image" src={heroImage} alt={`${familyName} collection product`} />
-        )}
+      <div className="family-hero-container container">
+        <section className="family-hero">
+          {heroImage && (
+            <img className="family-hero-image" src={heroImage} alt={`${familyName} collection product`} />
+          )}
 
-        <div className="container family-hero-inner">
-          <div className="family-hero-title">
-            <span className="family-eyebrow">Collection</span>
-            <h1>{familyName}</h1>
+          <div className="container family-hero-inner">
+            <div className="family-hero-title">
+              <span className="family-eyebrow">Collection</span>
+              <h1>{familyName}</h1>
+              {familyDesigner && (
+                <p className="family-hero-designer">Designed by {familyDesigner}</p>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <section className="container family-products-section">
         <div className="family-section-heading">
@@ -144,7 +157,7 @@ export default function FamilyLandingPage() {
             <span className="family-eyebrow">Products</span>
             <h2>{familyName} Products</h2>
             <p className="family-section-description">
-              Explore the full {familyName} collection across available product types, materials, and related configurations.
+              {familyDescription}
             </p>
           </div>
           <Link to="/catalog" className="btn-outline">All Products</Link>

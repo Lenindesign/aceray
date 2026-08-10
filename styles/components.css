@@ -3,7 +3,7 @@
   /* Top Announcement Banner */
   .top-banner {
   align-items: center;
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-primary);
   color: var(--color-white);
   display: flex;
   flex-wrap: wrap;
@@ -296,7 +296,7 @@
   z-index: 1000;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: none;
   padding: 1.2rem 0;
 }
 
@@ -363,11 +363,11 @@
   cursor: pointer;
   display: inline-flex;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 500;
   gap: var(--space-0-5);
   height: auto;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--color-text-main);
   position: relative;
@@ -396,23 +396,7 @@
 
 .nav-links a::after,
 .nav-menu-trigger::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-primary);
-  transition: var(--transition-smooth);
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after,
-.nav-menu-trigger:hover::after,
-.nav-menu-trigger:focus-visible::after,
-.nav-menu-trigger.active::after,
-.nav-menu-trigger[data-popup-open]::after {
-  width: 100%;
+  display: none !important;
 }
 
 .nav-menu-trigger svg {
@@ -531,8 +515,8 @@
   align-items: center;
   background: var(--color-bg-light);
   border: 1px solid var(--color-border);
-  border-radius: 20px;
-  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  border-radius: 0px;
+  padding: 0.35rem 0.5rem 0.35rem 0.75rem;
   transition: var(--transition-smooth);
   width: 210px;
 }
@@ -693,22 +677,43 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Hero Section - 5-Second Dynamic Cross-Fade Transition */
+/* Hero Section - 5-Second Dynamic Cross-Fade Transition & Contained Asymmetric Card */
+.hero-container {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .hero-banner {
   position: relative;
-  height: 85vh;
-  min-height: 550px;
-  max-height: 850px;
+  height: 75vh;
+  min-height: 520px;
+  max-height: 750px;
   overflow: hidden;
   background: #181f1b;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding-top: 2.25rem;
-  padding-bottom: 3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
   margin-bottom: 0;
+  border-radius: 0 0 140px 0;
   cursor: pointer;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .hero-banner {
+    height: 60vh;
+    min-height: 440px;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    border-radius: 0 0 60px 0;
+  }
 }
 
 .hero-bg-slide {
@@ -784,7 +789,8 @@
 .hero-content {
   position: relative;
   z-index: 10;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin: 1.25rem auto 0 !important;
   width: 100%;
   max-width: 1100px;
@@ -811,40 +817,41 @@
   display: block !important;
   text-align: center !important;
   font-family: var(--font-sans);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #ffffff;
-  margin: 0 auto 4px auto !important;
+  margin: 0 auto 2px auto !important;
 }
 
 .hero-slide-title {
   display: block !important;
   text-align: center !important;
   font-family: var(--font-heading);
-  font-size: clamp(2.75rem, 6.5vw, 4.75rem) !important;
+  font-size: clamp(3rem, 6.5vw, 5.25rem) !important;
   font-weight: 300;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #ffffff;
-  margin: 2px auto 0px auto !important;
-  line-height: 1.05;
-  width: 100%;
+  margin: 0 auto 0px auto !important;
+  line-height: 0.95 !important;
 }
 
 .hero-slide-designer {
   display: block !important;
   text-align: center !important;
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  color: #ffffff;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: 0.04em;
   margin: -4px auto 0 auto !important;
   font-weight: 400;
 }
 
 .hero-content h1 {
-  margin-bottom: 0.8rem;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -867,7 +874,7 @@
   align-items: center !important;
   justify-content: center !important;
   line-height: 1 !important;
-  background-color: var(--color-primary-dark) !important;
+  background-color: var(--color-primary) !important;
   color: var(--color-white) !important;
   padding: 15px 28px 13px 28px !important;
   margin: 6px 0 !important;
@@ -876,15 +883,17 @@
   font-weight: 600 !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  border: 1px solid var(--color-primary-dark) !important;
+  border: 1px solid var(--color-primary) !important;
   border-radius: 2px !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12) !important;
   transition: var(--transition-smooth) !important;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus-visible {
   background-color: var(--color-primary-dark) !important;
   border-color: var(--color-primary-dark) !important;
+  color: var(--color-white) !important;
 }
 
 .btn-outline {
@@ -908,14 +917,14 @@
 
 .btn-outline:hover,
 .btn-outline:focus-visible {
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
+  background-color: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
   color: var(--color-white) !important;
 }
 
 /* Category Slider / Carousel Grid */
 .home-section {
-  padding-block: clamp(var(--space-8), 8vw, var(--space-12));
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
 }
 
 .category-section {
@@ -979,7 +988,7 @@
 }
 
 .home-feature {
-  padding-block: clamp(var(--space-8), 8vw, var(--space-12));
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
 }
 
 .feature-grid {
@@ -1632,11 +1641,32 @@ main:has(.about-page) + .footer {
   padding-block: clamp(var(--space-8), 8vw, var(--space-12));
 }
 
+.family-hero-container {
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+
 .family-hero {
-  border-bottom: 1px solid var(--color-border);
-  min-height: 85vh;
+  border-bottom: none;
+  height: 60vh;
+  min-height: 440px;
+  max-height: 650px;
   overflow: hidden;
   position: relative;
+  border-radius: 0 0 140px 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
+}
+
+@media (max-width: 768px) {
+  .family-hero-container {
+    margin-top: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .family-hero {
+    height: 50vh;
+    min-height: 360px;
+    border-radius: 0 0 60px 0;
+  }
 }
 
 .family-hero::before {
@@ -1655,10 +1685,12 @@ main:has(.about-page) + .footer {
 
 .family-hero-inner {
   align-items: flex-start;
+  justify-content: flex-start;
   display: flex;
   flex-direction: column;
-  min-height: 85vh;
+  height: 100%;
   padding-top: clamp(var(--space-4), 5vw, var(--space-6));
+  padding-left: clamp(var(--space-4), 5vw, var(--space-6));
   position: relative;
   z-index: 1;
 }
@@ -1669,7 +1701,7 @@ main:has(.about-page) + .footer {
   align-items: center;
   text-align: center;
   max-width: 560px;
-  padding: var(--space-3) clamp(var(--space-3), 4vw, var(--space-5)) var(--space-4) 0;
+  padding: 0;
   position: relative;
   z-index: 2;
 }
@@ -1712,6 +1744,19 @@ main:has(.about-page) + .footer {
   color: var(--color-white);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.32);
   text-align: center;
+  margin-bottom: 0px !important;
+  line-height: 0.95 !important;
+}
+
+.family-hero-designer {
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin-top: -4px !important;
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
 
 .family-empty h1,
@@ -1728,7 +1773,7 @@ main:has(.about-page) + .footer {
   font-size: var(--font-size-base);
   line-height: 1.7;
   margin: var(--space-2) 0 0;
-  max-width: 560px;
+  max-width: 780px;
 }
 
 .family-empty p {
@@ -3848,7 +3893,7 @@ main:has(.about-page) + .footer {
 .commercial-guide-section {
   background-color: #F8F8F5;
   border-top: 1px solid var(--color-border);
-  padding-block: clamp(var(--space-8), 8vw, var(--space-12));
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
 }
 
 .commercial-guide-header {
