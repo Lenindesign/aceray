@@ -9,6 +9,7 @@ const ProductPage = lazy(() => import('@/pages/ProductPage'))
 const CatalogPage = lazy(() => import('@/pages/CatalogPage'))
 const AboutPage = lazy(() => import('@/pages/AboutPage'))
 const BlogPage = lazy(() => import('@/pages/BlogPage'))
+const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'))
 const ContactPage = lazy(() => import('@/pages/ContactPage'))
 const CollectionsPage = lazy(() => import('@/pages/CollectionsPage'))
 const DesignersPage = lazy(() => import('@/pages/DesignersPage'))
@@ -31,6 +32,7 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/catalog" element={<CatalogPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/product" element={<ProductPage />} />
               <Route path="/product/:slug" element={<ProductPage />} />
               <Route path="/about" element={<AboutPage />} />

@@ -166,12 +166,24 @@ async function generateSitemap() {
     buildLocalFamilyEntries(localProducts, today)
   )
 
+  const blogPostEntries = await safeFetchEntries(
+    'blog post slugs',
+    `*[_type == "post" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+    (post) => entry(`/blog/${post.slug}`, today, '0.7', 'weekly', formatDate(post._updatedAt, today)),
+    [
+      entry('/blog/engineering-commercial-seating-beechwood-vs-metal', today, '0.7', 'weekly'),
+      entry('/blog/demystifying-double-rub-ratings-contract-upholstery', today, '0.7', 'weekly'),
+      entry('/blog/designing-high-turn-restaurant-dining-spaces', today, '0.7', 'weekly'),
+    ]
+  )
+
   const allEntries = dedupeEntries([
     ...staticRoutes,
     ...categoryRoutes,
     ...productEntries,
     ...designerEntries,
     ...familyEntries,
+    ...blogPostEntries,
   ])
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
