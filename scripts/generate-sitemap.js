@@ -152,19 +152,30 @@ async function generateSitemap() {
     buildLocalProductEntries(localProducts, today)
   )
 
-  const designerEntries = await safeFetchEntries(
-    'designer slugs',
-    `*[_type == "designer" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
-    (designer) => entry(`/designers/${designer.slug}`, today, '0.7', 'weekly', formatDate(designer._updatedAt, today)),
-    buildLocalDesignerEntries(localProducts, today)
-  )
+  const designerDocs = await fetchSanityQuery(
+    `*[_type == "product" && defined(designer) && designer != ""]{ designer, _updatedAt }`
+  ).catch(() => [])
 
-  const familyEntries = await safeFetchEntries(
-    'collection slugs',
-    `*[_type == "family" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
-    (family) => entry(`/collections/${family.slug}`, today, '0.7', 'weekly', formatDate(family._updatedAt, today)),
-    buildLocalFamilyEntries(localProducts, today)
-  )
+  const designerSlugs = unique(
+    designerDocs.map((doc) => getDesignerDocSlug(normalizeDesigner(doc.designer)))
+  ).filter(Boolean)
+
+  const designerEntries = designerSlugs.length > 0
+    ? designerSlugs.map((slug) => entry(`/designers/${slug}`, today, '0.7', 'weekly'))
+    : buildLocalDesignerEntries(localProducts, today)
+
+  const familyDocs = await fetchSanityQuery(
+    `*[_type == "product" && defined(categories)]{ categories, title, "slug": slug.current, _updatedAt }`
+  ).catch(() => [])
+
+  const familySlugs = unique([
+    ...familyDocs.map((doc) => slugify(getFamily(doc))).filter(Boolean),
+    ...Object.keys(FAMILY_HERO_IMAGES),
+  ])
+
+  const familyEntries = familySlugs.length > 0
+    ? familySlugs.map((slug) => entry(`/collections/${slug}`, today, '0.7', 'weekly'))
+    : buildLocalFamilyEntries(localProducts, today)
 
   const blogPostEntries = await safeFetchEntries(
     'blog post slugs',

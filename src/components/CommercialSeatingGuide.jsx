@@ -285,7 +285,7 @@ export default function CommercialSeatingGuide() {
           <div className="faq-header">
             <div>
               <span className="designer-eyebrow">FREQUENTLY ASKED QUESTIONS</span>
-              <h3>Contract Seating &amp; Table FAQs</h3>
+              <h2>Contract Seating &amp; Table FAQs</h2>
             </div>
           </div>
 
@@ -300,7 +300,7 @@ export default function CommercialSeatingGuide() {
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
-                    <h4 className="faq-question-title font-medium text-left text-base text-[var(--color-text-main)] m-0 flex-1">{faq.question}</h4>
+                    <h3 className="faq-question-title font-medium text-left text-base text-[var(--color-text-main)] m-0 flex-1">{faq.question}</h3>
                     <ChevronDown className={`faq-chevron ${isOpen ? 'rotate' : ''}`} aria-hidden="true" />
                   </button>
 

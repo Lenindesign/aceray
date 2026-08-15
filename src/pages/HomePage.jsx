@@ -14,25 +14,25 @@ const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(ma
 const FEATURED_CATEGORIES = [
   {
     title: 'Side Chairs',
-    subtitle: 'Explore Collection',
+    subtitle: 'Explore Side Chairs',
     cat: 'side-chairs',
     image: 'https://cdn.sanity.io/images/xm9au2qy/production/054fbffa1a0463309c052104e5822df887e02e5a-1143x1040.jpg?w=480&h=360&fit=crop&auto=format&q=75',
   },
   {
     title: 'Armchairs',
-    subtitle: 'Explore Collection',
+    subtitle: 'Explore Armchairs',
     cat: 'armchairs',
     image: 'https://cdn.sanity.io/images/xm9au2qy/production/80507990300523c51d933524657b70e031fc475a-1094x989.jpg?w=480&h=360&fit=crop&auto=format&q=75',
   },
   {
     title: 'Lounge Seating',
-    subtitle: 'Explore Collection',
+    subtitle: 'Explore Lounge Seating',
     cat: 'lounge',
     image: '/assets/migrated/Aceray_Ciao-family-jpg.webp',
   },
   {
     title: 'Outdoor Living',
-    subtitle: 'Explore Collection',
+    subtitle: 'Explore Outdoor Living',
     cat: 'outdoors',
     image: 'https://cdn.sanity.io/images/xm9au2qy/production/d33dc5f444f69b04e476f7e4b738a1e2cd853108-1152x1152.jpg?w=480&h=360&fit=crop&auto=format&q=75',
   },

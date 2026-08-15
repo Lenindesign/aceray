@@ -40,7 +40,7 @@ export function absoluteUrl(path = '/') {
 }
 
 export const ACERAY_ORGANIZATION_SCHEMA = {
-  '@type': 'Organization',
+  '@type': ['Organization', 'FurnitureStore', 'LocalBusiness'],
   '@id': 'https://aceray.com/#organization',
   name: 'Aceray',
   legalName: 'Aceray LLC',
@@ -51,6 +51,17 @@ export const ACERAY_ORGANIZATION_SCHEMA = {
   },
   description:
     'Manufacturer of high-performance commercial seating, contract dining chairs, barstools, lounge furniture, and custom table bases for hospitality, corporate, and commercial interiors.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '4465 Kipling St., Suite 202',
+    addressLocality: 'Wheat Ridge',
+    addressRegion: 'CO',
+    postalCode: '80033',
+    addressCountry: 'US',
+  },
+  telephone: '+1-303-733-3404',
+  email: 'info@aceray.com',
+  priceRange: '$$ - $$$',
   knowsAbout: [
     'Commercial Seating',
     'Contract Furniture',
@@ -63,6 +74,7 @@ export const ACERAY_ORGANIZATION_SCHEMA = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer service',
+    telephone: '+1-303-733-3404',
     email: 'info@aceray.com',
     url: 'https://aceray.com/contact',
   },
