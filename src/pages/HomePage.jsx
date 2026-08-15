@@ -74,8 +74,15 @@ export default function HomePage() {
               name: p.title,
               url: `https://aceray.com/product/${p.slug?.current || p.slug}`,
               image: p.imageUrl || p.mainImage?.asset?.url,
-              brand: { '@id': 'https://aceray.com/#organization' },
-              designer: p.designer ? { '@type': 'Person', name: p.designer } : undefined,
+              brand: { '@type': 'Brand', name: 'Aceray' },
+              offers: {
+                '@type': 'Offer',
+                priceCurrency: 'USD',
+                price: '0.00',
+                availability: 'https://schema.org/InStock',
+                url: `https://aceray.com/product/${p.slug?.current || p.slug}`,
+              },
+              ...(p.designer ? { designer: { '@type': 'Person', name: p.designer } } : {}),
             },
           })),
         }

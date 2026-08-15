@@ -1002,6 +1002,7 @@ function ProductPage() {
                 offers: {
                   '@type': 'Offer',
                   priceCurrency: 'USD',
+                  price: '0.00',
                   availability: 'https://schema.org/InStock',
                   url: `https://aceray.com/contact?subject=${encodeURIComponent(`Quote Request: ${enrichedTitle}`)}`,
                   itemCondition: 'https://schema.org/NewCondition',
