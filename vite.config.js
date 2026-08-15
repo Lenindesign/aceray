@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
+import compression from 'vite-plugin-compression'
+
 function nonRenderBlockingCssPlugin() {
   return {
     name: 'non-render-blocking-css',
@@ -68,6 +70,8 @@ export default defineConfig({
     }),
     tailwindcss(),
     nonRenderBlockingCssPlugin(),
+    compression({ algorithm: 'gzip', ext: '.gz' }),
+    compression({ algorithm: 'brotliCompress', ext: '.br' }),
   ],
   resolve: {
     alias: {

@@ -1,4 +1,4 @@
-import {TrolleyIcon} from '@sanity/icons/Trolley'
+import {TrolleyIcon} from '@sanity/icons'
 import {defineType, defineField, defineArrayMember} from 'sanity'
 
 export const productCategoryType = defineType({

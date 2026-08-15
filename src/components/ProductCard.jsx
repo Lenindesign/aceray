@@ -64,7 +64,7 @@ export default function ProductCard({ product, className = '' }) {
         <div className="product-image-wrapper">
           <img
             src={finalImageUrl}
-            alt={product.title ? `${product.title} commercial seating by Aceray` : 'Aceray Commercial Furniture'}
+            alt={product.mainImage?.alt || product.alt || (product.title ? `${product.title} commercial seating by Aceray` : 'Aceray Commercial Furniture')}
             loading="lazy"
             decoding="async"
             onError={(e) => {

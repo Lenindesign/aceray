@@ -5,7 +5,7 @@ import { sanityFetch } from '@/sanityClient'
 import ProductCard from '@/components/ProductCard'
 import { CATEGORIES, getCategorySlug } from '@/constants'
 import { FAVORITES_CHANGED_EVENT, getFavoriteSlugs } from '@/lib/favorites'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 const PAGE_SIZE = 24
 const HAS_PRODUCT_IMAGE = `(defined(imageUrl) || defined(mainImage.asset))`
 
@@ -234,15 +234,27 @@ export default function CatalogPage() {
       title = `${toTitleCase(tag.replace(/-/g, ' '))} Commercial Furniture | Aceray`
     }
 
+    const catalogPath = `/catalog${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
     setSeoMetadata({
       title,
       description,
-      path: `/catalog${searchParams.toString() ? `?${searchParams.toString()}` : ''}`,
+      path: catalogPath,
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: title.replace(' | Aceray', ''),
-        description,
+        '@graph': [
+          {
+            '@type': 'CollectionPage',
+            name: title.replace(' | Aceray', ''),
+            description,
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Catalog', path: '/catalog' },
+            ...(cat ? [{ name: toTitleCase(cat.replace(/-/g, ' ')), path: catalogPath }] : []),
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
       },
     })
     removeSeoJsonLd('product-jsonld')

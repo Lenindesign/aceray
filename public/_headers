@@ -1,16 +1,19 @@
 /*
-  X-Robots-Tag: noindex, nofollow
+  Vary: Accept-Encoding
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.sanity.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://aceray.com https://*.aceray.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://aceray.com https://*.aceray.com; connect-src 'self' https://xm9au2qy.apicdn.sanity.io https://xm9au2qy.api.sanity.io https://*.sanity.io https://aceray.com; frame-src 'self' https://www.youtube.com https://player.vimeo.com; object-src 'none'; base-uri 'self'; form-action 'self';
 
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
+  Vary: Accept-Encoding
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
 
 /*.webp
   Cache-Control: public, max-age=31536000, immutable
@@ -23,6 +26,8 @@
 
 /*.svg
   Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
 
 /*.woff2
   Cache-Control: public, max-age=31536000, immutable
+

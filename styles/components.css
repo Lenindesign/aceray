@@ -294,8 +294,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(10px);
+  background: #ffffff;
   border-bottom: none;
   padding: 1.2rem 0;
 }
@@ -405,7 +404,7 @@
 }
 
 .nav-dropdown {
-  background: var(--color-white);
+  background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-card);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);

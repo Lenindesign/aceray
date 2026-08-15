@@ -7,7 +7,7 @@ import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
 import { getDesignerProfile, getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 
 const DESIGNER_PRODUCTS_QUERY = `*[
@@ -155,15 +155,25 @@ export default function DesignerLandingPage() {
       image: heroImage,
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'ProfilePage',
-        name: `${designerName} Aceray Products`,
-        description: bio,
-        url: `https://aceray.com/designers/${designerSlug}`,
-        mainEntity: {
-          '@type': schemaEntityType,
-          name: designerName,
-          description: bio,
-        },
+        '@graph': [
+          {
+            '@type': 'ProfilePage',
+            name: `${designerName} Aceray Products`,
+            description: bio,
+            url: `https://aceray.com/designers/${designerSlug}`,
+            mainEntity: {
+              '@type': schemaEntityType,
+              name: designerName,
+              description: bio,
+            },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Designers', path: '/designers' },
+            { name: designerName, path: `/designers/${designerSlug}` },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
       },
     })
     removeSeoJsonLd('product-jsonld')
@@ -193,7 +203,7 @@ export default function DesignerLandingPage() {
     return (
       <div className="designer-detail-page">
         <section className="container catalog-empty">
-          <h1 className="catalog-empty-title">Designer not found</h1>
+          <h2 className="catalog-empty-title">Designer not found</h2>
           <p className="catalog-empty-copy">No Aceray products were found for this designer.</p>
           <Link to="/designers" className="btn-outline">Browse Designers</Link>
         </section>

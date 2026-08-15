@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
 export default function ContactPage() {
   useEffect(() => {
@@ -7,6 +7,22 @@ export default function ContactPage() {
       title: 'Contact Aceray | Trade Pricing & Representatives',
       description: 'Contact Aceray for trade pricing, commercial furniture specification support, catalog requests, finish samples, and representative assistance.',
       path: '/contact',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'ContactPage',
+            name: 'Contact Aceray',
+            description: 'Contact Aceray for trade pricing, commercial furniture specification support, catalog requests, finish samples, and representative assistance.',
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Contact', path: '/contact' },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
+      },
     })
     removeSeoJsonLd('product-jsonld')
   }, [])
@@ -77,11 +93,11 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <dt>Phone</dt>
-                  <dd>+1 (305) 000-0000</dd>
+                  <dd><a href="tel:+13037333404">303 733 3404</a></dd>
                 </div>
                 <div>
-                  <dt>Showroom</dt>
-                  <dd>Miami, FL - By Appointment</dd>
+                  <dt>Corporate Office</dt>
+                  <dd>4465 Kipling St., Suite 202<br />Wheat Ridge, CO 80033</dd>
                 </div>
               </dl>
             </div>

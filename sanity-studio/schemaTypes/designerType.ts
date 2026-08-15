@@ -1,4 +1,4 @@
-import {UserIcon} from '@sanity/icons/User'
+import {UserIcon} from '@sanity/icons'
 import {defineType, defineField, defineArrayMember} from 'sanity'
 
 export const designerType = defineType({

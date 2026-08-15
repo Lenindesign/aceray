@@ -5,7 +5,7 @@ import { sanityFetch } from '@/sanityClient'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 import {
   Dialog,
   DialogContent,
@@ -147,10 +147,20 @@ export default function InstallationsPage() {
       path: '/installations',
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'ImageGallery',
-        name: 'Aceray Installation Gallery',
-        description: 'Commercial furniture installation images and project examples from Aceray.',
-        url: 'https://aceray.com/installations',
+        '@graph': [
+          {
+            '@type': 'ImageGallery',
+            name: 'Aceray Installation Gallery',
+            description: 'Commercial furniture installation images and project examples from Aceray.',
+            url: 'https://aceray.com/installations',
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Installation Gallery', path: '/installations' },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
       },
     })
     removeSeoJsonLd('product-jsonld')
@@ -306,7 +316,7 @@ export default function InstallationsPage() {
   }, [visibleCount, filteredItems])
 
   return (
-    <div className="installations-page min-h-screen bg-[#faf9f6] text-[#222]">
+    <div className="installations-page min-h-screen bg-[var(--color-bg-card)] text-[var(--color-text-main)]">
       {/* Hero Banner */}
       <section className="installations-hero">
         <div className="installations-hero-content">
@@ -347,7 +357,7 @@ export default function InstallationsPage() {
       <section className="container">
         <div className="installations-filter-bar">
           <div className="installations-filter-pills">
-            <Filter className="size-4 text-[#718f80] mr-1 flex-shrink-0" />
+            <Filter className="size-4 text-[var(--color-primary)] mr-1 flex-shrink-0" />
             {CATEGORY_FILTERS.map((cat) => (
               <button
                 key={cat}
@@ -380,7 +390,7 @@ export default function InstallationsPage() {
           </div>
         ) : filteredItems.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-[16px] border border-gray-200 p-8 max-w-xl mx-auto my-12">
-            <Sparkles className="size-10 text-[#718f80] mx-auto mb-4 opacity-60" />
+            <Sparkles className="size-10 text-[var(--color-primary)] mx-auto mb-4 opacity-60" />
             <h3 className="text-xl font-medium text-gray-800 font-heading uppercase">No installations found</h3>
             <p className="text-sm text-gray-500 mt-2 font-sans">
               Try adjusting your search query or choosing a different filter category.
@@ -419,7 +429,7 @@ export default function InstallationsPage() {
                         {item.projectName}
                       </h4>
                       <p className="installation-card-meta">
-                        <MapPin className="size-3 text-[#718f80]" />
+                        <MapPin className="size-3 text-[var(--color-primary)]" />
                         <span>Featured Product: {item.productTitle}</span>
                       </p>
                     </div>

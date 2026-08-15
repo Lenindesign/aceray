@@ -47,7 +47,7 @@ class ProductPageErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="product-error container py-20 text-center flex flex-col items-center justify-center min-h-[50vh]">
-          <h1 className="text-2xl font-semibold mb-3">Product Specs Unavailable</h1>
+          <h2 className="text-2xl font-semibold mb-3">Product Specs Unavailable</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
             We encountered a temporary issue displaying this product details.
           </p>
@@ -605,7 +605,7 @@ function Gallery({ images, title, designer }) {
             >
               <img
                 src={src}
-                alt={`${title} view ${i + 1}`}
+                alt={`${title} commercial contract seating by Aceray${images.length > 1 ? ` - view ${i + 1}` : ''}`}
                 className="product-main-img"
                 draggable={false}
               />
@@ -651,7 +651,11 @@ function Gallery({ images, title, designer }) {
               aria-label={`View image ${i + 1}`}
               className={`product-thumb-btn ${i === active ? 'active' : ''}`}
             >
-              <img src={src} alt={`${title} view ${i + 1}`} loading="lazy" />
+              <img
+                src={src}
+                alt={`${title} commercial seating - view ${i + 1}`}
+                loading="lazy"
+              />
             </button>
           ))}
         </div>
@@ -925,6 +929,13 @@ function ProductPage() {
   const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
+    const paramSlug = searchParams.get('slug') || searchParams.get('id')
+    if (paramSlug && slug) {
+      window.history.replaceState(null, '', `/product/${encodeURIComponent(slug)}`)
+    }
+  }, [searchParams, slug])
+
+  useEffect(() => {
     if (!slug) { setError(true); setLoading(false); return }
 
     setLoading(true)
@@ -967,6 +978,17 @@ function ProductPage() {
                 designer: p.designer ? { '@type': 'Person', name: p.designer } : undefined,
                 category: p.categories?.[0] || 'Commercial Furniture',
                 material: p.tags?.length ? p.tags.join(', ') : 'Kiln-dried European hardwood, contract upholstery, precision metal',
+                ...(p.overallWidth ? { width: { '@type': 'QuantitativeValue', value: parseFloat(p.overallWidth), unitText: 'in' } } : {}),
+                ...(p.overallHeight ? { height: { '@type': 'QuantitativeValue', value: parseFloat(p.overallHeight), unitText: 'in' } } : {}),
+                ...(p.overallDepth ? { depth: { '@type': 'QuantitativeValue', value: parseFloat(p.overallDepth), unitText: 'in' } } : {}),
+                ...(p.weight ? { weight: { '@type': 'QuantitativeValue', value: parseFloat(p.weight), unitText: 'lbs' } } : {}),
+                additionalProperty: [
+                  p.seatHeight ? { '@type': 'PropertyValue', name: 'Seat Height', value: p.seatHeight } : null,
+                  p.com ? { '@type': 'PropertyValue', name: 'COM Requirement', value: p.com } : null,
+                  p.stacking ? { '@type': 'PropertyValue', name: 'Stacking Capacity', value: p.stacking } : null,
+                  p.madeIn ? { '@type': 'PropertyValue', name: 'Country of Origin', value: p.madeIn } : null,
+                  { '@type': 'PropertyValue', name: 'Compliance', value: 'CAL 133 / Commercial Grade Seating' },
+                ].filter(Boolean),
                 priceRange: '$$ - $$$ (Trade Pricing on Request)',
                 audience: {
                   '@type': 'Audience',
@@ -1124,7 +1146,7 @@ function ProductPage() {
     return (
       <div className="product-error">
         <section className="container product-error-container">
-          <h1>Product not found</h1>
+          <h2>Product not found</h2>
           <p>The product you're looking for doesn't exist or has been removed.</p>
           <Link to="/catalog">Browse All Products</Link>
         </section>

@@ -389,7 +389,7 @@
 :where([class*="group/button"]) {
   align-items: center;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: var(--radius-btn, 4px);
   display: inline-flex;
   flex-shrink: 0;
   font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);

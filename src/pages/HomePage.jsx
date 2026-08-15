@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
 import { fetchSanityResult } from '@/lib/sanityHttp'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, ACERAY_ORGANIZATION_SCHEMA, ACERAY_WEBSITE_SCHEMA } from '@/lib/seo'
 import ProductCard from '@/components/ProductCard'
 import CommercialSeatingGuide from '@/components/CommercialSeatingGuide'
 
@@ -16,25 +16,25 @@ const FEATURED_CATEGORIES = [
     title: 'Side Chairs',
     subtitle: 'Explore Collection',
     cat: 'side-chairs',
-    image: 'https://cdn.sanity.io/images/xm9au2qy/production/054fbffa1a0463309c052104e5822df887e02e5a-1143x1040.jpg',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/054fbffa1a0463309c052104e5822df887e02e5a-1143x1040.jpg?w=480&h=360&fit=crop&auto=format&q=75',
   },
   {
     title: 'Armchairs',
     subtitle: 'Explore Collection',
     cat: 'armchairs',
-    image: 'https://cdn.sanity.io/images/xm9au2qy/production/80507990300523c51d933524657b70e031fc475a-1094x989.jpg',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/80507990300523c51d933524657b70e031fc475a-1094x989.jpg?w=480&h=360&fit=crop&auto=format&q=75',
   },
   {
     title: 'Lounge Seating',
     subtitle: 'Explore Collection',
     cat: 'lounge',
-    image: 'https://cdn.sanity.io/images/xm9au2qy/production/676ba2d2799c5d31fc86d85ac46cda9e10d92254-2048x1961.webp',
+    image: '/assets/migrated/Aceray_Ciao-family-jpg.webp',
   },
   {
     title: 'Outdoor Living',
     subtitle: 'Explore Collection',
     cat: 'outdoors',
-    image: 'https://cdn.sanity.io/images/xm9au2qy/production/d33dc5f444f69b04e476f7e4b738a1e2cd853108-1152x1152.jpg',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/d33dc5f444f69b04e476f7e4b738a1e2cd853108-1152x1152.jpg?w=480&h=360&fit=crop&auto=format&q=75',
   },
 ]
 
@@ -53,33 +53,51 @@ export default function HomePage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [heroIndex, setHeroIndex] = useState(0)
-  const [loadedSlides, setLoadedSlides] = useState(() => new Set([0]))
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
-    setSeoMetadata({
-      title: 'Aceray - The Look of Seating | Premium Commercial Furniture',
-      description: 'Explore Aceray commercial seating, lounge furniture, table bases, designer collections, finishes, and installation resources for hospitality and contract interiors.',
-      path: '/',
-      jsonLd: {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: 'Aceray',
-        url: 'https://aceray.com',
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: 'https://aceray.com/catalog?q={search_term_string}',
-          'query-input': 'required name=search_term_string',
-        },
-      },
-    })
-    removeSeoJsonLd('product-jsonld')
-
     fetchSanityResult(FEATURED_QUERY)
-      .then(setProducts)
+      .then((items) => {
+        const prodList = items || []
+        setProducts(prodList)
+
+        const productItemList = {
+          '@type': 'ItemList',
+          name: 'Aceray Featured Commercial Seating Highlights',
+          numberOfItems: prodList.length,
+          itemListElement: prodList.map((p, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            item: {
+              '@type': 'Product',
+              name: p.title,
+              url: `https://aceray.com/product/${p.slug?.current || p.slug}`,
+              image: p.imageUrl || p.mainImage?.asset?.url,
+              brand: { '@id': 'https://aceray.com/#organization' },
+              designer: p.designer ? { '@type': 'Person', name: p.designer } : undefined,
+            },
+          })),
+        }
+
+        setSeoMetadata({
+          title: 'Aceray | Premium Commercial & Hospitality Seating',
+          description: 'Explore Aceray commercial seating, lounge furniture, table bases, designer collections, finishes, and installation resources for hospitality and contract interiors.',
+          path: '/',
+          jsonLd: {
+            '@context': 'https://schema.org',
+            '@graph': [
+              ACERAY_WEBSITE_SCHEMA,
+              ACERAY_ORGANIZATION_SCHEMA,
+              productItemList,
+            ],
+          },
+        })
+      })
       .catch(console.error)
       .finally(() => setLoading(false))
+
+    removeSeoJsonLd('product-jsonld')
   }, [])
 
   useEffect(() => {
@@ -95,24 +113,6 @@ export default function HomePage() {
     return () => mediaQuery.removeEventListener('change', handleMotionPreferenceChange)
   }, [])
 
-  // Ensure active slide image is loaded
-  useEffect(() => {
-    setLoadedSlides((prev) => {
-      if (prev.has(heroIndex)) return prev
-      const next = new Set(prev)
-      next.add(heroIndex)
-      return next
-    })
-  }, [heroIndex])
-
-  // Progressive background preloading of remaining hero images after main page render
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadedSlides(new Set(NEW_ARRIVALS_SLIDES.map((_, i) => i)))
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
   // Automated 5-second Hero transition loop
   useEffect(() => {
     if (prefersReducedMotion) return undefined
@@ -124,33 +124,42 @@ export default function HomePage() {
   }, [prefersReducedMotion])
 
   const currentSlide = NEW_ARRIVALS_SLIDES[heroIndex]
+  const nextHeroIndex = (heroIndex + 1) % NEW_ARRIVALS_SLIDES.length
 
   return (
     <div className="home-page">
+      {/* Consolidated Primary H1 for Page Level SEO & AIO */}
+      <h1 className="sr-only">Aceray | Premium Commercial &amp; Hospitality Seating</h1>
+
       {/* Hero Banner with 5-Second Automated Cross-Fade Transition & Asymmetric Curve */}
       <div className="hero-container container">
         <section className="hero-banner">
-          {/* Dynamic Cross-Fading Background Slides with Instant Preload Scanner Support */}
-          {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
-            <img
-              key={slide.title}
-              src={slide.src}
-              alt=""
-              className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
-              loading={idx === 0 ? 'eager' : 'lazy'}
-              fetchpriority={idx === 0 ? 'high' : 'auto'}
-              decoding="async"
-              width="1920"
-              height="1080"
-            />
-          ))}
+          {/* Lazy render active & next adjacent slide images to optimize mobile payload */}
+          {NEW_ARRIVALS_SLIDES.map((slide, idx) => {
+            const isVisible = idx === heroIndex || idx === nextHeroIndex
+            if (!isVisible) return null
+
+            return (
+              <img
+                key={slide.title}
+                src={slide.src}
+                alt={`${slide.title} commercial seating collection designed by ${slide.designer} for Aceray`}
+                className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
+                loading={idx === 0 ? 'eager' : 'lazy'}
+                fetchpriority={idx === 0 ? 'high' : 'auto'}
+                decoding="async"
+                width="1920"
+                height="1080"
+              />
+            )
+          })}
           <div className="hero-overlay" />
 
           {/* Hero Content & Active Slide Info */}
           <div className="hero-content">
             <div className="hero-slide-info">
               <span className="hero-slide-tag">COLLECTION</span>
-              <h1 className="hero-slide-title">{currentSlide.title}</h1>
+              <h2 className="hero-slide-title">{currentSlide.title}</h2>
               <p className="hero-slide-designer">Designed by {currentSlide.designer}</p>
             </div>
           </div>

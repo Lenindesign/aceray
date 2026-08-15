@@ -431,13 +431,14 @@
 }
 
 .product-detail-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 2rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+  margin-bottom: 0;
   color: var(--color-text-main);
+  text-transform: uppercase;
 }
 
 .product-detail-favorite {
@@ -497,13 +498,14 @@
 /* Designer / Made in */
 .product-detail-meta {
   align-items: baseline;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--color-text-muted);
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
   letter-spacing: 0.04em;
-  margin-bottom: 0.25rem;
+  margin-top: 0;
+  margin-bottom: 0.6rem;
 }
 
 .product-designer-link {
@@ -606,16 +608,16 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background-color: var(--color-primary) !important;
-  color: #ffffff !important;
-  border-radius: 4px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: var(--radius-btn);
   box-shadow: 0 4px 14px rgba(113, 143, 128, 0.25);
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .product-cta-btn:hover {
-  background-color: var(--color-primary-dark) !important;
-  color: #ffffff !important;
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
   transform: translateY(-1px);
 }
 

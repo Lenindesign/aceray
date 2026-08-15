@@ -1,4 +1,4 @@
-import {TagsIcon} from '@sanity/icons/Tags'
+import {TagsIcon} from '@sanity/icons'
 import {defineType, defineField, defineArrayMember} from 'sanity'
 
 export const familyType = defineType({

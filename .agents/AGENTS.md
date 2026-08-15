@@ -10,8 +10,8 @@
    - Use predefined CSS variables from `styles/base.css` and component classes from `styles/components.css`.
 
 3. **Universal CTA & Button System**:
-   - Primary Call-to-Action (`.btn-primary`): MUST have solid sage green background (`var(--color-primary)`), pure white font (`color: #ffffff`), uppercase typography (`text-transform: uppercase`), tracking (`letter-spacing: 0.08em`), and consistent hover state (`background-color: var(--color-primary-dark)`). NEVER use inline style overrides on `.btn-primary`.
-   - Secondary / Outlined CTA (`.btn-outline`): Use `.btn-outline` for transparent buttons with green border and green text, which turn solid green with white font on hover.
+   - Primary Call-to-Action (`.btn-primary`): MUST have solid sage green background (`var(--color-primary)` / `#718f80`), pure white font (`color: #ffffff`), uppercase typography (`text-transform: uppercase`), tracking (`letter-spacing: 0.08em`), architectural 4px corner radius (`border-radius: var(--radius-btn)` / `4px`), and consistent hover state (`background-color: var(--color-primary-dark)`). NEVER use inline style overrides on `.btn-primary`.
+   - Secondary / Outlined CTA (`.btn-outline`): Use `.btn-outline` for transparent buttons with green border and green text, 4px corner radius (`border-radius: var(--radius-btn)`), which turn solid green with white font on hover.
    - Consistent Experience: Ensure CTAs across all pages, Storybook stories, and components adhere to these exact classes without ad-hoc inline background/color hacks.
 
 4. **Universal Padding & Spacing**:
@@ -50,3 +50,21 @@
 12. **No Auto-Deployments Rule**:
     - NEVER automatically execute deployment commands (such as `npx netlify deploy`, `netlify deploy --prod`, `vercel deploy`, `firebase deploy`, or any server deployment commands) after modifying code or completing tasks.
     - ALWAYS ask for and receive explicit user confirmation before deploying to any live or staging environment.
+
+13. **Forbidden Anti-Patterns Rule**:
+    - Strictly observe [ANTI_PATTERNS_GUIDE.md](file:///Users/leninaviles/Projects/Aceray/docs/ANTI_PATTERNS_GUIDE.md).
+    - NEVER use `!important` to force CSS overrides unless required for accessibility resets or full-screen dialog viewports.
+    - NEVER write inline style overrides (`style={{ ... }}`).
+    - NEVER use magic numbers or arbitrary pixel values outside the 8pt Grid System.
+    - NEVER hardcode raw hex colors instead of CSS design tokens (`var(--color-primary)`).
+    - ALWAYS use `rem` / CSS tokens (`var(--space-1)`, `0.125rem`, `1rem`) for typography, margins, gaps, and paddings; use `px` ONLY for micro-borders (`1px solid ...`), thin hairline rules, or vector strokes.
+    - Tailwind CSS is reserved ONLY for macro layout scaffolding, responsive visibility, and flex/grid alignment (`flex items-center`, `hidden md:block`, `grid grid-cols-1 md:grid-cols-3`). Component styling, colors, and typography MUST be written in Vanilla CSS using design tokens.
+
+14. **Global Vertical Rhythm & Line-Height Rule**:
+    - Strictly observe [TYPOGRAPHY_AND_SPACING_GUIDE.md](file:///Users/leninaviles/Projects/Aceray/docs/TYPOGRAPHY_AND_SPACING_GUIDE.md).
+    - Hero Display Titles (`h1`) MUST use tight architectural line-height (`0.88`–`0.95`).
+    - Section Headings (`h2`, `h3`) MUST use `1.15`–`1.25`.
+    - Action CTAs & Buttons MUST use flexbox centering (`display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 1.75rem; line-height: 1`) for 100% mathematical vertical text centering. Asymmetrical vertical padding is strictly forbidden.
+    - Body copy & descriptions MUST use `1.65`–`1.70`.
+    - ALL element gaps, stack margins, and container paddings MUST follow the 8pt Grid scale (`4px`, `8px`, `12px`, `16px`, `24px`, `32px`, `48px`, `64px`, `80px`, `128px`).
+

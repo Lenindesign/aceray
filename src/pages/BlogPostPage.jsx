@@ -176,8 +176,8 @@ export default function BlogPostPage() {
   if (!post) {
     return (
       <div className="blog-post-page container py-20 text-center">
-        <h1 className="text-3xl font-heading text-[#222] mb-4">Article Not Found</h1>
-        <p className="text-[#555] mb-6">The blog post you're looking for doesn't exist or has been removed.</p>
+        <h2 className="text-3xl font-heading text-[var(--color-text-main)] mb-4">Article Not Found</h2>
+        <p className="text-[var(--color-text-muted)] mb-6">The blog post you're looking for doesn't exist or has been removed.</p>
         <Link to="/blog" className="btn-primary">
           Back to Journal Index
         </Link>
@@ -232,7 +232,7 @@ export default function BlogPostPage() {
                 {post.author.avatarUrl && (
                   <img
                     src={post.author.avatarUrl}
-                    alt={post.author.name}
+                    alt={`${post.author.name} - ${post.author.role || 'Aceray Technical Editorial'}`}
                     className="blog-author-avatar"
                   />
                 )}
@@ -253,7 +253,7 @@ export default function BlogPostPage() {
         {/* Hero Cover Image */}
         {post.imageUrl && (
           <div className="blog-post-cover-wrap">
-            <img src={post.imageUrl} alt={post.title} className="blog-post-cover-img" />
+            <img src={post.imageUrl} alt={post.mainImage?.alt || post.title} className="blog-post-cover-img" />
           </div>
         )}
 
@@ -270,7 +270,7 @@ export default function BlogPostPage() {
         {relatedProducts.length > 0 && (
           <section className="blog-post-related-products">
             <div className="blog-related-heading">
-              <ShieldCheck className="w-5 h-5 text-[#718f80]" aria-hidden="true" />
+              <ShieldCheck className="w-5 h-5 text-[var(--color-primary)]" aria-hidden="true" />
               <h2>Featured Products in this Story</h2>
             </div>
             <div className="blog-related-grid">

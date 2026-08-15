@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
 export const NOTE = 'Printed colors cannot be guaranteed for accuracy.'
 
@@ -236,6 +236,22 @@ export default function FabricsFinishesPage() {
       title: 'Fabrics & Finishes | Aceray Commercial Furniture',
       description: 'Explore Aceray wood finishes, graded-in upholstery partners, vinyl qualities, metal table finishes, and finish sample options for contract projects.',
       path: '/fabrics-finishes',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'ItemPage',
+            name: 'Fabrics & Finishes',
+            description: 'Explore Aceray wood finishes, graded-in upholstery partners, vinyl qualities, metal table finishes, and finish sample options for contract projects.',
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Fabrics & Finishes', path: '/fabrics-finishes' },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
+      },
     })
     removeSeoJsonLd('product-jsonld')
   }, [])

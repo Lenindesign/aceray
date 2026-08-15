@@ -1,0 +1,6 @@
+# Storybook-specific Netlify config — no restrictive CSP or X-Frame-Options
+# This overrides the main app's netlify.toml during Storybook deploys
+
+[build]
+  publish = "."
+  command = "echo 'Pre-built Storybook deploy'"

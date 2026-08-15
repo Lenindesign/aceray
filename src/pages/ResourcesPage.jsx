@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
 const RESOURCES = [
   {
@@ -39,6 +37,22 @@ export default function ResourcesPage() {
       title: 'Resources & Downloads | Aceray Commercial Furniture',
       description: 'Access Aceray catalogs, finish resources, 3D model guidance, CAD download paths, care information, and commercial furniture support resources.',
       path: '/resources',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'ItemPage',
+            name: 'Aceray Design Resources',
+            description: 'Access Aceray catalogs, finish resources, 3D model guidance, CAD download paths, care information, and commercial furniture support resources.',
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Resources', path: '/resources' },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
+      },
     })
     removeSeoJsonLd('product-jsonld')
   }, [])

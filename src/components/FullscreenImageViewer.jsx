@@ -523,15 +523,13 @@ export function FullscreenImageViewer({
                 }}
               >
                 <h2
-                  className="font-semibold text-[#111111] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px]"
-                  style={{ fontSize: '16px', lineHeight: '1.4', margin: 0 }}
+                  className="font-semibold text-[var(--color-text-main)] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px] text-base leading-normal m-0"
                 >
                   {displayTitle}
                 </h2>
                 {displayDesigner && (
                   <p
-                    className="font-medium text-[#718f80] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px]"
-                    style={{ fontSize: '12px', lineHeight: '1.4', marginTop: '6px' }}
+                    className="font-medium text-[var(--color-primary)] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px] text-xs leading-normal mt-1.5"
                   >
                     Design by {displayDesigner}
                   </p>
@@ -627,6 +625,7 @@ export function FullscreenImageViewer({
           >
             {images.map((item, index) => {
               const src = typeof item === 'string' ? item : (item.src || item.url);
+              const itemTitle = typeof item === 'object' && item.title ? item.title : title;
               return (
                 <button
                   key={typeof item === 'string' ? `${src}-${index}` : (item._id || `${src}-${index}`)}
@@ -645,7 +644,7 @@ export function FullscreenImageViewer({
                   aria-label={`Show photo ${index + 1}`}
                   aria-current={index === activeIndex ? "true" : undefined}
                 >
-                  <img src={src} alt="" className="w-full h-full object-cover rounded-md block" />
+                  <img src={src} alt={itemTitle ? `${itemTitle} photo ${index + 1}` : `Photo ${index + 1}`} className="w-full h-full object-cover rounded-md block" />
                 </button>
               );
             })}

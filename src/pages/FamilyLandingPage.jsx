@@ -5,7 +5,7 @@ import ProductCard from '@/components/ProductCard'
 import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { FAMILY_DESCRIPTIONS, getFamilySlug, getPreferredFamilyHeroImage, productBelongsToFamily } from '@/lib/productFamilies'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
 const FAMILY_PRODUCTS_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(title asc) [0...1000] {
   _id, title, slug, categories, tags, imageUrl, galleryUrls, designer, madeIn,
@@ -89,10 +89,21 @@ export default function FamilyLandingPage() {
       image: heroImage || undefined,
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: `${familyName} Collection`,
-        description: familyDescription,
-        url: `https://aceray.com/collections/${familySlug}`,
+        '@graph': [
+          {
+            '@type': 'CollectionPage',
+            name: `${familyName} Collection`,
+            description: familyDescription,
+            url: `https://aceray.com/collections/${familySlug}`,
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Collections', path: '/collections' },
+            { name: familyName, path: `/collections/${familySlug}` },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
       },
     })
     removeSeoJsonLd('product-jsonld')
@@ -123,7 +134,7 @@ export default function FamilyLandingPage() {
       <div className="family-page">
         <section className="container family-empty">
           <span className="family-eyebrow">Collection</span>
-          <h1>{familyName}</h1>
+          <h2>{familyName}</h2>
           <p>No products were found for this collection.</p>
           <Link to="/catalog" className="btn-primary">Browse All Products</Link>
         </section>

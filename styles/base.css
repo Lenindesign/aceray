@@ -80,6 +80,7 @@
   /* Universal Corner Radius Tokens (Multiples of 8px) */
   --radius-card: 16px;        /* 2 * 8px */
   --radius-sm: 8px;           /* 1 * 8px */
+  --radius-btn: 4px;          /* 4px Architectural CTA Radius */
   --radius-xs: 4px;           /* 0.5 * 8px */
   --radius-full: 9999px;
 }
@@ -96,7 +97,7 @@
     font-family: var(--font-sans);
     color: var(--color-text-main);
     background-color: var(--color-white);
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
   }
@@ -117,10 +118,29 @@
     display: block;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1 {
     font-family: var(--font-heading);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    line-height: 0.95;
+  }
+
+  h2, h3 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.25;
+  }
+
+  p {
+    line-height: 1.65;
   }
 }
 
@@ -130,8 +150,8 @@
     max-width: var(--container-app);
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
   }
 
   .section-title {
@@ -142,7 +162,8 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--color-text-main);
-    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    margin-bottom: var(--space-1);
   }
 
   .section-subtitle {
@@ -150,7 +171,8 @@
     text-align: center;
     color: var(--color-text-muted);
     font-size: 1rem;
-    margin-bottom: var(--space-lg);
+    line-height: 1.65;
+    margin-bottom: var(--space-6);
     font-weight: 400;
   }
 }

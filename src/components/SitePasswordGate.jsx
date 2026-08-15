@@ -59,7 +59,7 @@ export default function SitePasswordGate({ children }) {
           src="/assets/images/logo.svg"
           alt="Aceray"
           width="160"
-          height="36"
+          height="38"
         />
         <div className="site-password-copy">
           <p className="site-password-eyebrow">Under Construction</p>

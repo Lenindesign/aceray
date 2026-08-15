@@ -95,9 +95,42 @@ const DESIGNER_PROFILES = {
     disciplines: ['Furniture', 'Contract seating', 'Product design'],
     bio: 'Arter & Citton is represented in Aceray through upholstered seating families designed for hospitality and contract environments, with an emphasis on clean silhouettes, comfort, and configurable commercial use.',
   },
+  'gualtiero-ceschia': {
+    location: 'Udine, Italy',
+    disciplines: ['Furniture design', 'Contract seating', 'Upholstered armchairs'],
+    bio: 'Gualtiero Ceschia is a renowned Italian furniture designer whose work for Aceray includes the iconic Duo and Solo seating collections. His designs balance architectural precision, ergonomic comfort, and enduring commercial craftsmanship.',
+  },
+  'glam-by-gualtiero-ceschia': {
+    alias: 'gualtiero-ceschia',
+  },
+  'flora-ceschia': {
+    alias: 'gualtiero-ceschia',
+  },
+  'ds-design': {
+    location: 'Italy',
+    disciplines: ['Furniture design', 'Technopolymer seating', 'Contract chairs'],
+    bio: 'DS-Design creates modern, high-performance commercial seating for Aceray, featuring architectural technopolymer shells, wireframe bases, and versatile indoor/outdoor hospitality solutions.',
+  },
+  'da-design': {
+    alias: 'ds-design',
+  },
+  'ds-designs': {
+    alias: 'ds-design',
+  },
 }
 
 const DESIGNER_NAME_MAP = {
+  'da-design': 'DS-Design',
+  'da design': 'DS-Design',
+  'da-designs': 'DS-Design',
+  'da designs': 'DS-Design',
+  'ds-design': 'DS-Design',
+  'ds design': 'DS-Design',
+  'ds-designs': 'DS-Design',
+  'ds designs': 'DS-Design',
+  'glam by gualtiero ceschia': 'Gualtiero Ceschia',
+  'flora-ceschia': 'Gualtiero Ceschia',
+  'flora ceschia': 'Gualtiero Ceschia',
   'a & t studio': 'A & T Design',
   'a&t studio': 'A & T Design',
   'a & t design': 'A & T Design',

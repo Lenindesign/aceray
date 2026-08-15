@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Search, Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react'
 import { fetchSanityResult } from '@/lib/sanityHttp'
 import { urlFor } from '@/lib/sanityImageUrl'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 import { BLOG_POSTS } from '@/data/blogPosts'
 
 const BLOG_QUERY = `*[_type == "post"] | order(publishedAt desc){
@@ -37,6 +37,22 @@ export default function BlogPage() {
       description:
         'Read Aceray design notes, material engineering guides, double-rub ratings, and hospitality specification insights for architects and interior designers.',
       path: '/blog',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Blog',
+            name: 'Aceray Contract Furniture Journal',
+            description: 'Read Aceray design notes, material engineering guides, double-rub ratings, and hospitality specification insights for architects and interior designers.',
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
+      },
     })
     removeSeoJsonLd('product-jsonld')
 
@@ -133,7 +149,7 @@ export default function BlogPage() {
             <div className="blog-hero-image-wrap">
               <img
                 src={featuredPost.imageUrl}
-                alt={featuredPost.title}
+                alt={featuredPost.mainImage?.alt || featuredPost.title}
                 className="blog-hero-img"
               />
               <span className="blog-hero-badge">FEATURED ARTICLE</span>
@@ -162,7 +178,7 @@ export default function BlogPage() {
                     {featuredPost.author.avatarUrl && (
                       <img
                         src={featuredPost.author.avatarUrl}
-                        alt={featuredPost.author.name}
+                        alt={`${featuredPost.author.name} - ${featuredPost.author.role || 'Aceray Editorial'}`}
                         className="blog-author-avatar"
                       />
                     )}
@@ -196,7 +212,7 @@ export default function BlogPage() {
                       <div className="blog-card-image-wrap">
                         <img
                           src={post.imageUrl}
-                          alt={post.title}
+                          alt={post.mainImage?.alt || post.title}
                           className="blog-card-img"
                           loading="lazy"
                         />
@@ -228,7 +244,7 @@ export default function BlogPage() {
           </div>
         ) : (
           <div className="blog-empty-panel">
-            <BookOpen className="w-12 h-12 text-[#718f80] mx-auto mb-4" aria-hidden="true" />
+            <BookOpen className="w-12 h-12 text-[var(--color-primary)] mx-auto mb-4" aria-hidden="true" />
             <h2>No articles found</h2>
             <p>We couldn't find any articles matching your search criteria.</p>
             <button

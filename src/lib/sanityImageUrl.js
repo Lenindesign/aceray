@@ -3,7 +3,7 @@ import { client } from '@/sanityClient';
 
 export const urlFor = (source) => createImageUrlBuilder(client).image(source);
 
-export function optimizeSanityUrl(url, { width = 600, quality = 80 } = {}) {
+export function optimizeSanityUrl(url, { width = 480, quality = 75 } = {}) {
   if (!url || typeof url !== 'string') return url
   if (!url.includes('cdn.sanity.io')) return url
 

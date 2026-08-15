@@ -5,7 +5,7 @@ import { sanityFetch } from '@/sanityClient'
 import { CATEGORIES } from '@/constants'
 import { getCollectionFamily } from '@/lib/productFamilies'
 import { getDesignerProfile, getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
-import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
+import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 
 const DESIGNERS_QUERY = `*[
@@ -70,10 +70,20 @@ export default function DesignersPage() {
       path: '/designers',
       jsonLd: {
         '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: 'Aceray Designers',
-        description: 'Aceray products organized by designer and design studio.',
-        url: 'https://aceray.com/designers',
+        '@graph': [
+          {
+            '@type': 'CollectionPage',
+            name: 'Aceray Designers',
+            description: 'Aceray products organized by designer and design studio.',
+            url: 'https://aceray.com/designers',
+            publisher: { '@id': 'https://aceray.com/#organization' },
+          },
+          createBreadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Designers', path: '/designers' },
+          ]),
+          ACERAY_ORGANIZATION_SCHEMA,
+        ],
       },
     })
     removeSeoJsonLd('product-jsonld')
@@ -249,7 +259,7 @@ export default function DesignersPage() {
                           >
                             <img
                               src={optimizeSanityUrl(img, { width: 400, quality: 75 })}
-                              alt=""
+                              alt={`${designer.name} commercial furniture design ${i + 1}`}
                               loading="lazy"
                               onError={(event) => {
                                 event.currentTarget.onerror = null

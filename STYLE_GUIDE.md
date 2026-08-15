@@ -39,12 +39,13 @@ For page-level layout rules, container widths, spacing rhythm, heading hierarchy
   /* Radius Tokens */
   --radius-card: 16px;  /* 2 * 8px */
   --radius-sm: 8px;     /* 1 * 8px */
+  --radius-btn: 4px;    /* 4px Architectural CTA Radius */
 }
 ```
 
 ### Core Components (styled in `styles/components.css`)
-- **Primary Button** – `.btn-primary` for solid sage green CTAs (`#718f80`) with pure white font (`#ffffff`), uppercase typography, and `0.08em` tracking. Never override inline.
-- **Outlined Button** – `.btn-outline` for secondary transparent CTAs with sage green border and text, filling solid green with white font on hover.
+- **Primary Button** – `.btn-primary` for solid sage green CTAs (`#718f80`) with pure white font (`#ffffff`), uppercase typography, `0.08em` tracking, and `var(--radius-btn)` (`4px`) architectural corner radius. Never override inline.
+- **Outlined Button** – `.btn-outline` for secondary transparent CTAs with sage green border and text, filling solid green with white font on hover, and `var(--radius-btn)` (`4px`) corner radius.
 - **Navbar** – `.navbar` with logo and navigation links.
 - **Navigation Dropdowns** – Header dropdowns use the Base UI-powered shadcn `NavigationMenu` interaction layer with the global `.nav-menu-trigger`, `.nav-dropdown`, `.nav-dropdown-title`, and `.nav-dropdown-link` visual pattern. Product category dropdowns should mirror the catalog sidebar: opaque white card, subtle `rgba(0, 0, 0, 0.1)` border, `var(--radius-card)`, generous `var(--space-3)` padding, Geist `0.9rem` category rows, and soft active-row highlight. Keep the Base UI popup layer visually neutral so the Aceray card supplies the only border/shadow. Avoid CSS-only hover dropdowns and translucent panels over product grids.
 - **Hero Section** – `.hero` utility class for centered headline.

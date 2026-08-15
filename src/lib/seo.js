@@ -30,7 +30,69 @@ function upsertLink(rel, href) {
 
 export function absoluteUrl(path = '/') {
   if (/^https?:\/\//i.test(path)) return path
-  return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`
+  const base =
+    typeof window !== 'undefined' &&
+    window.location.hostname !== 'aceray.com' &&
+    window.location.hostname !== 'www.aceray.com'
+      ? window.location.origin
+      : SITE_URL
+  return `${base}${path.startsWith('/') ? path : `/${path}`}`
+}
+
+export const ACERAY_ORGANIZATION_SCHEMA = {
+  '@type': 'Organization',
+  '@id': 'https://aceray.com/#organization',
+  name: 'Aceray',
+  legalName: 'Aceray LLC',
+  url: 'https://aceray.com',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://aceray.com/assets/logo.svg',
+  },
+  description:
+    'Manufacturer of high-performance commercial seating, contract dining chairs, barstools, lounge furniture, and custom table bases for hospitality, corporate, and commercial interiors.',
+  knowsAbout: [
+    'Commercial Seating',
+    'Contract Furniture',
+    'BIFMA Standards',
+    'Hospitality Dining Chairs',
+    'Molded Polyurethane Foam',
+    'Wyzenbeek Abrasion Standards',
+    'COM Fabrics',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    email: 'info@aceray.com',
+    url: 'https://aceray.com/contact',
+  },
+}
+
+export const ACERAY_WEBSITE_SCHEMA = {
+  '@type': 'WebSite',
+  '@id': 'https://aceray.com/#website',
+  name: 'Aceray',
+  url: 'https://aceray.com',
+  publisher: {
+    '@id': 'https://aceray.com/#organization',
+  },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://aceray.com/catalog?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+}
+
+export function createBreadcrumbJsonLd(items) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  }
 }
 
 export function setSeoMetadata({
@@ -78,3 +140,4 @@ export function setSeoMetadata({
 export function removeSeoJsonLd(id) {
   document.getElementById(id)?.remove()
 }
+
