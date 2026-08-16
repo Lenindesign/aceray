@@ -12,7 +12,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-2xl border border-[#E5E3DD] bg-white py-(--card-spacing) text-sm text-[#222] shadow-none [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-2xl *:[img:last-child]:rounded-b-2xl",
+        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white py-(--card-spacing) text-sm text-[var(--color-text-main)] shadow-none [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-[var(--radius-card)] *:[img:last-child]:rounded-b-[var(--radius-card)]",
         className
       )}
       {...props} />
@@ -42,7 +42,7 @@ function CardTitle({
     <div
       data-slot="card-title"
       className={cn(
-        "font-sans text-base leading-snug font-semibold tracking-[0.04em] text-[#222] group-data-[size=sm]/card:text-sm",
+        "font-heading text-base leading-snug font-medium uppercase tracking-[0.05em] text-[var(--color-text-main)] group-data-[size=sm]/card:text-sm",
         className
       )}
       {...props} />
@@ -56,7 +56,7 @@ function CardDescription({
   return (
     <div
       data-slot="card-description"
-      className={cn("text-sm leading-relaxed text-[#555]", className)}
+      className={cn("font-sans text-sm leading-relaxed text-[var(--color-text-muted)]", className)}
       {...props} />
   );
 }
@@ -96,7 +96,7 @@ function CardFooter({
     <div
       data-slot="card-footer"
       className={cn(
-        "flex items-center rounded-b-sm border-t border-[#E5E3DD] bg-[#F9F8F6] p-(--card-spacing)",
+        "flex items-center rounded-b-[var(--radius-card)] border-t border-[var(--color-border)] bg-[var(--color-bg-light)] p-(--card-spacing)",
         className
       )}
       {...props} />

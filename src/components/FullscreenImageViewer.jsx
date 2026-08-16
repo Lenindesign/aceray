@@ -515,34 +515,23 @@ export function FullscreenImageViewer({
             {/* Product name + designer — top left with explicit padding and spacious layout */}
             <div className="pointer-events-auto flex items-center gap-4 min-w-0">
               <div
-                className="bg-white/95 shadow-lg backdrop-blur-xl border border-black/15 min-w-0"
-                style={{
-                  padding: '14px 24px',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-                }}
+                className="gallery-header-badge bg-white/95 backdrop-blur-xl border border-black/15 min-w-0"
               >
                 <h2
-                  className="font-semibold text-[var(--color-text-main)] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px] text-base leading-normal m-0"
+                  className="font-heading font-medium text-[var(--color-text-main)] tracking-[0.05em] uppercase truncate max-w-[280px] sm:max-w-[460px] text-base leading-normal m-0"
                 >
                   {displayTitle}
                 </h2>
                 {displayDesigner && (
                   <p
-                    className="font-medium text-[var(--color-primary)] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px] text-xs leading-normal mt-1.5"
+                    className="font-sans font-medium text-[var(--color-primary)] tracking-[0.08em] uppercase truncate max-w-[280px] sm:max-w-[460px] text-xs leading-normal mt-1.5"
                   >
                     Design by {displayDesigner}
                   </p>
                 )}
               </div>
               <div
-                className="pointer-events-auto inline-flex items-center whitespace-nowrap bg-white/95 shadow-lg backdrop-blur-xl text-black/70 border border-black/15 font-semibold"
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  fontSize: '13px',
-                  letterSpacing: '0.05em',
-                }}
+                className="gallery-counter-pill pointer-events-auto inline-flex items-center whitespace-nowrap bg-white/95 shadow-lg backdrop-blur-xl text-black/70 border border-black/15 font-sans font-semibold"
               >
                 {activeIndex + 1} / {images.length}
               </div>
@@ -615,13 +604,7 @@ export function FullscreenImageViewer({
       }`}>
         {hasMultipleImages ? (
           <div
-            className="pointer-events-auto flex max-w-full snap-x snap-mandatory overflow-x-auto bg-white/95 shadow-2xl border border-black/15 backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden items-center"
-            style={{
-              padding: '20px 28px',
-              borderRadius: '20px',
-              gap: '16px',
-              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.14)',
-            }}
+            className="gallery-thumb-strip pointer-events-auto flex max-w-full snap-x snap-mandatory overflow-x-auto bg-white/95 border border-black/15 backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden items-center"
           >
             {images.map((item, index) => {
               const src = typeof item === 'string' ? item : (item.src || item.url);
