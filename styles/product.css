@@ -170,7 +170,7 @@
   overflow: visible;
 }
 
-/* ── Gallery (left column) ──────────────────────────────────── */
+/* ── Gallery (left column - Sticky on Scroll) ───────────────── */
 .product-gallery {
   position: relative;
   top: auto;
@@ -178,6 +178,16 @@
   margin-top: 0;
   padding-top: 0;
   min-width: 0;
+}
+
+@media (min-width: 961px) {
+  .product-gallery {
+    position: sticky;
+    top: 96px;
+    z-index: 10;
+    align-self: start;
+    will-change: transform;
+  }
 }
 
 .product-gallery-stack {
