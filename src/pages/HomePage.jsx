@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
 import { fetchSanityResult } from '@/lib/sanityHttp'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
@@ -54,7 +54,6 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [heroIndex, setHeroIndex] = useState(0)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  const navigate = useNavigate()
 
   useEffect(() => {
     fetchSanityResult(FEATURED_QUERY)
@@ -171,21 +170,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* CTA Button & Slide Indicators Below */}
+          {/* Slide Indicators Below */}
           <div className="hero-bottom-wrap">
-            <div className="hero-bottom-cta">
-              <button
-                type="button"
-                className="btn-primary"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  navigate(`/collections/${currentSlide.familySlug}`)
-                }}
-              >
-                Explore {currentSlide.title} Collection
-              </button>
-            </div>
-
             <div className="hero-slide-indicators">
               {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
                 <button
