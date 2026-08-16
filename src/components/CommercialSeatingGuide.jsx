@@ -300,7 +300,7 @@ export default function CommercialSeatingGuide() {
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                     aria-expanded={isOpen}
                   >
-                    <h3 className="faq-question-title font-medium text-left text-base text-[var(--color-text-main)] m-0 flex-1">{faq.question}</h3>
+                    <h3 className="faq-question-title">{faq.question}</h3>
                     <ChevronDown className={`faq-chevron ${isOpen ? 'rotate' : ''}`} aria-hidden="true" />
                   </button>
 
