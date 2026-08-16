@@ -59,14 +59,23 @@ export default function HomePage() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   const bannerRef = useRef(null)
-  const startXRef = useRef(0)
-  const startTimeRef = useRef(0)
-  const isDraggingRef = useRef(false)
-  const isSwipingRef = useRef(false)
+  const swipeStartRef = useRef(null)
+  const swipeLastRef = useRef(null)
   const pointerIdRef = useRef(null)
+  const isSwipingRef = useRef(false)
+  const wheelGestureRef = useRef(null)
+  const wheelResetTimerRef = useRef(null)
+  const wheelCooldownUntilRef = useRef(0)
   const autoplayTimerRef = useRef(null)
 
   const navigate = useNavigate()
+
+  // Select slide helper
+  const selectSlide = useCallback((nextIndex) => {
+    const total = NEW_ARRIVALS_SLIDES.length
+    const normalized = (nextIndex + total) % total
+    setHeroIndex(normalized)
+  }, [])
 
   // Autoplay loop control with pause/resume support
   const startAutoplay = useCallback(() => {
@@ -152,73 +161,78 @@ export default function HomePage() {
     return () => mediaQuery.removeEventListener('change', handleMotionPreferenceChange)
   }, [])
 
-  // Full Gesture Engine Pointer Event Handlers (Continuous Drag + Flick/Swipe Detection)
-  const handlePointerDown = (e) => {
-    if (e.button !== undefined && e.button !== 0) return
-    if (e.target.closest('.hero-thumb-dot') || e.target.closest('button')) return
+  // Pointer event handlers for touch / mouse swipe (matching FullscreenImageViewer logic)
+  const handlePointerDown = useCallback((event) => {
+    if (event.button !== 0) return
+    if (event.target.closest('.hero-thumb-dot') || event.target.closest('button')) return
 
     stopAutoplay()
 
-    pointerIdRef.current = e.pointerId
-    startXRef.current = e.clientX
-    startTimeRef.current = performance.now()
-    isDraggingRef.current = true
-    isSwipingRef.current = false
-
-    if (e.currentTarget.setPointerCapture) {
+    if (event.currentTarget.setPointerCapture) {
       try {
-        e.currentTarget.setPointerCapture(e.pointerId)
+        event.currentTarget.setPointerCapture(event.pointerId)
       } catch (_) {}
     }
-  }
 
-  const handlePointerMove = (e) => {
-    if (!isDraggingRef.current) return
+    pointerIdRef.current = event.pointerId
+    swipeStartRef.current = {
+      x: event.clientX,
+      y: event.clientY,
+      time: event.timeStamp,
+    }
+    swipeLastRef.current = { x: event.clientX, y: event.clientY }
+    isSwipingRef.current = false
+    setIsDragging(true)
+  }, [stopAutoplay])
 
-    const currentX = e.clientX
-    const deltaX = currentX - startXRef.current
+  const handlePointerMove = useCallback((event) => {
+    const start = swipeStartRef.current
+    if (!start) return
 
-    // > 8px threshold distinguishes drag/swipe intent from static tap/click
-    if (Math.abs(deltaX) > 8) {
+    const deltaX = event.clientX - start.x
+    const deltaY = event.clientY - start.y
+    swipeLastRef.current = { x: event.clientX, y: event.clientY }
+
+    if (Math.abs(deltaX) > 6) {
       isSwipingRef.current = true
-      if (!isDragging) {
-        setIsDragging(true)
-      }
     }
 
-    if (isSwipingRef.current) {
-      setDragDeltaX(deltaX)
-    }
-  }
+    // Pass vertical gestures through to allow natural page scrolling
+    if (Math.abs(deltaY) > Math.abs(deltaX) * 1.25 && !isSwipingRef.current) return
 
-  const handlePointerUpOrCancel = (e) => {
-    if (!isDraggingRef.current) return
+    const containerWidth = bannerRef.current?.clientWidth || window.innerWidth || 1000
+    const maxOffset = containerWidth * 0.4
+    const clampedOffset = Math.max(-maxOffset, Math.min(maxOffset, deltaX))
+    setDragDeltaX(clampedOffset)
+  }, [])
 
-    if (pointerIdRef.current !== null && e.currentTarget.releasePointerCapture) {
+  const handlePointerUp = useCallback((event) => {
+    const start = swipeStartRef.current
+    const end = swipeLastRef.current ?? { x: event.clientX, y: event.clientY }
+
+    if (pointerIdRef.current !== null && event.currentTarget.releasePointerCapture) {
       try {
-        e.currentTarget.releasePointerCapture(pointerIdRef.current)
+        event.currentTarget.releasePointerCapture(pointerIdRef.current)
       } catch (_) {}
     }
     pointerIdRef.current = null
-    isDraggingRef.current = false
+    swipeStartRef.current = null
+    swipeLastRef.current = null
 
-    const deltaX = dragDeltaX
-    const duration = performance.now() - startTimeRef.current
-    const velocity = Math.abs(deltaX) / (duration || 1) // px/ms
-    const containerWidth = bannerRef.current?.offsetWidth || window.innerWidth || 1000
-    const distanceRatio = Math.abs(deltaX) / containerWidth
+    if (start) {
+      const deltaX = end.x - start.x
+      const deltaY = end.y - start.y
+      const elapsed = Math.max(event.timeStamp - start.time, 1)
+      const velocity = Math.abs(deltaX) / elapsed
+      const containerWidth = bannerRef.current?.clientWidth || window.innerWidth || 1000
+      const threshold = Math.min(64, containerWidth * 0.14)
 
-    // Flick/Swipe threshold (>0.4px/ms or <250ms with >30px move) or Distance threshold (>20% container width)
-    const isFlick = velocity > 0.4 || (duration < 250 && Math.abs(deltaX) > 30)
-    const isDistancePassed = distanceRatio > 0.20
+      const isHorizontalSwipe =
+        Math.abs(deltaX) > Math.abs(deltaY) * 1.1 &&
+        (Math.abs(deltaX) >= threshold || (Math.abs(deltaX) >= 20 && velocity >= 0.30))
 
-    if (isSwipingRef.current && (isFlick || isDistancePassed)) {
-      if (deltaX < 0) {
-        // Swiped Left -> Next slide
-        setHeroIndex((prev) => (prev + 1) % NEW_ARRIVALS_SLIDES.length)
-      } else if (deltaX > 0) {
-        // Swiped Right -> Previous slide
-        setHeroIndex((prev) => (prev - 1 + NEW_ARRIVALS_SLIDES.length) % NEW_ARRIVALS_SLIDES.length)
+      if (isHorizontalSwipe) {
+        selectSlide(heroIndex + (deltaX < 0 ? 1 : -1))
       }
     }
 
@@ -229,10 +243,86 @@ export default function HomePage() {
     setTimeout(() => {
       setIsAnimating(false)
       isSwipingRef.current = false
-    }, 400)
+    }, 350)
 
     startAutoplay()
-  }
+  }, [heroIndex, selectSlide, startAutoplay])
+
+  const handlePointerCancel = useCallback((event) => {
+    if (pointerIdRef.current !== null && event.currentTarget.releasePointerCapture) {
+      try {
+        event.currentTarget.releasePointerCapture(event.pointerId)
+      } catch (_) {}
+    }
+    pointerIdRef.current = null
+    swipeStartRef.current = null
+    swipeLastRef.current = null
+
+    setIsAnimating(true)
+    setDragDeltaX(0)
+    setIsDragging(false)
+    setTimeout(() => {
+      setIsAnimating(false)
+      isSwipingRef.current = false
+    }, 350)
+    startAutoplay()
+  }, [startAutoplay])
+
+  // Trackpad / Wheel horizontal swipe handler (matching FullscreenImageViewer logic)
+  const handleWheel = useCallback((event) => {
+    const width = bannerRef.current?.clientWidth ?? window.innerWidth
+    const deltaScale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? width : 1
+    const deltaX = event.deltaX * deltaScale
+    const deltaY = event.deltaY * deltaScale
+    const isHorizontalGesture = Math.abs(deltaX) > Math.abs(deltaY) * 1.2 && Math.abs(deltaX) > 4
+
+    if (!isHorizontalGesture) return
+
+    stopAutoplay()
+
+    const now = performance.now()
+    if (now < wheelCooldownUntilRef.current) return
+
+    if (!wheelGestureRef.current || now - wheelGestureRef.current.lastTime > 240) {
+      wheelGestureRef.current = { offsetX: 0, lastTime: now }
+    }
+
+    wheelGestureRef.current.offsetX += deltaX
+    wheelGestureRef.current.lastTime = now
+
+    const threshold = Math.min(64, width * 0.14)
+    const maxOffset = width * 0.3
+    const visualOffset = Math.max(-maxOffset, Math.min(maxOffset, -wheelGestureRef.current.offsetX))
+    setIsDragging(true)
+    setDragDeltaX(visualOffset)
+
+    if (Math.abs(wheelGestureRef.current.offsetX) >= threshold) {
+      const direction = wheelGestureRef.current.offsetX > 0 ? 1 : -1
+      wheelCooldownUntilRef.current = now + 650
+      selectSlide(heroIndex + direction)
+      wheelGestureRef.current = null
+      setIsDragging(false)
+      setDragDeltaX(0)
+      startAutoplay()
+      return
+    }
+
+    if (wheelResetTimerRef.current) clearTimeout(wheelResetTimerRef.current)
+    wheelResetTimerRef.current = setTimeout(() => {
+      wheelGestureRef.current = null
+      wheelResetTimerRef.current = null
+      setIsDragging(false)
+      setDragDeltaX(0)
+      startAutoplay()
+    }, 180)
+  }, [heroIndex, selectSlide, startAutoplay, stopAutoplay])
+
+  useEffect(() => {
+    const banner = bannerRef.current
+    if (!banner) return
+    banner.addEventListener('wheel', handleWheel, { passive: true })
+    return () => banner.removeEventListener('wheel', handleWheel)
+  }, [handleWheel])
 
   const handleBannerClick = (e) => {
     if (isSwipingRef.current) {
@@ -259,8 +349,8 @@ export default function HomePage() {
           className={`hero-banner ${isDragging ? 'is-dragging' : ''} ${isAnimating ? 'is-animating' : ''}`}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUpOrCancel}
-          onPointerCancel={handlePointerUpOrCancel}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
           onClick={handleBannerClick}
           title={`Explore ${currentSlide.title} Collection`}
           style={{
