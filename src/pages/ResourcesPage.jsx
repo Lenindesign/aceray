@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
 const RESOURCES = [
