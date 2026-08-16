@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
 import { fetchSanityResult } from '@/lib/sanityHttp'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
@@ -39,14 +39,14 @@ const FEATURED_CATEGORIES = [
 ]
 
 const NEW_ARRIVALS_SLIDES = [
-  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp", familySlug: "arte" },
-  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp", familySlug: "alba" },
-  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp", familySlug: "ciao" },
-  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp", familySlug: "solo" },
-  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp", familySlug: "bora" },
-  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp", familySlug: "mira" },
-  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp", familySlug: "corso" },
-  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp", familySlug: "spazio" }
+  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp", familySlug: "arte", productSlug: "arte-1u" },
+  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp", familySlug: "alba", productSlug: "alba-1w" },
+  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp", familySlug: "ciao", productSlug: "ciao-1u" },
+  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp", familySlug: "solo", productSlug: "solo-v" },
+  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp", familySlug: "bora", productSlug: "bora-lbw" },
+  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp", familySlug: "mira", productSlug: "mira-1s" },
+  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp", familySlug: "corso", productSlug: "corso-1" },
+  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp", familySlug: "spazio", productSlug: "spazio-r" }
 ]
 
 export default function HomePage() {
@@ -54,6 +54,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [heroIndex, setHeroIndex] = useState(0)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchSanityResult(FEATURED_QUERY)
@@ -139,7 +140,11 @@ export default function HomePage() {
 
       {/* Hero Banner with 5-Second Automated Cross-Fade Transition & Asymmetric Curve */}
       <div className="hero-container container">
-        <section className="hero-banner">
+        <section
+          className="hero-banner"
+          onClick={() => navigate(`/product/${currentSlide.productSlug}`)}
+          title={`View ${currentSlide.title} product details`}
+        >
           {/* Lazy render active & next adjacent slide images to optimize mobile payload */}
           {NEW_ARRIVALS_SLIDES.map((slide, idx) => {
             const isVisible = idx === heroIndex || idx === nextHeroIndex
