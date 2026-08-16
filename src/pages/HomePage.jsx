@@ -175,9 +175,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Slide Indicators Below */}
+          {/* Circular Product Thumbnail Markers */}
           <div className="hero-bottom-wrap">
-            <div className="hero-slide-indicators">
+            <div className="hero-slide-indicators hero-thumb-markers">
               {NEW_ARRIVALS_SLIDES.map((slide, idx) => (
                 <button
                   key={slide.title}
@@ -186,9 +186,20 @@ export default function HomePage() {
                     e.stopPropagation()
                     setHeroIndex(idx)
                   }}
-                  className={`hero-indicator-dot ${idx === heroIndex ? 'active' : ''}`}
+                  className={`hero-thumb-dot ${idx === heroIndex ? 'active' : ''}`}
                   aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
-                />
+                  title={`${slide.title} Collection by ${slide.designer}`}
+                >
+                  <img
+                    src={slide.src}
+                    alt={`${slide.title} seating collection`}
+                    width="52"
+                    height="52"
+                    loading="eager"
+                    decoding="async"
+                    className="hero-thumb-img"
+                  />
+                </button>
               ))}
             </div>
           </div>

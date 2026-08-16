@@ -756,27 +756,60 @@
 .hero-slide-indicators {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
 }
 
-.hero-indicator-dot {
-  width: 24px;
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.35);
-  border: none;
-  cursor: pointer;
+.hero-thumb-dot {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   padding: 0;
-  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  opacity: 0.75;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
 }
 
-.hero-indicator-dot:hover {
-  background: rgba(255, 255, 255, 0.7);
+.hero-thumb-dot:hover {
+  opacity: 1;
+  transform: scale(1.12);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
-.hero-indicator-dot.active {
-  background: #ffffff;
-  width: 42px;
+.hero-thumb-dot.active {
+  opacity: 1;
+  transform: scale(1.15);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px var(--color-primary), 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.hero-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hero-thumb-dot {
+    width: 38px;
+    height: 38px;
+    border-width: 1.5px;
+  }
+  .hero-slide-indicators {
+    gap: 6px;
+    padding: 4px;
+  }
 }
 
 .hero-bottom-cta {
