@@ -269,32 +269,38 @@ export default function HomePage() {
             WebkitUserSelect: 'none',
           }}
         >
-          {/* Lazy render active and adjacent slide images for seamless continuous drag */}
-          {NEW_ARRIVALS_SLIDES.map((slide, idx) => {
-            const isVisible = idx === heroIndex || idx === nextHeroIndex || idx === prevHeroIndex
-            if (!isVisible) return null
+          {/* Preloaded Horizontal Slide Track for Seamless Dragging & Snapping */}
+          <div
+            className={`hero-slide-track ${isDragging ? 'dragging' : ''}`}
+            style={{
+              transform: `translate3d(calc(-${heroIndex * 100}% + ${dragDeltaX}px), 0, 0)`,
+            }}
+          >
+            {NEW_ARRIVALS_SLIDES.map((slide, idx) => {
+              const isActive = idx === heroIndex
+              const isAdjacent = Math.abs(idx - heroIndex) <= 1 || (heroIndex === 0 && idx === NEW_ARRIVALS_SLIDES.length - 1) || (heroIndex === NEW_ARRIVALS_SLIDES.length - 1 && idx === 0)
 
-            const isActive = idx === heroIndex
-
-            return (
-              <img
-                key={slide.title}
-                src={slide.src}
-                alt={`${slide.title} commercial seating collection designed by ${slide.designer} for Aceray`}
-                className={`hero-bg-slide ${isActive ? 'active' : ''}`}
-                style={{
-                  transform: isActive && dragDeltaX !== 0 ? `translateX(${dragDeltaX}px) scale(1)` : undefined,
-                  transition: isDragging ? 'none' : undefined,
-                }}
-                loading={idx === 0 ? 'eager' : 'lazy'}
-                fetchpriority={idx === 0 ? 'high' : 'auto'}
-                decoding="async"
-                width="1920"
-                height="1080"
-                draggable={false}
-              />
-            )
-          })}
+              return (
+                <div
+                  key={slide.title}
+                  className={`hero-slide-item ${isActive ? 'active' : ''}`}
+                  aria-hidden={!isActive}
+                >
+                  <img
+                    src={slide.src}
+                    alt={`${slide.title} commercial seating collection designed by ${slide.designer} for Aceray`}
+                    className="hero-bg-slide-img"
+                    loading={idx === 0 || isAdjacent ? 'eager' : 'lazy'}
+                    fetchpriority={idx === 0 || isAdjacent ? 'high' : 'auto'}
+                    decoding="async"
+                    width="1920"
+                    height="1080"
+                    draggable={false}
+                  />
+                </div>
+              )
+            })}
+          </div>
           <div className="hero-overlay" />
 
           {/* Hero Content & Active Slide Info */}
