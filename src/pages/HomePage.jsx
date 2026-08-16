@@ -142,8 +142,8 @@ export default function HomePage() {
       <div className="hero-container container">
         <section
           className="hero-banner"
-          onClick={() => navigate(`/product/${currentSlide.productSlug}`)}
-          title={`View ${currentSlide.title} product details`}
+          onClick={() => navigate(`/collections/${currentSlide.familySlug}`)}
+          title={`Explore ${currentSlide.title} Collection`}
         >
           {/* Lazy render active & next adjacent slide images to optimize mobile payload */}
           {NEW_ARRIVALS_SLIDES.map((slide, idx) => {
