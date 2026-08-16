@@ -697,8 +697,34 @@
   padding-bottom: 2.5rem;
   margin-bottom: 0;
   border-radius: 0 0 140px 0;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
+}
+
+.hero-banner.is-dragging {
+  cursor: grabbing !important;
+}
+
+.hero-banner.is-dragging .hero-bg-slide,
+.hero-banner.is-dragging .hero-content {
+  transition: none !important;
+}
+
+.hero-banner.is-animating .hero-bg-slide,
+.hero-banner.is-animating .hero-content {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.hero-banner img,
+.hero-banner h2,
+.hero-banner p,
+.hero-banner span {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 
 @media (max-width: 768px) {

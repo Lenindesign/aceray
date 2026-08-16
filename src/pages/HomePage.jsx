@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Skeleton } from '@/components/ui/skeleton'
 import { fetchSanityResult } from '@/lib/sanityHttp'
@@ -53,8 +53,41 @@ export default function HomePage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [heroIndex, setHeroIndex] = useState(0)
+  const [dragDeltaX, setDragDeltaX] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  const bannerRef = useRef(null)
+  const startXRef = useRef(0)
+  const startTimeRef = useRef(0)
+  const isDraggingRef = useRef(false)
+  const isSwipingRef = useRef(false)
+  const pointerIdRef = useRef(null)
+  const autoplayTimerRef = useRef(null)
+
   const navigate = useNavigate()
+
+  // Autoplay loop control with pause/resume support
+  const startAutoplay = useCallback(() => {
+    if (prefersReducedMotion) return
+    clearInterval(autoplayTimerRef.current)
+    autoplayTimerRef.current = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % NEW_ARRIVALS_SLIDES.length)
+    }, 5000)
+  }, [prefersReducedMotion])
+
+  const stopAutoplay = useCallback(() => {
+    if (autoplayTimerRef.current) {
+      clearInterval(autoplayTimerRef.current)
+      autoplayTimerRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    startAutoplay()
+    return () => stopAutoplay()
+  }, [startAutoplay, stopAutoplay])
 
   useEffect(() => {
     fetchSanityResult(FEATURED_QUERY)
@@ -109,7 +142,6 @@ export default function HomePage() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-
     setPrefersReducedMotion(mediaQuery.matches)
 
     const handleMotionPreferenceChange = (event) => {
@@ -120,17 +152,99 @@ export default function HomePage() {
     return () => mediaQuery.removeEventListener('change', handleMotionPreferenceChange)
   }, [])
 
-  // Automated 5-second Hero transition loop
-  useEffect(() => {
-    if (prefersReducedMotion) return undefined
+  // Full Gesture Engine Pointer Event Handlers (Continuous Drag + Flick/Swipe Detection)
+  const handlePointerDown = (e) => {
+    if (e.button !== undefined && e.button !== 0) return
+    if (e.target.closest('.hero-thumb-dot') || e.target.closest('button')) return
 
-    const timer = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % NEW_ARRIVALS_SLIDES.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [prefersReducedMotion])
+    stopAutoplay()
+
+    pointerIdRef.current = e.pointerId
+    startXRef.current = e.clientX
+    startTimeRef.current = performance.now()
+    isDraggingRef.current = true
+    isSwipingRef.current = false
+
+    if (e.currentTarget.setPointerCapture) {
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId)
+      } catch (_) {}
+    }
+  }
+
+  const handlePointerMove = (e) => {
+    if (!isDraggingRef.current) return
+
+    const currentX = e.clientX
+    const deltaX = currentX - startXRef.current
+
+    // > 8px threshold distinguishes drag/swipe intent from static tap/click
+    if (Math.abs(deltaX) > 8) {
+      isSwipingRef.current = true
+      if (!isDragging) {
+        setIsDragging(true)
+      }
+    }
+
+    if (isSwipingRef.current) {
+      setDragDeltaX(deltaX)
+    }
+  }
+
+  const handlePointerUpOrCancel = (e) => {
+    if (!isDraggingRef.current) return
+
+    if (pointerIdRef.current !== null && e.currentTarget.releasePointerCapture) {
+      try {
+        e.currentTarget.releasePointerCapture(pointerIdRef.current)
+      } catch (_) {}
+    }
+    pointerIdRef.current = null
+    isDraggingRef.current = false
+
+    const deltaX = dragDeltaX
+    const duration = performance.now() - startTimeRef.current
+    const velocity = Math.abs(deltaX) / (duration || 1) // px/ms
+    const containerWidth = bannerRef.current?.offsetWidth || window.innerWidth || 1000
+    const distanceRatio = Math.abs(deltaX) / containerWidth
+
+    // Flick/Swipe threshold (>0.4px/ms or <250ms with >30px move) or Distance threshold (>20% container width)
+    const isFlick = velocity > 0.4 || (duration < 250 && Math.abs(deltaX) > 30)
+    const isDistancePassed = distanceRatio > 0.20
+
+    if (isSwipingRef.current && (isFlick || isDistancePassed)) {
+      if (deltaX < 0) {
+        // Swiped Left -> Next slide
+        setHeroIndex((prev) => (prev + 1) % NEW_ARRIVALS_SLIDES.length)
+      } else if (deltaX > 0) {
+        // Swiped Right -> Previous slide
+        setHeroIndex((prev) => (prev - 1 + NEW_ARRIVALS_SLIDES.length) % NEW_ARRIVALS_SLIDES.length)
+      }
+    }
+
+    setIsAnimating(true)
+    setDragDeltaX(0)
+    setIsDragging(false)
+
+    setTimeout(() => {
+      setIsAnimating(false)
+      isSwipingRef.current = false
+    }, 400)
+
+    startAutoplay()
+  }
+
+  const handleBannerClick = (e) => {
+    if (isSwipingRef.current) {
+      e.preventDefault()
+      e.stopPropagation()
+      return
+    }
+    navigate(`/collections/${currentSlide.familySlug}`)
+  }
 
   const currentSlide = NEW_ARRIVALS_SLIDES[heroIndex]
+  const prevHeroIndex = (heroIndex - 1 + NEW_ARRIVALS_SLIDES.length) % NEW_ARRIVALS_SLIDES.length
   const nextHeroIndex = (heroIndex + 1) % NEW_ARRIVALS_SLIDES.length
 
   return (
@@ -138,36 +252,59 @@ export default function HomePage() {
       {/* Consolidated Primary H1 for Page Level SEO & AIO */}
       <h1 className="sr-only">Aceray | Premium Commercial &amp; Hospitality Seating</h1>
 
-      {/* Hero Banner with 5-Second Automated Cross-Fade Transition & Asymmetric Curve */}
+      {/* Hero Banner with Gesture Engine, Continuous Drag & Flick/Swipe Detection */}
       <div className="hero-container container">
         <section
-          className="hero-banner"
-          onClick={() => navigate(`/collections/${currentSlide.familySlug}`)}
+          ref={bannerRef}
+          className={`hero-banner ${isDragging ? 'is-dragging' : ''} ${isAnimating ? 'is-animating' : ''}`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUpOrCancel}
+          onPointerCancel={handlePointerUpOrCancel}
+          onClick={handleBannerClick}
           title={`Explore ${currentSlide.title} Collection`}
+          style={{
+            touchAction: 'pan-y',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+          }}
         >
-          {/* Lazy render active & next adjacent slide images to optimize mobile payload */}
+          {/* Lazy render active and adjacent slide images for seamless continuous drag */}
           {NEW_ARRIVALS_SLIDES.map((slide, idx) => {
-            const isVisible = idx === heroIndex || idx === nextHeroIndex
+            const isVisible = idx === heroIndex || idx === nextHeroIndex || idx === prevHeroIndex
             if (!isVisible) return null
+
+            const isActive = idx === heroIndex
 
             return (
               <img
                 key={slide.title}
                 src={slide.src}
                 alt={`${slide.title} commercial seating collection designed by ${slide.designer} for Aceray`}
-                className={`hero-bg-slide ${idx === heroIndex ? 'active' : ''}`}
+                className={`hero-bg-slide ${isActive ? 'active' : ''}`}
+                style={{
+                  transform: isActive && dragDeltaX !== 0 ? `translateX(${dragDeltaX}px) scale(1)` : undefined,
+                  transition: isDragging ? 'none' : undefined,
+                }}
                 loading={idx === 0 ? 'eager' : 'lazy'}
                 fetchpriority={idx === 0 ? 'high' : 'auto'}
                 decoding="async"
                 width="1920"
                 height="1080"
+                draggable={false}
               />
             )
           })}
           <div className="hero-overlay" />
 
           {/* Hero Content & Active Slide Info */}
-          <div className="hero-content">
+          <div
+            className="hero-content"
+            style={{
+              transform: isDragging && dragDeltaX !== 0 ? `translateX(${dragDeltaX * 0.4}px)` : undefined,
+              transition: isDragging ? 'none' : undefined,
+            }}
+          >
             <div className="hero-slide-info">
               <span className="hero-slide-tag">COLLECTION</span>
               <h2 className="hero-slide-title">{currentSlide.title}</h2>
@@ -184,7 +321,9 @@ export default function HomePage() {
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation()
+                    stopAutoplay()
                     setHeroIndex(idx)
+                    startAutoplay()
                   }}
                   className={`hero-thumb-dot ${idx === heroIndex ? 'active' : ''}`}
                   aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
@@ -198,6 +337,7 @@ export default function HomePage() {
                     loading="eager"
                     decoding="async"
                     className="hero-thumb-img"
+                    draggable={false}
                   />
                 </button>
               ))}
