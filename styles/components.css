@@ -779,6 +779,32 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-user-drag: none;
+  transform: scale(1);
+}
+
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.07);
+  }
+}
+
+.hero-slide-item.active .hero-bg-slide-img {
+  animation: heroKenBurns 6.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  will-change: transform;
+}
+
+.hero-banner.is-dragging .hero-bg-slide-img {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-item.active .hero-bg-slide-img {
+    animation: none !important;
+    transform: scale(1) !important;
+  }
 }
 
 .hero-overlay {
