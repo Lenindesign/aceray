@@ -75,6 +75,7 @@ export default function Footer() {
               <li><Link to="/about">About Aceray</Link></li>
               <li><Link to="/contact">Trade Representatives</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
+              <li><Link to="/client-deck">Client Presentation Deck</Link></li>
               <li><a href="tel:+13037333404">Ph: 303 733 3404</a></li>
             </ul>
           </div>

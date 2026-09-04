@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from '@/components/Layout'
 import ScrollToTop from '@/components/ScrollToTop'
 import SitePasswordGate from '@/components/SitePasswordGate'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const ProductPage = lazy(() => import('@/pages/ProductPage'))
@@ -20,38 +21,42 @@ const InstallationsPage = lazy(() => import('@/pages/InstallationsPage'))
 const ResourcesPage = lazy(() => import('@/pages/ResourcesPage'))
 const AcerayBookPage = lazy(() => import('@/pages/AcerayBookPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
+const ClientDeckPage = lazy(() => import('@/pages/ClientDeckPage'))
 
 export default function App() {
   return (
     <SitePasswordGate>
       <BrowserRouter>
         <ScrollToTop />
-        <Suspense fallback={<div className="route-loading" aria-live="polite">Loading...</div>}>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/catalog" element={<CatalogPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="/product" element={<ProductPage />} />
-              <Route path="/product/:slug" element={<ProductPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/collections" element={<CollectionsPage />} />
-              <Route path="/collections/:familySlug" element={<FamilyLandingPage />} />
-              <Route path="/designers" element={<DesignersPage />} />
-              <Route path="/designers/:designerSlug" element={<DesignerLandingPage />} />
-              <Route path="/installations" element={<InstallationsPage />} />
-              <Route path="/installation-gallery" element={<InstallationsPage />} />
-              <Route path="/gallery" element={<InstallationsPage />} />
-              <Route path="/projects" element={<InstallationsPage />} />
-              <Route path="/resources" element={<ResourcesPage />} />
-              <Route path="/fabrics-finishes" element={<FabricsFinishesPage />} />
-              <Route path="/aceray-book" element={<AcerayBookPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<div className="route-loading" aria-live="polite">Loading...</div>}>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/catalog" element={<CatalogPage />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/product" element={<ProductPage />} />
+                <Route path="/product/:slug" element={<ProductPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/collections" element={<CollectionsPage />} />
+                <Route path="/collections/:familySlug" element={<FamilyLandingPage />} />
+                <Route path="/designers" element={<DesignersPage />} />
+                <Route path="/designers/:designerSlug" element={<DesignerLandingPage />} />
+                <Route path="/installations" element={<InstallationsPage />} />
+                <Route path="/installation-gallery" element={<InstallationsPage />} />
+                <Route path="/gallery" element={<InstallationsPage />} />
+                <Route path="/projects" element={<InstallationsPage />} />
+                <Route path="/resources" element={<ResourcesPage />} />
+                <Route path="/fabrics-finishes" element={<FabricsFinishesPage />} />
+                <Route path="/aceray-book" element={<AcerayBookPage />} />
+                <Route path="/client-deck" element={<ClientDeckPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </BrowserRouter>
     </SitePasswordGate>
   )
