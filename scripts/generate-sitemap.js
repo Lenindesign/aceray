@@ -23,6 +23,15 @@ const DATASET = 'production'
 const API_VERSION = '2026-08-09'
 const BASE_URL = 'https://aceray.com'
 
+function escapeXml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;')
+}
+
 function fetchSanityQuery(query) {
   return new Promise((resolve, reject) => {
     const encodedQuery = encodeURIComponent(query)
@@ -202,7 +211,7 @@ async function generateSitemap() {
 ${allEntries
   .map(
     (item) => `  <url>
-    <loc>${BASE_URL}${item.url}</loc>
+    <loc>${BASE_URL}${escapeXml(item.url)}</loc>
     <lastmod>${item.lastmod}</lastmod>
     <changefreq>${item.changefreq}</changefreq>
     <priority>${item.priority}</priority>

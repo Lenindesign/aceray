@@ -6,6 +6,7 @@ import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 import { removeSeoJsonLd, setSeoMetadata, ACERAY_ORGANIZATION_SCHEMA, ACERAY_WEBSITE_SCHEMA } from '@/lib/seo'
 import ProductCard from '@/components/ProductCard'
 import CommercialSeatingGuide from '@/components/CommercialSeatingGuide'
+import PromotionalPublications from '@/components/PromotionalPublications'
 
 const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(select(isFeatured == true => 0, 1), _updatedAt desc) [0..7] {
   _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
@@ -39,14 +40,14 @@ const FEATURED_CATEGORIES = [
 ]
 
 const NEW_ARRIVALS_SLIDES = [
-  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp", familySlug: "arte", productSlug: "arte-1u" },
-  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp", familySlug: "alba", productSlug: "alba-1w" },
-  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp", familySlug: "ciao", productSlug: "ciao-1u" },
-  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp", familySlug: "solo", productSlug: "solo-v" },
-  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp", familySlug: "bora", productSlug: "bora-lbw" },
-  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp", familySlug: "mira", productSlug: "mira-1s" },
-  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp", familySlug: "corso", productSlug: "corso-1" },
-  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp", familySlug: "spazio", productSlug: "spazio-r" }
+  { title: "ARTE", designer: "Balutto Associates", src: "/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp", thumbSrc: "/assets/migrated/thumbs/0006s_0000_Arte-UU-horizontal-C.webp", familySlug: "arte", productSlug: "arte-1u" },
+  { title: "ALBA", designer: "E. & P. Ciani Design", src: "/assets/migrated/Alba-4.webp", thumbSrc: "/assets/migrated/thumbs/Alba-4.webp", familySlug: "alba", productSlug: "alba-1w" },
+  { title: "CIAO", designer: "Massimo Iosa Ghini", src: "/assets/migrated/0002s_0000_Ciao-UU-horizontal-C.webp", thumbSrc: "/assets/migrated/thumbs/0002s_0000_Ciao-UU-horizontal-C.webp", familySlug: "ciao", productSlug: "ciao-1u" },
+  { title: "SOLO-V", designer: "Gentian Elezi", src: "/assets/migrated/colo-v.webp", thumbSrc: "/assets/migrated/thumbs/colo-v.webp", familySlug: "solo", productSlug: "solo-v" },
+  { title: "BORA", designer: "E. & P. Ciani Design", src: "/assets/migrated/0003s_0002_Bora-horizontal-A.webp", thumbSrc: "/assets/migrated/thumbs/0003s_0002_Bora-horizontal-A.webp", familySlug: "bora", productSlug: "bora-lbw" },
+  { title: "MIRA-X3", designer: "A & T Studio", src: "/assets/migrated/mira-x3-2-1.webp", thumbSrc: "/assets/migrated/thumbs/mira-x3-2-1.webp", familySlug: "mira", productSlug: "mira-1s" },
+  { title: "CORSO", designer: "Balutto Associates", src: "/assets/migrated/corso3.webp", thumbSrc: "/assets/migrated/thumbs/corso3.webp", familySlug: "corso", productSlug: "corso-1" },
+  { title: "SPAZIO-R", designer: "A & T Studio", src: "/assets/migrated/Spazio-R-2M-2.webp", thumbSrc: "/assets/migrated/thumbs/Spazio-R-2M-2.webp", familySlug: "spazio", productSlug: "spazio-r" }
 ]
 
 export default function HomePage() {
@@ -97,6 +98,47 @@ export default function HomePage() {
     startAutoplay()
     return () => stopAutoplay()
   }, [startAutoplay, stopAutoplay])
+
+  // Active Smooth Parallax Scroll Effect
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    let animFrameId
+    function onScroll() {
+      if (animFrameId) cancelAnimationFrame(animFrameId)
+      animFrameId = requestAnimationFrame(() => {
+        const windowHeight = window.innerHeight
+
+        const bgTargets = document.querySelectorAll('.parallax-bg')
+        bgTargets.forEach((el) => {
+          const rect = el.getBoundingClientRect()
+          if (rect.top < windowHeight && rect.bottom > 0) {
+            const centerDelta = (rect.top + rect.height / 2) - windowHeight / 2
+            const yPos = centerDelta * -0.16
+            el.style.transform = `translateY(${yPos.toFixed(1)}px) scale(1.15)`
+          }
+        })
+
+        const floatTargets = document.querySelectorAll('.parallax-float')
+        floatTargets.forEach((el) => {
+          const rect = el.getBoundingClientRect()
+          if (rect.top < windowHeight && rect.bottom > 0) {
+            const centerDelta = (rect.top + rect.height / 2) - windowHeight / 2
+            const yPos = centerDelta * -0.12
+            el.style.transform = `translateY(${yPos.toFixed(1)}px)`
+          }
+        })
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (animFrameId) cancelAnimationFrame(animFrameId)
+    }
+  }, [])
 
   useEffect(() => {
     fetchSanityResult(FEATURED_QUERY)
@@ -426,11 +468,12 @@ export default function HomePage() {
                   title={`${slide.title} Collection by ${slide.designer}`}
                 >
                   <img
-                    src={slide.src}
+                    src={slide.thumbSrc || slide.src}
                     alt={`${slide.title} seating collection`}
                     width="52"
                     height="52"
                     loading="eager"
+                    fetchpriority="high"
                     decoding="async"
                     className="hero-thumb-img"
                     draggable={false}
@@ -473,7 +516,7 @@ export default function HomePage() {
       <section className="feature-showcase home-feature">
         <div className="container">
           <div className="feature-grid">
-            <div className="feature-image">
+            <div className="feature-image parallax-container">
               <img
                 src="/assets/migrated/Epoca_Ambiente_almea_web-jpg.webp"
                 alt="Aceray commercial seating installation in premier venue"
@@ -481,7 +524,7 @@ export default function HomePage() {
                 height="394"
                 loading="lazy"
                 decoding="async"
-                className="home-craft-image"
+                className="home-craft-image parallax-bg"
               />
             </div>
             <div className="feature-text">
@@ -523,6 +566,9 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* Promotional Publications Module (A BOOK & Aceray 2026 Catalog) */}
+      <PromotionalPublications />
 
       {/* Commercial Furniture Specification & Buying Guide (SEO & AIO Optimization) */}
       <CommercialSeatingGuide />

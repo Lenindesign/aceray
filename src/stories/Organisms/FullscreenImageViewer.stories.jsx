@@ -37,11 +37,11 @@ export const InteractiveGallery = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="p-8 bg-[#FAF9F6] border border-[#E5E3DD] rounded-xl flex flex-col items-center gap-4 max-w-md mx-auto">
-      <h3 className="text-lg font-semibold text-[#222]" style={{ fontFamily: 'var(--font-heading)' }}>
+    <div className="p-8 bg-[var(--color-bg-light)] border border-[var(--color-border)] rounded-xl flex flex-col items-center gap-4 max-w-md mx-auto">
+      <h3 className="text-lg font-semibold text-[var(--color-text-main)]" style={{ fontFamily: 'var(--font-heading)' }}>
         PRODUCT GALLERY
       </h3>
-      <p className="text-sm text-center text-[#555] mb-4">
+      <p className="text-sm text-center text-[var(--color-text-muted)] mb-4">
         Click below to launch the high-resolution fullscreen lightbox viewer with zoom & gestures support.
       </p>
       <Button onClick={() => setIsOpen(true)} className="btn-primary">
@@ -63,11 +63,11 @@ export const SingleImageLightbox = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className="p-8 bg-[#FAF9F6] border border-[#E5E3DD] rounded-xl flex flex-col items-center gap-4 max-w-md mx-auto">
-      <h3 className="text-lg font-semibold text-[#222]" style={{ fontFamily: 'var(--font-heading)' }}>
+    <div className="p-8 bg-[var(--color-bg-light)] border border-[var(--color-border)] rounded-xl flex flex-col items-center gap-4 max-w-md mx-auto">
+      <h3 className="text-lg font-semibold text-[var(--color-text-main)]" style={{ fontFamily: 'var(--font-heading)' }}>
         SINGLE SPEC SHEET PHOTO
       </h3>
-      <p className="text-sm text-center text-[#555] mb-4">
+      <p className="text-sm text-center text-[var(--color-text-muted)] mb-4">
         Launches lightbox mode for a single product image (disables slideshow controls and thumbnails).
       </p>
       <Button onClick={() => setIsOpen(true)} className="btn-outline">

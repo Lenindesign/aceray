@@ -96,6 +96,16 @@ export default function FamilyLandingPage() {
             description: familyDescription,
             url: `https://aceray.com/collections/${familySlug}`,
             publisher: { '@id': 'https://aceray.com/#organization' },
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: familyProducts.length,
+              itemListElement: familyProducts.slice(0, 12).map((prod, idx) => ({
+                '@type': 'ListItem',
+                position: idx + 1,
+                url: `https://aceray.com/product/${prod.slug?.current || prod.slug || ''}`,
+                name: prod.title,
+              })),
+            },
           },
           createBreadcrumbJsonLd([
             { name: 'Home', path: '/' },
@@ -107,7 +117,7 @@ export default function FamilyLandingPage() {
       },
     })
     removeSeoJsonLd('product-jsonld')
-  }, [familyName, familySlug, heroImage, familyDescription])
+  }, [familyName, familySlug, heroImage, familyDescription, familyProducts])
 
   if (loading) {
     return (

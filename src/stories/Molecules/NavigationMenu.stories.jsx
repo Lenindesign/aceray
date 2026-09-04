@@ -22,24 +22,24 @@ export default {
 }
 
 export const DropdownShowcase = () => (
-  <div className="h-[250px] p-6 bg-white border border-[#E5E3DD] rounded-xl flex items-start justify-center">
+  <div className="h-[250px] p-6 bg-white border border-[var(--color-border)] rounded-xl flex items-start justify-center">
     <NavigationMenu align="center">
       <NavigationMenuList className="flex gap-4">
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-sm font-semibold uppercase tracking-wider text-[#718f80] hover:text-[#5a6e5e] focus:outline-none">
+          <NavigationMenuTrigger className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] focus:outline-none">
             PRODUCTS
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="nav-dropdown bg-white border border-[#E5E3DD] shadow-lg rounded-xl p-6 min-w-[200px]">
+          <NavigationMenuContent className="nav-dropdown bg-white border border-[var(--color-border)] shadow-lg rounded-xl p-6 min-w-[200px]">
             <div className="space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#718f80]">Product Types</span>
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">Product Types</span>
               <div className="flex flex-col gap-2">
-                <NavigationMenuLink href="/catalog?cat=side-chairs" className="text-sm text-[#222] hover:text-[#718f80] transition-colors">
+                <NavigationMenuLink href="/catalog?cat=side-chairs" className="text-sm text-[var(--color-text-main)] hover:text-[var(--color-primary)] transition-colors">
                   Side Chairs
                 </NavigationMenuLink>
-                <NavigationMenuLink href="/catalog?cat=armchairs" className="text-sm text-[#222] hover:text-[#718f80] transition-colors">
+                <NavigationMenuLink href="/catalog?cat=armchairs" className="text-sm text-[var(--color-text-main)] hover:text-[var(--color-primary)] transition-colors">
                   Armchairs
                 </NavigationMenuLink>
-                <NavigationMenuLink href="/catalog?cat=barstools" className="text-sm text-[#222] hover:text-[#718f80] transition-colors">
+                <NavigationMenuLink href="/catalog?cat=barstools" className="text-sm text-[var(--color-text-main)] hover:text-[var(--color-primary)] transition-colors">
                   Barstools
                 </NavigationMenuLink>
               </div>
@@ -48,17 +48,17 @@ export const DropdownShowcase = () => (
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-sm font-semibold uppercase tracking-wider text-[#718f80] hover:text-[#5a6e5e] focus:outline-none">
+          <NavigationMenuTrigger className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] focus:outline-none">
             RESOURCES
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="nav-dropdown bg-white border border-[#E5E3DD] shadow-lg rounded-xl p-6 min-w-[200px]">
+          <NavigationMenuContent className="nav-dropdown bg-white border border-[var(--color-border)] shadow-lg rounded-xl p-6 min-w-[200px]">
             <div className="space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#718f80]">Downloads</span>
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">Downloads</span>
               <div className="flex flex-col gap-2">
-                <NavigationMenuLink href="/fabrics-finishes" className="text-sm text-[#222] hover:text-[#718f80] transition-colors">
+                <NavigationMenuLink href="/fabrics-finishes" className="text-sm text-[var(--color-text-main)] hover:text-[var(--color-primary)] transition-colors">
                   Fabrics & Finishes
                 </NavigationMenuLink>
-                <NavigationMenuLink href="/contact" className="text-sm text-[#222] hover:text-[#718f80] transition-colors">
+                <NavigationMenuLink href="/contact" className="text-sm text-[var(--color-text-main)] hover:text-[var(--color-primary)] transition-colors">
                   Request a Sample
                 </NavigationMenuLink>
               </div>

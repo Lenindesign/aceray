@@ -29,25 +29,25 @@ export default {
 }
 
 const Template = ({ title, description, badge, className, ...args }) => (
-  <Card className={className || "max-w-md p-6 border-[#E5E3DD] bg-white rounded-[var(--radius-card)]"}>
+  <Card className={className || "max-w-md p-6 border-[var(--color-border)] bg-white rounded-[var(--radius-card)]"}>
     <CardHeader className="p-0 mb-4">
-      {badge && <span className="text-xs uppercase tracking-widest text-[#718f80] font-sans font-semibold">{badge}</span>}
-      <CardTitle className="text-2xl font-normal text-[#222] mt-1" style={{ fontFamily: 'var(--font-heading)' }}>
+      {badge && <span className="text-xs uppercase tracking-widest text-[var(--color-primary)] font-sans font-semibold">{badge}</span>}
+      <CardTitle className="text-2xl font-normal text-[var(--color-text-main)] mt-1" style={{ fontFamily: 'var(--font-heading)' }}>
         {title}
       </CardTitle>
-      {description && <CardDescription className="text-sm text-[#555] mt-1">{description}</CardDescription>}
+      {description && <CardDescription className="text-sm text-[var(--color-text-muted)] mt-1">{description}</CardDescription>}
     </CardHeader>
-    <CardContent className="p-0 text-xs text-[#767676] space-y-2">
-      <div className="flex justify-between py-1 border-b border-[#F3F2EE]">
+    <CardContent className="p-0 text-xs text-[var(--color-text-light)] space-y-2">
+      <div className="flex justify-between py-1 border-b border-[var(--color-bg-card)]">
         <span>Density:</span>
-        <span className="font-semibold text-[#222]">2.8 lb/cu.ft</span>
+        <span className="font-semibold text-[var(--color-text-main)]">2.8 lb/cu.ft</span>
       </div>
-      <div className="flex justify-between py-1 border-b border-[#F3F2EE]">
+      <div className="flex justify-between py-1 border-b border-[var(--color-bg-card)]">
         <span>Flame Rating:</span>
-        <span className="font-semibold text-[#222]">CAL 117-2013</span>
+        <span className="font-semibold text-[var(--color-text-main)]">CAL 117-2013</span>
       </div>
     </CardContent>
-    <CardFooter className="p-0 mt-6 pt-4 border-t border-[#F3F2EE]">
+    <CardFooter className="p-0 mt-6 pt-4 border-t border-[var(--color-bg-card)]">
       <Button className="btn-outline w-full">Download Spec PDF</Button>
     </CardFooter>
   </Card>
@@ -61,18 +61,18 @@ StandardCard.args = {
 }
 
 export const StatBoxCard = () => (
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl p-6 bg-[#FAF9F6] rounded-2xl border border-[#E5E3DD]">
-    <div className="bg-white p-6 rounded-[var(--radius-card)] border border-[#E5E3DD] text-center space-y-2">
-      <span className="text-3xl font-light text-[#718f80]" style={{ fontFamily: 'var(--font-heading)' }}>25+</span>
-      <p className="text-xs font-semibold uppercase tracking-wider text-[#222]">Years Craftsmanship</p>
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl p-6 bg-[var(--color-bg-light)] rounded-2xl border border-[var(--color-border)]">
+    <div className="bg-white p-6 rounded-[var(--radius-card)] border border-[var(--color-border)] text-center space-y-2">
+      <span className="text-3xl font-light text-[var(--color-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>25+</span>
+      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-main)]">Years Craftsmanship</p>
     </div>
-    <div className="bg-white p-6 rounded-[var(--radius-card)] border border-[#E5E3DD] text-center space-y-2">
-      <span className="text-3xl font-light text-[#718f80]" style={{ fontFamily: 'var(--font-heading)' }}>100%</span>
-      <p className="text-xs font-semibold uppercase tracking-wider text-[#222]">European Sourced</p>
+    <div className="bg-white p-6 rounded-[var(--radius-card)] border border-[var(--color-border)] text-center space-y-2">
+      <span className="text-3xl font-light text-[var(--color-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>100%</span>
+      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-main)]">European Sourced</p>
     </div>
-    <div className="bg-white p-6 rounded-[var(--radius-card)] border border-[#E5E3DD] text-center space-y-2">
-      <span className="text-3xl font-light text-[#718f80]" style={{ fontFamily: 'var(--font-heading)' }}>10yr</span>
-      <p className="text-xs font-semibold uppercase tracking-wider text-[#222]">Structural Warranty</p>
+    <div className="bg-white p-6 rounded-[var(--radius-card)] border border-[var(--color-border)] text-center space-y-2">
+      <span className="text-3xl font-light text-[var(--color-primary)]" style={{ fontFamily: 'var(--font-heading)' }}>10yr</span>
+      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-main)]">Structural Warranty</p>
     </div>
   </div>
 )

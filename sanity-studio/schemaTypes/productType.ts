@@ -410,6 +410,39 @@ export const productType = defineType({
       description: 'e.g. No, Yes, 4-high',
     }),
 
+    // ── 2026 Pricing Fields ──────────────────────────────────
+    defineField({
+      name: 'startingPrice',
+      title: 'Starting List Price ($ USD)',
+      type: 'number',
+      description: 'Base list price starting tier from 2026 Price List',
+    }),
+    defineField({
+      name: 'comPrice',
+      title: 'COM Base Price ($ USD)',
+      type: 'number',
+    }),
+    defineField({
+      name: 'colPrice',
+      title: 'COL Base Price ($ USD)',
+      type: 'number',
+    }),
+    defineField({
+      name: 'leatherPrice',
+      title: 'Leather Price ($ USD)',
+      type: 'number',
+    }),
+    defineField({
+      name: 'woodSeatPrice',
+      title: 'Wood Seat Price ($ USD)',
+      type: 'number',
+    }),
+    defineField({
+      name: 'comYardage',
+      title: 'COM Required Yardage',
+      type: 'number',
+    }),
+
     // ── Flags ───────────────────────────────────────────────
     defineField({
       name: 'isNewArrival',

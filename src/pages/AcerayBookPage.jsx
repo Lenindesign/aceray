@@ -7,7 +7,7 @@ const ACERAY_BOOK_EMBED = 'https://www.yumpu.com/en/embed/view/ZI39gtkPjLQN7e5M'
 export default function AcerayBookPage() {
   useEffect(() => {
     setSeoMetadata({
-      title: 'Aceray Book | Digital Commercial Furniture Catalog',
+      title: 'Aceray Catalog | Digital Commercial Furniture Catalog',
       description: 'Browse the Aceray digital catalog online or request a printed commercial furniture catalog from the trade team.',
       path: '/aceray-book',
       jsonLd: {
@@ -15,13 +15,13 @@ export default function AcerayBookPage() {
         '@graph': [
           {
             '@type': 'ItemPage',
-            name: 'Aceray Book Catalog',
+            name: 'Aceray Catalog',
             description: 'Browse the Aceray digital catalog online or request a printed commercial furniture catalog from the trade team.',
             publisher: { '@id': 'https://aceray.com/#organization' },
           },
           createBreadcrumbJsonLd([
             { name: 'Home', path: '/' },
-            { name: 'Aceray Book', path: '/aceray-book' },
+            { name: 'Aceray Catalog', path: '/aceray-book' },
           ]),
           ACERAY_ORGANIZATION_SCHEMA,
         ],
@@ -35,7 +35,7 @@ export default function AcerayBookPage() {
       <section className="container aceray-book-hero">
         <div className="aceray-book-heading">
           <span className="aceray-book-eyebrow">Digital Catalog</span>
-          <h1>Aceray Book</h1>
+          <h1>Aceray Catalog</h1>
           <p>
             Browse the current Aceray catalog online or request a catalog from the trade team.
           </p>

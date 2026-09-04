@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { LayoutGrid, List } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { sanityFetch } from '@/sanityClient'
 import ProductCard from '@/components/ProductCard'
@@ -80,6 +81,7 @@ export default function CatalogPage() {
   const [page, setPage] = useState(0)
   const [loading, setLoading] = useState(true)
   const [categoryCounts, setCategoryCounts] = useState({})
+  const [viewMode, setViewMode] = useState('grid')
 
   const fetchProducts = useCallback((pageNum = 0) => {
     setLoading(true)
@@ -105,7 +107,7 @@ export default function CatalogPage() {
         ${HAS_PRODUCT_IMAGE} &&
         slug.current in $favoriteSlugs
       ] {
-        _id, title, slug, categories, imageUrl, mainImage{asset-> {_id, url}}, designer, madeIn
+        _id, title, slug, categories, imageUrl, mainImage{asset-> {_id, url}}, designer, madeIn, overallWidth, overallDepth, overallHeight, seatHeight, materials, features, tags
       }`
 
       sanityFetch(favoritesQuery, { favoriteSlugs: pageSlugs })
@@ -156,7 +158,7 @@ export default function CatalogPage() {
     }
 
     const itemsQuery = `*[${filters}] | order(_updatedAt desc) [${offset}...${limit}] {
-       _id, title, slug, categories, imageUrl, mainImage{asset-> {_id, url}}, designer, madeIn
+       _id, title, slug, categories, imageUrl, mainImage{asset-> {_id, url}}, designer, madeIn, overallWidth, overallDepth, overallHeight, seatHeight, materials, features, tags
     }`
 
     const countQuery = `count(*[${filters}])`
@@ -332,14 +334,6 @@ export default function CatalogPage() {
 
   return (
     <div className="catalog-page">
-      {/* Header */}
-      <div className="catalog-heading">
-        <h1 className="catalog-title">
-          {isNew ? "What's New" : designer ? `Designed by ${designer}` : cat ? cat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : tag ? tag.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'All Products'}
-        </h1>
-        <p className="catalog-count">{total} products</p>
-      </div>
-
       <div className="catalog-layout">
         {/* Filters Sidebar */}
         <aside className="catalog-sidebar">
@@ -381,8 +375,37 @@ export default function CatalogPage() {
               </li>
             </ul>
           </div>
-
         </aside>
+
+        {/* Right Main Column */}
+        <div className="catalog-main-content">
+          {/* Header */}
+          <div className="catalog-heading">
+            <h1 className="catalog-title">
+              {isNew ? "What's New" : designer ? `Designed by ${designer}` : cat ? cat.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : tag ? tag.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'All Products'}
+            </h1>
+
+            <div className="catalog-view-toggle" role="group" aria-label="Catalog view layout toggle">
+              <button
+                type="button"
+                className={`catalog-view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setViewMode('grid')}
+                aria-label="Grid view"
+                title="Grid view"
+              >
+                <LayoutGrid className="w-4 h-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className={`catalog-view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                onClick={() => setViewMode('list')}
+                aria-label="List view"
+                title="List view"
+              >
+                <List className="w-4 h-4" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
 
         {/* Mobile filter pills */}
         <div className="catalog-mobile-filters">
@@ -426,12 +449,14 @@ export default function CatalogPage() {
           )}
 
           {loading && products.length === 0 ? (
-            <div className="catalog-grid">
+            <div className={viewMode === 'list' ? 'catalog-list-container' : 'catalog-grid'}>
               {[...Array(12)].map((_, i) => (
-                <div key={i}>
-                  <Skeleton className="aspect-square rounded-sm mb-3" />
-                  <Skeleton className="h-4 w-3/4 mb-1.5" />
-                  <Skeleton className="h-3 w-1/2" />
+                <div key={i} className={viewMode === 'list' ? 'p-4 border border-[var(--color-border)] rounded-[var(--radius-card)] flex gap-4 items-center' : ''}>
+                  <Skeleton className={viewMode === 'list' ? 'w-32 h-32 rounded-md flex-shrink-0' : 'aspect-square rounded-sm mb-3'} />
+                  <div className="flex-1">
+                    <Skeleton className="h-4 w-3/4 mb-1.5" />
+                    <Skeleton className="h-3 w-1/2" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -454,8 +479,8 @@ export default function CatalogPage() {
             </div>
           ) : (
             <>
-              <div className="catalog-grid">
-                {products.map((p) => <ProductCard key={p._id} product={p} />)}
+              <div className={viewMode === 'list' ? 'catalog-list-container' : 'catalog-grid'}>
+                {products.map((p) => <ProductCard key={p._id} product={p} layout={viewMode} />)}
               </div>
 
               <div ref={loadMoreRef}></div>
@@ -475,5 +500,6 @@ export default function CatalogPage() {
         </div>
       </div>
     </div>
-  )
+  </div>
+)
 }

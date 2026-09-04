@@ -52,7 +52,7 @@ function BreadcrumbLink({
   children,
   ...props
 }) {
-  const classes = cn("transition-colors hover:text-[#718f80]", className)
+  const classes = cn("transition-colors hover:text-[var(--color-primary)]", className)
 
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children, {

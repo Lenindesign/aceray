@@ -2,26 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
-
 import compression from 'vite-plugin-compression'
-
-function nonRenderBlockingCssPlugin() {
-  return {
-    name: 'non-render-blocking-css',
-    transformIndexHtml(html) {
-      let transformed = html.replace(
-        /<link rel="stylesheet" (.*?)href="(.*?\.css)"(.*?)>/g,
-        '<link rel="preload" $1href="$2" as="style"$3><link rel="stylesheet" $1href="$2" media="print" onload="this.media=\'all\'"$3><noscript><link rel="stylesheet" $1href="$2"$3></noscript>'
-      )
-      // Preload the main entry script to eliminate critical request chain latency
-      transformed = transformed.replace(
-        /<script type="module" (.*?)src="(.*?)"><\/script>/g,
-        '<link rel="modulepreload" $1href="$2"><script type="module" $1src="$2"></script>'
-      )
-      return transformed
-    },
-  }
-}
 
 export default defineConfig({
   define: {
@@ -69,7 +50,6 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
-    nonRenderBlockingCssPlugin(),
     compression({ algorithm: 'gzip', ext: '.gz' }),
     compression({ algorithm: 'brotliCompress', ext: '.br' }),
   ],

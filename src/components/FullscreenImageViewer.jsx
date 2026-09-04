@@ -441,7 +441,7 @@ export function FullscreenImageViewer({
   const chromeVisible = controlsVisible;
   
   const controlButtonClass =
-    "inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#718f80]/50";
+    "inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/50";
   
   const slideTransitionClass = isDragging || zoom > 1
     ? "transition-none"
@@ -578,7 +578,7 @@ export function FullscreenImageViewer({
         <>
           <button
             type="button"
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#718f80]/50 absolute left-6 top-1/2 -translate-y-1/2 transition-opacity duration-300 motion-reduce:transition-none ${
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/50 absolute left-6 top-1/2 -translate-y-1/2 transition-opacity duration-300 motion-reduce:transition-none ${
               chromeVisible ? "opacity-100 cursor-pointer" : "pointer-events-none opacity-0"
             }`}
             onClick={() => selectImage(activeIndex - 1)}
@@ -588,7 +588,7 @@ export function FullscreenImageViewer({
           </button>
           <button
             type="button"
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#718f80]/50 absolute right-6 top-1/2 -translate-y-1/2 transition-opacity duration-300 motion-reduce:transition-none ${
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/80 text-black/80 border border-black/10 shadow-md backdrop-blur-lg transition-all hover:bg-white hover:text-black hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/50 absolute right-6 top-1/2 -translate-y-1/2 transition-opacity duration-300 motion-reduce:transition-none ${
               chromeVisible ? "opacity-100 cursor-pointer" : "pointer-events-none opacity-0"
             }`}
             onClick={() => selectImage(activeIndex + 1)}
@@ -614,7 +614,7 @@ export function FullscreenImageViewer({
                   key={typeof item === 'string' ? `${src}-${index}` : (item._id || `${src}-${index}`)}
                   type="button"
                   className={`relative shrink-0 snap-start overflow-hidden rounded-lg transition-all motion-reduce:transition-none ${
-                    index === activeIndex ? "ring-2 ring-[#718f80] opacity-100 scale-105 shadow-md" : "ring-1 ring-black/15 opacity-60 hover:opacity-100"
+                    index === activeIndex ? "ring-2 ring-[var(--color-primary)] opacity-100 scale-105 shadow-md" : "ring-1 ring-black/15 opacity-60 hover:opacity-100"
                   }`}
                   style={{
                     width: '84px',

@@ -152,34 +152,44 @@ const TABS = [
 
 const FAQS = [
   {
-    question: 'What commercial durability standards do Aceray chairs and tables meet?',
+    question: 'What weight capacity and durability standards do Aceray commercial chairs meet?',
     answer:
-      'Aceray seating and table systems are engineered to pass rigorous BIFMA (Business and Institutional Furniture Manufacturers Association) static load, impact, fatigue, and stability tests. Seating models feature minimum 400 to 500 lb weight capacities, mortise-and-tenon wood joinery, and fully welded metal frames for high-traffic contract applications.'
+      'Aceray contract seating is engineered to meet or exceed BIFMA X5.1 (office/dining) and BIFMA X5.4 (lounge) standards, supporting static and dynamic weight capacities of 400 to 500+ lbs. Frames are constructed with kiln-dried European hardwood (6–8% moisture content), mortise-and-tenon joinery, and fully welded steel or aluminum alloys for high-traffic commercial environments.'
   },
   {
-    question: 'What double-rub count is recommended for commercial hospitality upholstery?',
+    question: 'What double-rub abrasion rating is required for commercial hospitality seating?',
     answer:
-      'While residential upholstery typically rates around 15,000 double rubs, contract commercial environments require a minimum of 30,000 double rubs (Wyzenbeek method). High-volume operations, hotel lobbies, and dining rooms benefit from 50,000 to 100,000+ double-rub fabrics, commercial vinyls, or performance faux leathers that withstand frequent cleaning.'
+      'While residential fabrics rate around 15,000 double rubs, high-traffic contract commercial environments require a minimum of 30,000 double rubs (Wyzenbeek method). For hotel lobbies, restaurants, and corporate spaces, Aceray offers high-performance upholstery, commercial vinyls, and faux leathers rated from 50,000 to 100,000+ double rubs engineered to withstand daily sanitizing cleaners and abrasion.'
   },
   {
-    question: 'How do I determine the correct seat height for barstools and counter stools?',
+    question: 'What are the lead times for Aceray commercial seating, and are Quick Ship options available?',
     answer:
-      'For 42" high bar counters or bar rails, specify 30" seat-height barstools (allowing 12" of lap clearance). For 36" high counters or kitchen islands, specify 24" seat-height counter stools. Maintaining an 10" to 12" gap between the seat top and table underside ensures optimal guest comfort.'
+      'Aceray maintains a Ready-to-Ship (Quick Ship) program featuring select contract side chairs, barstools, and lounge models available to ship within 1 to 2 business weeks. Standard factory lead times for custom COM orders, custom wood stains, and tailored table bases typically range from 6 to 10 weeks depending on order volume.'
   },
   {
-    question: 'Does Aceray offer COM (Customer’s Own Material) and custom wood finishes?',
+    question: 'What is the correct seat height for 42" bar counters vs. 36" counter tops?',
     answer:
-      'Yes. Aceray supports Customer’s Own Material (COM) and Customer’s Own Leather (COL) across upholstered collections. We also offer custom wood staining to match architectural millwork samples, custom powder-coat metal finishes, and tailored table top dimensions for trade professionals.'
+      'Standard 42" high bar counters require 30" seat-height commercial barstools. Standard 36" high counters or kitchen islands require 24" seat-height counter stools. Maintaining an optimal 10" to 12" clearance between the top of the seat cushion and the underside of the counter ensures proper posture and guest comfort.'
   },
   {
-    question: 'What is the difference between molded commercial foam and cut residential foam?',
+    question: 'Does Aceray support COM/COL upholstery and custom wood stain matching?',
     answer:
-      'Commercial molded foam (typically 1.8 to 2.5 lb density) is cast in individual molds, creating a supportive outer skin that holds structural shape and firmness over years of heavy daily use. Residential cut foam (around 1.5 lb density) compresses prematurely, causing sagging and upholstery wrinkling.'
+      'Yes. Aceray accommodates Customer’s Own Material (COM) and Customer’s Own Leather (COL) across all upholstered seating. Additionally, we provide custom wood stain matching to align with project millwork samples, custom powder-coat metal frame finishes, and custom-sized table top surfaces for trade specifiers.'
   },
   {
-    question: 'Are 3D CAD files, Revit BIM models, and spec sheets available for A&D specifiers?',
+    question: 'Why does Aceray use molded polyurethane foam for commercial lounge seating?',
     answer:
-      'Yes. Aceray provides downloadable spec sheets, 2D/3D CAD files, Revit BIM objects, and high-resolution finish swatches directly on individual product pages to assist architects, interior designers, and procurement teams during space planning.'
+      'Aceray utilizes high-density molded polyurethane foam (1.8 to 2.5 lb density) cast in custom steel molds. Unlike low-density residential cut foam that sags under repeated use, molded foam develops a protective outer skin and structural memory, preserving its firm ergonomic shape, comfort, and crisp upholstery appearance through years of heavy daily dwell time.'
+  },
+  {
+    question: 'Can Aceray seating be specified to meet CAL 133 fire safety standards?',
+    answer:
+      'Yes. Upon request, Aceray seating can be manufactured to comply with California Technical Bulletin 133 (CAL 133) flammability requirements for public spaces, healthcare facilities, and high-occupancy commercial venues when specified with approved fire-retardant barrier materials and COM fabrics.'
+  },
+  {
+    question: 'Where can interior designers and architects download 3D CAD files and Revit BIM models?',
+    answer:
+      'Architects, interior designers, and procurement specifiers can download 2D/3D CAD models (.DWG, .3DS), Revit BIM families (.RFA), high-resolution finish swatches, and technical specification tear sheets directly from each product page or through our Resources hub.'
   }
 ]
 
@@ -230,27 +240,27 @@ export default function CommercialSeatingGuide() {
           </p>
         </div>
 
-        {/* Interactive Category Tabs */}
-        <div className="commercial-guide-tabs" role="tablist" aria-label="Commercial furniture categories">
-          {TABS.map((tab) => {
-            const isActive = tab.id === activeTab
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                className={`guide-tab-btn ${isActive ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.id)}
-              >
-                <span>{tab.title}</span>
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Tab Content Display Card with HTML <dl> Definition List for Specifications */}
+        {/* Specification Card Container with Integrated Tab Header Bar */}
         <div className="guide-content-card" role="tabpanel">
+          {/* Integrated Category Navigation Tab Bar */}
+          <div className="guide-card-tabbar" role="tablist" aria-label="Commercial furniture categories">
+            {TABS.map((tab) => {
+              const isActive = tab.id === activeTab
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`guide-card-tab ${isActive ? 'active' : ''}`}
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  <span>{tab.title}</span>
+                </button>
+              )
+            })}
+          </div>
+
           <div className="guide-content-body">
             <span className="guide-tag">{currentTab.eyebrow}</span>
             <h3 className="guide-headline">{currentTab.headline}</h3>
@@ -259,12 +269,11 @@ export default function CommercialSeatingGuide() {
             {/* Semantic Definition List for Technical Specifications */}
             <dl className="guide-specs-dl mt-6 space-y-4">
               {currentTab.specs.map((spec, index) => (
-                <div key={index} className="guide-spec-item border-l-2 border-[var(--color-primary)] pl-4 py-1">
-                  <dt className="guide-spec-term font-semibold text-[var(--color-text-main)] text-sm flex items-center gap-2">
-                    <ShieldCheck className="guide-bullet-icon w-4 h-4 text-[var(--color-primary)] shrink-0" aria-hidden="true" />
-                    <span>{spec.term}</span>
+                <div key={index} className="guide-spec-item py-3 border-b border-[var(--color-border)] last:border-b-0">
+                  <dt className="guide-spec-term font-semibold text-[var(--color-text-main)] text-sm">
+                    {spec.term}
                   </dt>
-                  <dd className="guide-spec-desc text-[var(--color-text-muted)] text-sm mt-1 ml-6 leading-relaxed">
+                  <dd className="guide-spec-desc text-[var(--color-text-muted)] text-sm mt-1 leading-relaxed">
                     {spec.definition}
                   </dd>
                 </div>

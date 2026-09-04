@@ -211,7 +211,7 @@ export default function Header() {
                     <>
 	                      <NavigationMenuTrigger
 	                        href={to}
-	                        className={`nav-menu-trigger ${isLinkActive(to, { dropdown }) ? 'active' : ''}`}
+	                        className={`nav-menu-trigger text-[12px] text-[var(--font-size-xs)] ${isLinkActive(to, { dropdown }) ? 'active' : ''}`}
 	                        onClick={() => {
 	                          setMenuOpen(false)
 	                          navigate(to)

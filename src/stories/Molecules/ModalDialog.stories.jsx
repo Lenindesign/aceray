@@ -31,25 +31,25 @@ export default {
 }
 
 const Template = ({ title, eyebrow, description, confirmText, open }) => (
-  <div className="p-8 bg-[#FAF9F6] rounded-2xl flex justify-center">
+  <div className="p-8 bg-[var(--color-bg-light)] rounded-2xl flex justify-center">
     <Dialog open={open}>
-      <DialogContent className="max-w-lg px-8 pt-10 pb-8 rounded-[var(--radius-card)] bg-white border border-[#E5E3DD]">
+      <DialogContent className="max-w-lg px-8 pt-10 pb-8 rounded-[var(--radius-card)] bg-white border border-[var(--color-border)]">
         <DialogHeader className="space-y-3">
-          {eyebrow && <span className="text-xs uppercase tracking-widest text-[#718f80] font-semibold">{eyebrow}</span>}
-          <DialogTitle className="text-2xl font-normal text-[#222]" style={{ fontFamily: 'var(--font-heading)' }}>
+          {eyebrow && <span className="text-xs uppercase tracking-widest text-[var(--color-primary)] font-semibold">{eyebrow}</span>}
+          <DialogTitle className="text-2xl font-normal text-[var(--color-text-main)]" style={{ fontFamily: 'var(--font-heading)' }}>
             {title}
           </DialogTitle>
-          {description && <DialogDescription className="text-sm text-[#555]">{description}</DialogDescription>}
+          {description && <DialogDescription className="text-sm text-[var(--color-text-muted)]">{description}</DialogDescription>}
         </DialogHeader>
 
         <div className="my-6 space-y-4">
-          <div className="p-4 bg-[#F3F2EE] rounded-xl flex items-center gap-4">
-            <div className="w-12 h-12 rounded-lg bg-[#718f80]/20 border border-[#718f80]/40 flex items-center justify-center text-xs font-bold text-[#718f80]">
+          <div className="p-4 bg-[var(--color-bg-card)] rounded-xl flex items-center gap-4">
+            <div className="w-12 h-12 rounded-lg bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/40 flex items-center justify-center text-xs font-bold text-[var(--color-primary)]">
               G2
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#222]">Grade 2 Velvet - Sage</p>
-              <p className="text-xs text-[#767676]">100,000 Double Rubs • Stain Resistant</p>
+              <p className="text-sm font-semibold text-[var(--color-text-main)]">Grade 2 Velvet - Sage</p>
+              <p className="text-xs text-[var(--color-text-light)]">100,000 Double Rubs • Stain Resistant</p>
             </div>
           </div>
         </div>

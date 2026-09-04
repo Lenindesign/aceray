@@ -19,6 +19,7 @@ import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } fro
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import { FullscreenImageViewer } from '@/components/FullscreenImageViewer'
 import { getDesignerSlug, normalizeDesignerName } from '@/data/designerProfiles'
+import { getProductPricing, formatPrice, calculatePriceForGrade } from '@/lib/pricing'
 import { CATEGORIES } from '@/constants'
 import curatedProductRelationships from '@/data/curatedProductRelationships.json'
 import {
@@ -912,6 +913,61 @@ function ProductCarousel({ products, label }) {
   )
 }
 
+// ── Pricing Calculator ─────────────────────────────────────────
+function ProductPricingCalculator({ product }) {
+  const pricing = getProductPricing(product)
+  if (!pricing || !pricing.startingPrice) return null
+
+  const tiers = []
+  if (pricing.woodSeatPrice) tiers.push({ id: 'WOOD', label: 'Wood Seat', price: pricing.woodSeatPrice })
+  if (pricing.comPrice) tiers.push({ id: 'COM', label: 'COM', price: pricing.comPrice })
+  if (pricing.colPrice) tiers.push({ id: 'COL', label: 'COL', price: pricing.colPrice })
+  if (pricing.grades) {
+    Object.entries(pricing.grades).forEach(([grade, price]) => {
+      tiers.push({ id: grade, label: `Grade ${grade}`, price })
+    })
+  }
+  if (pricing.leatherPrice) tiers.push({ id: 'LEATHER', label: 'Leather', price: pricing.leatherPrice })
+
+  const validPrices = tiers.map((t) => t.price).filter((p) => typeof p === 'number' && p > 0)
+  const minPrice = validPrices.length > 0 ? Math.min(...validPrices) : pricing.startingPrice
+  const maxPrice = validPrices.length > 0 ? Math.max(...validPrices) : pricing.startingPrice
+
+  const priceDisplay = minPrice === maxPrice
+    ? formatPrice(minPrice)
+    : `${formatPrice(minPrice)} – ${formatPrice(maxPrice)}`
+
+  return (
+    <div className="product-pricing-card">
+      <div className="pricing-header-row">
+        <div className="pricing-display-amount">
+          {priceDisplay}
+          <span className="pricing-display-currency"> USD</span>
+        </div>
+      </div>
+
+      {tiers.length > 1 && (
+        <div className="pricing-tiers-section">
+          <div className="pricing-tiers-grid">
+            {tiers.map((tier) => (
+              <div key={tier.id} className="pricing-tier-chip">
+                <span className="tier-name">{tier.label}</span>
+                <span className="tier-cost">{formatPrice(tier.price)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {pricing.yds && (
+        <p className="pricing-yardage-note">
+          <strong>Fabric Requirement:</strong> {pricing.yds} YDS (based on 54" plain fabric)
+        </p>
+      )}
+    </div>
+  )
+}
+
 // ── Main Page ─────────────────────────────────────────────────
 function ProductPage() {
   const [searchParams] = useSearchParams()
@@ -1000,12 +1056,20 @@ function ProductPage() {
                   url: 'https://aceray.com',
                 },
                 offers: {
-                  '@type': 'Offer',
+                  '@type': 'AggregateOffer',
                   priceCurrency: 'USD',
-                  price: '0.00',
+                  priceRange: '$$ - $$$ (Trade Quote Required)',
+                  lowPrice: '100',
+                  highPrice: '1500',
+                  offerCount: '1',
                   availability: 'https://schema.org/InStock',
-                  url: `https://aceray.com/contact?subject=${encodeURIComponent(`Quote Request: ${enrichedTitle}`)}`,
                   itemCondition: 'https://schema.org/NewCondition',
+                  url: `https://aceray.com/contact?subject=${encodeURIComponent(`Quote Request: ${enrichedTitle}`)}`,
+                  seller: {
+                    '@type': 'Organization',
+                    name: 'Aceray',
+                    url: 'https://aceray.com',
+                  },
                 },
               },
               {
@@ -1263,6 +1327,8 @@ function ProductPage() {
                 )}
               </p>
             )}
+
+            <ProductPricingCalculator product={product} />
 
             <hr className="product-divider" />
 

@@ -134,7 +134,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
-  font-size: 0.78rem;
+  font-size: var(--font-size-xs);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--color-text-muted);
@@ -632,7 +632,7 @@
 }
 
 .product-cta-note {
-  font-size: 0.78rem;
+  font-size: var(--font-size-xs);
   color: var(--color-text-light);
   line-height: 1.5;
 }
