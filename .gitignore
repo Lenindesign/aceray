@@ -27,3 +27,7 @@ output
 
 # Local Netlify folder
 .netlify
+
+# Scratch
+scratch/
+

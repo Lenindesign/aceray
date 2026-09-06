@@ -213,7 +213,7 @@ export default function HomePage() {
     if (event.currentTarget.setPointerCapture) {
       try {
         event.currentTarget.setPointerCapture(event.pointerId)
-      } catch (_) {}
+      } catch (_) { }
     }
 
     pointerIdRef.current = event.pointerId
@@ -255,7 +255,7 @@ export default function HomePage() {
     if (pointerIdRef.current !== null && event.currentTarget.releasePointerCapture) {
       try {
         event.currentTarget.releasePointerCapture(pointerIdRef.current)
-      } catch (_) {}
+      } catch (_) { }
     }
     pointerIdRef.current = null
     swipeStartRef.current = null
@@ -294,7 +294,7 @@ export default function HomePage() {
     if (pointerIdRef.current !== null && event.currentTarget.releasePointerCapture) {
       try {
         event.currentTarget.releasePointerCapture(event.pointerId)
-      } catch (_) {}
+      } catch (_) { }
     }
     pointerIdRef.current = null
     swipeStartRef.current = null
@@ -485,9 +485,9 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* Shop by Category Section */}
+      {/* Product by Category Section */}
       <section className="home-section category-section container">
-        <h2 className="section-title">Shop by Category</h2>
+        <h2 className="section-title">Products by Category</h2>
         <p className="section-subtitle">Curated collections designed for timeless performance and aesthetic distinction.</p>
 
         <div className="category-card-grid">

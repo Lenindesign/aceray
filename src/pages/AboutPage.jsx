@@ -5,8 +5,8 @@ import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZ
 export default function AboutPage() {
   useEffect(() => {
     setSeoMetadata({
-      title: 'About Aceray | European Artisan Seating & Commercial Excellence',
-      description: "Discover Aceray's heritage of bringing world-class European seating craftsmanship and commercial-grade furniture solutions to North American designers.",
+      title: 'About Aceray | Italian Artisan Seating & Commercial Excellence',
+      description: "Discover Aceray's heritage of bringing world-class Italian seating craftsmanship and commercial-grade furniture solutions to North American designers.",
       path: '/about',
       jsonLd: {
         '@context': 'https://schema.org',
@@ -14,7 +14,7 @@ export default function AboutPage() {
           {
             '@type': 'AboutPage',
             name: 'About Aceray',
-            description: "Discover Aceray's heritage of bringing world-class European seating craftsmanship and commercial-grade furniture solutions to North American designers.",
+            description: "Discover Aceray's heritage of bringing world-class Italian seating craftsmanship and commercial-grade furniture solutions to North American designers.",
             publisher: { '@id': 'https://aceray.com/#organization' },
           },
           createBreadcrumbJsonLd([
@@ -38,7 +38,7 @@ export default function AboutPage() {
             Design Built for Enduring Commercial Elegance
           </h1>
           <p className="about-lede">
-            Connecting world-class European artisans with North America's leading hospitality, corporate, and residential interior design professionals.
+            Connecting world-class Italian artisans with North America's leading hospitality, restaurant, educational, and corporate interior design professionals.
           </p>
 
           <div className="about-hero-image-wrapper">
@@ -64,7 +64,7 @@ export default function AboutPage() {
               <span className="about-stat-label">Commercial Grade</span>
             </div>
             <div className="about-stat">
-              <span className="about-stat-value">Europe</span>
+              <span className="about-stat-value">Italy</span>
               <span className="about-stat-label">Master Artisanship</span>
             </div>
             <div className="about-stat">
@@ -79,20 +79,19 @@ export default function AboutPage() {
       <section className="about-feature">
         <div className="container about-section-container">
           <div className="feature-grid">
-            <div className="feature-media">
+            <div className="feature-image feature-media">
               <img
                 src="/assets/migrated/0006s_0000_Arte-UU-horizontal-C.webp"
-                alt="European furniture workshop and craftsmanship"
-                className="feature-image"
+                alt="Italian furniture workshop and craftsmanship"
               />
             </div>
             <div className="feature-text">
               <span className="cat-badge cat-badge-active">Heritage &amp; Quality</span>
               <h2 className="about-feature-title">
-                European Artisanship Meets Modern Commercial Specification
+                Italian Artisanship Meets Modern Commercial Specification
               </h2>
               <p>
-                At Aceray, our mission is simple yet uncompromising: to provide interior designers, architects, and purchasing agents with extraordinary contemporary seating and table collections crafted by master European artisans.
+                At Aceray, our mission is simple yet uncompromising: to provide interior designers, architects, and purchasing agents with extraordinary contemporary seating and table collections crafted by master Italian artisans.
               </p>
               <p>
                 From hand-carved beechwood frames to precision injection-molded lounge armchairs, every piece in our portfolio reflects decades of specialized craftsmanship. We carefully select international design partners who share our dedication to structural integrity, ergonomic comfort, and timeless aesthetic beauty.
@@ -116,9 +115,9 @@ export default function AboutPage() {
           <div className="about-pillars-grid">
             <div className="about-pillar-card">
               <div>
-                <h3 className="about-pillar-title">European Precision</h3>
+                <h3 className="about-pillar-title">Italian Precision</h3>
                 <p className="about-pillar-copy">
-                  Designed and crafted in Europe’s premier factories, combining centuries of woodworking tradition with cutting-edge manufacturing.
+                  Designed and crafted in Italy’s premier factories, combining centuries of woodworking tradition with cutting-edge manufacturing.
                 </p>
               </div>
             </div>
@@ -147,7 +146,14 @@ export default function AboutPage() {
       {/* 5. Closing CTA Banner */}
       <section className="about-cta">
         <div className="container about-cta-container">
-          <h2 className="about-cta-title">The Look of Seating®</h2>
+          <h2 className="about-cta-title">
+            <img
+              src="/assets/spec-icons/aceray_tagline.svg"
+              alt="The Look of Seating®"
+              className="about-cta-slogan-img"
+              loading="lazy"
+            />
+          </h2>
           <p className="about-cta-copy">
             Explore our complete catalog or connect with our trade team to request swatches and commercial pricing.
           </p>

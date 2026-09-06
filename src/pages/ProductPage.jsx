@@ -1,4 +1,4 @@
-import { Component, useEffect, useRef, useState } from 'react'
+import { Component, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams, useParams, Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Heart, FileText, Download, Layers, Box, Archive } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -12,6 +12,8 @@ import {
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb'
 import ProductCard from '@/components/ProductCard'
+import ProductStickyNav from '@/components/ProductStickyNav'
+import ProductSpecSheetPDF from '@/components/ProductSpecSheetPDF'
 import { sanityFetch } from '@/sanityClient'
 import { urlFor } from '@/lib/sanityImageUrl'
 import { getCollectionFamily, getFamilySlug, normalizeCategory } from '@/lib/productFamilies'
@@ -102,6 +104,48 @@ export function getEnrichedProductTitle(title, categories) {
   }
 
   return `${title} ${categorySuffix}`
+}
+
+export function getCategorySuffix(title, categories) {
+  if (!title) return ''
+  const catList = Array.isArray(categories) ? categories : []
+  
+  let primaryCat = catList.find(c => {
+    const l = (typeof c === 'string' ? c : (c?.title || '')).toLowerCase()
+    return l.includes('side chair') || l.includes('armchair') || l.includes('lounge') || l.includes('counter stool') || l.includes('barstool') || l.includes('table') || l.includes('outdoor') || l.includes('bench')
+  }) || (typeof catList[0] === 'string' ? catList[0] : (catList[0]?.title || '')) || ''
+
+  if (!primaryCat) return ''
+
+  const lowerTitle = title.toLowerCase()
+  const lowerCat = primaryCat.toLowerCase()
+
+  let categorySuffix = primaryCat
+  if (lowerCat.includes('side chair')) categorySuffix = 'Side Chair'
+  else if (lowerCat.includes('armchair')) categorySuffix = 'Armchair'
+  else if (lowerCat.includes('lounge')) categorySuffix = 'Lounge Chair'
+  else if (lowerCat.includes('counter stool')) categorySuffix = 'Counter Stool'
+  else if (lowerCat.includes('barstool') || lowerCat.includes('stool')) categorySuffix = 'Barstool'
+  else if (lowerCat.includes('bench')) categorySuffix = 'Bench'
+  else if (lowerCat.includes('table')) categorySuffix = 'Table'
+  else if (lowerCat.includes('outdoor')) categorySuffix = 'Outdoor Chair'
+
+  if (/^\d+/i.test(categorySuffix) || /^c2m/i.test(categorySuffix)) return ''
+
+  if (
+    lowerTitle.includes('chair') ||
+    lowerTitle.includes('armchair') ||
+    lowerTitle.includes('stool') ||
+    lowerTitle.includes('table') ||
+    lowerTitle.includes('lounge') ||
+    lowerTitle.includes('bench') ||
+    lowerTitle.includes('sofa') ||
+    lowerTitle.includes(categorySuffix.toLowerCase())
+  ) {
+    return ''
+  }
+
+  return categorySuffix
 }
 
 // ── GROQ ─────────────────────────────────────────────────────
@@ -420,11 +464,11 @@ function getProductFinishSections(product) {
   if (tableBaseFinishes.length) {
     sections.push({
       id: 'metal-finishes',
-      title: /leg protectors/i.test(text) ? 'Leg Protector Finish' : 'Metal Finishes',
+      title: /leg protectors/i.test(text) ? 'Leg Protector Finish' : 'Indoor Metal Finishes',
       subtitle: /leg protectors/i.test(text) ? 'Optional brushed stainless steel leg protectors.' : 'Aceray table base and metal finish options.',
       swatches: tableBaseFinishes.map(([label, src]) => ({ label, src })),
       href: '/fabrics-finishes#table-bases',
-      hrefLabel: 'View metal finishes',
+      hrefLabel: 'View indoor metal finishes',
     })
   }
 
@@ -434,11 +478,13 @@ function getProductFinishSections(product) {
 // ── Skeleton Loading ──────────────────────────────────────────
 function ProductSkeleton() {
   return (
-    <div className="product-skeleton-page">
-      <div className="container product-skeleton-layout">
-        <Skeleton className="aspect-square rounded-sm" />
-        <div className="product-skeleton-copy">
-          <div className="product-skeleton-pills">
+    <div className="product-skeleton-page container py-8 md:py-12">
+      <div className="product-skeleton-layout grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
+        <div className="lg:col-span-8">
+          <Skeleton className="aspect-square w-full rounded-[var(--radius-card)]" />
+        </div>
+        <div className="product-skeleton-copy lg:col-span-4 flex flex-col gap-4">
+          <div className="product-skeleton-pills flex flex-wrap gap-2">
             <Skeleton className="h-6 w-24 rounded-full" />
             <Skeleton className="h-6 w-20 rounded-full" />
           </div>
@@ -690,12 +736,14 @@ function SpecRow({ label, value }) {
 function ProductFinishSwatch({ label, src, color }) {
   return (
     <article className="product-finish-swatch-card">
-      {src ? (
-        <img className="product-finish-swatch" src={src} alt={`${label} finish swatch`} loading="lazy" />
-      ) : (
-        <span className="product-finish-color" style={{ backgroundColor: color }} aria-hidden="true" />
-      )}
-      <h4>{label}</h4>
+      <div className="product-finish-swatch-box">
+        {src ? (
+          <img className="product-finish-swatch-img" src={src} alt={`${label} finish swatch`} loading="lazy" />
+        ) : (
+          <span className="product-finish-color-fill" style={{ backgroundColor: color }} aria-hidden="true" />
+        )}
+      </div>
+      <span className="product-finish-swatch-label">{label}</span>
     </article>
   )
 }
@@ -706,7 +754,7 @@ function ProductFinishModule({ product }) {
   if (!finishSections.length) return null
 
   return (
-    <section className="related-section product-finishes-section container">
+    <section id="product-finishes" className="related-section product-finishes-section container">
       <h2 className="section-title">Fabrics &amp; Finishes</h2>
       <p className="section-subtitle">Available materials and finish options for this product</p>
 
@@ -732,18 +780,22 @@ function ProductFinishModule({ product }) {
             )}
 
             {section.partners?.length > 0 && (
-              <div className="product-finish-partner-grid">
+              <div className="product-finish-partner-grid upholstery-partner-grid">
                 {section.partners.map((partner) => (
-                  <a
-                    className="product-finish-partner-card"
-                    href={partner.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    key={partner.name}
-                  >
+                  <article className="product-finish-partner-card upholstery-partner-card" key={partner.name}>
                     <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" />
-                    <span>{partner.name}</span>
-                  </a>
+                    <h3>{partner.name}</h3>
+                    <div className="product-finish-partner-actions upholstery-partner-actions">
+                      <a href={partner.url} target="_blank" rel="noreferrer" className="btn-outline">
+                        Visit
+                      </a>
+                      {partner.grades && (
+                        <a href={partner.grades} target="_blank" rel="noreferrer" className="btn-outline">
+                          Grades
+                        </a>
+                      )}
+                    </div>
+                  </article>
                 ))}
               </div>
             )}
@@ -761,8 +813,32 @@ function ProductFinishModule({ product }) {
 }
 
 // ── Downloads Section ──────────────────────────────────────────
-function DownloadRow({ icon: Icon, href, label, ext }) {
-  if (!href) return null
+function DownloadRow({ icon: Icon, href, label, ext, onClick }) {
+  if (!href && !onClick) return null
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className="product-download-row w-full text-left cursor-pointer"
+        aria-label={`Download ${label}`}
+      >
+        <span className="product-download-icon-wrap">
+          <Icon aria-hidden="true" className="product-download-icon" />
+        </span>
+        <span className="product-download-label">
+          {label}
+          {ext && <span className="product-download-ext">{ext}</span>}
+        </span>
+        <span className="product-download-action">
+          <Download aria-hidden="true" className="product-download-dl-icon" />
+          <span className="product-download-action-text">View PDF</span>
+        </span>
+      </button>
+    )
+  }
+
   return (
     <a
       href={href}
@@ -813,8 +889,7 @@ function DownloadCategory({ title, icon, items }) {
   )
 }
 
-function ProductDownloadsSection({ product }) {
-  // Deduplicate productPdfs by asset url, prefer spec sheets (non-technical drawing)
+function ProductDownloadsSection({ product, onOpenSpecPdf }) {
   const specSheets = (() => {
     if (!product?.productPdfs?.length) return []
     const seen = new Set()
@@ -831,25 +906,35 @@ function ProductDownloadsSection({ product }) {
   const files3d = product?.files3d || []
   const zipFiles = product?.zipFiles || []
 
-  const hasAnyDownload = specSheets.length > 0 || technicalDrawings.length > 0 || files3d.length > 0 || zipFiles.length > 0
-  if (!hasAnyDownload) return null
-
   return (
     <section id="product-downloads" className="product-downloads-section related-section container" aria-label="Product downloads">
       <h2 className="section-title">Downloads</h2>
       <p className="section-subtitle">Specification sheets, technical drawings, and 3D assets for this product.</p>
 
       <div className="product-downloads-grid">
-        <DownloadCategory
-          title="Spec Sheets"
-          icon={FileText}
-          items={specSheets.map((pdf) => ({
-            title: (pdf.title || `${product.title} Spec Sheet`)
-              .replace(/\s*PDF\s*File$/i, ' Spec Sheet')
-              .replace(/\s*PDF$/i, ' Spec Sheet'),
-            file: pdf.file,
-          }))}
-        />
+        <div className="product-download-category">
+          <h3 className="product-download-category-title">Spec Sheets</h3>
+          <div className="product-download-rows">
+            <DownloadRow
+              icon={FileText}
+              label={`${product?.title || 'Product'} 2026 Spec Sheet`}
+              ext=".PDF"
+              onClick={onOpenSpecPdf}
+            />
+            {specSheets.map((pdf, i) => (
+              <DownloadRow
+                key={pdf._key || i}
+                icon={FileText}
+                href={pdf.file?.asset?.url || pdf.sourceUrl}
+                label={(pdf.title || `${product?.title} Spec Sheet`)
+                  .replace(/\s*PDF\s*File$/i, ' Spec Sheet')
+                  .replace(/\s*PDF$/i, ' Spec Sheet')}
+                ext=".PDF"
+              />
+            ))}
+          </div>
+        </div>
+
         <DownloadCategory
           title="Technical Drawings"
           icon={Layers}
@@ -931,18 +1016,13 @@ function ProductPricingCalculator({ product }) {
 
   const validPrices = tiers.map((t) => t.price).filter((p) => typeof p === 'number' && p > 0)
   const minPrice = validPrices.length > 0 ? Math.min(...validPrices) : pricing.startingPrice
-  const maxPrice = validPrices.length > 0 ? Math.max(...validPrices) : pricing.startingPrice
-
-  const priceDisplay = minPrice === maxPrice
-    ? formatPrice(minPrice)
-    : `${formatPrice(minPrice)} – ${formatPrice(maxPrice)}`
 
   return (
     <div className="product-pricing-card">
       <div className="pricing-header-row">
+        <span className="pricing-eyebrow">List Price Starting At</span>
         <div className="pricing-display-amount">
-          {priceDisplay}
-          <span className="pricing-display-currency"> USD</span>
+          {formatPrice(minPrice)}
         </div>
       </div>
 
@@ -968,6 +1048,53 @@ function ProductPricingCalculator({ product }) {
   )
 }
 
+function parseDescriptionBlocks(text) {
+  if (!text || typeof text !== 'string') return []
+  const rawParagraphs = text.split(/\r?\n\s*\r?\n/)
+  const blocks = []
+
+  const isBulletLine = (line) => /^[-•–*]\s*/.test(line)
+  const isListHeader = (line) => /:\s*$/.test(line) || /^(available in|edges|options|finishes|sizes)/i.test(line)
+
+  for (const rawP of rawParagraphs) {
+    const lines = rawP
+      .split(/\r?\n/)
+      .map((l) => l.replace(/&nbsp;/g, ' ').trim())
+      .filter(Boolean)
+
+    if (lines.length === 0) continue
+
+    let currentListBlock = []
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      const nextLine = lines[i + 1]
+
+      if (isBulletLine(line)) {
+        currentListBlock.push(line)
+      } else if (isListHeader(line) && nextLine && isBulletLine(nextLine)) {
+        if (currentListBlock.length > 0) {
+          blocks.push(currentListBlock.join('\n'))
+          currentListBlock = []
+        }
+        currentListBlock.push(line)
+      } else {
+        if (currentListBlock.length > 0) {
+          blocks.push(currentListBlock.join('\n'))
+          currentListBlock = []
+        }
+        blocks.push(line)
+      }
+    }
+
+    if (currentListBlock.length > 0) {
+      blocks.push(currentListBlock.join('\n'))
+    }
+  }
+
+  return blocks
+}
+
 // ── Main Page ─────────────────────────────────────────────────
 function ProductPage() {
   const [searchParams] = useSearchParams()
@@ -983,6 +1110,7 @@ function ProductPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [showSpecPdf, setShowSpecPdf] = useState(false)
 
   useEffect(() => {
     const paramSlug = searchParams.get('slug') || searchParams.get('id')
@@ -1241,13 +1369,27 @@ function ProductPage() {
   const displayCategories = getProductDisplayCategories(product)
   const firstCat = displayCategories[0] || product.categories?.[0] || ''
   const enrichedTitle = getEnrichedProductTitle(product.title, product.categories)
-  const dimsLabel = product.overallHeight && product.overallWidth && product.overallDepth
-    ? `${formatDimValue(product.overallHeight)} H × ${formatDimValue(product.overallWidth)} W × ${formatDimValue(product.overallDepth)} D`
-    : null
+  const dimsParts = [
+    product.overallHeight && `${formatDimValue(product.overallHeight)} H`,
+    product.overallDepth && `${formatDimValue(product.overallDepth)} D`,
+    product.overallWidth && `${formatDimValue(product.overallWidth)} W`,
+  ].filter(Boolean)
+  const dimsLabel = dimsParts.length > 0 ? dimsParts.join(' × ') : null
+  const finishSections = getProductFinishSections(product)
 
   return (
     <div className="product-page">
-      {/* Breadcrumb */}
+      {/* Sticky Section Jump Navigation */}
+      <ProductStickyNav
+        product={product}
+        hasFinishes={finishSections.length > 0}
+        hasDownloads={true}
+        hasCollection={collectionProducts.length > 0}
+        hasRelated={related.length > 0}
+        onOpenSpecPdf={() => setShowSpecPdf(true)}
+      />
+
+      {/* Breadcrumb & Actions Bar */}
       <div className="breadcrumb-nav container">
         <Breadcrumb>
           <BreadcrumbList>
@@ -1274,57 +1416,55 @@ function ProductPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+
+        <button
+          type="button"
+          className={`product-detail-favorite ${isFavorite ? 'product-detail-favorite-active' : ''}`}
+          onClick={handleFavoriteClick}
+          aria-label={`${isFavorite ? 'Remove' : 'Add'} ${enrichedTitle} ${isFavorite ? 'from' : 'to'} favorites`}
+          aria-pressed={isFavorite}
+        >
+          <Heart aria-hidden="true" />
+          <span>{isFavorite ? 'Saved' : 'Save'}</span>
+        </button>
       </div>
 
       {/* Product Layout */}
-      <section className="container product-page-container">
-        <div className="product-layout">
+      <section id="product-overview" className="container product-page-container">
+        <div className="product-layout grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
 
           {/* Gallery */}
-          <div className="product-gallery">
+          <div className="product-gallery lg:col-span-8">
             <Gallery images={images} title={enrichedTitle} designer={product.designer} />
           </div>
 
           {/* Info */}
-          <div className="product-info">
+          <div className="product-info lg:col-span-4 flex flex-col gap-6">
             {/* Title */}
             <div className="product-detail-header">
               <h1 className="product-detail-title">
-                {enrichedTitle}
+                <span className="product-detail-name">{product.title}</span>
+                {getCategorySuffix(product.title, product.categories) && (
+                  <span className="product-detail-category-suffix">
+                    {getCategorySuffix(product.title, product.categories)}
+                  </span>
+                )}
               </h1>
-              <button
-                type="button"
-                className={`product-detail-favorite ${isFavorite ? 'product-detail-favorite-active' : ''}`}
-                onClick={handleFavoriteClick}
-                aria-label={`${isFavorite ? 'Remove' : 'Add'} ${enrichedTitle} ${isFavorite ? 'from' : 'to'} favorites`}
-                aria-pressed={isFavorite}
-              >
-                <Heart aria-hidden="true" />
-                <span>{isFavorite ? 'Saved' : 'Save'}</span>
-              </button>
             </div>
 
 
 
-            {(product.designer || product.madeIn) && (
+            {product.designer && (
               <p className="product-detail-meta">
-                {product.designer && (
-                  <span>
-                    Design:{' '}
-                    <Link
-                      to={`/designers/${getDesignerSlug(product.designer)}`}
-                      className="product-designer-link"
-                    >
-                      {normalizeDesignerName(product.designer)}
-                    </Link>
-                  </span>
-                )}
-                {product.designer && product.madeIn && (
-                  <span className="product-detail-meta-separator" aria-hidden="true">|</span>
-                )}
-                {product.madeIn && (
-                  <span className="product-detail-madein">Made in {product.madeIn}</span>
-                )}
+                <span>
+                  Design:{' '}
+                  <Link
+                    to={`/designers/${getDesignerSlug(product.designer)}`}
+                    className="product-designer-link"
+                  >
+                    {normalizeDesignerName(product.designer)}
+                  </Link>
+                </span>
               </p>
             )}
 
@@ -1334,14 +1474,16 @@ function ProductPage() {
 
             {product.description && (
               <div>
-                <p className="product-description">
-                  {product.description}
-                </p>
+                <div className="product-description">
+                  {parseDescriptionBlocks(product.description).map((block, idx) => (
+                    <p key={idx}>{block}</p>
+                  ))}
+                </div>
                 <hr className="product-divider" />
               </div>
             )}
 
-            <div className="product-detail-stack">
+            <div id="product-specs" className="product-detail-stack">
               <div>
                 <h2 className="product-specs-title">Specifications</h2>
                 <dl className="product-specs-list">
@@ -1368,9 +1510,20 @@ function ProductPage() {
               </div>
 
               <div className="product-cta">
-                <Link to="/contact" className="btn-primary product-cta-btn">
+                <Link
+                  to={`/contact?intent=quote&product=${encodeURIComponent(enrichedTitle)}&slug=${encodeURIComponent(product.slug?.current || slug)}`}
+                  className="btn-primary product-cta-btn"
+                >
                   Request Quote / Trade Info
                 </Link>
+                <button
+                  type="button"
+                  className="btn-outline product-cta-btn"
+                  onClick={() => setShowSpecPdf(true)}
+                >
+                  <FileText className="size-4 mr-2" aria-hidden="true" />
+                  Download Spec Sheet PDF
+                </button>
                 {(product.productPdfs?.length > 0 || product.technicalDrawings?.length > 0 || product.files3d?.length > 0 || product.zipFiles?.length > 0) && (
                   <a
                     href="#product-downloads"
@@ -1412,11 +1565,11 @@ function ProductPage() {
       <ProductFinishModule product={product} />
 
       {/* Downloads Section */}
-      <ProductDownloadsSection product={product} />
+      <ProductDownloadsSection product={product} onOpenSpecPdf={() => setShowSpecPdf(true)} />
 
       {/* Collection */}
       {collectionProducts.length > 0 && (
-        <section className="related-section collection-family-section container">
+        <section id="product-collection" className="related-section collection-family-section container">
           <h2 className="section-title">From This Collection</h2>
           <p className="section-subtitle">
             <Link className="collection-family-link" to={`/collections/${getFamilySlug(collectionFamily)}`}>
@@ -1429,12 +1582,19 @@ function ProductPage() {
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="related-section container">
+        <section id="product-related" className="related-section container">
           <h2 className="section-title">You May Also Like</h2>
           <p className="section-subtitle">{relatedSubtitle}</p>
           <ProductCarousel products={related} label="related products" />
         </section>
       )}
+
+      {/* Spec Sheet PDF Modal */}
+      <ProductSpecSheetPDF
+        product={product}
+        isOpen={showSpecPdf}
+        onClose={() => setShowSpecPdf(false)}
+      />
     </div>
   )
 }

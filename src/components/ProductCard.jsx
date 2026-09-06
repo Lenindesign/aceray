@@ -104,9 +104,9 @@ export default function ProductCard({ product, className = '', layout = 'grid' }
                   <span className="product-spec-label">Dimensions:</span>
                   <span className="product-spec-value">
                     {[
-                      product.overallWidth && `W ${product.overallWidth}"`,
-                      product.overallDepth && `D ${product.overallDepth}"`,
                       product.overallHeight && `H ${product.overallHeight}"`,
+                      product.overallDepth && `D ${product.overallDepth}"`,
+                      product.overallWidth && `W ${product.overallWidth}"`,
                       product.seatHeight && `SH ${product.seatHeight}"`,
                     ].filter(Boolean).join('  ·  ')}
                   </span>

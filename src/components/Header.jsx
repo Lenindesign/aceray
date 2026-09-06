@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { label: "What's New", to: '/catalog?new=1' },
   { label: 'Products', to: '/catalog', dropdown: true },
   { label: 'Ready to Ship', to: '/catalog?cat=ready-to-ship' },
+  { label: 'Inspiration', to: '/installations' },
   { label: 'Blog', to: '/blog' },
   { label: 'About', to: '/about' },
 ]

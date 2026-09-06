@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import logoSvg from '@/assets/logo.svg'
+import logoWhiteSvg from '@/assets/logo-white.svg'
 
 export default function Footer() {
   const [query, setQuery] = useState('')
@@ -19,8 +19,8 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/">
-              <img src={logoSvg} alt="Aceray" width="143" height="34" loading="lazy" decoding="async" />
+            <Link to="/" aria-label="Aceray Home">
+              <img src={logoWhiteSvg} alt="Aceray – The Look of Seating" width="190" height="50" loading="lazy" decoding="async" />
             </Link>
             <p>Presenting design professionals with unique contemporary seating and table designs from international artisans.</p>
             

@@ -83,6 +83,9 @@
   --radius-btn: 4px;          /* 4px Architectural CTA Radius */
   --radius-xs: 4px;           /* 0.5 * 8px */
   --radius-full: 9999px;
+
+  /* Layout offsets */
+  --header-height: 73px;
 }
 
 /* Base resets wrapped in @layer base so Tailwind utilities always take precedence */

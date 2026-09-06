@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aceray – Project Presentation Deck</title>
+  <!-- Google Font: Montserrat (already used in project) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Design system styles -->
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/deck.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/logo.svg" alt="Aceray logo" height="40" />
+    </a>
+    <nav>
+      <a href="/index.html">Home</a>
+      <a href="/catalog.html">Catalog</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/client-deck.html" class="active">Presentation</a>
+    </nav>
+  </header>
+
+  <main class="deck">
+    <section class="deck-slide" id="slide-1">
+      <h1 class="section-title">Aceray Redesign Overview</h1>
+      <p class="deck-copy">
+        A modern, high‑performance static site built with Vite, showcasing the premium furniture catalog while preserving the existing WordPress CMS for content authoring.
+      </p>
+      <a href="/catalog.html" class="button button-primary">View Catalog</a>
+    </section>
+
+    <section class="deck-slide" id="slide-2">
+      <h2 class="section-title">Architecture Diagram</h2>
+      <img src="/assets/images/architecture.svg" alt="Aceray architecture diagram" class="deck-image" />
+      <p class="deck-copy">The site is a static front‑end (Vite) that pulls content via the WordPress REST API. All assets are hosted on a static CDN (GitHub Pages, Firebase Hosting, or Netlify).</p>
+    </section>
+
+    <section class="deck-slide" id="slide-3">
+      <h2 class="section-title">Design System</h2>
+      <ul class="deck-list">
+        <li><strong>Primary Color:</strong> <span class="color-swatch" style="background-color: var(--color-primary);"></span> <code>#718f80</code></li>
+        <li><strong>Typography:</strong> Montserrat (Google Font) – headings use <code>var(--font-primary)</code> with weight 600.</li>
+        <li><strong>Spacing:</strong> 8pt grid (4px, 8px, 12px, …) – defined in <code>--space-*</code> tokens.</li>
+        <li><strong>Buttons:</strong> .button-primary (solid sage green) & .button-outline (transparent with green border).</li>
+      </ul>
+    </section>
+
+    <section class="deck-slide" id="slide-4">
+      <h2 class="section-title">CMS Integration</h2>
+      <p class="deck-copy">
+        Content editors continue to use the existing WordPress installation. The static site fetches product data (title, image, description, price) via the WordPress REST endpoints during the build step (or at runtime with client‑side fetch for dynamic sections).
+      </p>
+    </section>
+
+    <section class="deck-slide" id="slide-5">
+      <h2 class="section-title">Next Steps</h2>
+      <ol class="deck-list">
+        <li>Configure the WordPress REST API credentials (read‑only token).</li>
+        <li>Run <code>npm run build</code> to generate the production bundle.</li>
+        <li>Deploy to the chosen static host (GitHub Pages, Firebase Hosting, Netlify).</li>
+        <li>Provide the client with this deck for review and feedback.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Aceray – All rights reserved.</p>
+  </footer>
+</body>
+</html>

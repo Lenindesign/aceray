@@ -1,7 +1,52 @@
-import { useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import { useSearchParams, Link } from 'react-router-dom'
+import { CheckCircle2, ArrowRight } from 'lucide-react'
 import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
 export default function ContactPage() {
+  const [searchParams] = useSearchParams()
+
+  const rawIntent = searchParams.get('intent') || searchParams.get('request') || ''
+  const rawProduct = searchParams.get('product') || ''
+  const rawSlug = searchParams.get('slug') || ''
+  const rawSubject = searchParams.get('subject') || ''
+
+  // Determine inquiry type
+  const defaultInquiryType = useMemo(() => {
+    if (rawIntent === 'quote' || rawProduct || rawSubject.toLowerCase().includes('quote')) return 'quote'
+    if (rawIntent === 'catalog' || rawIntent === 'catalog-request') return 'catalog'
+    if (rawIntent === 'samples' || rawIntent === 'sample') return 'samples'
+    return 'general'
+  }, [rawIntent, rawProduct, rawSubject])
+
+  // Determine initial message template
+  const defaultMessage = useMemo(() => {
+    if (rawProduct) {
+      return `Hello, I would like to request trade pricing, finish options, and lead-time information for the ${rawProduct} for an upcoming commercial project.\n\nProject Location: \nEstimated Quantity: \nRequired Delivery: `
+    }
+    if (rawIntent === 'catalog') {
+      return `Hello, please send me the latest Aceray Commercial Furniture architectural catalog and digital binder.\n\nMailing Address (if print desired): `
+    }
+    if (rawIntent === 'samples') {
+      return `Hello, I would like to request material and finish sample swatches for an upcoming project.\n\nFinishes/Fabrics of Interest: \nProject Name: `
+    }
+    return ''
+  }, [rawProduct, rawIntent])
+
+  const [inquiryType, setInquiryType] = useState(defaultInquiryType)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [company, setCompany] = useState('')
+  const [phone, setPhone] = useState('')
+  const [message, setMessage] = useState(defaultMessage)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  // If URL params change, update defaults
+  useEffect(() => {
+    setInquiryType(defaultInquiryType)
+    setMessage(defaultMessage)
+  }, [defaultInquiryType, defaultMessage])
+
   useEffect(() => {
     setSeoMetadata({
       title: 'Contact Aceray | Trade Pricing & Representatives',
@@ -27,6 +72,20 @@ export default function ContactPage() {
     removeSeoJsonLd('product-jsonld')
   }, [])
 
+  function handleSubmit(e) {
+    e.preventDefault()
+    setIsSubmitted(true)
+  }
+
+  function handleReset() {
+    setIsSubmitted(false)
+    setName('')
+    setEmail('')
+    setCompany('')
+    setPhone('')
+    setMessage(defaultMessage)
+  }
+
   return (
     <div className="contact-page">
       <section className="container contact-page-container">
@@ -37,44 +96,126 @@ export default function ContactPage() {
 
         <div className="contact-layout">
           <div className="contact-panel">
-            <h2 className="contact-section-title">Send a Message</h2>
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
-              <div className="contact-field">
-                <label htmlFor="name">Name</label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Your full name"
-                />
+            {isSubmitted ? (
+              <div className="contact-success-panel">
+                <CheckCircle2 className="size-12 text-[var(--color-primary)]" aria-hidden="true" />
+                <h2 className="contact-success-title">Inquiry Received</h2>
+                <p className="contact-success-copy">
+                  Thank you for reaching out{name ? `, ${name}` : ''}. Our dedicated trade sales team will review your {inquiryType === 'quote' ? 'quote request' : 'inquiry'} and respond within one business day.
+                </p>
+                <div className="flex flex-wrap gap-3 mt-4 justify-center">
+                  <button type="button" onClick={handleReset} className="btn-outline">
+                    Send Another Inquiry
+                  </button>
+                  {rawSlug ? (
+                    <Link to={`/product/${rawSlug}`} className="btn-primary">
+                      Return to Product
+                    </Link>
+                  ) : (
+                    <Link to="/catalog" className="btn-primary">
+                      Browse Catalog
+                    </Link>
+                  )}
+                </div>
               </div>
-              <div className="contact-field">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div className="contact-field">
-                <label htmlFor="company">Company / Studio</label>
-                <input
-                  id="company"
-                  type="text"
-                  placeholder="Your firm name"
-                />
-              </div>
-              <div className="contact-field">
-                <label htmlFor="message">Message</label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  placeholder="Tell us about your project or request..."
-                />
-              </div>
-              <button type="submit" className="btn-primary contact-submit">
-                Send Message
-              </button>
-            </form>
+            ) : (
+              <>
+                <h2 className="contact-section-title">Send a Message</h2>
+
+                {rawProduct && (
+                  <div className="contact-product-badge">
+                    <div className="contact-product-badge-info">
+                      <span className="contact-product-badge-label">Item for Quote</span>
+                      <strong className="contact-product-badge-title">{rawProduct}</strong>
+                    </div>
+                    {rawSlug && (
+                      <Link to={`/product/${rawSlug}`} className="contact-product-badge-link">
+                        <span>View Piece</span>
+                        <ArrowRight className="size-3" aria-hidden="true" />
+                      </Link>
+                    )}
+                  </div>
+                )}
+
+                <form className="contact-form" onSubmit={handleSubmit}>
+                  <div className="contact-field">
+                    <label htmlFor="inquiry-type">Inquiry Type</label>
+                    <select
+                      id="inquiry-type"
+                      value={inquiryType}
+                      onChange={(e) => setInquiryType(e.target.value)}
+                    >
+                      <option value="quote">Trade Quote / Specification</option>
+                      <option value="samples">Finish &amp; Material Samples</option>
+                      <option value="catalog">Architectural Catalog Request</option>
+                      <option value="general">General Inquiry</option>
+                    </select>
+                  </div>
+
+                  <div className="contact-field">
+                    <label htmlFor="name">Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Your full name"
+                    />
+                  </div>
+
+                  <div className="contact-field">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                    />
+                  </div>
+
+                  <div className="contact-field">
+                    <label htmlFor="company">Company / Studio</label>
+                    <input
+                      id="company"
+                      type="text"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      placeholder="Your firm name"
+                    />
+                  </div>
+
+                  <div className="contact-field">
+                    <label htmlFor="phone">Phone (Optional)</label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Your phone number"
+                    />
+                  </div>
+
+                  <div className="contact-field">
+                    <label htmlFor="message">Message</label>
+                    <textarea
+                      id="message"
+                      rows={5}
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Tell us about your project or request..."
+                    />
+                  </div>
+
+                  <button type="submit" className="btn-primary contact-submit">
+                    Send Message
+                  </button>
+                </form>
+              </>
+            )}
           </div>
 
           <div className="contact-info">

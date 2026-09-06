@@ -132,7 +132,7 @@ export default function CatalogPage() {
     }
 
     if (isNew) {
-      filters += ` && isNewArrival == true`
+      filters += ` && ("What's New" in categories || isNewArrival == true || "New" in categories)`
     }
 
     if (designer) {
@@ -334,9 +334,9 @@ export default function CatalogPage() {
 
   return (
     <div className="catalog-page">
-      <div className="catalog-layout">
+      <div className="catalog-layout container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start py-6 md:py-8">
         {/* Filters Sidebar */}
-        <aside className="catalog-sidebar">
+        <aside className="catalog-sidebar hidden lg:block lg:col-span-3">
           <div>
             <h3 className="catalog-filter-title">Category</h3>
             <ul className="catalog-filter-list">
@@ -378,7 +378,7 @@ export default function CatalogPage() {
         </aside>
 
         {/* Right Main Column */}
-        <div className="catalog-main-content">
+        <div className="catalog-main-content col-span-1 lg:col-span-9 flex flex-col gap-6">
           {/* Header */}
           <div className="catalog-heading">
             <h1 className="catalog-title">
@@ -408,7 +408,7 @@ export default function CatalogPage() {
           </div>
 
         {/* Mobile filter pills */}
-        <div className="catalog-mobile-filters">
+        <div className="catalog-mobile-filters lg:hidden flex flex-wrap gap-2 mb-4">
           <button type="button" onClick={() => setFilter('cat', '')}>
             <span className={`cat-badge ${!cat && !tag && !isNew && !q ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
               All Products
@@ -449,7 +449,7 @@ export default function CatalogPage() {
           )}
 
           {loading && products.length === 0 ? (
-            <div className={viewMode === 'list' ? 'catalog-list-container' : 'catalog-grid'}>
+            <div className={viewMode === 'list' ? 'catalog-list-container flex flex-col gap-4' : 'catalog-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'}>
               {[...Array(12)].map((_, i) => (
                 <div key={i} className={viewMode === 'list' ? 'p-4 border border-[var(--color-border)] rounded-[var(--radius-card)] flex gap-4 items-center' : ''}>
                   <Skeleton className={viewMode === 'list' ? 'w-32 h-32 rounded-md flex-shrink-0' : 'aspect-square rounded-sm mb-3'} />
@@ -479,7 +479,7 @@ export default function CatalogPage() {
             </div>
           ) : (
             <>
-              <div className={viewMode === 'list' ? 'catalog-list-container' : 'catalog-grid'}>
+              <div className={viewMode === 'list' ? 'catalog-list-container flex flex-col gap-4' : 'catalog-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'}>
                 {products.map((p) => <ProductCard key={p._id} product={p} layout={viewMode} />)}
               </div>
 

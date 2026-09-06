@@ -45,6 +45,7 @@ export default function App() {
                 <Route path="/designers" element={<DesignersPage />} />
                 <Route path="/designers/:designerSlug" element={<DesignerLandingPage />} />
                 <Route path="/installations" element={<InstallationsPage />} />
+                <Route path="/inspiration" element={<InstallationsPage />} />
                 <Route path="/installation-gallery" element={<InstallationsPage />} />
                 <Route path="/gallery" element={<InstallationsPage />} />
                 <Route path="/projects" element={<InstallationsPage />} />
