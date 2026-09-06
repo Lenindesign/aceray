@@ -1,6 +1,11 @@
 import os
 import sys
-from PIL import Image
+
+try:
+    from PIL import Image
+except ImportError:
+    print('PIL (Pillow) not installed; using pre-generated thumbnails.')
+    sys.exit(0)
 
 def generate_hero_thumbs():
     slides = [
