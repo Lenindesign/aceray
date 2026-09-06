@@ -28,12 +28,12 @@ export default function ProductStickyNav({
       { id: 'product-overview', label: 'Overview' },
       { id: 'product-specs', label: 'Specifications' },
     ]
+    if (hasCollection) list.push({ id: 'product-collection', label: 'Collection' })
     if (hasFinishes) list.push({ id: 'product-finishes', label: 'Finishes' })
     if (hasDownloads) list.push({ id: 'product-downloads', label: 'Downloads' })
-    if (hasCollection) list.push({ id: 'product-collection', label: 'Collection' })
     if (hasRelated) list.push({ id: 'product-related', label: 'Related' })
     return list
-  }, [hasFinishes, hasDownloads, hasCollection, hasRelated])
+  }, [hasCollection, hasFinishes, hasDownloads, hasRelated])
 
   useEffect(() => {
     const handleScroll = () => {

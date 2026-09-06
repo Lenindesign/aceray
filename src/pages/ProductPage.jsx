@@ -1566,12 +1566,6 @@ function ProductPage() {
         </div>
       </section>
 
-      {/* Fabrics & Finishes */}
-      <ProductFinishModule product={product} />
-
-      {/* Downloads Section */}
-      <ProductDownloadsSection product={product} onOpenSpecPdf={() => setShowSpecPdf(true)} />
-
       {/* Collection */}
       {collectionProducts.length > 0 && (
         <section id="product-collection" className="related-section collection-family-section container">
@@ -1584,6 +1578,12 @@ function ProductPage() {
           <ProductCarousel products={collectionProducts} label="collection products" />
         </section>
       )}
+
+      {/* Fabrics & Finishes */}
+      <ProductFinishModule product={product} />
+
+      {/* Downloads Section */}
+      <ProductDownloadsSection product={product} onOpenSpecPdf={() => setShowSpecPdf(true)} />
 
       {/* Related */}
       {related.length > 0 && (
