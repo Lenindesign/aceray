@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
 
-export const NOTE = 'Printed colors cannot be guaranteed for accuracy.'
+export const NOTE = 'Digital colors cannot be guaranteed for accuracy.'
 
 export const WOOD_FINISHES = [
   ['Bleached Beech', '/assets/migrated/fabrics-and-finishes_0005s_0008_Bleached-Beech.jpg'],
@@ -210,22 +210,25 @@ export const TABLE_BASE_FINISHES = [
 
 function SwatchCard({ label, src }) {
   return (
-    <article className="finish-swatch-card">
-      <img className="finish-swatch" src={src} alt={`${label} finish swatch`} loading="lazy" />
-      <h3>{label}</h3>
+    <article className="product-finish-swatch-card">
+      <div className="product-finish-swatch-box">
+        <img className="product-finish-swatch-img" src={src} alt={`${label} finish swatch`} loading="lazy" />
+      </div>
+      <span className="product-finish-swatch-label">{label}</span>
     </article>
   )
 }
 
-function FinishSection({ id, eyebrow, title, children }) {
+function FinishSection({ id, title, subtitle, children }) {
   return (
     <section className="finish-section" id={id}>
-      <div className="finish-section-heading">
-        <span className="finish-section-eyebrow">{eyebrow}</span>
-        <h2>{title}</h2>
-        <p>{NOTE}</p>
-      </div>
-      {children}
+      <article className="product-finish-group">
+        <div className="product-finish-group-heading">
+          <h2>{title}</h2>
+          <p>{subtitle || NOTE}</p>
+        </div>
+        {children}
+      </article>
     </section>
   )
 }
@@ -271,13 +274,17 @@ export default function FabricsFinishesPage() {
           <a href="#wood-finishes">Wood</a>
           <a href="#upholstery">Upholstery</a>
           <a href="#vinyl">Vinyl</a>
-          <a href="#table-bases">Table Bases</a>
+          <a href="#table-bases">Indoor Metal Finishes</a>
         </div>
       </section>
 
       <div className="container fabrics-page-content">
-        <FinishSection id="wood-finishes" eyebrow="Aceray Standard" title="Wood Finishes">
-          <div className="finish-swatch-grid finish-swatch-grid-wood">
+        <FinishSection
+          id="wood-finishes"
+          title="Aceray Wood Finishes"
+          subtitle="Digital colors cannot be guaranteed for accuracy."
+        >
+          <div className="product-finish-swatch-grid">
             {WOOD_FINISHES.map(([label, src]) => (
               <SwatchCard key={label} label={label} src={src} />
             ))}
@@ -285,45 +292,45 @@ export default function FabricsFinishesPage() {
         </FinishSection>
 
         <section className="finish-section" id="upholstery">
-          <div className="finish-section-heading">
-            <span className="finish-section-eyebrow">Aceray Graded In</span>
-            <h2>Upholstery</h2>
-            <p>Use partner textile libraries and grade references when specifying fabric for Aceray products.</p>
-          </div>
+          <article className="product-finish-group">
+            <div className="product-finish-group-heading">
+              <h2>Aceray Upholstery</h2>
+              <p>COM, COL, or Aceray graded-in upholstery resources. Use partner textile libraries and grade references when specifying fabric for Aceray products.</p>
+            </div>
 
-          <div className="upholstery-partner-grid">
-            {UPHOLSTERY_PARTNERS.map((partner) => (
-              <article className="upholstery-partner-card" key={partner.name}>
-                <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" />
-                <h3>{partner.name}</h3>
-                <div className="upholstery-partner-actions">
-                  <a href={partner.url} target="_blank" rel="noreferrer" className="btn-outline">
-                    Visit
-                  </a>
-                  <a href={partner.grades} target="_blank" rel="noreferrer" className="btn-outline">
-                    Grades
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+            <div className="product-finish-partner-grid upholstery-partner-grid">
+              {UPHOLSTERY_PARTNERS.map((partner) => (
+                <article className="product-finish-partner-card upholstery-partner-card" key={partner.name}>
+                  <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" />
+                  <h3>{partner.name}</h3>
+                  <div className="product-finish-partner-actions upholstery-partner-actions">
+                    <a href={partner.url} target="_blank" rel="noreferrer" className="btn-outline">
+                      Visit
+                    </a>
+                    {partner.grades && (
+                      <a href={partner.grades} target="_blank" rel="noreferrer" className="btn-outline">
+                        Grades
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </article>
         </section>
 
         <section className="finish-section" id="vinyl">
-          <div className="finish-section-heading">
-            <span className="finish-section-eyebrow">Aceray Graded In</span>
-            <h2>Vinyl Quality</h2>
-            <p>{NOTE}</p>
-          </div>
-
           <div className="vinyl-group-stack">
             {VINYL_GROUPS.map((group) => (
-              <article className="vinyl-group" key={group.title}>
-                <div className="vinyl-group-heading">
-                  <h3>{group.title}</h3>
-                  <span>{group.grade}</span>
+              <article className="product-finish-group" key={group.title}>
+                <div className="product-finish-group-heading flex justify-between items-baseline flex-wrap gap-2">
+                  <div>
+                    <h2>Aceray {group.title} Vinyl{group.grade ? ` - ${group.grade}` : ''}</h2>
+                    <p>{NOTE}</p>
+                  </div>
+                  <span className="tag">{group.grade}</span>
                 </div>
-                <div className="finish-swatch-grid finish-swatch-grid-compact">
+                <div className="product-finish-swatch-grid">
                   {group.colors.map(([label, src]) => (
                     <SwatchCard key={`${group.title}-${label}`} label={label} src={src} />
                   ))}
@@ -333,8 +340,12 @@ export default function FabricsFinishesPage() {
           </div>
         </section>
 
-        <FinishSection id="table-bases" eyebrow="Table Base" title="Indoor Finishes">
-          <div className="finish-swatch-grid">
+        <FinishSection
+          id="table-bases"
+          title="Aceray Indoor Metal Finishes"
+          subtitle="Aceray table base and metal finish options."
+        >
+          <div className="product-finish-swatch-grid">
             {TABLE_BASE_FINISHES.map(([label, src]) => (
               <SwatchCard key={label} label={label} src={src} />
             ))}

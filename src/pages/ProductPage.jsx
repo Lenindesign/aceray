@@ -1,6 +1,6 @@
 import { Component, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams, useParams, Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Heart, FileText, Download, Layers, Box, Archive } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Heart, FileText, Download, Layers, Box, Archive } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,7 +16,7 @@ import ProductStickyNav from '@/components/ProductStickyNav'
 import ProductSpecSheetPDF from '@/components/ProductSpecSheetPDF'
 import { sanityFetch } from '@/sanityClient'
 import { urlFor } from '@/lib/sanityImageUrl'
-import { getCollectionFamily, getFamilySlug, normalizeCategory } from '@/lib/productFamilies'
+import { getCollectionFamily, getFamilySlug, normalizeCategory, getEnrichedProductTitle, getCategorySuffix, getCanonicalCategory } from '@/lib/productFamilies'
 import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } from '@/lib/favorites'
 import { removeSeoJsonLd, setSeoMetadata } from '@/lib/seo'
 import { FullscreenImageViewer } from '@/components/FullscreenImageViewer'
@@ -64,89 +64,7 @@ class ProductPageErrorBoundary extends Component {
   }
 }
 
-export function getEnrichedProductTitle(title, categories) {
-  if (!title) return ''
-  const catList = Array.isArray(categories) ? categories : []
-  
-  let primaryCat = catList.find(c => {
-    const l = c.toLowerCase()
-    return l.includes('side chair') || l.includes('armchair') || l.includes('lounge') || l.includes('counter stool') || l.includes('barstool') || l.includes('table') || l.includes('outdoor') || l.includes('bench')
-  }) || catList[0] || ''
-
-  if (!primaryCat) return title
-
-  const lowerTitle = title.toLowerCase()
-  const lowerCat = primaryCat.toLowerCase()
-
-  let categorySuffix = primaryCat
-  if (lowerCat.includes('side chair')) categorySuffix = 'Side Chair'
-  else if (lowerCat.includes('armchair')) categorySuffix = 'Armchair'
-  else if (lowerCat.includes('lounge')) categorySuffix = 'Lounge Chair'
-  else if (lowerCat.includes('counter stool')) categorySuffix = 'Counter Stool'
-  else if (lowerCat.includes('barstool') || lowerCat.includes('stool')) categorySuffix = 'Barstool'
-  else if (lowerCat.includes('bench')) categorySuffix = 'Bench'
-  else if (lowerCat.includes('table')) categorySuffix = 'Table'
-  else if (lowerCat.includes('outdoor')) categorySuffix = 'Outdoor Chair'
-
-  if (/^\d+/i.test(categorySuffix) || /^c2m/i.test(categorySuffix)) return title
-
-  if (
-    lowerTitle.includes('chair') ||
-    lowerTitle.includes('armchair') ||
-    lowerTitle.includes('stool') ||
-    lowerTitle.includes('table') ||
-    lowerTitle.includes('lounge') ||
-    lowerTitle.includes('bench') ||
-    lowerTitle.includes('sofa') ||
-    lowerTitle.includes(categorySuffix.toLowerCase())
-  ) {
-    return title
-  }
-
-  return `${title} ${categorySuffix}`
-}
-
-export function getCategorySuffix(title, categories) {
-  if (!title) return ''
-  const catList = Array.isArray(categories) ? categories : []
-  
-  let primaryCat = catList.find(c => {
-    const l = (typeof c === 'string' ? c : (c?.title || '')).toLowerCase()
-    return l.includes('side chair') || l.includes('armchair') || l.includes('lounge') || l.includes('counter stool') || l.includes('barstool') || l.includes('table') || l.includes('outdoor') || l.includes('bench')
-  }) || (typeof catList[0] === 'string' ? catList[0] : (catList[0]?.title || '')) || ''
-
-  if (!primaryCat) return ''
-
-  const lowerTitle = title.toLowerCase()
-  const lowerCat = primaryCat.toLowerCase()
-
-  let categorySuffix = primaryCat
-  if (lowerCat.includes('side chair')) categorySuffix = 'Side Chair'
-  else if (lowerCat.includes('armchair')) categorySuffix = 'Armchair'
-  else if (lowerCat.includes('lounge')) categorySuffix = 'Lounge Chair'
-  else if (lowerCat.includes('counter stool')) categorySuffix = 'Counter Stool'
-  else if (lowerCat.includes('barstool') || lowerCat.includes('stool')) categorySuffix = 'Barstool'
-  else if (lowerCat.includes('bench')) categorySuffix = 'Bench'
-  else if (lowerCat.includes('table')) categorySuffix = 'Table'
-  else if (lowerCat.includes('outdoor')) categorySuffix = 'Outdoor Chair'
-
-  if (/^\d+/i.test(categorySuffix) || /^c2m/i.test(categorySuffix)) return ''
-
-  if (
-    lowerTitle.includes('chair') ||
-    lowerTitle.includes('armchair') ||
-    lowerTitle.includes('stool') ||
-    lowerTitle.includes('table') ||
-    lowerTitle.includes('lounge') ||
-    lowerTitle.includes('bench') ||
-    lowerTitle.includes('sofa') ||
-    lowerTitle.includes(categorySuffix.toLowerCase())
-  ) {
-    return ''
-  }
-
-  return categorySuffix
-}
+export { getEnrichedProductTitle, getCategorySuffix }
 
 // ── GROQ ─────────────────────────────────────────────────────
 const PRODUCT_QUERY = `*[_type == "product" && (slug.current == $slug || lower(slug.current) == lower($slug))][0] {
@@ -403,23 +321,72 @@ function getTableBaseFinishMatches(product) {
   return matched
 }
 
+function isTableBaseOrTopProduct(product) {
+  const primaryCat = getCanonicalCategory(product?.categories)
+  const seatingCategories = [
+    'Side Chairs',
+    'Armchairs',
+    'Lounge Seating',
+    'Barstools',
+    'Counter Stools',
+    'Low Stools / Ottomans',
+    'Benches',
+    'Outdoors',
+  ]
+  if (seatingCategories.includes(primaryCat)) {
+    return false
+  }
+
+  if (
+    primaryCat === 'Table Bases' ||
+    primaryCat === 'Table Tops' ||
+    primaryCat === 'Tables & Bases'
+  ) {
+    return true
+  }
+
+  const catList = Array.isArray(product?.categories) ? product.categories : []
+  const title = (product?.title || '').toLowerCase()
+  const slug = (typeof product?.slug === 'string' ? product.slug : product?.slug?.current || '').toLowerCase()
+
+  const hasSeatingSignal = catList.some((c) => {
+    const s = (typeof c === 'string' ? c : c?.title || '').toLowerCase()
+    return (
+      s.includes('chair') ||
+      s.includes('stool') ||
+      s.includes('lounge') ||
+      s.includes('bench') ||
+      s.includes('ottoman')
+    )
+  })
+  if (hasSeatingSignal) return false
+
+  return (
+    title.includes('table base') ||
+    title.includes('table top') ||
+    slug.includes('table-base') ||
+    slug.includes('table-top')
+  )
+}
+
 function getProductFinishSections(product) {
   const sections = []
   const text = getProductFinishText(product)
+  const isTable = isTableBaseOrTopProduct(product)
 
-  if (/leather straps? available in black,\s*dark brown or natural/i.test(text)) {
+  if (!isTable && /leather straps? available in black,\s*dark brown or natural/i.test(text)) {
     sections.push({
       id: 'leather-straps',
-      title: 'Leather Strap Colors',
+      title: 'Aceray Leather Strap',
       subtitle: 'Available in Black, Dark Brown, or Natural.',
       swatches: LEATHER_STRAP_COLORS,
     })
   }
 
-  if (/saddle leather colors/i.test(text)) {
+  if (!isTable && /saddle leather colors/i.test(text)) {
     sections.push({
       id: 'saddle-leather',
-      title: 'Saddle Leather Colors',
+      title: 'Aceray Saddle Leather',
       subtitle: 'Available in Cream, Black, Tobacco, or Espresso.',
       swatches: SADDLE_LEATHER_COLORS,
     })
@@ -428,43 +395,38 @@ function getProductFinishSections(product) {
   if (hasFinishSignal(product, /\bwood\b|beech|ash|stains?|wood finishes?|custom stains?|custom wood/i)) {
     sections.push({
       id: 'wood-finishes',
-      title: 'Wood Finishes',
-      subtitle: 'Aceray standard wood stains or custom match finishes.',
-      swatches: WOOD_FINISHES.slice(0, PRODUCT_FINISH_LIMITS.wood).map(([label, src]) => ({ label, src })),
-      href: '/fabrics-finishes#wood-finishes',
-      hrefLabel: 'View all wood finishes',
+      title: 'Aceray Wood Finishes',
+      subtitle: 'Digital colors cannot be guaranteed for accuracy.',
+      swatches: WOOD_FINISHES.map(([label, src]) => ({ label, src })),
     })
   }
 
-  if (hasFinishSignal(product, /\bCOM\b|\bCOL\b|graded[- ]?in|upholster|fabric/i)) {
+  if (!isTable && hasFinishSignal(product, /\bCOM\b|\bCOL\b|graded[- ]?in|upholster|fabric/i)) {
     sections.push({
       id: 'upholstery',
-      title: 'Upholstery',
+      title: 'Aceray Upholstery',
       subtitle: 'COM, COL, or Aceray graded-in upholstery resources.',
-      partners: UPHOLSTERY_PARTNERS.slice(0, PRODUCT_FINISH_LIMITS.upholsteryPartners),
-      href: '/fabrics-finishes#upholstery',
-      hrefLabel: 'View upholstery partners',
+      partners: UPHOLSTERY_PARTNERS,
     })
   }
 
-  getMatchedVinylGroups(product).forEach((group) => {
-    sections.push({
-      id: `vinyl-${normalizeCategory(group.title)}`,
-      title: `${group.title} Vinyl`,
-      subtitle: group.grade,
-      swatches: group.colors
-        .slice(0, PRODUCT_FINISH_LIMITS.vinylColors)
-        .map(([label, src]) => ({ label, src })),
-      href: '/fabrics-finishes#vinyl',
-      hrefLabel: 'View vinyl colors',
+  if (!isTable) {
+    getMatchedVinylGroups(product).forEach((group) => {
+      sections.push({
+        id: `vinyl-${normalizeCategory(group.title)}`,
+        title: group.grade ? `Aceray ${group.title} Vinyl - ${group.grade}` : `Aceray ${group.title} Vinyl`,
+        subtitle: 'Digital colors cannot be guaranteed for accuracy.',
+        swatches: group.colors.map(([label, src]) => ({ label, src })),
+        initialLimit: PRODUCT_FINISH_LIMITS.vinylColors,
+      })
     })
-  })
+  }
 
   const tableBaseFinishes = getTableBaseFinishMatches(product)
   if (tableBaseFinishes.length) {
     sections.push({
       id: 'metal-finishes',
-      title: /leg protectors/i.test(text) ? 'Leg Protector Finish' : 'Indoor Metal Finishes',
+      title: /leg protectors/i.test(text) ? 'Aceray Leg Protector Finish' : 'Aceray Indoor Metal Finishes',
       subtitle: /leg protectors/i.test(text) ? 'Optional brushed stainless steel leg protectors.' : 'Aceray table base and metal finish options.',
       swatches: tableBaseFinishes.map(([label, src]) => ({ label, src })),
       href: '/fabrics-finishes#table-bases',
@@ -748,64 +710,107 @@ function ProductFinishSwatch({ label, src, color }) {
   )
 }
 
+function ProductFinishGroupCard({ section }) {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const initialLimit = section.initialLimit || null
+  const hasAccordion = Boolean(initialLimit && section.swatches && section.swatches.length > initialLimit)
+  const visibleSwatches = hasAccordion && !isExpanded
+    ? section.swatches.slice(0, initialLimit)
+    : section.swatches
+
+  return (
+    <article className="product-finish-group" key={section.id}>
+      <div className="product-finish-group-heading">
+        <h3>{section.title}</h3>
+        {section.subtitle ? <p>{section.subtitle}</p> : null}
+      </div>
+
+      {visibleSwatches?.length > 0 && (
+        <div className="product-finish-swatch-grid">
+          {visibleSwatches.map((swatch) => (
+            <ProductFinishSwatch
+              key={`${section.id}-${swatch.label}`}
+              label={swatch.label}
+              src={swatch.src}
+              color={swatch.color}
+            />
+          ))}
+        </div>
+      )}
+
+      {hasAccordion && (
+        <button
+          type="button"
+          className="product-finish-toggle-btn"
+          onClick={() => setIsExpanded((prev) => !prev)}
+          aria-expanded={isExpanded}
+        >
+          <span>{isExpanded ? 'Show Less' : `View All Vinyl Colors (${section.swatches.length})`}</span>
+          {isExpanded ? (
+            <ChevronUp className="size-4 shrink-0" aria-hidden="true" />
+          ) : (
+            <ChevronDown className="size-4 shrink-0" aria-hidden="true" />
+          )}
+        </button>
+      )}
+
+      {section.partners?.length > 0 && (
+        <div className="product-finish-partner-grid upholstery-partner-grid">
+          {section.partners.map((partner) => (
+            <article className="product-finish-partner-card upholstery-partner-card" key={partner.name}>
+              <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" />
+              <h3>{partner.name}</h3>
+              <div className="product-finish-partner-actions upholstery-partner-actions">
+                <a href={partner.url} target="_blank" rel="noreferrer" className="btn-outline">
+                  Visit
+                </a>
+                {partner.grades && (
+                  <a href={partner.grades} target="_blank" rel="noreferrer" className="btn-outline">
+                    Grades
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+
+      {section.href && (
+        <Link className="product-finish-link" to={section.href}>
+          {section.hrefLabel}
+        </Link>
+      )}
+    </article>
+  )
+}
+
 function ProductFinishModule({ product }) {
   const finishSections = getProductFinishSections(product)
-
   if (!finishSections.length) return null
+
+  const isTable = isTableBaseOrTopProduct(product)
+  const hasFabric = finishSections.some(
+    (section) =>
+      section.id === 'upholstery' ||
+      section.id.startsWith('vinyl-') ||
+      section.id === 'leather-straps' ||
+      section.id === 'saddle-leather'
+  )
+
+  const isFinishesOnly = isTable || !hasFabric
+  const sectionTitle = isFinishesOnly ? 'Finishes' : 'Fabrics & Finishes'
+  const sectionSubtitle = isFinishesOnly
+    ? 'Available finish options for this product'
+    : 'Available materials and finish options for this product'
 
   return (
     <section id="product-finishes" className="related-section product-finishes-section container">
-      <h2 className="section-title">Fabrics &amp; Finishes</h2>
-      <p className="section-subtitle">Available materials and finish options for this product</p>
+      <h2 className="section-title">{sectionTitle}</h2>
+      <p className="section-subtitle">{sectionSubtitle}</p>
 
       <div className="product-finish-groups">
         {finishSections.map((section) => (
-          <article className="product-finish-group" key={section.id}>
-            <div className="product-finish-group-heading">
-              <h3>{section.title}</h3>
-              <p>{section.subtitle || FINISH_NOTE}</p>
-            </div>
-
-            {section.swatches?.length > 0 && (
-              <div className="product-finish-swatch-grid">
-                {section.swatches.map((swatch) => (
-                  <ProductFinishSwatch
-                    key={`${section.id}-${swatch.label}`}
-                    label={swatch.label}
-                    src={swatch.src}
-                    color={swatch.color}
-                  />
-                ))}
-              </div>
-            )}
-
-            {section.partners?.length > 0 && (
-              <div className="product-finish-partner-grid upholstery-partner-grid">
-                {section.partners.map((partner) => (
-                  <article className="product-finish-partner-card upholstery-partner-card" key={partner.name}>
-                    <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" />
-                    <h3>{partner.name}</h3>
-                    <div className="product-finish-partner-actions upholstery-partner-actions">
-                      <a href={partner.url} target="_blank" rel="noreferrer" className="btn-outline">
-                        Visit
-                      </a>
-                      {partner.grades && (
-                        <a href={partner.grades} target="_blank" rel="noreferrer" className="btn-outline">
-                          Grades
-                        </a>
-                      )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {section.href && (
-              <Link className="product-finish-link" to={section.href}>
-                {section.hrefLabel}
-              </Link>
-            )}
-          </article>
+          <ProductFinishGroupCard key={section.id} section={section} />
         ))}
       </div>
     </section>

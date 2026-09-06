@@ -927,21 +927,24 @@
   }
 
   .product-finish-group {
+    background: var(--color-white);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
-    padding: clamp(var(--space-3), 4vw, var(--space-6));
+    padding: clamp(var(--space-4), 4vw, var(--space-8));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
   }
 
   .product-finish-group-heading {
     margin-bottom: var(--space-4);
   }
 
+  .product-finish-group-heading h2,
   .product-finish-group-heading h3 {
     color: var(--color-text-main);
-    font-family: var(--font-display);
-    font-size: clamp(1.15rem, 2vw, 1.5rem);
-    font-weight: 300;
-    letter-spacing: 0.08em;
+    font-family: var(--font-heading);
+    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: 0.06em;
     line-height: 1.2;
     margin: 0 0 var(--space-1);
     text-transform: uppercase;
@@ -956,8 +959,33 @@
 
   .product-finish-swatch-grid {
     display: grid;
-    gap: var(--space-3);
-    grid-template-columns: repeat(auto-fill, minmax(9rem, 10rem));
+    gap: var(--space-4) var(--space-3);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  @media (max-width: 1200px) {
+    .product-finish-swatch-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 992px) {
+    .product-finish-swatch-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-finish-swatch-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3) var(--space-2);
+    }
+  }
+
+  @media (max-width: 420px) {
+    .product-finish-swatch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .product-finish-partner-grid {
@@ -1090,19 +1118,30 @@
     text-transform: uppercase !important;
   }
 
-  .product-finish-link {
+  .product-finish-link,
+  .product-finish-toggle-btn {
+    align-items: center;
+    background: transparent;
+    border: none;
     color: var(--color-primary-dark);
+    cursor: pointer;
     display: inline-flex;
+    font-family: var(--font-sans);
     font-size: var(--font-size-sm);
     font-weight: 700;
+    gap: var(--space-1);
     letter-spacing: 0.08em;
     margin-top: var(--space-3);
+    padding: 0;
     text-decoration: none;
     text-transform: uppercase;
+    transition: color 0.2s ease;
   }
 
   .product-finish-link:hover,
-  .product-finish-link:focus-visible {
+  .product-finish-link:focus-visible,
+  .product-finish-toggle-btn:hover,
+  .product-finish-toggle-btn:focus-visible {
     color: var(--color-primary);
   }
 

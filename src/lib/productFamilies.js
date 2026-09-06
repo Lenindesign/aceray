@@ -126,3 +126,152 @@ export function getPreferredFamilyHeroImage(products = [], familySlug = '') {
 
   return candidates[0]?.url || ''
 }
+
+export const CANONICAL_CATEGORIES = [
+  'Side Chairs',
+  'Armchairs',
+  'Lounge Seating',
+  'Barstools',
+  'Counter Stools',
+  'Low Stools / Ottomans',
+  'Benches',
+  'Tables & Bases',
+  'Outdoors',
+]
+
+export function formatProductTitleWithCategory(str) {
+  if (!str) return ''
+  const regex = /^(.+?)\s+(side\s*chairs?|armchairs?|lounge\s*chairs?|lounge\s*seating|counter\s*stools?|barstools?|low\s*stools?|ottomans?|poufs?|stools?|tables?|benches?|outdoor\s*chairs?)$/i
+  const match = str.trim().match(regex)
+  if (match) {
+    const model = match[1].toUpperCase()
+    const catLower = match[2].toLowerCase()
+    let catTitle = match[2]
+    if (catLower.includes('low stool')) catTitle = 'Low Stool'
+    else if (catLower.includes('ottoman')) catTitle = 'Ottoman'
+    else if (catLower.includes('pouf')) catTitle = 'Ottoman'
+    else if (catLower.includes('side chair')) catTitle = 'Side Chair'
+    else if (catLower.includes('armchair')) catTitle = 'Armchair'
+    else if (catLower.includes('lounge')) catTitle = 'Lounge Chair'
+    else if (catLower.includes('counter stool')) catTitle = 'Counter Stool'
+    else if (catLower.includes('barstool') || catLower.includes('stool')) catTitle = 'Barstool'
+    else if (catLower.includes('bench')) catTitle = 'Bench'
+    else if (catLower.includes('table')) catTitle = 'Table'
+    else if (catLower.includes('outdoor')) catTitle = 'Outdoor Chair'
+    return `${model} ${catTitle}`
+  }
+  return str.toUpperCase()
+}
+
+export function getCanonicalCategory(categories = []) {
+  const catList = Array.isArray(categories) ? categories : []
+
+  // 1. Filter out RTS tags, vinyl groups, and material tags
+  const filtered = catList.filter((c) => {
+    const s = (typeof c === 'string' ? c : c?.title || '').trim()
+    if (/rts$/i.test(s) || /ready to ship/i.test(s)) return false
+    if (/^(materials|wood|upholstery|swivel|chrome|indoor powder|extrema metal|matte \+ chrome|chrome \+ black)$/i.test(s)) return false
+    if (/^(planet|skill|aurea)$/i.test(s)) return false
+    if (/^(products|what's new)$/i.test(s)) return false
+    return true
+  })
+
+  // 2. Exact match against CANONICAL_CATEGORIES
+  const exact = CANONICAL_CATEGORIES.find((cat) =>
+    filtered.some((c) => {
+      const s = (typeof c === 'string' ? c : c?.title || '').toLowerCase()
+      return s === cat.toLowerCase() || s === cat.toLowerCase().replace('&', '&amp;')
+    })
+  )
+  if (exact) return exact
+
+  // 3. Fallback to specific pattern matching on filtered categories (order matters!)
+  const priorityPatterns = [
+    { pattern: /low\s*stool|ottoman|pouf/i, name: 'Low Stools / Ottomans' },
+    { pattern: /counter\s*stool/i, name: 'Counter Stools' },
+    { pattern: /barstool/i, name: 'Barstools' },
+    { pattern: /armchair/i, name: 'Armchairs' },
+    { pattern: /side\s*chair/i, name: 'Side Chairs' },
+    { pattern: /lounge/i, name: 'Lounge Seating' },
+    { pattern: /bench/i, name: 'Benches' },
+    { pattern: /table\s*base/i, name: 'Table Bases' },
+    { pattern: /table\s*top/i, name: 'Table Tops' },
+    { pattern: /table/i, name: 'Tables & Bases' },
+    { pattern: /outdoor/i, name: 'Outdoors' },
+  ]
+
+  for (const { pattern, name } of priorityPatterns) {
+    const found = filtered.find((c) => {
+      const s = typeof c === 'string' ? c : c?.title || ''
+      return pattern.test(s)
+    })
+    if (found) return name
+  }
+
+  return filtered[0] || catList[0] || ''
+}
+
+export function getCategorySuffix(title, categories) {
+  if (!title) return ''
+  const primaryCat = getCanonicalCategory(categories)
+  if (!primaryCat) return ''
+
+  const lowerCat = (typeof primaryCat === 'string' ? primaryCat : (primaryCat?.title || '')).toLowerCase()
+  const lowerTitle = title.toLowerCase()
+
+  let categorySuffix = typeof primaryCat === 'string' ? primaryCat : (primaryCat?.title || '')
+  if (lowerCat.includes('low stool') || lowerCat.includes('ottoman') || lowerCat.includes('pouf')) {
+    if (lowerTitle.includes('pouf') || lowerTitle.includes('ottoman') || lowerTitle.endsWith('-ot')) {
+      categorySuffix = 'Ottoman'
+    } else {
+      categorySuffix = 'Low Stool'
+    }
+  } else if (lowerCat.includes('side chair')) {
+    categorySuffix = 'Side Chair'
+  } else if (lowerCat.includes('armchair')) {
+    categorySuffix = 'Armchair'
+  } else if (lowerCat.includes('lounge')) {
+    categorySuffix = 'Lounge Chair'
+  } else if (lowerCat.includes('counter stool')) {
+    categorySuffix = 'Counter Stool'
+  } else if (lowerCat.includes('barstool') || lowerCat.includes('stool')) {
+    categorySuffix = 'Barstool'
+  } else if (lowerCat.includes('bench')) {
+    categorySuffix = 'Bench'
+  } else if (lowerCat.includes('table base')) {
+    categorySuffix = 'Table Base'
+  } else if (lowerCat.includes('table top')) {
+    categorySuffix = 'Table Top'
+  } else if (lowerCat.includes('table')) {
+    categorySuffix = 'Table'
+  } else if (lowerCat.includes('outdoor')) {
+    categorySuffix = 'Outdoor Chair'
+  }
+
+  if (/^\d+/i.test(categorySuffix) || /^c2m/i.test(categorySuffix)) return ''
+
+  if (
+    lowerTitle.includes('chair') ||
+    lowerTitle.includes('armchair') ||
+    lowerTitle.includes('stool') ||
+    lowerTitle.includes('table') ||
+    lowerTitle.includes('lounge') ||
+    lowerTitle.includes('bench') ||
+    lowerTitle.includes('sofa') ||
+    lowerTitle.includes(categorySuffix.toLowerCase())
+  ) {
+    return ''
+  }
+
+  return categorySuffix
+}
+
+export function getEnrichedProductTitle(title, categories) {
+  if (!title) return ''
+  const suffix = getCategorySuffix(title, categories)
+  if (!suffix) return formatProductTitleWithCategory(title)
+
+  return `${title.toUpperCase()} ${suffix}`
+}
+
+

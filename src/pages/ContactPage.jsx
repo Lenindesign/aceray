@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
 import { removeSeoJsonLd, setSeoMetadata, createBreadcrumbJsonLd, ACERAY_ORGANIZATION_SCHEMA } from '@/lib/seo'
+import { sanityFetch } from '@/sanityClient'
+import { getEnrichedProductTitle, formatProductTitleWithCategory } from '@/lib/productFamilies'
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams()
@@ -10,6 +12,40 @@ export default function ContactPage() {
   const rawProduct = searchParams.get('product') || ''
   const rawSlug = searchParams.get('slug') || ''
   const rawSubject = searchParams.get('subject') || ''
+  const rawCategory = searchParams.get('category') || ''
+
+  const [enrichedProductName, setEnrichedProductName] = useState(() => {
+    if (rawProduct && rawCategory) {
+      return getEnrichedProductTitle(rawProduct, [rawCategory])
+    }
+    return formatProductTitleWithCategory(rawProduct)
+  })
+
+  // If slug is provided and current product title does not have category indicator, fetch from Sanity
+  useEffect(() => {
+    if (!rawSlug) return
+    const hasCategorySignal = /\b(chair|armchair|stool|table|lounge|bench|sofa)\b/i.test(enrichedProductName)
+    if (hasCategorySignal && enrichedProductName) return
+
+    let isMounted = true
+    sanityFetch(
+      `*[_type == "product" && slug.current == $slug][0]{ title, categories }`,
+      { slug: rawSlug }
+    ).then((p) => {
+      if (isMounted && p && p.title) {
+        const fullTitle = getEnrichedProductTitle(p.title, p.categories)
+        if (fullTitle) {
+          setEnrichedProductName(fullTitle)
+        }
+      }
+    }).catch(() => {
+      // Graceful fallback to rawProduct
+    })
+
+    return () => {
+      isMounted = false
+    }
+  }, [rawSlug, enrichedProductName])
 
   // Determine inquiry type
   const defaultInquiryType = useMemo(() => {
@@ -19,10 +55,13 @@ export default function ContactPage() {
     return 'general'
   }, [rawIntent, rawProduct, rawSubject])
 
-  // Determine initial message template
+  // Format active product name: uppercase model + Title Case category
+  const activeProductName = useMemo(() => {
+    return formatProductTitleWithCategory(enrichedProductName || rawProduct)
+  }, [enrichedProductName, rawProduct])
   const defaultMessage = useMemo(() => {
-    if (rawProduct) {
-      return `Hello, I would like to request trade pricing, finish options, and lead-time information for the ${rawProduct} for an upcoming commercial project.\n\nProject Location: \nEstimated Quantity: \nRequired Delivery: `
+    if (activeProductName) {
+      return `Hello, I would like to request trade pricing, finish options, and lead-time information for the ${activeProductName} for an upcoming commercial project.\n\nProject Location: \nEstimated Quantity: \nRequired Delivery: `
     }
     if (rawIntent === 'catalog') {
       return `Hello, please send me the latest Aceray Commercial Furniture architectural catalog and digital binder.\n\nMailing Address (if print desired): `
@@ -31,7 +70,7 @@ export default function ContactPage() {
       return `Hello, I would like to request material and finish sample swatches for an upcoming project.\n\nFinishes/Fabrics of Interest: \nProject Name: `
     }
     return ''
-  }, [rawProduct, rawIntent])
+  }, [activeProductName, rawIntent])
 
   const [inquiryType, setInquiryType] = useState(defaultInquiryType)
   const [name, setName] = useState('')
@@ -41,7 +80,7 @@ export default function ContactPage() {
   const [message, setMessage] = useState(defaultMessage)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  // If URL params change, update defaults
+  // If URL params or enriched product change, update defaults
   useEffect(() => {
     setInquiryType(defaultInquiryType)
     setMessage(defaultMessage)
@@ -122,15 +161,15 @@ export default function ContactPage() {
               <>
                 <h2 className="contact-section-title">Send a Message</h2>
 
-                {rawProduct && (
+                {activeProductName && (
                   <div className="contact-product-badge">
                     <div className="contact-product-badge-info">
                       <span className="contact-product-badge-label">Item for Quote</span>
-                      <strong className="contact-product-badge-title">{rawProduct}</strong>
+                      <strong className="contact-product-badge-title">{activeProductName}</strong>
                     </div>
                     {rawSlug && (
                       <Link to={`/product/${rawSlug}`} className="contact-product-badge-link">
-                        <span>View Piece</span>
+                        <span>View Item</span>
                         <ArrowRight className="size-3" aria-hidden="true" />
                       </Link>
                     )}

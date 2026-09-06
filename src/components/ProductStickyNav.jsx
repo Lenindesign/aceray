@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FileText } from 'lucide-react'
 import { formatPrice, getProductPricing } from '@/lib/pricing'
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
+import { getEnrichedProductTitle } from '@/lib/productFamilies'
 
 export default function ProductStickyNav({
   product,
@@ -14,6 +15,10 @@ export default function ProductStickyNav({
 }) {
   const [isVisible, setIsVisible] = useState(false)
   const [activeSection, setActiveSection] = useState('product-overview')
+
+  const enrichedTitle = useMemo(() => {
+    return getEnrichedProductTitle(product?.title, product?.categories)
+  }, [product])
 
   const pricing = useMemo(() => getProductPricing(product), [product])
   const formattedPrice = pricing?.startingPrice ? formatPrice(pricing.startingPrice) : null
@@ -30,51 +35,46 @@ export default function ProductStickyNav({
     return list
   }, [hasFinishes, hasDownloads, hasCollection, hasRelated])
 
-  // Scroll visibility threshold
   useEffect(() => {
-    function handleScroll() {
-      const scrollY = window.scrollY || document.documentElement.scrollTop
-      setIsVisible(scrollY > 420)
+    const handleScroll = () => {
+      // Reveal sticky bar once hero gallery/specs have scrolled 420px
+      const scrollY = window.scrollY || window.pageYOffset
+      if (scrollY > 420) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+
+      // Check current section
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i].id)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= 140) {
+            setActiveSection(sections[i].id)
+            break
+          }
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Live section IntersectionObserver
-  useEffect(() => {
-    const sectionIds = sections.map((s) => s.id)
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean)
-
-    if (elements.length === 0) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      {
-        rootMargin: '-90px 0px -60% 0px',
-        threshold: 0.1,
-      }
-    )
-
-    elements.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
   }, [sections])
 
-  function handleJump(e, id) {
+  const handleJump = (e, sectionId) => {
     e.preventDefault()
-    const target = document.getElementById(id)
+    const target = document.getElementById(sectionId)
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' })
-      setActiveSection(id)
+      const topOffset = 100 // account for sticky nav height
+      const elementPosition = target.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - topOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      })
+      setActiveSection(sectionId)
     }
   }
 
@@ -88,11 +88,11 @@ export default function ProductStickyNav({
   const quoteUrl = useMemo(() => {
     const params = new URLSearchParams()
     params.set('intent', 'quote')
-    if (product?.title) params.set('product', product.title)
+    if (enrichedTitle) params.set('product', enrichedTitle)
     const s = product?.slug?.current || product?.slug
     if (s) params.set('slug', s)
     return `/contact?${params.toString()}`
-  }, [product])
+  }, [enrichedTitle, product])
 
   return (
     <nav
@@ -111,7 +111,7 @@ export default function ProductStickyNav({
             loading="lazy"
           />
           <div className="product-sticky-info">
-            <span className="product-sticky-title">{product?.title}</span>
+            <span className="product-sticky-title">{enrichedTitle || product?.title}</span>
             {formattedPrice && (
               <span className="product-sticky-price">From {formattedPrice}</span>
             )}
