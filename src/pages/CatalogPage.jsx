@@ -334,51 +334,54 @@ export default function CatalogPage() {
 
   return (
     <div className="catalog-page">
-      <div className="catalog-layout container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start py-6 md:py-8">
-        {/* Filters Sidebar */}
-        <aside className="catalog-sidebar hidden lg:block lg:col-span-3">
-          <div>
-            <h3 className="catalog-filter-title">Category</h3>
-            <ul className="catalog-filter-list">
-              <li>
+      {/* Horizontal Category Subnavigation Bar */}
+      <div className="catalog-subnav-sticky">
+        <div className="catalog-subnav-container">
+          <nav className="catalog-subnav-bar" aria-label="Product categories">
+            <button
+              type="button"
+              onClick={() => setFilter('cat', '')}
+              className={`catalog-subnav-btn ${!cat && !tag && !isNew && !q ? 'active' : ''}`}
+            >
+              <span>All Products</span>
+              {categoryCounts.all ? (
+                <span className="catalog-subnav-count">{categoryCounts.all}</span>
+              ) : null}
+            </button>
+            {CATEGORIES.map((c) => {
+              const slug = getCategorySlug(c)
+              const active = cat === slug || (slug.startsWith('outdoor') && (cat === 'outdoor' || cat === 'outdoors'))
+              return (
                 <button
-                  onClick={() => setFilter('cat', '')}
-                  className={`catalog-filter-button ${!cat && !tag && !isNew && !q ? 'active' : ''}`}
+                  type="button"
+                  key={c}
+                  onClick={() => setFilter('cat', slug)}
+                  className={`catalog-subnav-btn ${active ? 'active' : ''}`}
                 >
-                  <span>All Products</span>
-                  <span className="catalog-filter-count">{categoryCounts.all ?? ''}</span>
+                  <span>{c}</span>
+                  {categoryCounts[slug] ? (
+                    <span className="catalog-subnav-count">{categoryCounts[slug]}</span>
+                  ) : null}
                 </button>
-              </li>
-              {CATEGORIES.map((c) => {
-                const slug = getCategorySlug(c)
-                const active = cat === slug || (slug.startsWith('outdoor') && (cat === 'outdoor' || cat === 'outdoors'))
-                return (
-                  <li key={c}>
-                    <button
-                      onClick={() => setFilter('cat', slug)}
-                      className={`catalog-filter-button ${active ? 'active' : ''}`}
-                    >
-                      <span>{c}</span>
-                      <span className="catalog-filter-count">{categoryCounts[slug] ?? ''}</span>
-                    </button>
-                  </li>
-                )
-              })}
-              <li>
-                <button
-                  onClick={setFavoritesFilter}
-                  className={`catalog-filter-button ${isFavorites ? 'active' : ''}`}
-                >
-                  <span>Favorites</span>
-                  <span className="catalog-filter-count">{categoryCounts.favorites ?? 0}</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </aside>
+              )
+            })}
+            <button
+              type="button"
+              onClick={setFavoritesFilter}
+              className={`catalog-subnav-btn ${isFavorites ? 'active' : ''}`}
+            >
+              <span>Favorites</span>
+              {categoryCounts.favorites ? (
+                <span className="catalog-subnav-count">{categoryCounts.favorites}</span>
+              ) : null}
+            </button>
+          </nav>
+        </div>
+      </div>
 
-        {/* Right Main Column */}
-        <div className="catalog-main-content col-span-1 lg:col-span-9 flex flex-col gap-6">
+      <div className="catalog-content-container">
+        {/* Main Column */}
+        <div className="catalog-main-content w-full flex flex-col gap-4">
           {/* Header */}
           <div className="catalog-heading">
             <h1 className="catalog-title">
@@ -407,81 +410,56 @@ export default function CatalogPage() {
             </div>
           </div>
 
-        {/* Mobile filter pills */}
-        <div className="catalog-mobile-filters lg:hidden flex flex-wrap gap-2 mb-4">
-          <button type="button" onClick={() => setFilter('cat', '')}>
-            <span className={`cat-badge ${!cat && !tag && !isNew && !q ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
-              All Products
-            </span>
-          </button>
-          {CATEGORIES.map((c) => {
-            const slug = getCategorySlug(c)
-            const active = cat === slug || (slug.startsWith('outdoor') && (cat === 'outdoor' || cat === 'outdoors'))
-            return (
-              <button type="button" key={c} onClick={() => setFilter('cat', active ? '' : slug)}>
-                <span className={`cat-badge ${active ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
-                  {c}
-                </span>
-              </button>
-            )
-          })}
-          <button type="button" onClick={setFavoritesFilter}>
-            <span className={`cat-badge ${isFavorites ? 'cat-badge-active' : 'cat-badge-inactive'}`}>
-              Favorites
-            </span>
-          </button>
-        </div>
-
-        {/* Grid */}
-        <div>
-          {q && (
-            <p className="catalog-results-note">
-              Showing results for <strong>"{q}"</strong>
-              <button onClick={() => setFilter('q', '')}>clear</button>
-            </p>
-          )}
-
-          {designer && (
-            <p className="catalog-results-note">
-              Showing products designed by <strong>{designer}</strong>
-              <button onClick={clearDesignerFilter}>clear</button>
-            </p>
-          )}
-
-          {loading && products.length === 0 ? (
-            <div className={viewMode === 'list' ? 'catalog-list-container flex flex-col gap-4' : 'catalog-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'}>
-              {[...Array(12)].map((_, i) => (
-                <div key={i} className={viewMode === 'list' ? 'p-4 border border-[var(--color-border)] rounded-[var(--radius-card)] flex gap-4 items-center' : ''}>
-                  <Skeleton className={viewMode === 'list' ? 'w-32 h-32 rounded-md flex-shrink-0' : 'aspect-square rounded-sm mb-3'} />
-                  <div className="flex-1">
-                    <Skeleton className="h-4 w-3/4 mb-1.5" />
-                    <Skeleton className="h-3 w-1/2" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : products.length === 0 ? (
-            <div className="catalog-empty">
-              <h2 className="catalog-empty-title">
-                {isFavorites ? 'No favorites yet' : 'No products found'}
-              </h2>
-              <p className="catalog-empty-copy">
-                {isFavorites
-                  ? 'Use the heart button on product cards to save pieces here for quick reference.'
-                  : 'Try another category or clear the current filters to browse the full Aceray collection.'}
+          {/* Grid */}
+          <div>
+            {q && (
+              <p className="catalog-results-note">
+                Showing results for <strong>"{q}"</strong>
+                <button onClick={() => setFilter('q', '')}>clear</button>
               </p>
-              <button
-                onClick={() => setSearchParams({})}
-                className="btn-outline"
-              >
-                {isFavorites ? 'Browse All Products' : 'Clear Filters'}
-              </button>
-            </div>
-          ) : (
-            <>
-              <div className={viewMode === 'list' ? 'catalog-list-container flex flex-col gap-4' : 'catalog-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'}>
-                {products.map((p) => <ProductCard key={p._id} product={p} layout={viewMode} />)}
+            )}
+
+            {designer && (
+              <p className="catalog-results-note">
+                Showing products designed by <strong>{designer}</strong>
+                <button onClick={clearDesignerFilter}>clear</button>
+              </p>
+            )}
+
+            {loading && products.length === 0 ? (
+              <div className={viewMode === 'list' ? 'catalog-list-container flex flex-col gap-4' : 'catalog-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'}>
+                {[...Array(12)].map((_, i) => (
+                  <div key={i} className={viewMode === 'list' ? 'p-4 border border-[var(--color-border)] rounded-[var(--radius-card)] flex gap-4 items-center' : ''}>
+                    <Skeleton className={viewMode === 'list' ? 'w-32 h-32 rounded-md flex-shrink-0' : 'aspect-square rounded-sm mb-3'} />
+                    <div className="flex-1">
+                      <Skeleton className="h-4 w-3/4 mb-1.5" />
+                      <Skeleton className="h-3 w-1/2" />
+                    </div>
+                  </div>
+                ))}
               </div>
+            ) : products.length === 0 ? (
+              <div className="catalog-empty">
+                <h2 className="catalog-empty-title">
+                  {isFavorites ? 'No favorites yet' : 'No products found'}
+                </h2>
+                <p className="catalog-empty-copy">
+                  {isFavorites
+                    ? 'Use the heart button on product cards to save pieces here for quick reference.'
+                    : 'Try another category or clear the current filters to browse the full Aceray collection.'}
+                </p>
+                <button
+                  onClick={() => setSearchParams({})}
+                  className="btn-outline"
+                >
+                  {isFavorites ? 'Browse All Products' : 'Clear Filters'}
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className={viewMode === 'list' ? 'catalog-list-container flex flex-col gap-4' : 'catalog-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'}>
+                  {products.map((p) => <ProductCard key={p._id} product={p} layout={viewMode} />)}
+                </div>
 
               <div ref={loadMoreRef}></div>
 {hasMore && (

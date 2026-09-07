@@ -4049,19 +4049,110 @@
 
   /* Catalog Page Layout & Filters */
   .catalog-page {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Horizontal Category Subnavigation Bar */
+  .catalog-subnav-sticky {
+    position: sticky;
+    top: var(--header-height, 73px);
+    z-index: 90;
+    background: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  }
+
+  .catalog-subnav-container {
     max-width: var(--container-app);
     margin: 0 auto;
-    padding: clamp(1rem, 2.5vw, 1.75rem) var(--space-md) clamp(var(--space-8), 8vw, var(--space-12));
+    padding: 0 var(--space-md);
+  }
+
+  .catalog-subnav-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .catalog-subnav-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .catalog-subnav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 13px;
+    border-radius: var(--radius-btn);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .catalog-subnav-btn:hover {
+    color: var(--color-text-main);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .catalog-subnav-btn.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(113, 143, 128, 0.25);
+  }
+
+  .catalog-subnav-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--color-text-muted);
+    transition: all 0.2s ease;
+  }
+
+  .catalog-subnav-btn:hover .catalog-subnav-count {
+    color: var(--color-text-main);
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .catalog-subnav-btn.active .catalog-subnav-count {
+    background: rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+  }
+
+  .catalog-content-container {
+    max-width: var(--container-app);
+    margin: 0 auto;
+    padding: clamp(1rem, 2vw, 1.5rem) var(--space-md) clamp(var(--space-8), 8vw, var(--space-12));
   }
 
   .catalog-heading {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    border-bottom: 1px solid var(--color-border);
-    margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
-    padding-bottom: 0.75rem;
+    margin-bottom: 0;
   }
 
   .catalog-view-toggle {
@@ -4072,7 +4163,6 @@
     padding: 4px;
     border-radius: var(--radius-btn);
     border: 1px solid var(--color-border);
-    margin-bottom: 0.75rem;
   }
 
   .catalog-view-btn {
@@ -4101,24 +4191,15 @@
 
   .catalog-title {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
     font-weight: 500;
     letter-spacing: 0.05em;
-    color: var(--color-black);
+    color: var(--color-primary);
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    line-height: 1.15;
+    margin: 0;
     position: relative;
     display: inline-block;
-  }
-
-  .catalog-title::after {
-    content: '';
-    display: block;
-    width: 48px;
-    height: 3px;
-    background-color: var(--color-primary);
-    margin-top: 0.5rem;
-    border-radius: 2px;
   }
 
   /* List View Container & Card Styles */
