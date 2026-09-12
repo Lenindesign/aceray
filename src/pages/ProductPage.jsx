@@ -1,6 +1,6 @@
 import { Component, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams, useParams, Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Heart, FileText, Download, Layers, Box, Archive } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Heart, FileText, Download, Layers, Box, Archive, Sliders } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import {
@@ -471,7 +471,7 @@ function ProductSkeleton() {
 }
 
 // ── Image Gallery (inline on product page with native swipe, wraparound loop & scroll-snap) ──────
-function Gallery({ images, title, designer }) {
+function Gallery({ images, title, designer, configuratorUrl }) {
   const [active, setActive] = useState(0)
   const [fullscreenOpen, setFullscreenOpen] = useState(false)
   const scrollRef = useRef(null)
@@ -606,20 +606,58 @@ function Gallery({ images, title, designer }) {
           onMouseUp={handleMouseUpOrLeave}
           onMouseLeave={handleMouseUpOrLeave}
         >
-          {images.map((src, i) => (
-            <div
-              key={i}
-              className="product-hero-slide"
-              onClick={() => handleImageClick(i)}
-            >
-              <img
-                src={src}
-                alt={`${title} commercial contract seating by Aceray${images.length > 1 ? ` - view ${i + 1}` : ''}`}
-                className="product-main-img"
-                draggable={false}
-              />
-            </div>
-          ))}
+          {images.map((src, i) => {
+            const isConfiguratorSlide = configuratorUrl && i === images.length - 1
+            if (isConfiguratorSlide) {
+              return (
+                <div
+                  key={i}
+                  className="product-hero-slide relative"
+                  onClick={() => handleImageClick(i)}
+                >
+                  <img
+                    src={src}
+                    alt={`${title} Interactive 3D Chair Configurator`}
+                    className="product-main-img"
+                    draggable={false}
+                  />
+                  <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-center justify-between gap-3 bg-white/95 backdrop-blur-md p-4 rounded-xl border border-[#e5e3df] shadow-lg">
+                    <div>
+                      <span className="text-[0.7rem] uppercase tracking-widest text-[#718f80] font-sans font-semibold">
+                        Interactive 3D Configurator
+                      </span>
+                      <p className="text-sm font-heading font-medium text-[#111111] uppercase tracking-wide">
+                        Customize {title} with Fabrics & Finishes
+                      </p>
+                    </div>
+                    <Link
+                      to={configuratorUrl}
+                      className="btn-primary text-xs whitespace-nowrap h-9 px-4 flex items-center"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Sliders className="size-3.5 mr-1.5" />
+                      Launch Configurator
+                    </Link>
+                  </div>
+                </div>
+              )
+            }
+
+            return (
+              <div
+                key={i}
+                className="product-hero-slide"
+                onClick={() => handleImageClick(i)}
+              >
+                <img
+                  src={src}
+                  alt={`${title} commercial contract seating by Aceray${images.length > 1 ? ` - view ${i + 1}` : ''}`}
+                  className="product-main-img"
+                  draggable={false}
+                />
+              </div>
+            )
+          })}
         </div>
 
         {/* Swipe & Arrow navigation controls */}
@@ -653,20 +691,47 @@ function Gallery({ images, title, designer }) {
       {/* Thumbnails */}
       {images.length > 1 && (
         <div className="product-thumbs">
-          {images.map((src, i) => (
-            <button
-              key={i}
-              onClick={() => scrollToIndex(i)}
-              aria-label={`View image ${i + 1}`}
-              className={`product-thumb-btn ${i === active ? 'active' : ''}`}
-            >
-              <img
-                src={src}
-                alt={`${title} commercial seating - view ${i + 1}`}
-                loading="lazy"
-              />
-            </button>
-          ))}
+          {images.map((src, i) => {
+            const isConfiguratorThumb = configuratorUrl && i === images.length - 1
+
+            if (isConfiguratorThumb) {
+              return (
+                <Link
+                  key={i}
+                  to={configuratorUrl}
+                  className="product-thumb-btn product-thumb-configurator"
+                  aria-label={`Open 3D Chair Configurator for ${title}`}
+                  title="Open 3D Chair Configurator"
+                >
+                  <img
+                    src={src}
+                    alt={`${title} 3D Chair Configurator`}
+                    loading="lazy"
+                  />
+                  <span className="thumb-3d-badge">
+                    <Sliders className="size-2.5 mr-0.5 inline-block" />
+                    3D
+                  </span>
+                </Link>
+              )
+            }
+
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => scrollToIndex(i)}
+                aria-label={`View image ${i + 1}`}
+                className={`product-thumb-btn ${i === active ? 'active' : ''}`}
+              >
+                <img
+                  src={src}
+                  alt={`${title} commercial seating - view ${i + 1}`}
+                  loading="lazy"
+                />
+              </button>
+            )
+          })}
         </div>
       )}
 
@@ -1359,12 +1424,18 @@ function ProductPage() {
     if (image.asset?._ref) return urlFor(image).url()
     return null
   }
-  const images = [product.mainImage, ...(product.gallery || [])]
+  const isConfiguratorProduct = slug === '100-01' || product.slug?.current === '100-01'
+  const configuratorUrl = isConfiguratorProduct ? '/configurator?fabric=1194&wood=bleached-beech' : null
+
+  const rawImages = [product.mainImage, ...(product.gallery || [])]
     .map(getSanityUrl)
     .filter(Boolean)
-  if (images.length === 0 && product.imageUrl && !product.imageUrl.includes('aceray.com')) {
-    images.push(product.imageUrl)
+  if (rawImages.length === 0 && product.imageUrl && !product.imageUrl.includes('aceray.com')) {
+    rawImages.push(product.imageUrl)
   }
+  const images = isConfiguratorProduct && rawImages.length >= 2
+    ? [...rawImages.slice(0, -1), '/chair-configurator/chair-680-bleached-beech.png']
+    : rawImages
   const formatDimValue = (val) => {
     if (!val) return ''
     const cleaned = String(val).trim().replace(/"+$/g, '').trim()
@@ -1440,7 +1511,7 @@ function ProductPage() {
 
           {/* Gallery */}
           <div className="product-gallery lg:col-span-8">
-            <Gallery images={images} title={enrichedTitle} designer={product.designer} />
+            <Gallery images={images} title={enrichedTitle} designer={product.designer} configuratorUrl={configuratorUrl} />
           </div>
 
           {/* Info */}
@@ -1521,6 +1592,15 @@ function ProductPage() {
                 >
                   Request Quote / Trade Info
                 </Link>
+                {(slug === '100-01' || product.slug?.current === '100-01') && (
+                  <Link
+                    to="/configurator?fabric=1194&wood=bleached-beech"
+                    className="btn-outline product-cta-btn flex items-center justify-center border-[#718f80] text-[#718f80] hover:bg-[#718f80] hover:text-white"
+                  >
+                    <Sliders className="size-4 mr-2" aria-hidden="true" />
+                    Interactive Chair Configurator
+                  </Link>
+                )}
                 <button
                   type="button"
                   className="btn-outline product-cta-btn"

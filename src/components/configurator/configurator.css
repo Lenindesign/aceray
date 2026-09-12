@@ -1,0 +1,316 @@
+/* Aceray Interactive Chair Configurator */
+
+.configurator-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 32px);
+  width: 100%;
+  background-color: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .configurator-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-8, 32px);
+    align-items: start;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Chair Preview Stage */
+.chair-preview-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(circle at center, #ffffff 40%, #f7f6f3 100%);
+  border: 1px solid var(--color-border-subtle, #e5e3df);
+  border-radius: var(--radius-card, 16px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+}
+
+.chair-preview-img-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.chair-preview-img-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.chair-preview-img-inactive {
+  opacity: 0;
+  transform: scale(0.985);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Badges & Overlays */
+.preview-badge-overlay {
+  position: absolute;
+  top: var(--space-4, 16px);
+  left: var(--space-4, 16px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 8px);
+  z-index: 10;
+}
+
+.preview-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill, 9999px);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--color-text, #111111);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.preview-badge-primary {
+  background-color: var(--color-primary, #718f80);
+  color: #ffffff;
+  border: none;
+}
+
+/* Control Panel */
+.configurator-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6, 24px);
+  padding: var(--space-5, 20px);
+  background-color: #faf9f6;
+  border: 1px solid var(--color-border-subtle, #e5e3df);
+  border-radius: var(--radius-card, 16px);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .configurator-panel {
+    padding: var(--space-6, 24px);
+  }
+}
+
+/* Material Group */
+.material-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 12px);
+  width: 100%;
+  min-width: 0;
+}
+
+.material-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.material-group-title {
+  font-family: var(--font-heading, "Futura Std", sans-serif);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text, #111111);
+}
+
+.material-group-selected {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  color: var(--color-primary, #718f80);
+}
+
+/* Swatch Grid */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2, 8px);
+  width: 100%;
+  min-width: 0;
+}
+
+/* Swatch Card Button */
+.swatch-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  gap: 6px;
+  padding: 8px 4px 10px;
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-border, #e5e3df);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 180ms ease;
+  outline: none;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.swatch-btn:hover {
+  border-color: var(--color-primary, #718f80);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.swatch-btn:focus-visible {
+  outline: 2px solid var(--color-primary, #718f80);
+  outline-offset: 2px;
+}
+
+.swatch-btn-active {
+  border-color: var(--color-primary, #718f80);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1.5px var(--color-primary, #718f80), 0 4px 14px rgba(113, 143, 128, 0.18);
+}
+
+.swatch-thumb {
+  width: 44px;
+  height: 44px;
+  max-width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  background-color: #f0ede8;
+  flex-shrink: 0;
+}
+
+.swatch-label {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text, #111111);
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Configuration Summary Box */
+.config-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+  padding: var(--space-4, 16px);
+  background-color: #ffffff;
+  border: 1px solid var(--color-border-subtle, #e5e3df);
+  border-radius: 12px;
+}
+
+.config-summary-title {
+  font-family: var(--font-heading, "Futura Std", sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text, #111111);
+  line-height: 1.3;
+}
+
+.config-summary-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 16px;
+  font-size: 0.8rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.config-spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.config-spec-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted, #777777);
+}
+
+.config-spec-val {
+  font-weight: 600;
+  color: var(--color-text, #111111);
+}
+
+/* Action Button Bar */
+.config-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 8px);
+  align-items: center;
+}
+
+.config-btn-shared {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 1.25rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-btn, 4px);
+  cursor: pointer;
+  transition: all 180ms ease;
+  text-decoration: none;
+}
+
+.toast-message {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #111111;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  border-radius: 6px;
+  animation: toastFadeIn 200ms ease;
+}
+
+@keyframes toastFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

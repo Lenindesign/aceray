@@ -12,7 +12,9 @@
     "dev:app": "vite",
     "dev:sanity": "npm --prefix sanity-studio run dev",
     "migrate:product-pdfs": "node scripts/import-wordpress-product-pdfs.js",
-    "generate:sitemap": "node scripts/generate-sitemap.js"
+    "generate:sitemap": "node scripts/generate-sitemap.js",
+    "generate:configurator-assets": "node scripts/generate-configurator-assets.js",
+    "test:configurator": "node --experimental-strip-types scripts/validate-configurator.js"
   },
   "devDependencies": {
     "@storybook/addon-docs": "^8.6.18",
@@ -21,10 +23,14 @@
     "@storybook/react-vite": "^8.6.18",
     "@storybook/theming": "^8.6.18",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.0.5",
     "@xmldom/xmldom": "^0.9.10",
+    "sharp": "^0.35.4",
     "storybook": "^8.6.18",
     "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
     "vite": "^8.2.0",
     "vite-plugin-compression": "^0.5.1"
   },

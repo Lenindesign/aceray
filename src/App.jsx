@@ -22,6 +22,7 @@ const ResourcesPage = lazy(() => import('@/pages/ResourcesPage'))
 const AcerayBookPage = lazy(() => import('@/pages/AcerayBookPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 const ClientDeckPage = lazy(() => import('@/pages/ClientDeckPage'))
+const ConfiguratorPage = lazy(() => import('@/pages/ConfiguratorPage'))
 
 export default function App() {
   return (
@@ -53,6 +54,9 @@ export default function App() {
                 <Route path="/fabrics-finishes" element={<FabricsFinishesPage />} />
                 <Route path="/aceray-book" element={<AcerayBookPage />} />
                 <Route path="/client-deck" element={<ClientDeckPage />} />
+                <Route path="/configurator" element={<ConfiguratorPage />} />
+                <Route path="/product/100-01/configurator" element={<ConfiguratorPage />} />
+                <Route path="/product/100-01/customize" element={<ConfiguratorPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>
