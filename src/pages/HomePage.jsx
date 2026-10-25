@@ -29,7 +29,7 @@ const FEATURED_CATEGORIES = [
     title: 'Tables & Table Tops',
     subtitle: 'Explore Tables & Tops',
     cat: 'tables-bases',
-    image: 'https://cdn.sanity.io/images/xm9au2qy/production/214d8d81f5e305483594f8855a87ded3e69bdd4b-1200x1200.jpg',
+    image: 'https://cdn.sanity.io/images/xm9au2qy/production/214d8d81f5e305483594f8855a87ded3e69bdd4b-1200x1200.jpg?rect=220,210,750,937',
   },
   {
     title: 'Occasional Seating',
@@ -504,10 +504,11 @@ export default function HomePage() {
                   src={optimizeSanityUrl(image, { width: 600, quality: 75 })}
                   alt={`Aceray ${title}`}
                   width="400"
-                  height="300"
+                  height="500"
                   loading="lazy"
                   decoding="async"
                 />
+                <div className="category-card-overlay" aria-hidden="true" />
                 <div className="category-info">
                   <h3 className="category-title">{title}</h3>
                   <span className="category-link">{subtitle}</span>
