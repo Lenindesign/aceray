@@ -33,6 +33,20 @@ function orderProductsBySlug(products = [], slugs = []) {
 function getCategoryFilter(value) {
   if (!value) return { expression: '', params: {} }
 
+  if (value === 'guest-seating') {
+    return {
+      expression: `("Side Chairs" in categories || "Armchairs" in categories || "Side Chairs RTS" in categories || count((categories[])[lower(@) match "*side chair*"]) > 0 || count((categories[])[lower(@) match "*armchair*"]) > 0)`,
+      params: {},
+    }
+  }
+
+  if (value === 'occasional-seating' || value === 'occasional' || value === 'low-stools-ottomans') {
+    return {
+      expression: `("Low Stools / Ottomans" in categories || "Low Stools" in categories || "Ottomans" in categories || "Benches" in categories || "Bench" in categories || count((categories[])[lower(@) match "*ottoman*"]) > 0 || count((categories[])[lower(@) match "*low stool*"]) > 0 || count((categories[])[lower(@) match "bench*"]) > 0)`,
+      params: {},
+    }
+  }
+
   if (value === 'lounge') {
     return { expression: `("Lounge Seating" in categories || "Lounge Seating RTS" in categories)`, params: {} }
   }
@@ -45,16 +59,12 @@ function getCategoryFilter(value) {
     return { expression: `("Ready to Ship" in categories || "Ready to Ship" in tags || "Lounge Seating RTS" in categories)`, params: {} }
   }
 
-  if (value === 'low-stools-ottomans') {
-    return { expression: `("Low Stools" in categories || "Ottomans" in categories || count((categories[])[lower(@) match "*ottoman*"]) > 0 || count((categories[])[lower(@) match "*low stool*"]) > 0)`, params: {} }
-  }
-
   if (value === 'benches') {
     return { expression: `("Benches" in categories || "Bench" in categories || count((categories[])[lower(@) match "bench*"]) > 0)`, params: {} }
   }
 
-  if (value === 'tables-bases') {
-    return { expression: `("Tables" in categories || "Table Bases" in categories || "Bar Height Table Base" in categories || count((categories[])[lower(@) match "*table*"]) > 0 || count((categories[])[lower(@) match "*base*"]) > 0)`, params: {} }
+  if (value === 'tables-bases' || value === 'tables' || value === 'table-tops') {
+    return { expression: `("Tables" in categories || "Tables & Bases" in categories || "Table Bases" in categories || "Table Tops" in categories || "Bar Height Table Base" in categories || count((categories[])[lower(@) match "*table*"]) > 0 || count((categories[])[lower(@) match "*base*"]) > 0)`, params: {} }
   }
 
   const categoryMatch = getCatalogCategoryMatch(value)
@@ -157,7 +167,7 @@ export default function CatalogPage() {
       queryParams.term = q + '*'
     }
 
-    const itemsQuery = `*[${filters}] | order(_updatedAt desc) [${offset}...${limit}] {
+    const itemsQuery = `*[${filters}] | order(title asc) [${offset}...${limit}] {
        _id, title, slug, categories, imageUrl, mainImage{asset-> {_id, url}}, designer, madeIn, overallWidth, overallDepth, overallHeight, seatHeight, materials, features, tags
     }`
 
@@ -211,7 +221,13 @@ export default function CatalogPage() {
       description = `Explore Aceray commercial contract seating designed by ${designer}, including dining chairs, lounge, and tables.`
     } else if (cat) {
       const lowerCat = cat.toLowerCase()
-      if (lowerCat === 'lounge') {
+      if (lowerCat === 'guest-seating') {
+        title = 'Commercial Guest Seating | Dining Chairs & Armchairs | Aceray'
+        description = 'Browse Aceray commercial hospitality guest seating, luxury dining side chairs, and armchairs for restaurants, clubs, and hotels.'
+      } else if (lowerCat === 'occasional-seating' || lowerCat === 'occasional') {
+        title = 'Occasional Seating & Low Stools | Ottomans & Benches | Aceray'
+        description = 'Explore Aceray commercial occasional seating, modern ottomans, poufs, and low stools for hospitality lobbies and lounge spaces.'
+      } else if (lowerCat === 'lounge') {
         title = 'Hospitality Lounge Chairs & Executive Seating | Aceray'
         description = 'Explore commercial hospitality lounge chairs, club seating, and executive swivel armchairs for hotels and corporate spaces.'
       } else if (lowerCat === 'side-chairs') {

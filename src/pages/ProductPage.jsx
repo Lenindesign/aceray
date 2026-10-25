@@ -70,7 +70,7 @@ export { getEnrichedProductTitle, getCategorySuffix }
 const PRODUCT_QUERY = `*[_type == "product" && (slug.current == $slug || lower(slug.current) == lower($slug))][0] {
   _id, title, slug, designer, madeIn, categories, tags,
   imageUrl, galleryUrls, description,
-  overallHeight, overallWidth, overallDepth, seatHeight, weight, com, stacking,
+  overallHeight, overallWidth, overallDepth, seatHeight, armHeight, weight, com, stacking, baseSize, topSize,
   "mainImage": mainImage{asset->{_id, url}},
   "gallery": gallery[]{asset->{_id, url}},
   productPdfs[]{_key, title, sourceUrl, file{asset->{_id, url, originalFilename}}},
@@ -80,7 +80,7 @@ const PRODUCT_QUERY = `*[_type == "product" && (slug.current == $slug || lower(s
 }`
 
 const COLLECTION_FAMILY_QUERY = `*[_type == "product" && slug.current != $slug && (defined(imageUrl) || defined(mainImage.asset)) && $family in categories] | order(_updatedAt desc) [0..11] {
-  _id, title, slug, imageUrl, categories, mainImage{asset->{_id, url}}
+  _id, title, slug, imageUrl, categories, designer, mainImage{asset->{_id, url}}
 }`
 
 const RELATED_CANDIDATES_QUERY = `*[
@@ -1005,6 +1005,7 @@ function ProductCarousel({ products, label }) {
 
 // ── Pricing Calculator ─────────────────────────────────────────
 function ProductPricingCalculator({ product }) {
+  const [isExpanded, setIsExpanded] = useState(false)
   const pricing = getProductPricing(product)
   if (!pricing || !pricing.startingPrice) return null
 
@@ -1021,33 +1022,50 @@ function ProductPricingCalculator({ product }) {
 
   const validPrices = tiers.map((t) => t.price).filter((p) => typeof p === 'number' && p > 0)
   const minPrice = validPrices.length > 0 ? Math.min(...validPrices) : pricing.startingPrice
+  const hasTiers = tiers.length > 1
 
   return (
-    <div className="product-pricing-card">
-      <div className="pricing-header-row">
-        <span className="pricing-eyebrow">List Price Starting At</span>
-        <div className="pricing-display-amount">
-          {formatPrice(minPrice)}
+    <div className={`product-pricing-card ${isExpanded ? 'is-open' : 'is-collapsed'}`}>
+      <button
+        type="button"
+        className="pricing-accordion-toggle"
+        onClick={() => hasTiers && setIsExpanded((prev) => !prev)}
+        aria-expanded={isExpanded}
+        aria-controls="pricing-grades-panel"
+        disabled={!hasTiers}
+        title={hasTiers ? (isExpanded ? 'Click to collapse grade pricing' : 'Click to view all grade prices') : undefined}
+      >
+        <span className="pricing-eyebrow">List Price Starting at</span>
+        <div className="pricing-toggle-right">
+          <span className="pricing-display-amount">{formatPrice(minPrice)}</span>
+          {hasTiers && (
+            <ChevronDown
+              className={`pricing-chevron ${isExpanded ? 'is-rotated' : ''}`}
+              aria-hidden="true"
+            />
+          )}
         </div>
-      </div>
+      </button>
 
-      {tiers.length > 1 && (
-        <div className="pricing-tiers-section">
-          <div className="pricing-tiers-grid">
-            {tiers.map((tier) => (
-              <div key={tier.id} className="pricing-tier-chip">
-                <span className="tier-name">{tier.label}</span>
-                <span className="tier-cost">{formatPrice(tier.price)}</span>
-              </div>
-            ))}
+      {hasTiers && isExpanded && (
+        <div id="pricing-grades-panel" className="pricing-expanded-content">
+          <div className="pricing-tiers-section">
+            <div className="pricing-tiers-grid">
+              {tiers.map((tier) => (
+                <div key={tier.id} className="pricing-tier-chip">
+                  <span className="tier-name">{tier.label}</span>
+                  <span className="tier-cost">{formatPrice(tier.price)}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
 
-      {pricing.yds && (
-        <p className="pricing-yardage-note">
-          <strong>Fabric Requirement:</strong> {pricing.yds} YDS (based on 54" plain fabric)
-        </p>
+          {pricing.yds && (
+            <p className="pricing-yardage-note">
+              <strong>Fabric Requirement:</strong> {pricing.yds} YDS (based on 54" plain fabric)
+            </p>
+          )}
+        </div>
       )}
     </div>
   )
@@ -1473,8 +1491,6 @@ function ProductPage() {
               </p>
             )}
 
-            <ProductPricingCalculator product={product} />
-
             <hr className="product-divider" />
 
             {product.description && (
@@ -1515,6 +1531,7 @@ function ProductPage() {
               </div>
 
               <div className="product-cta">
+                <ProductPricingCalculator product={product} />
                 <Link
                   to={`/contact?intent=quote&product=${encodeURIComponent(enrichedTitle)}&slug=${encodeURIComponent(product.slug?.current || slug)}`}
                   className="btn-primary product-cta-btn"

@@ -5,14 +5,10 @@ import { FAVORITES_CHANGED_EVENT, isFavoriteProduct, toggleFavoriteProduct } fro
 
 import { optimizeSanityUrl } from '@/lib/sanityImageUrl'
 
-import { getProductPricing, formatPrice } from '@/lib/pricing'
-
 export default function ProductCard({ product, className = '', layout = 'grid' }) {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const slug = product?.slug?.current || product?.slug || ''
-  const pricing = getProductPricing(product)
-  const formattedStartingPrice = pricing?.startingPrice ? formatPrice(pricing.startingPrice) : null
 
   useEffect(() => {
     setIsFavorite(isFavoriteProduct(slug))
@@ -89,12 +85,8 @@ export default function ProductCard({ product, className = '', layout = 'grid' }
             <h3 className="product-name">
               <Link to={`/product/${encodeURIComponent(slug)}`}>{product.title}</Link>
             </h3>
-            <p className="product-category">{cat}</p>
-            {formattedStartingPrice && (
-              <p className="product-card-price product-card-list-price">Starting at {formattedStartingPrice}</p>
-            )}
             {product.designer && (
-              <p className="product-designer">Designed by {product.designer}</p>
+              <p className="product-designer">{product.designer}</p>
             )}
 
             {/* Quick Specifications & Dimensions */}
@@ -165,9 +157,8 @@ export default function ProductCard({ product, className = '', layout = 'grid' }
           />
         </div>
         <h3 className="product-name">{product.title}</h3>
-        <p className="product-category">{cat}</p>
-        {formattedStartingPrice && (
-          <p className="product-card-price">Starting at {formattedStartingPrice}</p>
+        {product.designer && (
+          <p className="product-designer">{product.designer}</p>
         )}
       </Link>
     </article>

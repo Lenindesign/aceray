@@ -1,7 +1,55 @@
 import React, { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Printer, X } from 'lucide-react'
+import { normalizeDesignerName } from '@/data/designerProfiles'
 import './ProductSpecSheetPDF.css'
+
+function parseDescriptionBlocks(text) {
+  if (!text || typeof text !== 'string') return []
+  const rawParagraphs = text.split(/\r?\n\s*\r?\n/)
+  const blocks = []
+
+  const isBulletLine = (line) => /^[-•–*]\s*/.test(line)
+  const isListHeader = (line) => /:\s*$/.test(line) || /^(available in|edges|options|finishes|sizes)/i.test(line)
+
+  for (const rawP of rawParagraphs) {
+    const lines = rawP
+      .split(/\r?\n/)
+      .map((l) => l.replace(/&nbsp;/g, ' ').trim())
+      .filter(Boolean)
+
+    if (lines.length === 0) continue
+
+    let currentListBlock = []
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      const nextLine = lines[i + 1]
+
+      if (isBulletLine(line)) {
+        currentListBlock.push(line)
+      } else if (isListHeader(line) && nextLine && isBulletLine(nextLine)) {
+        if (currentListBlock.length > 0) {
+          blocks.push(currentListBlock.join('\n'))
+          currentListBlock = []
+        }
+        currentListBlock.push(line)
+      } else {
+        if (currentListBlock.length > 0) {
+          blocks.push(currentListBlock.join('\n'))
+          currentListBlock = []
+        }
+        blocks.push(line)
+      }
+    }
+
+    if (currentListBlock.length > 0) {
+      blocks.push(currentListBlock.join('\n'))
+    }
+  }
+
+  return blocks
+}
 
 export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
   useEffect(() => {
@@ -14,63 +62,116 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, onClose])
 
+  useEffect(() => {
+    if (!isOpen) return
+    const origOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = origOverflow
+    }
+  }, [isOpen])
+
   if (!isOpen || !product) return null
 
-  const title = product.title || ''
   const modelTitle = product.title || ''
-  const designerName = product.designer || 'Studio Tipi'
+  const designerName = product.designer ? normalizeDesignerName(product.designer) : ''
 
   const rawSlug = typeof product.slug === 'object' ? (product.slug?.current || '') : (product.slug || '')
-  const slugLower = rawSlug.toLowerCase()
-  const titleLower = title.toLowerCase()
+  // Robust determination whether product is truly a table base / table top
+  const isTable = (() => {
+    // If it has seat height, it is unconditionally seating, never a table
+    if (product.seatHeight) return false
 
-  const categoriesList = (Array.isArray(product.categories)
-    ? product.categories.map(c => (typeof c === 'string' ? c : (c?.title || c?.name || ''))).join(' ')
-    : (product.categories || '')
-  ).toLowerCase()
+    const catList = Array.isArray(product.categories) ? product.categories : []
+    const catString = catList
+      .map((c) => (typeof c === 'string' ? c : c?.title || c?.name || ''))
+      .join(' ')
+      .toLowerCase()
 
-  const tagsList = (Array.isArray(product.tags)
-    ? product.tags.map(t => (typeof t === 'string' ? t : '')).join(' ')
-    : (product.tags || '')
-  ).toLowerCase()
+    // Explicit seating signals rule out table bases
+    const hasSeatingSignal =
+      catString.includes('chair') ||
+      catString.includes('stool') ||
+      catString.includes('lounge') ||
+      catString.includes('bench') ||
+      catString.includes('ottoman') ||
+      catString.includes('seating')
+    if (hasSeatingSignal) return false
 
-  const descriptionLower = (product.description || '').toLowerCase()
+    const title = (product.title || '').toLowerCase()
+    const slug = (typeof product.slug === 'string' ? product.slug : product.slug?.current || '').toLowerCase()
 
-  const isTable =
-    categoriesList.includes('table') ||
-    categoriesList.includes('base') ||
-    tagsList.includes('table') ||
-    tagsList.includes('base') ||
-    titleLower.includes('table') ||
-    titleLower.includes('base') ||
-    descriptionLower.includes('table base') ||
-    descriptionLower.includes('dining table') ||
-    slugLower.includes('table') ||
-    slugLower.includes('base') ||
-    slugLower.includes('piazza') ||
-    slugLower.includes('dsmaxi') ||
-    slugLower.includes('dqmaxi')
+    // Explicit table base categories
+    if (
+      catString.includes('table base') ||
+      catString.includes('table top') ||
+      catString.includes('tables & bases') ||
+      catString.includes('tables')
+    ) {
+      return true
+    }
 
-  const heroImage = product.imageUrl || product.mainImage?.asset?.url || ''
-  const galleryThumbnails = (product.galleryUrls || []).slice(0, 3)
+    return (
+      title.includes('table base') ||
+      title.includes('table top') ||
+      slug.includes('table-base') ||
+      slug.includes('table-top') ||
+      slug.startsWith('piazza') ||
+      slug.startsWith('dsmaxi') ||
+      slug.startsWith('dqmaxi')
+    )
+  })()
 
-  const overallHeight = product.overallHeight ? `${product.overallHeight}"` : (isTable ? '28.5"' : '34"')
-  const overallDepth = product.overallDepth ? `${product.overallDepth}"` : '21.5"'
-  const overallWidth = product.overallWidth ? `${product.overallWidth}"` : '22.5"'
-  const seatHeight = product.seatHeight ? `${product.seatHeight}"` : '18"'
-  const armHeight = product.armHeight ? `${product.armHeight}"` : '26"'
+  const getImageUrl = (img) => {
+    if (!img) return null
+    if (typeof img === 'string') return img.includes('aceray.com') ? null : img
+    if (img.asset?.url) return img.asset.url
+    return null
+  }
 
-  const baseSize = product.baseSize || '37.5"'
-  const topSize = product.topSize || 'Min64"Sq. / Max86"Sq.'
+  const allImages = [
+    getImageUrl(product.mainImage),
+    ...(product.gallery || []).map(getImageUrl),
+    ...(product.galleryUrls || []),
+    product.imageUrl
+  ].filter(Boolean)
 
-  const weight = product.weight || (isTable ? '45.0' : '28.5')
+  const uniqueImages = Array.from(new Set(allImages))
+  const heroImage = uniqueImages[0] || product.imageUrl || ''
+  const galleryThumbnails = uniqueImages.slice(1, 4)
+
+  const formatDimValue = (val) => {
+    if (!val) return ''
+    const cleaned = String(val).trim().replace(/"+$/g, '').trim()
+    return cleaned ? `${cleaned}"` : ''
+  }
+
+  const overallHeight = formatDimValue(product.overallHeight)
+  const overallDepth = formatDimValue(product.overallDepth)
+  const overallWidth = formatDimValue(product.overallWidth)
+  const seatHeight = formatDimValue(product.seatHeight)
+  const armHeight = formatDimValue(product.armHeight)
+  const hasArmHeight = Boolean(armHeight && armHeight !== '–' && armHeight !== '-')
+
+  const baseSize = formatDimValue(product.baseSize)
+  const topSize = product.topSize ? String(product.topSize).trim() : ''
+
+  const descriptionBlocks = parseDescriptionBlocks(product.description)
 
   const handlePrint = () => {
     window.print()
   }
 
   const modalJSX = (
-    <div className="spec-sheet-modal-overlay" role="dialog" aria-modal="true" aria-label={`Spec Sheet for ${modelTitle}`}>
+    <div
+      className="spec-sheet-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Spec Sheet for ${modelTitle}`}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
       {/* Modal Actions Control Bar */}
       <div className="spec-sheet-modal-header">
         <h2 className="spec-sheet-modal-title">Spec Sheet Preview — {modelTitle}</h2>
@@ -82,7 +183,8 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
             aria-label="Print or save as PDF"
           >
             <Printer size={16} aria-hidden="true" />
-            <span>Print / Save PDF</span>
+            <span className="spec-sheet-print-text-full">Print / Save PDF</span>
+            <span className="spec-sheet-print-text-short">Print PDF</span>
           </button>
           <button
             type="button"
@@ -113,10 +215,12 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
                 alt="THE LOOK OF SEATING® www.aceray.com"
                 className="spec-sheet-slogan-graphic"
               />
-              <div className="spec-sheet-designer-meta">
-                <span className="spec-sheet-designer-label">Design:</span>
-                <span className="spec-sheet-designer-name">{designerName}</span>
-              </div>
+              {designerName && (
+                <div className="spec-sheet-designer-meta">
+                  <span className="spec-sheet-designer-label">Design:</span>
+                  <span className="spec-sheet-designer-name">{designerName}</span>
+                </div>
+              )}
             </div>
           </header>
 
@@ -125,7 +229,7 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
             {/* Vertical Rule Line */}
             <div className="spec-sheet-divider-rule" aria-hidden="true" />
 
-            {/* Left Column (Thumbnails, Hero Photo, Model Code) */}
+            {/* Left Column (Thumbnails, Hero Photo) */}
             <div className="spec-sheet-main-col">
               {/* Top Row Thumbnails */}
               {galleryThumbnails.length > 0 && (
@@ -134,7 +238,7 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
                     <img
                       key={idx}
                       src={url}
-                      alt={`${title} view ${idx + 1}`}
+                      alt={`${modelTitle} view ${idx + 1}`}
                       className="spec-sheet-thumb-item"
                     />
                   ))}
@@ -155,78 +259,129 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
 
             {/* Right Column (Specifications & Dimension Diagrams) */}
             <aside className="spec-sheet-sidebar-col">
-              {/* Title Bullet matching exact format • #383 83' */}
+              {/* Title Bullet */}
               <div className="spec-sheet-product-title-bullet">
                 • {modelTitle}
               </div>
 
-              {/* Exact Architectural Measurement Line Drawings */}
+              {/* Exact Architectural Measurement Line Drawings & Coupled Values */}
               <div className="spec-sheet-dims-container">
-                <div className="spec-sheet-dims-diagrams-wrap">
-                  <img
-                    src={isTable ? "/assets/spec-icons/aceray_table_glyphs_clean.png" : "/assets/spec-icons/aceray_chair_glyphs_clean.svg"}
-                    alt={isTable ? "Aceray Table Measurement Glyphs" : "Aceray Chair Measurement Glyphs"}
-                    className={isTable ? "spec-sheet-uploaded-glyphs-img spec-sheet-table-glyphs-img" : "spec-sheet-uploaded-glyphs-img"}
-                  />
-                </div>
-
-                {/* Numeric Callout Values under drawings */}
                 {isTable ? (
-                  <div className="spec-sheet-dims-values spec-sheet-table-dims-values">
-                    <span className="spec-sheet-dim-val">Dining</span>
-                    <span className="spec-sheet-dim-val">{baseSize}</span>
-                    <span className="spec-sheet-dim-val">{topSize}</span>
-                    <span className="spec-sheet-dim-val">{overallHeight}</span>
-                  </div>
+                  <>
+                    <div className="spec-sheet-dims-diagrams-wrap">
+                      <img
+                        src="/assets/spec-icons/aceray_table_glyphs_clean.png"
+                        alt="Aceray Table Measurement Glyphs"
+                        className="spec-sheet-uploaded-glyphs-img spec-sheet-table-glyphs-img"
+                      />
+                    </div>
+                    <div className="spec-sheet-dims-values spec-sheet-table-dims-values">
+                      <span className="spec-sheet-dim-val">{overallHeight ? 'Dining' : '–'}</span>
+                      <span className="spec-sheet-dim-val">{baseSize || '–'}</span>
+                      <span className="spec-sheet-dim-val">{topSize || '–'}</span>
+                      <span className="spec-sheet-dim-val">{overallHeight || '–'}</span>
+                    </div>
+                  </>
                 ) : (
-                  <div className="spec-sheet-dims-values">
-                    <span className="spec-sheet-dim-val">{overallHeight}</span>
-                    <span className="spec-sheet-dim-val">{overallDepth}</span>
-                    <span className="spec-sheet-dim-val">{overallWidth}</span>
-                    <span className="spec-sheet-dim-val">{seatHeight}</span>
-                    <span className="spec-sheet-dim-val">{armHeight}</span>
+                  <div className={`spec-sheet-dims-grid ${hasArmHeight ? 'spec-sheet-dims-grid-5' : ''}`}>
+                    {[
+                      {
+                        key: 'overallHeight',
+                        label: 'Overall Height',
+                        value: overallHeight,
+                        d: 'M239.50782-201.5625H224.91895V-215H223V-186.67969H224.91895V-201.1211H239.50782V-186.67969H240.22998V-201.1211-201.5625H239.50782Z',
+                        tx: -222.6,
+                        ty: 215.8,
+                      },
+                      {
+                        key: 'overallDepth',
+                        label: 'Overall Depth',
+                        value: overallDepth,
+                        d: 'M260.8711-201.5625H245.07813V-215H244.36328V-186.67969H245.07813V-199.8789H260.8711V-186.67969H261.59327V-199.8789-201.5625H260.8711Z',
+                        tx: -243.96,
+                        ty: 215.8,
+                      },
+                      {
+                        key: 'overallWidth',
+                        label: 'Overall Width',
+                        value: overallWidth,
+                        d: 'M265.68019-201.5625V-214.5586H281.47315V-201.5625H265.68019ZM281.83546-215H281.47315 265.68019 265.20167 264.96534V-186.67969H265.68019V-199.8789H281.47315V-186.67969H282.1953V-199.8789-201.5625-215H281.83546Z',
+                        tx: -264.57,
+                        ty: 215.8,
+                      },
+                      {
+                        key: 'seatHeight',
+                        label: 'Seat Height',
+                        value: seatHeight,
+                        d: 'M300.9004-201.5625H286.08497V-215H285.37013V-186.67969H286.08497V-201.1211H300.9004V-186.67969H302.53224V-201.1211-201.5625H300.9004Z',
+                        tx: -284.97,
+                        ty: 215.8,
+                      },
+                      ...(hasArmHeight
+                        ? [
+                            {
+                              key: 'armHeight',
+                              label: 'Arm Height',
+                              value: armHeight,
+                              d: 'M320.83888-201.5625H306.02345V-206.63574H320.83888V-201.5625ZM320.83888-207.07715H306.02345V-215H305.3086V-186.67969H306.02345V-201.1211H320.83888V-186.67969H322.4707V-201.1211-201.5625-206.63574-207.07715H320.83888Z',
+                              tx: -304.91,
+                              ty: 215.8,
+                            },
+                          ]
+                        : []),
+                    ].map((glyph) => (
+                      <div key={glyph.key} className="spec-sheet-dim-unit">
+                        <svg
+                          viewBox="0 0 18 30"
+                          className="spec-sheet-dim-glyph"
+                          aria-label={glyph.label}
+                        >
+                          <path
+                            transform={`matrix(1,0,0,1,${glyph.tx},${glyph.ty})`}
+                            d={glyph.d}
+                            fill="#111827"
+                          />
+                        </svg>
+                        <span className="spec-sheet-dim-val">{glyph.value || '–'}</span>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
 
-              {/* Specifications Details */}
+              {/* Specifications Details - Exact Information from Product Page */}
               <div className="spec-sheet-details-list">
-                {isTable ? (
-                  <>
-                    <p className="spec-sheet-detail-p">
-                      Commercial Grade Table Base with Steel Column and Heavy Duty Base Plate.
+                {descriptionBlocks.length > 0 ? (
+                  descriptionBlocks.map((block, idx) => (
+                    <p key={idx} className="spec-sheet-detail-p">
+                      {block}
                     </p>
-                    <p className="spec-sheet-detail-p">
-                      Available for Indoor and Outdoor Hospitality Environments.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Finishes: Aceray Standard Powder Coat Finishes or Brushed Stainless Steel.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Option: Adjustable Leveling Glides and Custom Height Columns.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Weight: {weight} Lbs.
-                    </p>
-                  </>
+                  ))
                 ) : (
-                  <>
-                    <p className="spec-sheet-detail-p">
-                      Solid Beech Wood Frame Armchair with Fully Upholstered Seat and Back.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Available in COM, COL or Aceray Graded in Upholstery.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Wood Finishes: Aceray Standard Wood Finishes or Custom Match Wood Finishes.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Option: 3” Brushed Stainless Steel Leg Protectors on Two or all Four Legs.
-                    </p>
-                    <p className="spec-sheet-detail-p">
-                      Weight: {weight} Lbs.
-                    </p>
-                  </>
+                  <p className="spec-sheet-detail-p">
+                    {modelTitle} commercial grade {isTable ? 'table base' : 'seating'} designed for hospitality, corporate, and dining environments.
+                  </p>
+                )}
+
+                {product.weight && (
+                  <p className="spec-sheet-detail-p">
+                    Weight: {product.weight} lbs.
+                  </p>
+                )}
+                {product.com && (
+                  <p className="spec-sheet-detail-p">
+                    COM: {product.com} yards
+                  </p>
+                )}
+                {product.stacking && product.stacking !== 'No' && (
+                  <p className="spec-sheet-detail-p">
+                    Stacking: {product.stacking}
+                  </p>
+                )}
+                {product.madeIn && (
+                  <p className="spec-sheet-detail-p">
+                    Made In: {product.madeIn}
+                  </p>
                 )}
               </div>
 
@@ -239,6 +394,19 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
                 <p className="spec-sheet-footer-line">info@aceray.com</p>
                 <p className="spec-sheet-footer-line">©2026 Aceray</p>
               </footer>
+
+              {/* Mobile Action Bar */}
+              <div className="spec-sheet-mobile-actions">
+                <button
+                  type="button"
+                  className="spec-sheet-print-btn spec-sheet-mobile-print-btn"
+                  onClick={handlePrint}
+                  aria-label="Print or save as PDF"
+                >
+                  <Printer size={16} aria-hidden="true" />
+                  <span>Print / Save PDF</span>
+                </button>
+              </div>
             </aside>
           </div>
         </div>
