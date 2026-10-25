@@ -18,7 +18,8 @@ For page-level layout rules, container widths, spacing rhythm, heading hierarchy
   --color-primary: #718f80;
   --color-primary-dark: #5a6e5e;
   --color-accent: #2C3E35;
-  --color-text-main: #222222;
+  --color-heading: #242424;
+  --color-text-main: #242424;
   --color-text-muted: #555555;
   --color-border: #E5E3DD;
 

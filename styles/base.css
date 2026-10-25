@@ -30,7 +30,8 @@
   --color-primary-dark: #4d6c5e;
   --color-black: #000000;
   --color-accent: #2C3E35;
-  --color-text-main: #222222;
+  --color-text-main: #242424;
+  --color-heading: #242424;
   --color-text-muted: #555555;
   --color-text-light: #767676;
   --color-bg-light: #F9F8F6;
@@ -134,6 +135,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 0.95;
+    color: var(--color-heading);
   }
 
   h2, h3 {
@@ -141,6 +143,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 1.2;
+    color: var(--color-heading);
   }
 
   h4, h5, h6 {
@@ -148,6 +151,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     line-height: 1.25;
+    color: var(--color-heading);
   }
 
   p {
@@ -172,7 +176,7 @@
     text-align: center;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--color-text-main);
+    color: var(--color-heading);
     line-height: 1.2;
     margin-bottom: var(--space-1);
   }
