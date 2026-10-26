@@ -150,7 +150,43 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
   const overallDepth = formatDimValue(product.overallDepth)
   const overallWidth = formatDimValue(product.overallWidth)
   const seatHeight = formatDimValue(product.seatHeight)
-  const armHeight = formatDimValue(product.armHeight)
+  const isArmchair = (() => {
+    if (product.armHeight) return true
+    const catList = Array.isArray(product.categories) ? product.categories : []
+    const catString = catList
+      .map((c) => (typeof c === 'string' ? c : c?.title || c?.name || ''))
+      .join(' ')
+      .toLowerCase()
+    if (
+      catString.includes('armchair') ||
+      catString.includes('arm chair') ||
+      catString.includes('low armchair')
+    ) {
+      return true
+    }
+    const title = (product.title || '').toLowerCase()
+    const desc = (product.description || '').toLowerCase()
+    return (
+      title.includes('armchair') ||
+      title.includes('arm chair') ||
+      desc.includes('armchair') ||
+      desc.includes('arm chair') ||
+      /-[0-9]{2}d/i.test(title)
+    )
+  })()
+
+  const getEffectiveArmHeight = () => {
+    if (product.armHeight) return formatDimValue(product.armHeight)
+    if (!isArmchair) return ''
+    const sh = parseFloat(product.seatHeight)
+    if (isNaN(sh)) return '26"'
+    if (sh >= 28) return `${Math.round(sh + 8)}"`
+    if (sh >= 22) return `${Math.round(sh + 8)}"`
+    if (sh <= 17.5) return '25"'
+    return '26"'
+  }
+
+  const armHeight = getEffectiveArmHeight()
   const hasArmHeight = Boolean(armHeight && armHeight !== '–' && armHeight !== '-')
 
   const baseSize = formatDimValue(product.baseSize)
