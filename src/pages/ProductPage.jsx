@@ -1533,7 +1533,7 @@ function ProductPage() {
           </div>
 
           {/* Info */}
-          <div className="product-info lg:col-span-4 flex flex-col gap-6">
+          <div className="product-info lg:col-span-4 flex flex-col gap-4">
             {/* Title */}
             <div className="product-detail-header">
               <h1 className="product-detail-title">
@@ -1545,8 +1545,6 @@ function ProductPage() {
                 )}
               </h1>
             </div>
-
-
 
             {product.designer && (
               <p className="product-detail-meta">
@@ -1565,14 +1563,14 @@ function ProductPage() {
             <hr className="product-divider" />
 
             {product.description && (
-              <div>
+              <>
                 <div className="product-description">
                   {parseDescriptionBlocks(product.description).map((block, idx) => (
                     <p key={idx}>{block}</p>
                   ))}
                 </div>
                 <hr className="product-divider" />
-              </div>
+              </>
             )}
 
             <div id="product-specs" className="product-detail-stack">
@@ -1581,22 +1579,10 @@ function ProductPage() {
                 <dl className="product-specs-list">
                   <SpecRow label="Overall Dimensions" value={dimsLabel} />
                   <SpecRow label="Seat Height" value={product.seatHeight ? formatDimValue(product.seatHeight) : null} />
+                  <SpecRow label="Arm Height" value={product.armHeight ? formatDimValue(product.armHeight) : null} />
                   <SpecRow label="Weight" value={product.weight ? `${product.weight} lbs` : null} />
                   <SpecRow label="COM" value={product.com ? `${product.com} yards` : null} />
                   <SpecRow label="Stacking" value={product.stacking} />
-                  <SpecRow
-                    label="Designer"
-                    value={
-                      product.designer ? (
-                        <Link
-                          to={`/designers/${getDesignerSlug(product.designer)}`}
-                          className="product-designer-link"
-                        >
-                          {normalizeDesignerName(product.designer)}
-                        </Link>
-                      ) : null
-                    }
-                  />
                   <SpecRow label="Made In" value={product.madeIn} />
                 </dl>
               </div>

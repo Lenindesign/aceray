@@ -3579,7 +3579,7 @@
 
   .pricing-display-amount {
     font-family: var(--font-heading);
-    font-size: 1.45rem;
+    font-size: 1.0875rem;
     font-weight: 500;
     color: var(--color-text-main, #222);
     line-height: 1;

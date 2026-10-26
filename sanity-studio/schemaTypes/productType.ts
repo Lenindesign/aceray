@@ -391,6 +391,12 @@ export const productType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'armHeight',
+      title: 'Arm Height (in)',
+      type: 'string',
+      description: 'Floor to armrest height (for armchairs and lounge seating with arms)',
+    }),
+    defineField({
       name: 'weight',
       title: 'Weight (lbs)',
       type: 'string',

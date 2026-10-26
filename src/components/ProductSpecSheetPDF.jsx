@@ -330,7 +330,11 @@ export default function ProductSpecSheetPDF({ product, isOpen, onClose }) {
                           ]
                         : []),
                     ].map((glyph) => (
-                      <div key={glyph.key} className="spec-sheet-dim-unit">
+                      <div
+                        key={glyph.key}
+                        className="spec-sheet-dim-unit"
+                        title={`${glyph.label}: ${glyph.value || '–'}`}
+                      >
                         <svg
                           viewBox="0 0 18 30"
                           className="spec-sheet-dim-glyph"

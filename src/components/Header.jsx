@@ -45,9 +45,21 @@ export default function Header() {
   const [searchResults, setSearchResults] = useState([])
   const [isSearching, setIsSearching] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
+  const [navValue, setNavValue] = useState(null)
   const searchRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
+
+  // Immediately collapse dropdown menu on route changes
+  useEffect(() => {
+    setNavValue(null)
+    setMenuOpen(false)
+  }, [location.pathname, location.search])
+
+  const closeNav = () => {
+    setNavValue(null)
+    setMenuOpen(false)
+  }
 
   function isLinkActive(to, options = {}) {
     const [pathname, search = ''] = to.split('?')
@@ -201,11 +213,17 @@ export default function Header() {
         </Link>
 
         <nav id="main-nav" className={`nav-wrapper ${menuOpen ? 'active' : ''}`}>
-          <NavigationMenu className="nav-menu" align="center">
+          <NavigationMenu
+            value={navValue}
+            onValueChange={setNavValue}
+            className="nav-menu"
+            align="center"
+          >
             <NavigationMenuList className="nav-links nav-menu-list flex items-center gap-8 md:gap-9">
               {NAV_LINKS.map(({ label, to, dropdown }) => (
                 <NavigationMenuItem
                   key={label}
+                  value={dropdown ? 'products' : undefined}
                   className={dropdown ? 'nav-item nav-item-has-dropdown' : 'nav-item'}
                 >
                   {dropdown ? (
@@ -214,7 +232,7 @@ export default function Header() {
 	                        href={to}
 	                        className={`nav-menu-trigger text-[12px] text-[var(--font-size-xs)] ${isLinkActive(to, { dropdown }) ? 'active' : ''}`}
 	                        onClick={() => {
-	                          setMenuOpen(false)
+	                          closeNav()
 	                          navigate(to)
 	                        }}
                       >
@@ -228,7 +246,7 @@ export default function Header() {
                               key={item.label}
                               to={item.to}
                               className={`nav-dropdown-link ${isLinkActive(item.to) ? 'nav-dropdown-link-active' : ''}`}
-                              onClick={() => setMenuOpen(false)}
+                              onClick={closeNav}
                               role="menuitem"
                             >
                               {item.label}
@@ -240,7 +258,7 @@ export default function Header() {
                           <Link
                             to="/collections"
                             className="nav-dropdown-title nav-dropdown-title-link"
-                            onClick={() => setMenuOpen(false)}
+                            onClick={closeNav}
                           >
                             Collections
                           </Link>
@@ -250,7 +268,7 @@ export default function Header() {
                                 key={item.label}
                                 to={item.to}
                                 className={`nav-dropdown-link ${isLinkActive(item.to) ? 'nav-dropdown-link-active' : ''}`}
-                                onClick={() => setMenuOpen(false)}
+                                onClick={closeNav}
                                 role="menuitem"
                               >
                                 {item.label}
@@ -266,7 +284,7 @@ export default function Header() {
                               key={item.label}
                               to={item.to}
                               className={`nav-dropdown-link ${isLinkActive(item.to) ? 'nav-dropdown-link-active' : ''}`}
-                              onClick={() => setMenuOpen(false)}
+                              onClick={closeNav}
                               role="menuitem"
                             >
                               {item.label}
@@ -278,7 +296,7 @@ export default function Header() {
                   ) : (
                     <Link
                       to={to}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={closeNav}
                       className={isLinkActive(to, { dropdown }) ? 'active' : ''}
                     >
                       {label}

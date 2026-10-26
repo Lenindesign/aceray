@@ -8,7 +8,7 @@ import ProductCard from '@/components/ProductCard'
 import CommercialSeatingGuide from '@/components/CommercialSeatingGuide'
 import PromotionalPublications from '@/components/PromotionalPublications'
 
-const FEATURED_QUERY = `*[_type == "product" && (defined(imageUrl) || defined(mainImage.asset))] | order(select(isFeatured == true => 0, 1), _updatedAt desc) [0..7] {
+const FEATURED_QUERY = `*[_type == "product" && isFeatured == true && (defined(imageUrl) || defined(mainImage.asset))] | order(_updatedAt desc) [0..7] {
   _id, title, slug, designer, categories, imageUrl, mainImage{asset->{_id, url}}
 }`
 
@@ -494,7 +494,7 @@ export default function HomePage() {
       {/* Product by Category Section */}
       <section className="home-section category-section container">
         <h2 className="section-title">Products by Category</h2>
-        <p className="section-subtitle">Curated collections designed for timeless performance and aesthetic distinction.</p>
+        <p className="section-subtitle">Curated collections created for enduring performance and visual elegance.</p>
 
         <div className="category-card-grid">
           {FEATURED_CATEGORIES.map(({ title, subtitle, cat, image }) => (

@@ -100,6 +100,7 @@ export default function ProductCard({ product, className = '', layout = 'grid' }
                       product.overallDepth && `D ${product.overallDepth}"`,
                       product.overallWidth && `W ${product.overallWidth}"`,
                       product.seatHeight && `SH ${product.seatHeight}"`,
+                      product.armHeight && `AH ${product.armHeight}"`,
                     ].filter(Boolean).join('  ·  ')}
                   </span>
                 </div>

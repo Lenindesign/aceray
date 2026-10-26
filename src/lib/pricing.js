@@ -26,6 +26,9 @@ export function getProductPricing(product) {
     product.slug?.current || product.slug,
     product.title,
     product.name,
+    product.sku ? String(product.sku).replace(/^#\s*/, '') : null,
+    product.title ? String(product.title).replace(/^#\s*/, '') : null,
+    product.name ? String(product.name).replace(/^#\s*/, '') : null,
   ].filter(Boolean)
 
   for (const rawKey of rawKeys) {
@@ -42,9 +45,15 @@ export function getProductPricing(product) {
       return normalizePricingData(ACERAY_2026_PRICES[normalizedKey])
     }
 
-    // 3. Prefix/Family match (e.g., 'alba-1' for 'alba-1w')
-    const familyKey = normalizedKey.split('-')[0]
-    if (ACERAY_2026_PRICES[familyKey]) {
+    // 3. Clean leading '#' or punctuation
+    const cleanKey = normalizedKey.replace(/^[#\s]+/, '')
+    if (cleanKey && ACERAY_2026_PRICES[cleanKey]) {
+      return normalizePricingData(ACERAY_2026_PRICES[cleanKey])
+    }
+
+    // 4. Prefix/Family match (e.g., 'alba-1' for 'alba-1w')
+    const familyKey = cleanKey.split('-')[0]
+    if (familyKey && ACERAY_2026_PRICES[familyKey]) {
       return normalizePricingData(ACERAY_2026_PRICES[familyKey])
     }
   }
